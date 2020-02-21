@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,28 +16,14 @@ public class RemarkCommand extends Command {
 
     public static final String COMMAND_WORD = "remark";
 
-//    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-//            + "by the index number used in the displayed person list. "
-//            + "Existing values will be overwritten by the input values.\n"
-//            + "Parameters: INDEX (must be a positive integer) "
-//            + "[" + PREFIX_NAME + "NAME] "
-//            + "[" + PREFIX_PHONE + "PHONE] "
-//            + "[" + PREFIX_EMAIL + "EMAIL] "
-//            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-//            + "[" + PREFIX_TAG + "TAG]...\n"
-//            + "Example: " + COMMAND_WORD + " 1 "
-//            + PREFIX_PHONE + "91234567 "
-//            + PREFIX_EMAIL + "johndoe@example.com";
-
-    ​public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
-            ​+ "by the index number used in the last person listing. "
-            ​+ "Existing remark will be overwritten by the input.\n"
-            ​+ "Parameters: INDEX (must be a positive integer) "
-            ​+ "r/ [REMARK]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the remark of the person identified "
+            + "by the index number used in the last person listing. "
+            + "Existing values will be overwritten by the input.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "r/ [REMARK]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REMARK + "[REMARK]\n"
-            ​+ "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_REMARK + "Likes to swim.";
-
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
 
