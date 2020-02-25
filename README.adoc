@@ -15,9 +15,10 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+* My Internship Diary is a desktop internship tracking application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This app is aimed towards internship seekers, especially but not limited to university students.
+* As internship seekers send many applications to many different sites and companies, it may be hard or troublesome to keep track of all these internship applications.
+* My Internship Diary promises to simplify the process of tracking internships so that students will be able to concentrate completely on just landing that internship!
 
 == Site Map
 
@@ -29,8 +30,6 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* The application is based on Address Book Level 3 from SE-EDU initiative at https://se-education.org .
 
 == Licence : link:LICENSE[MIT]
