@@ -19,12 +19,12 @@ Role: Project Advisor
 
 '''
 
-=== John Doe2
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Ong Wei Xiang
+image::placeholder.png[width="150", align="left"]
+{empty}[http://github.com/wxwxwxwx9[github]] [<<weixiang#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: TBA  
 
 '''
 
