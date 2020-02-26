@@ -371,7 +371,7 @@ _{More to be added}_
 
 *Compatibility*
 
-.  The application should work as intended on any popular operating systems. 
+.  The application should work as intended on any popular operating systems.
 .  The application is guaranteed to work on Java version 11.
 
 *Usability*
