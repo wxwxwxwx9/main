@@ -24,7 +24,7 @@ image::placeholder.png[width="150", align="left"]
 {empty}[http://github.com/wxwxwxwx9[github]] [<<weixiang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBA  
+Responsibilities: TBA
 
 '''
 

@@ -353,50 +353,50 @@ _{More to be added}_
 *Availability*
 
 .  The application is available around the clock and free-of-charge to the public.
-.  The application is available for download on our GitHub release page in the form of a JAR file.  
+.  The application is available for download on our GitHub release page in the form of a JAR file.
 
 *Capacity*
 
-.  The application should be able to store up to 1000 internship applications. 
+.  The application should be able to store up to 1000 internship applications.
 
 *Performance*
 
 .  Response time to any user action is within 3 seconds (including application start-up).
-.  The application should be able to contain and handle up to 300 internship applications before facing any form of performance bottleneck issues.  
+.  The application should be able to contain and handle up to 300 internship applications before facing any form of performance bottleneck issues.
 
 *Reliability*
 
-.  The application should never fail if user actions are appropriate according to the user guide. 
-.  The application should warn the user if it is unable to execute any of the user actions for various reasons.  
+.  The application should never fail if user actions are appropriate according to the user guide.
+.  The application should warn the user if it is unable to execute any of the user actions for various reasons.
 
 *Compatibility*
 
-.  The application should work as intended on any popular operating systems. 
-.  The application is guaranteed to work on Java version 11.  
+.  The application should work as intended on any popular operating systems.
+.  The application is guaranteed to work on Java version 11.
 
 *Usability*
 
-.  The application should be intuitive and easy-to-learn, such that users can become proficient within a day.  
-.  The application should prioritse displaying important and relevant information to users. 
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse
+.  The application should be intuitive and easy-to-learn, such that users can become proficient within a day.
+.  The application should prioritse displaying important and relevant information to users.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *Robustness*
 
-.  The application should be designed in a timeless manner, such that it would remain highly relevant to internship application at any point in the future. 
+.  The application should be designed in a timeless manner, such that it would remain highly relevant to internship application at any point in the future.
 
 *Integrity*
 
-.  The application should require periodical user updates to the data to ensure its integrity and that it is up-to-date and relevant. 
+.  The application should require periodical user updates to the data to ensure its integrity and that it is up-to-date and relevant.
 
 *Maintainability*
 
-.  The application should be compliant with the coding standard set forth by CS2103.  
+.  The application should be compliant with the coding standard set forth by CS2103.
 .  The application should be compliant with best coding practices highlighted in CS2103.
-.  The application should be designed and implemented elegantly such that any programmer with at least a year of experience should be able to read, maintain, and contribute to the source code easily.  
+.  The application should be designed and implemented elegantly such that any programmer with at least a year of experience should be able to read, maintain, and contribute to the source code easily.
 
 *Process*
 
-.  The project is expected to deliver a feature when necessary and feasible. 
+.  The project is expected to deliver a feature when necessary and feasible.
 
 *Project Scope*
 
