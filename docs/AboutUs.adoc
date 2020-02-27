@@ -37,12 +37,12 @@ Responsibilities: Adding love into the project :)
 
 '''
 
-=== John Doe3
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Felicia Tay Wan Yee
+image::FeliciaTay.png[width="150", align="left"]
+{empty}[https://github.com/FeliciaTay[github]] [<<felicia#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities:
 
 '''
 
