@@ -28,7 +28,6 @@ My Internship Diary is a desktop address book desktop internship tracking applic
 ** Community:
 
 ** Tools:
-**** Set up Travis CI and Coveralls
 
 == Contributions to the User Guide
 
