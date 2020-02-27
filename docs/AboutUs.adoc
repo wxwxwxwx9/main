@@ -20,8 +20,8 @@ Role: Project Advisor
 '''
 
 === Ong Wei Xiang
-image::placeholder.png[width="150", align="left"]
-{empty}[http://github.com/wxwxwxwx9[github]] [<<weixiang#, portfolio>>]
+image::wxwxwxwx9.png[width="150", align="left"]
+{empty}[http://github.com/wxwxwxwx9[github]] [<<wxwxwxwx9#, portfolio>>]
 
 Role: Developer +
 Responsibilities: TBA
