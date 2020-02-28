@@ -1,0 +1,35 @@
+= Ong Choon Han - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: My Internship Diary
+
+---
+
+== Overview
+
+My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+* *Minor enhancement*:
+
+* *Code contributed*:
+
+* *Other contributions*:
+
+** Project management:
+
+** Documentation:
+
+** Community:
+
+** Tools:
+
+== Contributions to the User Guide
+
+
+== Contributions to the Developer Guide
