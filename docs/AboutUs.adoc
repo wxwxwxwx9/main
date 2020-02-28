@@ -5,7 +5,6 @@
 :stylesDir: stylesheets
 
 My Internship Diary is developed by the https://github.com/AY1920S2-CS2103T-F10-2/main[AY1920S2-CS2103T-F10-2] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -47,11 +46,11 @@ Responsibilities:
 
 '''
 
-=== John Doe4
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Foo Chi Fa
+image::foochifa.png.jpg[width="150", align="left"]
+{empty}[http://github.com/foochifa[github]] [<<foochifa#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: TBA
 
 '''
