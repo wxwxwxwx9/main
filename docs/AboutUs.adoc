@@ -11,11 +11,12 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe1
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Ong Choon Han
+image::ongch00.png[width="150", align="left"]
+{empty}[https://github.com/ongch00[github]] [<<ongch00#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer +
+Responsibilities: TBA
 
 '''
 
