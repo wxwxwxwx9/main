@@ -38,7 +38,7 @@ Responsibilities: Adding love into the project :)
 '''
 
 === Felicia Tay Wan Yee
-image::[width="150", align="left"]
+image::feliciatay.png[width="150", align="left"]
 {empty}[https://github.com/FeliciaTay[github]] [<<felicia#, portfolio>>]
 
 Role: Developer +
