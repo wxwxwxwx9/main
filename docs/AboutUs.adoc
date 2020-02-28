@@ -47,7 +47,7 @@ Responsibilities:
 '''
 
 === Foo Chi Fa
-image::foochifa.png.jpg[width="150", align="left"]
+image::foochifa.png[width="150", align="left"]
 {empty}[http://github.com/foochifa[github]] [<<foochifa#, portfolio>>]
 
 Role: Developer +
