@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Internship Diary - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -283,13 +283,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is a Computer Science student
+* is looking for an internship
+* has a need to organise internship application
+* is a fast typist
+* is comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: An easy to use CLI program that can help students to organise and plan for their internship
 
 [appendix]
 == User Stories
@@ -299,17 +299,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |trace all my internship application's contact | easily follow up on the application
 
-|`* * *` |user |add a new person |
+|`* * *` |user |tag each application with a status | track my internship application phase
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |self-reflecting user |mark what positions of internship I have been applying to | see which positions I have the best chance of getting and easily look up past internship application when applying to similar positions
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |set reminders for internship deadlines/appointments| make sure I do not miss any internship opportunities
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |be able to add companies I wish to apply to in a wish-list |apply to them when the window opens
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |self-reflecting user |see at which stage my internship application failed |get a better idea of what to improve on
+
+|`* *` |future job seeker|use this program to easily reference successful applications |apply them to future endeavours
+
+|`* *` |disorganised user |store my cover letters |easily refer to them when applying for internships
+
+|`* *` |user |give a rating to each internship based on my preference |easily decide which internship to prioritise
+
+|`*` |frequent interviewee |maintain a checklist of questions to ask the interviewer |
+
+|`*` |first-time internship seeker |use the program as a guide to internship applications |learn how to start applying for an internship
 |=======================================================================
 
 _{More to be added}_
@@ -317,33 +327,55 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Internship Diary` (InternDiary) and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC1 - Find Internship Application
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to find a specific Internship Application by company name.
+2.  InternDiary shows the Internship Application with all its corresponding fields.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. No Internship Application is shown.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC2 - Edit Internship Application
+
+*MSS*
+
+1. User pass:q[<u>find Internship Application UC1</u>].
+2. User requests to edit the fields of the Internship Application.
+3. InternDiary updates the new fields of the Internship Application.
 +
+Use case ends
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 2a. The given index is invalid.
+[none]
+** 2a1. InternDiary shows an error message
 +
-Use case resumes at step 2.
+Use case resumes at step 1
+
+[discrete]
+=== Use case: UC3 - Prioritise Internship Application
+
+*MSS*
+
+1. User pass:q[<u>find Internship Application UC1</u>].
+2. User requests to prioritise the Internship Application.
+3. InternDiary updates the priority level of the Internship Application.
++
+Use case ends
 
 _{More to be added}_
 
@@ -416,25 +448,32 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[internship-application]] Internship application::
+An application made by the user to a company offering an internship position
+
+[[fields]] Fields::
+A list of descriptions for an internship application grouped by type
+
+[[window-preferences]] Window preferences::
+The last application window size and location the user used before shutdown
 
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+*Huntr*
 
 Pros:
 
-* ...
-* ...
+* Uses online database
+* Uses kanban board for drag and drop management
 
 Cons:
 
-* ...
-* ...
+* Cannot use CLI for interactions with the system
+* Cannot use without internet connection
+* Cannot use without signing up for an account
+* Cannot get filtered list, the whole board is always shown and can be disorganised
+* Cannot directly get reminders for deadlines, must add a new task
 
 [appendix]
 == Instructions for Manual Testing
