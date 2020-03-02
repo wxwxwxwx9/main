@@ -16,6 +16,10 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+== Introduction
+
+(to be inserted)
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
