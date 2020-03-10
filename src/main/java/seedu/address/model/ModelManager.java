@@ -20,12 +20,13 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final InternshipDiary internshipDiary;
+    private InternshipDiary internshipDiary = new InternshipDiary();
     private final UserPrefs userPrefs;
-    private final FilteredList<InternshipApplication> filteredInternshipApplications;
+    private FilteredList<InternshipApplication> filteredInternshipApplications =
+            new FilteredList<>(internshipDiary.getInternshipList());
     //Old AB code
-    private final AddressBook addressBook = new AddressBook();
-    private final FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
+    private AddressBook addressBook = new AddressBook();
+    private FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
@@ -43,6 +44,18 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new InternshipDiary(), new UserPrefs());
+    }
+
+    // Old AB3 Constructor
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(addressBook, userPrefs);
+
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+
+        this.addressBook = new AddressBook(addressBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     //=========== UserPrefs ==================================================================================
