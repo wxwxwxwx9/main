@@ -13,4 +13,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getInternshipDiaryFilePath();
 
+    //============== Old Code ================================================================================
+    Path getAddressBookFilePath();
 }
