@@ -14,7 +14,6 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path internshipDiaryFilePath = Paths.get("data","internshipdiary.json");
 
     /**
@@ -36,7 +35,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setInternshipDiaryFilePath(newUserPrefs.getInternshipDiaryFilePath());
     }
 
@@ -47,15 +45,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
-    }
-
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
-    }
-
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
     }
 
     public Path getInternshipDiaryFilePath() {
