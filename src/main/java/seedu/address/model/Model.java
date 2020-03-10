@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.person.Person;
 
 /**
@@ -76,6 +77,14 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the given internship application {@code target} with {@code editedApplication}.
+     * {@code target} must exist in the internship application.
+     * The internship application identify of {@code editedApplication} must not be the same
+     * as another existing internship application in the internship diary.
+     */
+    void setInternshipApplication(InternshipApplication target, InternshipApplication editedApplication);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -84,4 +93,53 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns the user prefs' internship diary file path.
+     */
+    Path getInternshipDiaryFilePath();
+
+    /**
+     * Sets the user prefs' address book file path.
+     * @param internshipDiaryFilePath new file path.
+     */
+    void setInternshipDiaryFilePath(Path internshipDiaryFilePath);
+
+    /**
+     * Replaces internship diary with the data in {@code internshipDiary}
+     * @param internshipDiary new internship diary.
+     */
+    void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary);
+
+    /** Returns the InternshipDiary*/
+    ReadOnlyInternshipDiary getInternshipDiary();
+
+    /**
+     * Returns true if an internship application with the same identity as {@code internshipApplication}
+     * exists in the Internship Diary.
+     */
+    boolean hasInternshipApplication(InternshipApplication internshipApplication);
+
+    /**
+     * Deletes the given internship application.
+     * The application must exist in the internship diary.
+     */
+    void deleteInternshipApplication(InternshipApplication internshipApplication);
+
+    /**
+     * Adds the given internship application.
+     * {@code internshipApplication} must not already exist in the internship diary
+     */
+    void addInternshipApplication(InternshipApplication internshipApplication);
+
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
+    ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
+
+    /**
+     * Updates the filter of the filtered internship application list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate);
 }
