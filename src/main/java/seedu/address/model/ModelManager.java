@@ -18,12 +18,14 @@ import seedu.address.model.person.Person;
  * Represents the in-memory model of the internship diary data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private InternshipDiary internshipDiary = new InternshipDiary();
     private final UserPrefs userPrefs;
     private FilteredList<InternshipApplication> filteredInternshipApplications =
             new FilteredList<>(internshipDiary.getInternshipList());
+
     //Old AB code
     private AddressBook addressBook = new AddressBook();
     private FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
