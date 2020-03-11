@@ -5,9 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.address.model.internship.Address;
-import seedu.address.model.internship.Email;
-import seedu.address.model.internship.Phone;
 import seedu.address.model.status.Status;
 
 /**
