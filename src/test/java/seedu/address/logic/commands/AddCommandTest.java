@@ -19,7 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -96,6 +98,56 @@ public class AddCommandTest {
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getInternshipDiaryFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setInternshipDiaryFilePath(Path internshipDiaryFilePath) {
+
+        }
+
+        @Override
+        public void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary) {
+
+        }
+
+        @Override
+        public ReadOnlyInternshipDiary getInternshipDiary() {
+            return null;
+        }
+
+        @Override
+        public boolean hasInternshipApplication(InternshipApplication internshipApplication) {
+            return false;
+        }
+
+        @Override
+        public void deleteInternshipApplication(InternshipApplication target) {
+
+        }
+
+        @Override
+        public void addInternshipApplication(InternshipApplication internshipApplication) {
+
+        }
+
+        @Override
+        public void setInternshipApplication(InternshipApplication target, InternshipApplication editedInternship) {
+
+        }
+
+        @Override
+        public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
+
         }
 
         @Override
