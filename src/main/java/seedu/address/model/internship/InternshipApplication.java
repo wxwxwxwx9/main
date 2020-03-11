@@ -5,12 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Date;
 import java.util.Objects;
 
-<<<<<<< HEAD
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
-=======
->>>>>>> 4b2c4061c5d9ef37234df245ca44db4a80083639
 import seedu.address.model.status.Status;
 
 /**
