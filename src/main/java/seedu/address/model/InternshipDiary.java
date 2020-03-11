@@ -9,8 +9,8 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.UniqueInternshipApplicationList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the internship-diary level
+ * Duplicates are not allowed (by .isSameInternshipApplication comparison)
  */
 public class InternshipDiary implements ReadOnlyInternshipDiary {
 
@@ -30,7 +30,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     public InternshipDiary() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an InternshipDiary using the InternshipApplications in the {@code toBeCopied}
      */
     public InternshipDiary(ReadOnlyInternshipDiary toBeCopied) {
         this();
@@ -40,15 +40,15 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the internship application list with {@code internshipApplications}.
+     * {@code internshipApplications} must not contain duplicate persons.
      */
     public void setInternships(List<InternshipApplication> internshipApplications) {
         this.internships.setInternshipApplications(internshipApplications);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code InternshipDiary} with {@code newData}.
      */
     public void resetData(ReadOnlyInternshipDiary newData) {
         requireNonNull(newData);
@@ -56,10 +56,11 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
         setInternships(newData.getInternshipList());
     }
 
-    //// person-level operations
+    //// internship-application-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an internship application with the same identity as {@code internshipApplication}
+     * exists in the internship diary.
      */
     public boolean hasInternship(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);
@@ -67,17 +68,18 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an internship application to the internship diary.
+     * The internship application must not already exist in the internship diary.
      */
-    public void addPerson(InternshipApplication i) {
+    public void addInternshipApplication(InternshipApplication i) {
         internships.add(i);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given internship application {@code target} in the list with {@code editedInternship}.
+     * {@code target} must exist in the internship diary.
+     * The internship application identity of {@code editedInternship}
+     * must not be the same as another existing internship application in the internship diary.
      */
     public void setInternship(InternshipApplication target, InternshipApplication editedInternship) {
         requireNonNull(editedInternship);
@@ -86,8 +88,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code InternshipDiary}.
+     * {@code key} must exist in the internship diary.
      */
     public void removeInternship(InternshipApplication key) {
         internships.remove(key);
