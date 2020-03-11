@@ -90,7 +90,8 @@ public class InternshipDiaryTest {
      * A stub ReadOnlyInternshipDiary whose internship list can violate interface constraints.
      */
     private static class InternshipDiaryStub implements ReadOnlyInternshipDiary {
-        private final ObservableList<InternshipApplication> internshipApplications = FXCollections.observableArrayList();
+        private final ObservableList<InternshipApplication> internshipApplications =
+                FXCollections.observableArrayList();
 
         InternshipDiaryStub(Collection<InternshipApplication> internshipApplications) {
             this.internshipApplications.setAll(internshipApplications);

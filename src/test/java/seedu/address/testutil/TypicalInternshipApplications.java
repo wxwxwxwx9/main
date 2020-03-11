@@ -2,8 +2,8 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.internship.InternshipApplication;

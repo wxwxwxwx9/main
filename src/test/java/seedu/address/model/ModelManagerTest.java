@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
+import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -91,7 +91,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredInternshipApplicationList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredInternshipApplicationList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                modelManager.getFilteredInternshipApplicationList().remove(0));
     }
 
     @Test
@@ -122,7 +123,8 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = GOOGLE.getCompany().fullCompany.split("\\s+");
-        modelManager.updateFilteredInternshipApplicationList(new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredInternshipApplicationList(
+                new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(diary, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
