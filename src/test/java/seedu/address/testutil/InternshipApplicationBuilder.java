@@ -99,6 +99,30 @@ public class InternshipApplicationBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Priority} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withPriority(Integer priority) {
+        this.priority = new Priority(priority);
+        return this;
+    }
+
+    /**
+     * Sets the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Status} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withStatus(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public InternshipApplication build() {
         return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
     }
