@@ -13,6 +13,7 @@ import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -110,7 +111,6 @@ public class ParserUtil {
         return new Role(trimmedRole);
     }
 
-    // DD MM YYYY
     /**
      * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
@@ -120,10 +120,11 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Phone.isValidPhone(trimmedDate)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        try {
+            return new SimpleDateFormat("dd MM yyyy").parse(trimmedDate);
+        } catch (java.text.ParseException e) {
+            throw new ParseException("Date should be in the form: DD MM YYYY");
         }
-        return new Date(trimmedDate);
     }
 
     /**
