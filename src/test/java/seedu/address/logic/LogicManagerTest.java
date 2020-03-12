@@ -65,9 +65,9 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonInternshipDiaryIoExceptionThrowingStub
         JsonInternshipDiaryStorage internshipDiaryStorage =
-                new JsonInternshipDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionInternshipDiary.json"));
+            new JsonInternshipDiaryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionInternshipDiary.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(internshipDiaryStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
