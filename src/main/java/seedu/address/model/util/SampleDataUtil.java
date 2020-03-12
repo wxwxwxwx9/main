@@ -1,19 +1,17 @@
 package seedu.address.model.util;
 
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.InternshipDiary;
+//import seedu.address.model.InternshipDiary;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInternshipDiary;
-import seedu.address.model.internship.Company;
-import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.Priority;
-import seedu.address.model.internship.Role;
+//import seedu.address.model.ReadOnlyInternshipDiary;
+//import seedu.address.model.internship.Company;
+//import seedu.address.model.internship.InternshipApplication;
+//import seedu.address.model.internship.Priority;
+//import seedu.address.model.internship.Role;
 //import seedu.address.model.internship.Address;
 //import seedu.address.model.internship.Email;
 //import seedu.address.model.internship.Phone;
@@ -22,7 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.status.Status;
+//import seedu.address.model.status.Status;
 import seedu.address.model.tag.Tag;
 
 //old code

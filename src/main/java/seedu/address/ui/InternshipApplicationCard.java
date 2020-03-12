@@ -44,9 +44,9 @@ public class InternshipApplicationCard extends UiPart<Region> {
     @FXML
     private Label status;
 
-    public InternshipApplicationCard(InternshipApplication IA, int displayedIndex) {
+    public InternshipApplicationCard(InternshipApplication internshipApplication, int displayedIndex) {
         super(FXML);
-        this.internshipApplication = IA;
+        this.internshipApplication = internshipApplication;
         id.setText(displayedIndex + ". ");
         company.setText(internshipApplication.getCompany().fullCompany);
         phone.setText(internshipApplication.getPhone().value);

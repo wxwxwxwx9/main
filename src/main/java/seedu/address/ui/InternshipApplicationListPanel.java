@@ -23,14 +23,14 @@ public class InternshipApplicationListPanel extends UiPart<Region> {
     public InternshipApplicationListPanel(ObservableList<InternshipApplication> internshipApplicationList) {
         super(FXML);
         internshipApplicationListView.setItems(internshipApplicationList);
-        internshipApplicationListView.setCellFactory(listView -> new internshipApplicationListViewCell());
+        internshipApplicationListView.setCellFactory(listView -> new InternshipApplicationListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code InternshipApplication} using a
      * {@code InternshipApplicationCard}.
      */
-    class internshipApplicationListViewCell extends ListCell<InternshipApplication> {
+    class InternshipApplicationListViewCell extends ListCell<InternshipApplication> {
         @Override
         protected void updateItem(InternshipApplication internshipApplication, boolean empty) {
             super.updateItem(internshipApplication, empty);
