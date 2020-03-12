@@ -6,9 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -64,15 +61,15 @@ public class FindCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredInternshipApplicationList());
     }
 
-    /* need to fix
+    /*
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 3);
-        CompanyContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        CompanyContainsKeywordsPredicate predicate = preparePredicate("amy bob");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredInternshipApplicationList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredInternshipApplicationList());
+        assertEquals(Arrays.asList(AMY, BOB), model.getFilteredInternshipApplicationList());
     }*/
 
     /**

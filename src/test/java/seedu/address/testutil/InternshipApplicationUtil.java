@@ -9,12 +9,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.internship.InternshipApplication;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  * A utility class for Internship Application.
