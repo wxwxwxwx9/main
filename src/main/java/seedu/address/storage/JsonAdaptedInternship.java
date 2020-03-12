@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
@@ -131,7 +131,8 @@ class JsonAdaptedInternship {
         }
 
         if (priority == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
         }
         if (!priority.matches("-?(0|[1-9]\\d*)")) { // Check if integer.
             throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
