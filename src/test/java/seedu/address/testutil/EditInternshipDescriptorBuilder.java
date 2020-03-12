@@ -79,7 +79,7 @@ public class EditInternshipDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditInternshipDescriptorBuilder withDate(String date) {
+    public EditInternshipDescriptorBuilder withApplicationDate(String date) {
         try {
             descriptor.setDate(new SimpleDateFormat("dd MM yyyy").parse(date));
             return this;
