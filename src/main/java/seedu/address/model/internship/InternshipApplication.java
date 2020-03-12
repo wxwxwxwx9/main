@@ -46,15 +46,15 @@ public class InternshipApplication {
         return role;
     }
 
-    public Address getAddress() {
+    public seedu.address.model.internship.Address getAddress() {
         return address;
     }
 
-    public Phone getPhone() {
+    public seedu.address.model.internship.Phone getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public seedu.address.model.internship.Email getEmail() {
         return email;
     }
 
