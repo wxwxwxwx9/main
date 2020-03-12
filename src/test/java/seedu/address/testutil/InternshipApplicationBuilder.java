@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import seedu.address.model.internship.Address;
@@ -112,6 +114,18 @@ public class InternshipApplicationBuilder {
      */
     public InternshipApplicationBuilder withApplicationDate(Date applicationDate) {
         this.applicationDate = applicationDate;
+        return this;
+    }
+
+    /**
+     * Overloaded withApplicationDate method to set date from String.
+     */
+    public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
+        try{
+            this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
+        } catch (ParseException e) {
+
+        }
         return this;
     }
 
