@@ -16,9 +16,9 @@ public class Priority {
     public final int fullPriority;
 
     /**
-     * Constructs a {@code Company}.
+     * Constructs a {@code Priority}.
      *
-     * @param priority A valid priority.
+     * @param priority A valid priority in the form of an index.
      */
     public Priority(int priority) {
         requireNonNull(priority);
@@ -27,12 +27,32 @@ public class Priority {
     }
 
     /**
-     * Returns true if a given string is a valid company.
+     * Constructs a {@code Priority}
+     *
+     * @param priority a valid priority in the from of a String.
+     */
+    public Priority(String priority) {
+        this(Integer.parseInt(priority));
+    }
+
+    /**
+     * Returns true if a given integer is a valid priority.
      */
     public static boolean isValidPriority(int test) {
         return test >= LOWEST_PRIORITY && test <= HIGHEST_PRIORITY;
     }
 
+    /**
+     * Returns true if a given string is a valid priority.
+     */
+    public static boolean isValidPriority(String test) {
+        try {
+            int priority = Integer.parseInt(test);
+            return isValidPriority(priority);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     @Override
     public String toString() {
