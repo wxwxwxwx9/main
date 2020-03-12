@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.InternshipDiary;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -46,6 +48,14 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyInternshipDiary getSampleInternshipDiary() {
+        InternshipDiary sampleDiary = new InternshipDiary();
+        // for (Person samplePerson : getSamplePersons()) {
+        //     sampleAb.addPerson(samplePerson);
+        // }
+        return sampleDiary;
     }
 
     /**
