@@ -93,9 +93,11 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_COMPANY_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC,
+                Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
-        assertParseFailure(parser, "1" + INVALID_PRIORITY_DESC, Priority.MESSAGE_CONSTRAINTS); // invalid priority
+        assertParseFailure(parser, "1" + INVALID_PRIORITY_DESC,
+                Priority.MESSAGE_CONSTRAINTS); // invalid priority
         assertParseFailure(parser, "1" + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS); // invalid status
         assertParseFailure(parser, "1" + INVALID_DATE_DESC,
                 "Date should be in the form: DD MM YYYY"); // invalid date
@@ -133,8 +135,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditCommand.EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
+        EditCommand.EditInternshipDescriptor descriptor =
+                new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -145,7 +147,8 @@ public class EditCommandParserTest {
         // company
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + COMPANY_DESC_AMY;
-        EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY).build();
+        EditInternshipDescriptor descriptor =
+                new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -177,7 +180,8 @@ public class EditCommandParserTest {
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB;
 
-        EditCommand.EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCommand.EditInternshipDescriptor descriptor =
+                new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

@@ -128,7 +128,7 @@ public class InternshipApplicationBuilder {
      * Overloaded withApplicationDate method to set date from String.
      */
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
-        try{
+        try {
             this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
             return this;
         } catch (ParseException e) {

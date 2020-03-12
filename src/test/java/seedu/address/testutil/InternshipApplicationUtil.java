@@ -37,7 +37,7 @@ public class InternshipApplicationUtil {
         sb.append(PREFIX_EMAIL + internshipApplication.getEmail().value + " ");
         sb.append(PREFIX_DATE + internshipApplication.getApplicationDate().toString() + " ");
         sb.append(PREFIX_PRIORITY + internshipApplication.getPriority().toString() + " ");
-        sb.append(PREFIX_STATUS + internshipApplication.getStatus().toString() + " ");
+        sb.append(PREFIX_STATUS + internshipApplication.getStatus().name() + " ");
         return sb.toString();
     }
 
@@ -55,7 +55,7 @@ public class InternshipApplicationUtil {
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.toString()).append(" "));
         descriptor.getPriority()
                 .ifPresent(priority -> sb.append(PREFIX_PRIORITY).append(priority.toString()).append(" "));
-        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.toString()).append(" "));
+        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.name()).append(" "));
 
         return sb.toString();
     }

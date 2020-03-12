@@ -18,7 +18,8 @@ public class EditInternshipDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditInternshipDescriptor descriptorWithSameValues = new EditCommand.EditInternshipDescriptor(DESC_AMY);
+        EditCommand.EditInternshipDescriptor descriptorWithSameValues =
+                new EditCommand.EditInternshipDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true

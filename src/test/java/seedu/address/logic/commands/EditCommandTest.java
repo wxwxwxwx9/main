@@ -40,7 +40,8 @@ public class EditCommandTest {
                 new EditInternshipDescriptorBuilder(editedInternshipApplication).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternshipApplication);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
+                editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),
@@ -65,7 +66,8 @@ public class EditCommandTest {
                 .withPhone(VALID_PHONE_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastInternship, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternshipApplication);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
+                editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(lastInternshipApplication, editedInternshipApplication);
@@ -100,7 +102,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternshipApplication);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
+                editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),

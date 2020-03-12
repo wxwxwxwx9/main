@@ -24,7 +24,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.InternshipApplicationBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
@@ -51,7 +50,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validInternshipApplication);
         ModelStub modelStub = new ModelStubWithInternshipApplication(validInternshipApplication);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
     }
 
     @Test

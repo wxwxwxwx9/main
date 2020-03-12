@@ -1,15 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import seedu.address.model.InternshipDiary;
-import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.person.Person;
-import seedu.address.model.status.Status;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
@@ -26,6 +16,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import seedu.address.model.InternshipDiary;
+import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.status.Status;
 
 /**
  * A utility class containing a list of {@code InternshipApplication} objects to be used in tests.

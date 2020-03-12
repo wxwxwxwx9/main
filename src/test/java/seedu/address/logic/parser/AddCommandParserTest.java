@@ -38,13 +38,13 @@ import static seedu.address.testutil.TypicalInternshipApplications.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.internship.Company;
-import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
+import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
-import seedu.address.model.internship.Phone;
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
@@ -170,8 +170,8 @@ public class AddCommandParserTest {
                 + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_COMPANY_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB +
-                        INVALID_ADDRESS_DESC + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+        assertParseFailure(parser, INVALID_COMPANY_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + INVALID_ADDRESS_DESC + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 Company.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble

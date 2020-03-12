@@ -1,38 +1,36 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.internship.Address;
+import seedu.address.model.internship.Company;
+import seedu.address.model.internship.Email;
+import seedu.address.model.internship.Phone;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_COMPANY = "R@chel";
+    private static final String INVALID_ROLE = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_DATE = "010120";
+    private static final String INVALID_PRIORITY = "r";
+    private static final String INVALID_STATUS = "status";
 
-    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_COMPANY = "Google";
+    private static final String VALID_ROLE = "Software Engineer";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_DATE = "01 01 2020";
+    private static final String VALID_PRIORITY = "1";
+    private static final String VALID_STATUS = "ACTIVE";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -58,25 +56,25 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompany((String) null));
     }
 
     @Test
     public void parseName_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCompany(INVALID_COMPANY));
     }
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(VALID_COMPANY));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+        String nameWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(nameWithWhitespace));
     }
 
     @Test
@@ -148,6 +146,7 @@ public class ParserUtilTest {
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
+    /* below are all tests for Tags
     @Test
     public void parseTag_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
@@ -192,5 +191,5 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
-    }
+    }*/
 }

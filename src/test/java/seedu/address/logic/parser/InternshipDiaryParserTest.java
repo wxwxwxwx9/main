@@ -36,7 +36,8 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(InternshipApplicationUtil.getAddCommand(internshipApplication));
+        AddCommand command = (AddCommand) parser
+                .parseCommand(InternshipApplicationUtil.getAddCommand(internshipApplication));
         assertEquals(new AddCommand(internshipApplication), command);
     }
 

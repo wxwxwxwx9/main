@@ -5,10 +5,10 @@ import java.text.SimpleDateFormat;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditInternshipDescriptor;
-import seedu.address.model.internship.Company;
-import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
