@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInternshipDiary;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.person.Person;
 
 /**
@@ -30,13 +32,29 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /**
+     * Returns the InternshipDiary.
+     *
+     * @see seedu.address.model.Model#getInternshipDiary()
+     */
+    ReadOnlyInternshipDiary getInternshipDiary();
+
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of internship applications */
+    ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' internship diary file path.
+     */
+    Path getInternshipDiaryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
