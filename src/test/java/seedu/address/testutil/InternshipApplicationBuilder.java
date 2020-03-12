@@ -136,7 +136,7 @@ public class InternshipApplicationBuilder {
             this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
             return this;
         } catch (ParseException e) {
-            //return an InternshipApplicationBuilder without date modification.
+            System.err.println("error in parsing date");
             return this;
         }
     }
