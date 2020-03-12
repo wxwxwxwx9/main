@@ -110,6 +110,13 @@ public class InternshipApplicationBuilder {
     }
 
     /**
+     * Overloaded withPriority method to set priority from String.
+     */
+    public InternshipApplicationBuilder withPriority(String priority) {
+        return withPriority(Integer.parseInt(priority));
+    }
+
+    /**
      * Sets the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
      */
     public InternshipApplicationBuilder withApplicationDate(Date applicationDate) {
@@ -123,10 +130,11 @@ public class InternshipApplicationBuilder {
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
         try{
             this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
+            return this;
         } catch (ParseException e) {
-
+            //return an InternshipApplicationBuilder without date modification.
+            return this;
         }
-        return this;
     }
 
     /**
@@ -135,6 +143,13 @@ public class InternshipApplicationBuilder {
     public InternshipApplicationBuilder withStatus(Status status) {
         this.status = status;
         return this;
+    }
+
+    /**
+     * Overloaded withStatus method to set status from String.
+     */
+    public InternshipApplicationBuilder withStatus(String status) {
+        return withStatus(Status.valueOf(status));
     }
 
     public InternshipApplication build() {
