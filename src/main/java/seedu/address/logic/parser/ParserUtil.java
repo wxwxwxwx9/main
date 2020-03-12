@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -12,9 +15,6 @@ import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
