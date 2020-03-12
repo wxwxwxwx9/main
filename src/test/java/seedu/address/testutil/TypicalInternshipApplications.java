@@ -1,5 +1,22 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,6 +44,18 @@ public class TypicalInternshipApplications {
             .withStatus(Status.REJECTED)
             .withApplicationDate(new Date(2009, 12, 01))
             .withPriority(8)
+            .build();
+
+    // Manually added - Internship's details found in {@code CommandTestUtil}
+    public static final InternshipApplication AMY = new InternshipApplicationBuilder()
+            .withCompany(VALID_COMPANY_AMY).withPhone(VALID_PHONE_AMY).withRole(VALID_ROLE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withApplicationDate(VALID_DATE_AMY)
+            .withPriority(VALID_PRIORITY_AMY).withStatus(VALID_STATUS_AMY)
+            .build();
+    public static final InternshipApplication BOB = new InternshipApplicationBuilder()
+            .withCompany(VALID_COMPANY_BOB).withPhone(VALID_PHONE_BOB).withRole(VALID_ROLE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withApplicationDate(VALID_DATE_BOB)
+            .withPriority(VALID_PRIORITY_BOB).withStatus(VALID_STATUS_BOB)
             .build();
 
     private TypicalInternshipApplications() {} // prevents instantiation

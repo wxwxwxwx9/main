@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import seedu.address.model.internship.Address;
@@ -21,7 +23,7 @@ public class InternshipApplicationBuilder {
     public static final String DEFAULT_ADDRESS = "1600 Amphitheatre Parkway";
     public static final String DEFAULT_PHONE = "99999999";
     public static final String DEFAULT_EMAIL = "richardma@gmail.com";
-    public static final Date DEFAULT_APPLICATION_DATE = new Date(2020, 01, 01);
+    public static final String DEFAULT_APPLICATION_DATE = "12 03 2020";
     public static final Integer DEFAULT_PRIORITY = 10;
     public static final Status DEFAULT_STATUS = Status.APPLICATION_DONE;
 
@@ -40,7 +42,11 @@ public class InternshipApplicationBuilder {
         address = new Address(DEFAULT_ADDRESS);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        applicationDate = DEFAULT_APPLICATION_DATE;
+        try {
+            applicationDate = new SimpleDateFormat("dd MM yyyy").parse(DEFAULT_APPLICATION_DATE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         priority = new Priority(DEFAULT_PRIORITY);
         status = DEFAULT_STATUS;
     }
@@ -108,6 +114,13 @@ public class InternshipApplicationBuilder {
     }
 
     /**
+     * Overloaded withPriority method to set priority from String.
+     */
+    public InternshipApplicationBuilder withPriority(String priority) {
+        return withPriority(Integer.parseInt(priority));
+    }
+
+    /**
      * Sets the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
      */
     public InternshipApplicationBuilder withApplicationDate(Date applicationDate) {
@@ -116,11 +129,31 @@ public class InternshipApplicationBuilder {
     }
 
     /**
+     * Overloaded withApplicationDate method to set date from String.
+     */
+    public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
+        try {
+            this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
+            return this;
+        } catch (ParseException e) {
+            System.err.println("error in parsing date");
+            return this;
+        }
+    }
+
+    /**
      * Sets the {@code Status} of the {@code InternshipApplication} that we are building.
      */
     public InternshipApplicationBuilder withStatus(Status status) {
         this.status = status;
         return this;
+    }
+
+    /**
+     * Overloaded withStatus method to set status from String.
+     */
+    public InternshipApplicationBuilder withStatus(String status) {
+        return withStatus(Status.valueOf(status));
     }
 
     public InternshipApplication build() {
