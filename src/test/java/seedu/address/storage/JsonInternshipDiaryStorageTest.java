@@ -54,15 +54,15 @@ public class JsonInternshipDiaryStorageTest {
     }
 
     @Test
-    public void readInternshipDiary_invalidPersonInternshipDiary_throwDataConversionException() {
+    public void readInternshipDiary_invalidInternshipInternshipDiary_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-                    readInternshipDiary("invalidPersonInternshipDiary.json"));
+                    readInternshipDiary("invalidInternshipInternshipDiary.json"));
     }
 
     @Test
-    public void readInternshipDiary_invalidAndValidPersonInternshipDiary_throwDataConversionException() {
+    public void readInternshipDiary_invalidAndValidInternshipInternshipDiary_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-                        readInternshipDiary("invalidAndValidPersonInternshipDiary.json"));
+                        readInternshipDiary("invalidAndValidInternshipInternshipDiary.json"));
     }
 
     @Test

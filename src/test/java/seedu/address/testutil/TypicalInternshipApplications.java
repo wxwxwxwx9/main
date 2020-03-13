@@ -17,8 +17,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +37,14 @@ public class TypicalInternshipApplications {
             .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
             .withPhone("94351253").withEmail("larry@google.com")
             .withStatus(Status.APPLICATION_DONE)
-            .withApplicationDate(new Date(2019, 12, 01))
+            .withApplicationDate(new Date(2019, Calendar.DECEMBER, 1))
             .withPriority(10)
             .build();
     public static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder().withCompany("Facebook")
             .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
             .withPhone("99751354").withEmail("mark@google.com")
             .withStatus(Status.REJECTED)
-            .withApplicationDate(new Date(2009, 12, 01))
+            .withApplicationDate(new Date(2019, Calendar.DECEMBER, 1))
             .withPriority(8)
             .build();
 
