@@ -2,8 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -117,12 +118,12 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Date parseDate(String date) throws ParseException {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            return new SimpleDateFormat("dd MM yyyy").parse(trimmedDate);
-        } catch (java.text.ParseException e) {
+            return LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd MM yyyy"));
+        } catch (DateTimeParseException e) {
             throw new ParseException("Date should be in the form: DD MM YYYY");
         }
     }
