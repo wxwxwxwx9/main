@@ -46,7 +46,7 @@ public class LogicManager implements Logic {
 
         try {
             //cf: Needs to be changed after storage is refactored.
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveInternshipDiary(model.getInternshipDiary());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

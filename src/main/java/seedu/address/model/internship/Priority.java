@@ -62,7 +62,7 @@ public class Priority {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Company // instanceof handles nulls
+                || (other instanceof Priority // instanceof handles nulls
                 && fullPriority == ((Priority) other).fullPriority); // state check
     }
 
