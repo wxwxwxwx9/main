@@ -23,7 +23,7 @@ import seedu.address.model.status.Status;
 class JsonAdaptedInternship {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Internship's %s field is missing!";
-    private static final String DATE_TIME_PATTERN = "dd/MM/yyyy";
+    public static final String DATE_TIME_PATTERN = "dd/MM/yyyy";
     private static final String ERROR_MESSAGE_PLACEHOLDER = "Error message.";
 
     private final String company;
@@ -149,7 +149,7 @@ class JsonAdaptedInternship {
         try {
             Status.valueOf(status);
         } catch (IllegalArgumentException e) {
-            throw new IllegalValueException(ERROR_MESSAGE_PLACEHOLDER);
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
         final Status modelStatus = Status.valueOf(status);
 
