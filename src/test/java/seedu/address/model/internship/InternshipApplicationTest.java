@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
-import static seedu.address.testutil.Assert.assertThrows;
+
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
 
@@ -21,11 +21,13 @@ public class InternshipApplicationTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         InternshipApplication ia = new InternshipApplicationBuilder().build();
-//        assertThrows(UnsupportedOperationException.class, () -> ia.getTags().remove(0));
+        // No more tags -- check with team how else we can implement this test case
+        // assertThrows(UnsupportedOperationException.class, () -> ia.getTags().remove(0));
     }
 
     @Test
     public void isSameInternshipApplication() {
+
         // same object -> returns true
         assertTrue(GOOGLE.isSameInternshipApplication(GOOGLE));
 
@@ -52,6 +54,7 @@ public class InternshipApplicationTest {
 
     @Test
     public void equals() {
+
         // same values -> returns true
         InternshipApplication googleCopy = new InternshipApplicationBuilder(GOOGLE).build();
         assertTrue(GOOGLE.equals(googleCopy));
