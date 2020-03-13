@@ -1,7 +1,6 @@
 package seedu.address.model.internship;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
 import java.util.Arrays;

@@ -75,6 +75,7 @@ public class InternshipApplication {
      * This defines a weaker notion of equality between two internship applications.
      */
     public boolean isSameInternshipApplication(InternshipApplication internshipApplication) {
+
         if (internshipApplication == this) {
             return true;
         }
