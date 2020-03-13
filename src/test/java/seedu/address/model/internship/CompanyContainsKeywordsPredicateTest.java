@@ -38,7 +38,7 @@ public class CompanyContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    public void test_companyContainsKeywords_returnsTrue() {
         // One keyword
         CompanyContainsKeywordsPredicate predicate = new CompanyContainsKeywordsPredicate(Collections.singletonList("Google"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withCompany("Google").build()));
@@ -57,7 +57,7 @@ public class CompanyContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_companyDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         CompanyContainsKeywordsPredicate predicate = new CompanyContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google").build()));

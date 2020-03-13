@@ -26,12 +26,12 @@ import seedu.address.testutil.InternshipApplicationBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullInternshipApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_internshipApplicationAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingInternshipAdded modelStub = new ModelStubAcceptingInternshipAdded();
         InternshipApplication validInternshipApplication = new InternshipApplicationBuilder().build();
 
@@ -43,7 +43,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateInternshipApplication_throwsCommandException() {
         InternshipApplication validInternshipApplication = new InternshipApplicationBuilder().build();
         AddCommand addCommand = new AddCommand(validInternshipApplication);
         ModelStub modelStub = new ModelStubWithInternshipApplication(validInternshipApplication);
