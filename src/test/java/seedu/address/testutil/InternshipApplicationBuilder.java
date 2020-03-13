@@ -1,0 +1,163 @@
+package seedu.address.testutil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import seedu.address.model.internship.Address;
+import seedu.address.model.internship.Company;
+import seedu.address.model.internship.Email;
+import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.Phone;
+import seedu.address.model.internship.Priority;
+import seedu.address.model.internship.Role;
+import seedu.address.model.status.Status;
+
+/**
+ * A utility class to help with building Internship Application objects.
+ */
+public class InternshipApplicationBuilder {
+
+    public static final String DEFAULT_COMPANY = "Google";
+    public static final String DEFAULT_ROLE = "Product Manager";
+    public static final String DEFAULT_ADDRESS = "1600 Amphitheatre Parkway";
+    public static final String DEFAULT_PHONE = "99999999";
+    public static final String DEFAULT_EMAIL = "richardma@gmail.com";
+    public static final String DEFAULT_APPLICATION_DATE = "12 03 2020";
+    public static final Integer DEFAULT_PRIORITY = 10;
+    public static final Status DEFAULT_STATUS = Status.APPLICATION_DONE;
+
+    private Company company;
+    private Role role;
+    private Address address;
+    private Phone phone;
+    private Email email;
+    private Date applicationDate;
+    private Priority priority;
+    private Status status;
+
+    public InternshipApplicationBuilder() {
+        company = new Company(DEFAULT_COMPANY);
+        role = new Role(DEFAULT_ROLE);
+        address = new Address(DEFAULT_ADDRESS);
+        phone = new Phone(DEFAULT_PHONE);
+        email = new Email(DEFAULT_EMAIL);
+        try {
+            applicationDate = new SimpleDateFormat("dd MM yyyy").parse(DEFAULT_APPLICATION_DATE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        priority = new Priority(DEFAULT_PRIORITY);
+        status = DEFAULT_STATUS;
+    }
+
+    /**
+     * Initializes the InternshipApplicationBuilder with the data of {@code toCopy}.
+     */
+    public InternshipApplicationBuilder(InternshipApplication toCopy) {
+        company = toCopy.getCompany();
+        role = toCopy.getRole();
+        address = toCopy.getAddress();
+        phone = toCopy.getPhone();
+        email = toCopy.getEmail();
+        applicationDate = toCopy.getApplicationDate();
+        priority = toCopy.getPriority();
+        status = toCopy.getStatus();
+    }
+
+    /**
+     * Sets the {@code Company} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withCompany(String company) {
+        this.company = new Company(company);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Role} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withRole(String role) {
+        this.role = new Role(role);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Address} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withAddress(String address) {
+        this.address = new Address(address);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Phone} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withPhone(String phone) {
+        this.phone = new Phone(phone);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withEmail(String email) {
+        this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Priority} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withPriority(Integer priority) {
+        this.priority = new Priority(priority);
+        return this;
+    }
+
+    /**
+     * Overloaded withPriority method to set priority from String.
+     */
+    public InternshipApplicationBuilder withPriority(String priority) {
+        return withPriority(Integer.parseInt(priority));
+    }
+
+    /**
+     * Sets the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+        return this;
+    }
+
+    /**
+     * Overloaded withApplicationDate method to set date from String.
+     */
+    public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
+        try {
+            this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
+            return this;
+        } catch (ParseException e) {
+            System.err.println("error in parsing date");
+            return this;
+        }
+    }
+
+    /**
+     * Sets the {@code Status} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withStatus(Status status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Overloaded withStatus method to set status from String.
+     */
+    public InternshipApplicationBuilder withStatus(String status) {
+        return withStatus(Status.valueOf(status));
+    }
+
+    public InternshipApplication build() {
+        return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
+    }
+
+}

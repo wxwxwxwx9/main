@@ -16,14 +16,14 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.InternshipApplicationBuilder;
 
 public class AddCommandTest {
 
@@ -34,46 +34,48 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        ModelStubAcceptingInternshipAdded modelStub = new ModelStubAcceptingInternshipAdded();
+        InternshipApplication validInternshipApplication = new InternshipApplicationBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validInternshipApplication).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validInternshipApplication),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validInternshipApplication), modelStub.internshipsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        InternshipApplication validInternshipApplication = new InternshipApplicationBuilder().build();
+        AddCommand addCommand = new AddCommand(validInternshipApplication);
+        ModelStub modelStub = new ModelStubWithInternshipApplication(validInternshipApplication);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        InternshipApplication nus = new InternshipApplicationBuilder().withCompany("NUS").build();
+        InternshipApplication ntu = new InternshipApplicationBuilder().withCompany("NTU").build();
+        AddCommand addNusCommand = new AddCommand(nus);
+        AddCommand addNtuCommand = new AddCommand(ntu);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addNusCommand.equals(addNusCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addNUsCommandCopy = new AddCommand(nus);
+        assertTrue(addNusCommand.equals(addNUsCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addNusCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addNusCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addNusCommand.equals(addNtuCommand));
     }
 
     /**
@@ -102,52 +104,52 @@ public class AddCommandTest {
 
         @Override
         public Path getInternshipDiaryFilePath() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setInternshipDiaryFilePath(Path internshipDiaryFilePath) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyInternshipDiary getInternshipDiary() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasInternshipApplication(InternshipApplication internshipApplication) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteInternshipApplication(InternshipApplication target) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addInternshipApplication(InternshipApplication internshipApplication) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setInternshipApplication(InternshipApplication target, InternshipApplication editedInternship) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -204,42 +206,41 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithInternshipApplication extends ModelStub {
+        private final InternshipApplication internshipApplication;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithInternshipApplication(InternshipApplication internshipApplication) {
+            requireNonNull(internshipApplication);
+            this.internshipApplication = internshipApplication;
         }
 
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasInternshipApplication(InternshipApplication internshipApplication) {
+            requireNonNull(internshipApplication);
+            return this.internshipApplication.isSameInternshipApplication(internshipApplication);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingInternshipAdded extends ModelStub {
+        final ArrayList<InternshipApplication> internshipsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasInternshipApplication(InternshipApplication internshipApplication) {
+            requireNonNull(internshipApplication);
+            return internshipsAdded.stream().anyMatch(internshipApplication::isSameInternshipApplication);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addInternshipApplication(InternshipApplication internshipApplication) {
+            requireNonNull(internshipApplication);
+            internshipsAdded.add(internshipApplication);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyInternshipDiary getInternshipDiary() {
+            return new InternshipDiary();
         }
     }
 

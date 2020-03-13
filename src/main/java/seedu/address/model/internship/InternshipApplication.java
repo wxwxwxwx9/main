@@ -12,6 +12,7 @@ import seedu.address.model.status.Status;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class InternshipApplication {
+
     private final Company company;
     private final Role role;
     private final Address address;
@@ -45,15 +46,15 @@ public class InternshipApplication {
         return role;
     }
 
-    public Address getAddress() {
+    public seedu.address.model.internship.Address getAddress() {
         return address;
     }
 
-    public Phone getPhone() {
+    public seedu.address.model.internship.Phone getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
+    public seedu.address.model.internship.Email getEmail() {
         return email;
     }
 
