@@ -45,11 +45,18 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+<!--        <vbox fx:id="personlist" styleclass="pane-with-border" minwidth="340" prefwidth="340" vbox.vgrow="always">-->
+<!--          <padding>-->
+<!--            <insets top="10" right="10" bottom="10" left="10" />-->
+<!--          </padding>-->
+<!--          <stackpane fx:id="personlistpanelplaceholder" vbox.vgrow="always"/>-->
+<!--        </vbox>-->
+
+        <VBox fx:id="internshipApplicationList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="internshipApplicationListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

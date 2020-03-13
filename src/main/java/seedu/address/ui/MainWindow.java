@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel; // old code
+//    private PersonListPanel personListPanel; // old code
     private InternshipApplicationListPanel internshipApplicationListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -42,8 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-    @FXML
-    private StackPane personListPanelPlaceholder; // old code
+//    @FXML
+//    private StackPane personListPanelPlaceholder; // old code
 
     @FXML
     private StackPane internshipApplicationListPanelPlaceholder;
@@ -111,16 +111,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        //internshipApplicationListPanel = new InternshipApplicationListPanel(
-        //logic.getFilteredInternshipApplicationList());
-        //internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
+//        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        internshipApplicationListPanel = new InternshipApplicationListPanel(
+                logic.getFilteredInternshipApplicationList());
+        internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -168,8 +168,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     // old code
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+//    public PersonListPanel getPersonListPanel() {
+//        return personListPanel;
+//    }
+
+    public InternshipApplicationListPanel getInternshipApplicationListPanel() {
+        return internshipApplicationListPanel;
     }
 
     /**
