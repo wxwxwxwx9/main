@@ -1,7 +1,8 @@
 package seedu.address.testutil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditInternshipDescriptor;
@@ -81,9 +82,9 @@ public class EditInternshipDescriptorBuilder {
      */
     public EditInternshipDescriptorBuilder withApplicationDate(String date) {
         try {
-            descriptor.setDate(new SimpleDateFormat("dd MM yyyy").parse(date));
+            descriptor.setDate(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MM yyyy")));
             return this;
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             return this;
         }
     }

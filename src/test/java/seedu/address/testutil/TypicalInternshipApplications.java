@@ -37,14 +37,14 @@ public class TypicalInternshipApplications {
             .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
             .withPhone("94351253").withEmail("larry@google.com")
             .withStatus(Status.APPLICATION_DONE)
-            .withApplicationDate(new Date(2019, Calendar.DECEMBER, 1))
+            .withApplicationDate(LocalDate.of(2019, 12, 1))
             .withPriority(10)
             .build();
     public static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder().withCompany("Facebook")
             .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
             .withPhone("99751354").withEmail("mark@google.com")
             .withStatus(Status.REJECTED)
-            .withApplicationDate(new Date(2019, Calendar.DECEMBER, 1))
+            .withApplicationDate(LocalDate.of(2019, 12, 1))
             .withPriority(8)
             .build();
 

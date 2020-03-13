@@ -2,7 +2,7 @@ package seedu.address.model.internship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.address.model.status.Status;
@@ -18,7 +18,7 @@ public class InternshipApplication {
     private final Address address;
     private final Phone phone;
     private final Email email;
-    private final Date applicationDate;
+    private final LocalDate applicationDate;
     private final Priority priority;
     private final Status status;
 
@@ -26,7 +26,7 @@ public class InternshipApplication {
      * Every field must be present and not null.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-            Date applicationDate, Priority priority, Status status) {
+            LocalDate applicationDate, Priority priority, Status status) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -58,7 +58,7 @@ public class InternshipApplication {
         return email;
     }
 
-    public Date getApplicationDate() {
+    public LocalDate getApplicationDate() {
         return applicationDate;
     }
 
