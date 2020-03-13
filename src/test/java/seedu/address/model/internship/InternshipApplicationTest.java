@@ -8,9 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
-
-import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
+import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +34,8 @@ public class InternshipApplicationTest {
         assertFalse(GOOGLE.isSameInternshipApplication(null));
 
         // different phone and email -> returns false
-        InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        InternshipApplication editedGoogle =
+                new InternshipApplicationBuilder(GOOGLE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(GOOGLE.isSameInternshipApplication(editedGoogle));
 
         // different company -> returns false
@@ -72,7 +72,8 @@ public class InternshipApplicationTest {
         assertFalse(GOOGLE.equals(FACEBOOK));
 
         // different company -> returns false
-        InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE).withCompany(VALID_COMPANY_BOB).build();
+        InternshipApplication editedGoogle =
+                new InternshipApplicationBuilder(GOOGLE).withCompany(VALID_COMPANY_BOB).build();
         assertFalse(GOOGLE.equals(editedGoogle));
 
         // different phone -> returns false

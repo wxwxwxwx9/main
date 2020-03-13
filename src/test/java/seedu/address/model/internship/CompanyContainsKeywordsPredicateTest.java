@@ -1,14 +1,15 @@
 package seedu.address.model.internship;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.InternshipApplicationBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.InternshipApplicationBuilder;
 
 public class CompanyContainsKeywordsPredicateTest {
 
@@ -17,14 +18,17 @@ public class CompanyContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        CompanyContainsKeywordsPredicate firstPredicate = new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
-        CompanyContainsKeywordsPredicate secondPredicate = new CompanyContainsKeywordsPredicate(secondPredicateKeywordList);
+        CompanyContainsKeywordsPredicate firstPredicate =
+                new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
+        CompanyContainsKeywordsPredicate secondPredicate =
+                new CompanyContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        CompanyContainsKeywordsPredicate firstPredicateCopy = new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
+        CompanyContainsKeywordsPredicate firstPredicateCopy =
+                new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -40,7 +44,8 @@ public class CompanyContainsKeywordsPredicateTest {
     @Test
     public void test_companyContainsKeywords_returnsTrue() {
         // One keyword
-        CompanyContainsKeywordsPredicate predicate = new CompanyContainsKeywordsPredicate(Collections.singletonList("Google"));
+        CompanyContainsKeywordsPredicate predicate =
+                new CompanyContainsKeywordsPredicate(Collections.singletonList("Google"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withCompany("Google").build()));
 
         // Multiple keywords

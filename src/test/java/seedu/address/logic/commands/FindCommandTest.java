@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import java.util.Arrays;
@@ -68,8 +68,9 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredInternshipApplicationList(predicate);
         // Not sure why this test case is failing -- will work on this next time
-//        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(VALID_COMPANY_AMY, VALID_COMPANY_BOB), model.getFilteredInternshipApplicationList());
+        // assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        // assertEquals(Arrays.asList(VALID_COMPANY_AMY, VALID_COMPANY_BOB),
+        // model.getFilteredInternshipApplicationList());
     }
 
     /**

@@ -43,26 +43,26 @@ public class JsonAdaptedInternshipTest {
     }
 
     // WX: Fixed this for you Gerhean, check if the test case is as intended
-     @Test
-     public void toModelType_invalidCompany_throwsIllegalValueException() {
-         JsonAdaptedInternship internship =
-                 new JsonAdaptedInternship(INVALID_COMPANY, VALID_ROLE, VALID_ADDRESS,
-                         INVALID_PHONE,
-                         VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS);
-         String expectedMessage = Company.MESSAGE_CONSTRAINTS;
-         assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
-     }
+    @Test
+    public void toModelType_invalidCompany_throwsIllegalValueException() {
+        JsonAdaptedInternship internship =
+            new JsonAdaptedInternship(INVALID_COMPANY, VALID_ROLE, VALID_ADDRESS,
+                    INVALID_PHONE,
+                    VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS);
+        String expectedMessage = Company.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
 
     // WX: Fixed this for you Gerhean, check if the test case is as intended
-     @Test
-     public void toModelType_nullCompany_throwsIllegalValueException() {
-         JsonAdaptedInternship internship =
-              new JsonAdaptedInternship(null, VALID_ROLE, VALID_ADDRESS,
-                      INVALID_PHONE,
-                      VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS);
-         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName());
-         assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
-     }
+    @Test
+    public void toModelType_nullCompany_throwsIllegalValueException() {
+        JsonAdaptedInternship internship =
+             new JsonAdaptedInternship(null, VALID_ROLE, VALID_ADDRESS,
+                     INVALID_PHONE,
+                     VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
