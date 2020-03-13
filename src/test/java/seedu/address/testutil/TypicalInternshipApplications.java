@@ -20,8 +20,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import seedu.address.model.InternshipDiary;

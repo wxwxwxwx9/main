@@ -17,8 +17,10 @@ public class JsonSerializableInternshipDiaryTest {
 
     private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "JsonSerializableInternshipDiaryTest");
-    private static final Path TYPICAL_INTERNSHIPS_FILE = TEST_DATA_FOLDER.resolve("typicalInternshipsInternshipDiary.json");
-    private static final Path INVALID_INTERNSHIP_FILE = TEST_DATA_FOLDER.resolve("invalidInternshipInternshipDiary.json");
+    private static final Path TYPICAL_INTERNSHIPS_FILE =
+            TEST_DATA_FOLDER.resolve("typicalInternshipsInternshipDiary.json");
+    private static final Path INVALID_INTERNSHIP_FILE =
+            TEST_DATA_FOLDER.resolve("invalidInternshipInternshipDiary.json");
     private static final Path DUPLICATE_INTERNSHIP_FILE =
             TEST_DATA_FOLDER.resolve("duplicateInternshipInternshipDiary.json");
 
