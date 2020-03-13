@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -62,7 +63,7 @@ class JsonAdaptedInternship {
         address = source.getAddress().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        applicationDate = source.getApplicationDate().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
+        applicationDate = source.getApplicationDate().toString();
         priority = Integer.toString(source.getPriority().fullPriority);
         status = source.getStatus().name();
     }
@@ -113,20 +114,20 @@ class JsonAdaptedInternship {
         }
         final Address modelAddress = new Address(address);
 
-        LocalDate modelDate = null;
+        ApplicationDate modelDate = null;
         if (applicationDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LocalDate.class.getSimpleName()));
+                    ApplicationDate.class.getSimpleName()));
         }
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
         try {
-            modelDate = LocalDate.parse(applicationDate, dateFormat);
+            modelDate = new ApplicationDate(LocalDate.parse(applicationDate, dateFormat));
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException(ERROR_MESSAGE_PLACEHOLDER);
+            throw new IllegalValueException(ApplicationDate.MESSAGE_CONSTRAINTS);
         }
         if (modelDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LocalDate.class.getSimpleName()));
+                    ApplicationDate.class.getSimpleName()));
         }
 
         if (priority == null) {

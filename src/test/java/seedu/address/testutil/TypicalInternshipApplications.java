@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.InternshipDiary;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 
@@ -35,14 +36,14 @@ public class TypicalInternshipApplications {
             .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
             .withPhone("94351253").withEmail("larry@google.com")
             .withStatus(Status.APPLICATION_DONE)
-            .withApplicationDate(LocalDate.of(2019, 12, 1))
+            .withApplicationDate(new ApplicationDate(LocalDate.of(2019, 12, 1)))
             .withPriority(10)
             .build();
     public static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder().withCompany("Facebook")
             .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
             .withPhone("99751354").withEmail("mark@google.com")
             .withStatus(Status.REJECTED)
-            .withApplicationDate(LocalDate.of(2009, 11, 11))
+            .withApplicationDate(new ApplicationDate(LocalDate.of(2009, 11, 11)))
             .withPriority(8)
             .build();
 

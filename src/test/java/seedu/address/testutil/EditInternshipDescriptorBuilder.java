@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditInternshipDescriptor;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -82,7 +83,7 @@ public class EditInternshipDescriptorBuilder {
      */
     public EditInternshipDescriptorBuilder withApplicationDate(String date) {
         try {
-            descriptor.setDate(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MM yyyy")));
+            descriptor.setDate(new ApplicationDate(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MM yyyy"))));
             return this;
         } catch (DateTimeParseException e) {
             return this;
