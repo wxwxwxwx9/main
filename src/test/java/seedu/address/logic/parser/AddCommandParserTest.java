@@ -1,9 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
@@ -13,6 +18,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATUS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_BOB;
@@ -39,10 +45,14 @@ import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
 
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalInternshipApplications.BOB;
+import seedu.address.testutil.InternshipApplicationBuilder;
+import seedu.address.model.internship.InternshipApplication;
+
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
-    /* Bug in this test case
     @Test
     public void parse_allFieldsPresent_success() {
         InternshipApplication expectedInternshipApplication = new InternshipApplicationBuilder(BOB).build();
@@ -73,7 +83,7 @@ public class AddCommandParserTest {
                 new AddCommand(expectedInternshipApplication));
 
         // Add new test cases for Role, Priority, Date, Status
-    } */
+    }
 
     /*This test is currently not used, as we have no optional fields
     @Test
