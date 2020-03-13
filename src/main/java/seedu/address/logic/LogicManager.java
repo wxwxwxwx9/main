@@ -55,28 +55,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public ReadOnlyInternshipDiary getInternshipDiary() {
         return model.getInternshipDiary();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
         return model.getFilteredInternshipApplicationList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override
