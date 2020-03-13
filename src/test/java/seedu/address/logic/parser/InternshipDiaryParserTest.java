@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,8 +44,8 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
     }
 
     /* Not working
@@ -54,9 +54,9 @@ public class InternshipDiaryParserTest {
         InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder(internshipApplication).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " "
+                + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " "
                 + InternshipApplicationUtil.getEditInternshipApplicationDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, descriptor), command);
     }*/
 
     @Test

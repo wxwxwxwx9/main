@@ -25,8 +25,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_INTERNSHIP_APPLICATION;
 
 import org.junit.jupiter.api.Test;
 
@@ -106,7 +106,7 @@ public class EditCommandParserTest {
     /* Bug: not working
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + ROLE_DESC_AMY + PRIORITY_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + COMPANY_DESC_AMY + DATE_DESC_AMY + STATUS_DESC_BOB;
 
@@ -121,7 +121,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditCommand.EditInternshipDescriptor descriptor =
@@ -134,7 +134,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // company
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + COMPANY_DESC_AMY;
         EditInternshipDescriptor descriptor =
                 new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY).build();
@@ -164,7 +164,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB;
@@ -180,7 +180,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -198,7 +198,7 @@ public class EditCommandParserTest {
     /* Test for tags from AB3
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().build();
