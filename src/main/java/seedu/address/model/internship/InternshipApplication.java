@@ -105,7 +105,6 @@ public class InternshipApplication {
 
         InternshipApplication internshipApplication = (InternshipApplication) other;
         return internshipApplication.getCompany().equals(getCompany())
-                && internshipApplication.getCompany().equals(getCompany())
                 && internshipApplication.getRole().equals(getRole())
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())
