@@ -44,7 +44,7 @@ public class TypicalInternshipApplications {
             .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
             .withPhone("99751354").withEmail("mark@google.com")
             .withStatus(Status.REJECTED)
-            .withApplicationDate(LocalDate.of(2019, 12, 1))
+            .withApplicationDate(LocalDate.of(2009, 11, 11))
             .withPriority(8)
             .build();
 

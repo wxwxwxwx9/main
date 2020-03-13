@@ -6,7 +6,7 @@ import static seedu.address.storage.JsonAdaptedInternship.MISSING_FIELD_MESSAGE_
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +31,7 @@ public class JsonAdaptedInternshipTest {
     private static final String VALID_PHONE = GOOGLE.getPhone().toString();
     private static final String VALID_EMAIL = GOOGLE.getEmail().toString();
     private static final String VALID_APPLICATION_DATE =
-            new SimpleDateFormat(DATE_TIME_PATTERN).format(GOOGLE.getApplicationDate());
+            GOOGLE.getApplicationDate().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
     private static final String VALID_PRIORITY = GOOGLE.getPriority().toString();
     private static final String VALID_STATUS = GOOGLE.getStatus().toString();
 
