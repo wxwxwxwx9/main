@@ -14,6 +14,16 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_STATUS_DESC;
+
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
+
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
@@ -41,6 +51,8 @@ import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
+
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
 
 public class EditCommandParserTest {
 
@@ -103,7 +115,6 @@ public class EditCommandParserTest {
                 Company.MESSAGE_CONSTRAINTS);
     }
 
-    /* Bug: not working
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
@@ -117,7 +128,7 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
-    }*/
+    }
 
     @Test
     public void parse_someFieldsSpecified_success() {
