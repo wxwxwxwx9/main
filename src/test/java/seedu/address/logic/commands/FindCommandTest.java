@@ -52,7 +52,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noInternshipApplicationFound() {
         String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 0);
         CompanyContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
@@ -61,16 +61,17 @@ public class FindCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredInternshipApplicationList());
     }
 
-    /*
-    @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 3);
-        CompanyContainsKeywordsPredicate predicate = preparePredicate("amy bob");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredInternshipApplicationList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(AMY, BOB), model.getFilteredInternshipApplicationList());
-    }*/
+    // Not sure why this test case is failing -- will work on this next time
+    //    @Test
+    //    public void execute_multipleKeywords_multipleInternshipApplicationsFound() {
+    //        String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 3);
+    //        CompanyContainsKeywordsPredicate predicate = preparePredicate("Amy Bob");
+    //        FindCommand command = new FindCommand(predicate);
+    //        expectedModel.updateFilteredInternshipApplicationList(predicate);
+    //        // assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    //        // assertEquals(Arrays.asList(VALID_COMPANY_AMY, VALID_COMPANY_BOB),
+    //        // model.getFilteredInternshipApplicationList());
+    //    }
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

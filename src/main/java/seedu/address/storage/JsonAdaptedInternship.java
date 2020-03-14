@@ -1,14 +1,15 @@
 package seedu.address.storage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -23,7 +24,7 @@ import seedu.address.model.status.Status;
 class JsonAdaptedInternship {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Internship's %s field is missing!";
-    private static final String DATE_TIME_PATTERN = "dd/MM/yyyy";
+    public static final String DATE_TIME_PATTERN = "dd/MM/yyyy";
     private static final String ERROR_MESSAGE_PLACEHOLDER = "Error message.";
 
     private final String company;
@@ -34,9 +35,6 @@ class JsonAdaptedInternship {
     private final String applicationDate;
     private final String priority;
     private final String status;
-
-    // Company company, Role role, Address address, Phone phone, Email email,
-    // Date applicationDate, Priority priority, Status status
 
     /**
      * Constructs a {@code JsonAdaptedInternship} with the given person details.
@@ -65,7 +63,7 @@ class JsonAdaptedInternship {
         address = source.getAddress().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        applicationDate = (new SimpleDateFormat(DATE_TIME_PATTERN)).format(source.getApplicationDate());
+        applicationDate = source.getApplicationDate().toString();
         priority = Integer.toString(source.getPriority().fullPriority);
         status = source.getStatus().name();
     }
@@ -116,18 +114,20 @@ class JsonAdaptedInternship {
         }
         final Address modelAddress = new Address(address);
 
-        Date modelDate = null;
+        ApplicationDate modelDate = null;
         if (applicationDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ApplicationDate.class.getSimpleName()));
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_TIME_PATTERN);
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
         try {
-            modelDate = dateFormat.parse(applicationDate);
-        } catch (ParseException e) {
-            throw new IllegalValueException(ERROR_MESSAGE_PLACEHOLDER);
+            modelDate = new ApplicationDate(LocalDate.parse(applicationDate, dateFormat));
+        } catch (DateTimeParseException e) {
+            throw new IllegalValueException(ApplicationDate.MESSAGE_CONSTRAINTS);
         }
         if (modelDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ApplicationDate.class.getSimpleName()));
         }
 
         if (priority == null) {
@@ -149,7 +149,7 @@ class JsonAdaptedInternship {
         try {
             Status.valueOf(status);
         } catch (IllegalArgumentException e) {
-            throw new IllegalValueException(ERROR_MESSAGE_PLACEHOLDER);
+            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
         final Status modelStatus = Status.valueOf(status);
 

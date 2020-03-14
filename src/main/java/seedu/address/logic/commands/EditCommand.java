@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -108,7 +108,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editInternshipDescriptor.getAddress().orElse(internshipToEdit.getAddress());
         Phone updatedPhone = editInternshipDescriptor.getPhone().orElse(internshipToEdit.getPhone());
         Email updatedEmail = editInternshipDescriptor.getEmail().orElse(internshipToEdit.getEmail());
-        Date updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
+        ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
         Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
 
@@ -144,7 +144,7 @@ public class EditCommand extends Command {
         private Address address;
         private Phone phone;
         private Email email;
-        private Date date;
+        private ApplicationDate date;
         private Priority priority;
         private Status status;
 
@@ -212,11 +212,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setDate(Date date) {
+        public void setDate(ApplicationDate date) {
             this.date = date;
         }
 
-        public Optional<Date> getDate() {
+        public Optional<ApplicationDate> getDate() {
             return Optional.ofNullable(date);
         }
 

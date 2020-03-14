@@ -1,0 +1,21 @@
+{
+  "internships": [ {
+    "company": "Alice Inc",
+    "role": "Fun officer",
+    "address": "4th street",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "applicationDate": "11/11/2020",
+    "priority": "1",
+    "status": "ACTIVE"
+  }, {
+    "company": "Alice Inc",
+    "role": "Fun officer",
+    "address": "4th street",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "applicationDate": "11/11/2020",
+    "priority": "2",
+    "status": "INACTIVE"
+  } ]
+}

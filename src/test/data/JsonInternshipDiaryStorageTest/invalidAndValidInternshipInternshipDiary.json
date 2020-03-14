@@ -1,0 +1,21 @@
+{
+  "internships": [ {
+    "company": "Valid Company",
+    "role": "Fun officer",
+    "address": "4th street",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "applicationDate": "11/11/2020",
+    "priority": "1",
+    "status": "ACTIVE"
+  }, {
+    "company": "Company With Invalid Phone Field",
+    "role": "Fun officer",
+    "address": "4th street",
+    "phone": "948asdf2424",
+    "email": "hans@example.com",
+    "applicationDate": "11/11/2020",
+    "priority": "1",
+    "status": "ACTIVE"
+  } ]
+}

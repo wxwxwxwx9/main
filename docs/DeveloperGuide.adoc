@@ -16,6 +16,10 @@ endif::[]
 
 By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
+== Introduction
+
+(to be inserted)
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.

@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.exceptions.DuplicateInternshipApplicationException;
+import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
 
@@ -46,7 +47,6 @@ public class InternshipDiaryTest {
     @Test
     public void resetData_withDuplicateInternship_throwsDuplicateInternshipException() {
         // Two internship applications with the same identity fields
-        // wx: not sure what this test case is testing for. editing it in such a way that it passes for now.
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
                 .withAddress("1600 Amphitheatre Parkway")
                 .build();
@@ -75,8 +75,9 @@ public class InternshipDiaryTest {
     @Test
     public void hasInternship_internshipApplicationWithSameIdentityFieldsInInternshipDiary_returnsTrue() {
         internshipDiary.addInternshipApplication(GOOGLE);
-        // wx: not sure what this test case is testing for. editing it in such a way that it passes for now.
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
+                .withPriority(1)
+                .withStatus(Status.APPLICATION_DONE)
                 .build();
         assertTrue(internshipDiary.hasInternship(editedGoogle));
     }

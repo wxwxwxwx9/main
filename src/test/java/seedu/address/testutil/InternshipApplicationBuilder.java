@@ -1,10 +1,11 @@
 package seedu.address.testutil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -32,7 +33,7 @@ public class InternshipApplicationBuilder {
     private Address address;
     private Phone phone;
     private Email email;
-    private Date applicationDate;
+    private ApplicationDate applicationDate;
     private Priority priority;
     private Status status;
 
@@ -43,8 +44,9 @@ public class InternshipApplicationBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         try {
-            applicationDate = new SimpleDateFormat("dd MM yyyy").parse(DEFAULT_APPLICATION_DATE);
-        } catch (ParseException e) {
+            applicationDate = new ApplicationDate(LocalDate.parse(DEFAULT_APPLICATION_DATE,
+                    DateTimeFormatter.ofPattern("dd MM yyyy")));
+        } catch (DateTimeParseException e) {
             e.printStackTrace();
         }
         priority = new Priority(DEFAULT_PRIORITY);
@@ -123,7 +125,7 @@ public class InternshipApplicationBuilder {
     /**
      * Sets the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
      */
-    public InternshipApplicationBuilder withApplicationDate(Date applicationDate) {
+    public InternshipApplicationBuilder withApplicationDate(ApplicationDate applicationDate) {
         this.applicationDate = applicationDate;
         return this;
     }
@@ -133,9 +135,10 @@ public class InternshipApplicationBuilder {
      */
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
         try {
-            this.applicationDate = new SimpleDateFormat("dd MM yyyy").parse(applicationDate);
+            this.applicationDate = new ApplicationDate(LocalDate.parse(applicationDate, DateTimeFormatter.ofPattern(
+                    "dd MM yyyy")));
             return this;
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             System.err.println("error in parsing date");
             return this;
         }
