@@ -74,6 +74,7 @@ public class InternshipApplication {
      * This defines a weaker notion of equality between two internship applications.
      */
     public boolean isSameInternshipApplication(InternshipApplication internshipApplication) {
+
         if (internshipApplication == this) {
             return true;
         }
@@ -103,7 +104,6 @@ public class InternshipApplication {
 
         InternshipApplication internshipApplication = (InternshipApplication) other;
         return internshipApplication.getCompany().equals(getCompany())
-                && internshipApplication.getCompany().equals(getCompany())
                 && internshipApplication.getRole().equals(getRole())
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())

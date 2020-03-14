@@ -46,7 +46,7 @@ public class InternshipApplicationUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditInternshipDescriptor}'s details.
      */
     public static String getEditInternshipApplicationDescriptorDetails(
             EditCommand.EditInternshipDescriptor descriptor) {

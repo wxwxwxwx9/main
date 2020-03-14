@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,14 +26,14 @@ public class InternshipDiaryParserTest {
 
     private final InternshipDiaryParser parser = new InternshipDiaryParser();
 
-    /* Not working, expected error from InternshipApplicationUtil.java
-    @Test
-    public void parseCommand_add() throws Exception {
-        InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
-        AddCommand command = (AddCommand) parser
-                .parseCommand(InternshipApplicationUtil.getAddCommand(internshipApplication));
-        assertEquals(new AddCommand(internshipApplication), command);
-    }*/
+    //    Not working, expected error from InternshipApplicationUtil.java
+    //    @Test
+    //    public void parseCommand_add() throws Exception {
+    //        InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
+    //        AddCommand command = (AddCommand) parser
+    //                .parseCommand(InternshipApplicationUtil.getAddCommand(internshipApplication));
+    //        assertEquals(new AddCommand(internshipApplication), command);
+    //    }
 
     @Test
     public void parseCommand_clear() throws Exception {
@@ -44,20 +44,21 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
     }
 
-    /* Not working
-    @Test
-    public void parseCommand_edit() throws Exception {
-        InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
-        EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder(internshipApplication).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " "
-                + InternshipApplicationUtil.getEditInternshipApplicationDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    }*/
+    // NOT WORKING
+    //    @Test
+    //    public void parseCommand_edit() throws Exception {
+    //        InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
+    //        EditCommand.EditInternshipDescriptor descriptor =
+    //        new EditInternshipDescriptorBuilder(internshipApplication).build();
+    //        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+    //                + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " "
+    //                + InternshipApplicationUtil.getEditInternshipApplicationDescriptorDetails(descriptor));
+    //        assertEquals(new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, descriptor), command);
+    //    }
 
     @Test
     public void parseCommand_exit() throws Exception {

@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the internship diary data.
@@ -21,14 +20,11 @@ public class ModelManager implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private InternshipDiary internshipDiary = new InternshipDiary();
     private final UserPrefs userPrefs;
+
+    private InternshipDiary internshipDiary = new InternshipDiary();
     private FilteredList<InternshipApplication> filteredInternshipApplications =
             new FilteredList<>(internshipDiary.getInternshipList());
-
-    //Old AB code
-    private AddressBook addressBook = new AddressBook();
-    private FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
@@ -46,18 +42,6 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new InternshipDiary(), new UserPrefs());
-    }
-
-    // Old AB3 Constructor
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -165,74 +149,6 @@ public class ModelManager implements Model {
         return internshipDiary.equals(other.internshipDiary)
                 && userPrefs.equals(other.userPrefs)
                 && filteredInternshipApplications.equals(other.filteredInternshipApplications);
-    }
-
-    //============== Old Code ================================================================================
-
-    //=========== UserPrefs ==================================================================================
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
     }
 
 }

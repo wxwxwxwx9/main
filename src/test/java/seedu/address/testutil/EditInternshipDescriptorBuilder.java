@@ -17,7 +17,7 @@ import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditInternshipDescriptor objects.
  */
 public class EditInternshipDescriptorBuilder {
 
@@ -32,7 +32,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code internshipApplication}'s details
+     * Returns an {@code EditInternshipDescriptor} with fields containing {@code internshipApplication}'s details
      */
     public EditInternshipDescriptorBuilder(InternshipApplication internshipApplication) {
         descriptor = new EditCommand.EditInternshipDescriptor();
@@ -47,7 +47,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Company} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withCompany(String company) {
         descriptor.setCompany(new Company(company));
@@ -55,7 +55,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Role} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Role} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withRole(String role) {
         descriptor.setRole(new Role(role));
@@ -63,7 +63,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Phone} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
@@ -71,7 +71,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Email} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
@@ -79,7 +79,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code ApplicationDate} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withApplicationDate(String date) {
         try {
@@ -91,7 +91,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Priority} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Priority} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withPriority(String priority) {
         descriptor.setPriority(new Priority(priority));
@@ -99,7 +99,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Status} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Status} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withStatus(String status) {
         descriptor.setStatus(Status.valueOf(status));
@@ -107,7 +107,7 @@ public class EditInternshipDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Address} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInternshipDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
@@ -117,4 +117,5 @@ public class EditInternshipDescriptorBuilder {
     public EditCommand.EditInternshipDescriptor build() {
         return descriptor;
     }
+
 }

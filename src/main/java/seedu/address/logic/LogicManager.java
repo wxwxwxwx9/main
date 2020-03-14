@@ -13,10 +13,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.InternshipDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
 /**
@@ -55,28 +53,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public ReadOnlyInternshipDiary getInternshipDiary() {
         return model.getInternshipDiary();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
         return model.getFilteredInternshipApplicationList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override

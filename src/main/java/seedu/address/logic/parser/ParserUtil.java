@@ -114,7 +114,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code LocaDate}.
+     * Parses a {@code String date} into an {@code LocalDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code date} is invalid.
