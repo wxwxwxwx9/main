@@ -62,8 +62,6 @@ public class ApplicationDate {
 
     @Override
     public boolean equals(Object other) {
-        System.err.println(fullApplicationDate);
-        System.err.println(((ApplicationDate) other).fullApplicationDate);
         return other == this // short circuit if same object
                 || (other instanceof ApplicationDate // instanceof handles nulls
                 && fullApplicationDate.equals(((ApplicationDate) other).fullApplicationDate)); // state check

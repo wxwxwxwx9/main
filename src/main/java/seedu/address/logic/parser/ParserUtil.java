@@ -174,6 +174,6 @@ public class ParserUtil {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
         // replaces all whitespace with _
-        return Status.valueOf(trimmedStatus);
+        return Status.valueOf(trimmedStatus.toUpperCase());
     }
 }
