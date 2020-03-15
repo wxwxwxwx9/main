@@ -17,13 +17,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private InternshipDiaryStorage addressBookStorage;
+    private InternshipDiaryStorage internshipDiaryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(InternshipDiaryStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(InternshipDiaryStorage internshipDiaryStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.internshipDiaryStorage = internshipDiaryStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,30 +49,30 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getInternshipDiaryFilePath() {
-        return addressBookStorage.getInternshipDiaryFilePath();
+        return internshipDiaryStorage.getInternshipDiaryFilePath();
     }
 
     @Override
     public Optional<ReadOnlyInternshipDiary> readInternshipDiary() throws DataConversionException, IOException {
-        return readInternshipDiary(addressBookStorage.getInternshipDiaryFilePath());
+        return readInternshipDiary(internshipDiaryStorage.getInternshipDiaryFilePath());
     }
 
     @Override
     public Optional<ReadOnlyInternshipDiary> readInternshipDiary(Path filePath)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readInternshipDiary(filePath);
+        return internshipDiaryStorage.readInternshipDiary(filePath);
     }
 
     @Override
     public void saveInternshipDiary(ReadOnlyInternshipDiary addressBook) throws IOException {
-        saveInternshipDiary(addressBook, addressBookStorage.getInternshipDiaryFilePath());
+        saveInternshipDiary(addressBook, internshipDiaryStorage.getInternshipDiaryFilePath());
     }
 
     @Override
     public void saveInternshipDiary(ReadOnlyInternshipDiary addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveInternshipDiary(addressBook, filePath);
+        internshipDiaryStorage.saveInternshipDiary(addressBook, filePath);
     }
 
 }
