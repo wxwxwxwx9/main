@@ -17,8 +17,6 @@ public class ApplicationDate {
 
     public static final String DATE_PATTERN = "dd MM yyyy";
 
-    public static final String DATE_STRING_PATTERN = "dd/MM/yyyy";
-
     public final LocalDate fullApplicationDate;
 
     /**
@@ -57,7 +55,7 @@ public class ApplicationDate {
 
     @Override
     public String toString() {
-        return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_STRING_PATTERN));
+        return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 
     @Override
