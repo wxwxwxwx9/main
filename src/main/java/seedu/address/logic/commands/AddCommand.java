@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
- * Adds a person to the internship diary.
+ * Adds an internship application to the internship diary.
  */
 public class AddCommand extends Command {
 

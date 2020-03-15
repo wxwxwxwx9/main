@@ -15,7 +15,7 @@ import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code InternshipDiary} with sample data.
  */
 public class SampleDataUtil {
 

@@ -41,7 +41,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
 
     /**
      * Replaces the contents of the internship application list with {@code internshipApplications}.
-     * {@code internshipApplications} must not contain duplicate persons.
+     * {@code internshipApplications} must not contain duplicate internship applications.
      */
     public void setInternships(List<InternshipApplication> internshipApplications) {
         this.internships.setInternshipApplications(internshipApplications);

@@ -65,14 +65,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveInternshipDiary(ReadOnlyInternshipDiary addressBook) throws IOException {
-        saveInternshipDiary(addressBook, internshipDiaryStorage.getInternshipDiaryFilePath());
+    public void saveInternshipDiary(ReadOnlyInternshipDiary internshipDiary) throws IOException {
+        saveInternshipDiary(internshipDiary, internshipDiaryStorage.getInternshipDiaryFilePath());
     }
 
     @Override
-    public void saveInternshipDiary(ReadOnlyInternshipDiary addressBook, Path filePath) throws IOException {
+    public void saveInternshipDiary(ReadOnlyInternshipDiary internshipDiary, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        internshipDiaryStorage.saveInternshipDiary(addressBook, filePath);
+        internshipDiaryStorage.saveInternshipDiary(internshipDiary, filePath);
     }
 
 }

@@ -24,7 +24,7 @@ class JsonSerializableInternshipDiary {
     private final List<JsonAdaptedInternship> internships = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableInternshipDiary} with the given persons.
+     * Constructs a {@code JsonSerializableInternshipDiary} with the given internship applications.
      */
     @JsonCreator
     public JsonSerializableInternshipDiary(@JsonProperty("internships") List<JsonAdaptedInternship> internships) {

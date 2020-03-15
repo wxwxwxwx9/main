@@ -86,11 +86,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return sb.toString();
     }
 
-    //============== Old Code ================================================================================
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
-    }
-
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
