@@ -122,14 +122,10 @@ class JsonAdaptedInternship {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
         }
-        if (!priority.matches("-?(0|[1-9]\\d*)")) { // Check if integer.
+        if (!Priority.isValidPriority(priority)) {
             throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
         }
-        final int intPriority = Integer.parseInt(priority);
-        if (!Priority.isValidPriority(intPriority)) {
-            throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
-        }
-        final Priority modelPriority = new Priority(intPriority);
+        final Priority modelPriority = new Priority(priority);
 
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
