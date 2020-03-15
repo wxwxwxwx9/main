@@ -130,9 +130,7 @@ class JsonAdaptedInternship {
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
-        try {
-            Status.valueOf(status);
-        } catch (IllegalArgumentException e) {
+        if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
         final Status modelStatus = Status.valueOf(status);
