@@ -41,7 +41,7 @@ public interface Model {
     Path getInternshipDiaryFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' internship diary file path.
      * @param internshipDiaryFilePath new file path.
      */
     void setInternshipDiaryFilePath(Path internshipDiaryFilePath);
@@ -82,7 +82,7 @@ public interface Model {
     void setInternshipApplication(InternshipApplication target, InternshipApplication editedInternship);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered internship applications list
      */
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 

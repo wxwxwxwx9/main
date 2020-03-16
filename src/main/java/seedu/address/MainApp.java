@@ -70,9 +70,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s internship diary and {@code userPrefs}. <br>
+     * The data from the sample internship diary will be used instead if {@code storage}'s internship diary is not
+     * found, or an empty internship diary will be used instead if errors occur when reading {@code storage}'s
+     * internship diary.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyInternshipDiary> internshipDiaryOptional;
