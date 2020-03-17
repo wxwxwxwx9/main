@@ -43,8 +43,8 @@ public class CommandTestUtil {
     public static final String VALID_DATE_BOB = "01 02 2020";
     public static final String VALID_PRIORITY_AMY = "2";
     public static final String VALID_PRIORITY_BOB = "1";
-    public static final String VALID_STATUS_AMY = "INACTIVE";
-    public static final String VALID_STATUS_BOB = "ACTIVE";
+    public static final String VALID_STATUS_AMY = "WISHLIST";
+    public static final String VALID_STATUS_BOB = "APPLIED";
 
     public static final String COMPANY_DESC_AMY = " " + PREFIX_COMPANY + VALID_COMPANY_AMY;
     public static final String COMPANY_DESC_BOB = " " + PREFIX_COMPANY + VALID_COMPANY_BOB;

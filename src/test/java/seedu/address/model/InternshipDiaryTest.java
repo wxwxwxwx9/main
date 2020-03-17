@@ -77,7 +77,7 @@ public class InternshipDiaryTest {
         internshipDiary.addInternshipApplication(GOOGLE);
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
                 .withPriority(1)
-                .withStatus(Status.APPLICATION_DONE)
+                .withStatus(Status.APPLIED)
                 .build();
         assertTrue(internshipDiary.hasInternship(editedGoogle));
     }

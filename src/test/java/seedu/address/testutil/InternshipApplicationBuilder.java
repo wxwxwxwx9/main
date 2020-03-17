@@ -26,7 +26,7 @@ public class InternshipApplicationBuilder {
     public static final String DEFAULT_EMAIL = "richardma@gmail.com";
     public static final String DEFAULT_APPLICATION_DATE = "12 03 2020";
     public static final Integer DEFAULT_PRIORITY = 10;
-    public static final Status DEFAULT_STATUS = Status.APPLICATION_DONE;
+    public static final Status DEFAULT_STATUS = Status.APPLIED;
 
     private Company company;
     private Role role;
