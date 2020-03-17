@@ -2,8 +2,12 @@ package seedu.address.model.internship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -20,6 +24,7 @@ public class InternshipApplication {
     private final ApplicationDate applicationDate;
     private final Priority priority;
     private final Status status;
+    private final ArrayList<Interview> interviews;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +40,7 @@ public class InternshipApplication {
         this.status = status;
         this.applicationDate = applicationDate;
         this.priority = priority;
+        interviews = new ArrayList<>();
     }
 
     public Company getCompany() {
@@ -45,15 +51,15 @@ public class InternshipApplication {
         return role;
     }
 
-    public seedu.address.model.internship.Address getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public seedu.address.model.internship.Phone getPhone() {
+    public Phone getPhone() {
         return phone;
     }
 
-    public seedu.address.model.internship.Email getEmail() {
+    public Email getEmail() {
         return email;
     }
 
@@ -67,6 +73,32 @@ public class InternshipApplication {
 
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Returns the earliest interview from today in the list of interviews of the application.
+     * @param todayDate The current date today.
+     * @return an Optional of LocalDate. Will return empty if there are no interviews after today's date.
+     */
+    public Optional<Interview> getEarliestInterview(LocalDate todayDate) {
+        if (interviews.size() <= 0) {
+            return Optional.empty();
+        }
+
+        Interview earliestInterview = interviews.get(0);
+        for (Interview currentInterview: interviews) {
+            LocalDate earliestDate = earliestInterview.getInterviewDate();
+            LocalDate currentDate = currentInterview.getInterviewDate();
+            if (currentDate.compareTo(earliestDate) < 0 && currentDate.compareTo(todayDate) >= 0) {
+                earliestInterview = currentInterview;
+            }
+        }
+        return earliestInterview.getInterviewDate().compareTo(todayDate) >= 0
+                ? Optional.of(earliestInterview) : Optional.empty();
+    }
+
+    public void addInterview(Interview interview) {
+        interviews.add(interview);
     }
 
     /**
