@@ -32,7 +32,9 @@ public class Priority {
      * @param priority a valid priority in the from of a String.
      */
     public Priority(String priority) {
-        this(Integer.parseInt(priority));
+        requireNonNull(priority);
+        checkArgument(isValidPriority(priority), MESSAGE_CONSTRAINTS);
+        fullPriority = Integer.parseInt(priority);
     }
 
     /**
