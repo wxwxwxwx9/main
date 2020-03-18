@@ -20,7 +20,11 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.internship.AddressContainsKeywordsPredicate;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
+import seedu.address.model.internship.EmailContainsKeywordsPredicate;
+import seedu.address.model.internship.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.RoleContainsKeywordsPredicate;
 
 public class InternshipDiaryParserTest {
 
@@ -68,10 +72,14 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> keywords = Arrays.asList("c/google", "r/engineer", "a/main", "p/12345", "e/alice");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new CompanyContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new CompanyContainsKeywordsPredicate(Arrays.asList("google")),
+                new RoleContainsKeywordsPredicate(Arrays.asList("engineer")),
+                new AddressContainsKeywordsPredicate(Arrays.asList("main")),
+                new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
+                new EmailContainsKeywordsPredicate(Arrays.asList("alice"))), command);
     }
 
     @Test
