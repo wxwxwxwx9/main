@@ -7,7 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
@@ -67,9 +68,13 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Predicate<InternshipApplication>[] predicates = new Predicate[] {cPredicate, rPredicate, aPredicate,
-                                                                            pPredicate, ePredicate};
-        Predicate<InternshipApplication> predicate = Arrays.stream(predicates).reduce(x -> true, Predicate::and);
+        List<Predicate<InternshipApplication>> predicates = new ArrayList<Predicate<InternshipApplication>>();
+        predicates.add(cPredicate);
+        predicates.add(rPredicate);
+        predicates.add(aPredicate);
+        predicates.add(pPredicate);
+        predicates.add(ePredicate);
+        Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> true, Predicate::and);
         model.updateFilteredInternshipApplicationList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW,
