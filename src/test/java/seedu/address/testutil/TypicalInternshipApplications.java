@@ -35,7 +35,7 @@ public class TypicalInternshipApplications {
     public static final InternshipApplication GOOGLE = new InternshipApplicationBuilder().withCompany("Google")
             .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
             .withPhone("94351253").withEmail("larry@google.com")
-            .withStatus(Status.APPLICATION_DONE)
+            .withStatus(Status.APPLIED)
             .withApplicationDate(new ApplicationDate(LocalDate.of(2019, 12, 1)))
             .withPriority(10)
             .build();
