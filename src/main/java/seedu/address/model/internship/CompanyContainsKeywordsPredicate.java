@@ -17,6 +17,10 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
 
     @Override
     public boolean test(InternshipApplication internshipApplication) {
+        if (keywords == null) {
+            return true;
+        }
+
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(internshipApplication.getCompany().fullCompany,
                         keyword));
