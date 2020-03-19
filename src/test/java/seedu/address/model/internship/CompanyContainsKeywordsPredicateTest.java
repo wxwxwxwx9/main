@@ -71,9 +71,12 @@ public class CompanyContainsKeywordsPredicateTest {
         predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Google"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Apple Facebook").build()));
 
-        // Keywords match phone, email and address, but does not match company
-        predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google").withPhone("12345")
+        // Keywords match role, phone, email and address, but does not match company
+        predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Software", "Engineer", "12345",
+                "alice@email.com",
+                "Main", "Street"));
+        assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
+                .withRole("Software Engineer").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 }
