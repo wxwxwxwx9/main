@@ -24,6 +24,10 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts current list by given parameter.\n"
             + "Parameters: KEYWORD\n"
+            + "Available sorts: Company: " + PREFIX_COMPANY + ", "
+            + "Date: " + PREFIX_DATE + ", "
+            + "Priority: " + PREFIX_PRIORITY + ", "
+            + "Status: " + PREFIX_STATUS + ".\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_COMPANY;
 
     private final Comparator<InternshipApplication> comparator;

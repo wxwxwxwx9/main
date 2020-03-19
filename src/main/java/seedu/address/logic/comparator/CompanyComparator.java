@@ -1,4 +1,4 @@
-package seedu.address.model.comparator;
+package seedu.address.logic.comparator;
 
 import seedu.address.model.internship.InternshipApplication;
 
@@ -13,6 +13,6 @@ public class CompanyComparator implements Comparator<InternshipApplication> {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof CompanyComparator; // All company comparators are the same.
+        return other instanceof CompanyComparator; // All CompanyComparator are the same.
     }
 }
