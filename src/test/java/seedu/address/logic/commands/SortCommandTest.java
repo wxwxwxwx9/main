@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INTERNSHIP_LISTED_OVER
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
-import java.util.Collections;
 import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;

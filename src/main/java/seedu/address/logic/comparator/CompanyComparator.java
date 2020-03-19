@@ -1,9 +1,12 @@
 package seedu.address.logic.comparator;
 
-import seedu.address.model.internship.InternshipApplication;
-
 import java.util.Comparator;
 
+import seedu.address.model.internship.InternshipApplication;
+
+/**
+ * Comparator for sorting InternshipApplication by companies in lexicographical order.
+ */
 public class CompanyComparator implements Comparator<InternshipApplication> {
 
     @Override

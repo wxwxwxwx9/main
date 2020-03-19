@@ -10,11 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.Comparator;
 
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.logic.comparator.DateComparator;
 import seedu.address.logic.comparator.PriorityComparator;
 import seedu.address.logic.comparator.StatusComparator;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
@@ -37,6 +37,10 @@ public class SortCommandParser implements Parser<SortCommand> {
         return new SortCommand(prefixToComparator(trimmedArgs));
     }
 
+    /**
+     * Returns the comparator corresponding to the prefix given.
+     * @throws ParseException if the string is not an applicable prefix.
+     */
     private Comparator<InternshipApplication> prefixToComparator(String prefix) throws ParseException {
         if (prefix.equals(PREFIX_COMPANY.getPrefix())) {
             return new CompanyComparator();

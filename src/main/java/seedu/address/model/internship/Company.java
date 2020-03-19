@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a InternshipApplication's company in the internship diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidCompany(String)}
  */
-public class Company implements Comparable<Company>{
+public class Company implements Comparable<Company> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Companies should only contain alphanumeric characters and spaces, and it should not be blank";

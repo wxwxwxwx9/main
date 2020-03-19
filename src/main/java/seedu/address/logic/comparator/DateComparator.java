@@ -1,9 +1,12 @@
 package seedu.address.logic.comparator;
 
-import seedu.address.model.internship.InternshipApplication;
-
 import java.util.Comparator;
 
+import seedu.address.model.internship.InternshipApplication;
+
+/**
+ * Comparator for sorting InternshipApplication by date.
+ */
 public class DateComparator implements Comparator<InternshipApplication> {
 
     @Override

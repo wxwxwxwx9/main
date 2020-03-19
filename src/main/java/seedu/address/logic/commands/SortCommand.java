@@ -6,11 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.Comparator;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 
-import java.util.Comparator;
 
 /**
  * Finds and lists all internship applications in internship diary
