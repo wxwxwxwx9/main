@@ -30,4 +30,20 @@ public class Interview {
         return interviewAddress;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Interview)) {
+            return false;
+        }
+
+        Interview interview = (Interview) other;
+        return interview.getInterviewDate().equals(getInterviewDate())
+                && interview.getInterviewAddress().equals(getInterviewAddress())
+                && interview.isOnline == isOnline;
+    }
+
 }
