@@ -11,6 +11,8 @@ import seedu.address.model.internship.ApplicationDate;
  * Interviews are always tagged to an internship application.
  */
 public class Interview {
+    public static final String ADDRESS_NOT_APPLICABLE = "NA";
+
     public final boolean isOnline;
 
     private final ApplicationDate interviewDate;
@@ -20,6 +22,12 @@ public class Interview {
         this.isOnline = isOnline;
         this.interviewDate = interviewDate;
         this.interviewAddress = interviewAddress;
+    }
+
+    public Interview(boolean isOnline, ApplicationDate interviewDate) {
+        this.isOnline = isOnline;
+        this.interviewDate = interviewDate;
+        this.interviewAddress = new Address(ADDRESS_NOT_APPLICABLE);
     }
 
     public LocalDate getInterviewDate() {
