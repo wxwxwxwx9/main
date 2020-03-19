@@ -12,20 +12,23 @@ import seedu.address.model.internship.interview.Interview;
 public class InterviewBuilder {
 
     public static final boolean IS_NOT_ONLINE = false;
-    public static final boolean IS_ONLINE = true;
     public static final String DEFAULT_ADDRESS_1 = "66 Big Avenue, Unit 10-350";
-    public static final String DEFAULT_ADDRESS_2 = "Orchard Towers 12-555";
     public static final String DEFAULT_DATE_1 = "12 03 2020";
-    public static final String DEFAULT_DATE_2 = "12 03 2019";
 
     private boolean isOnline;
     private Address interviewAddress;
     private ApplicationDate interviewDate;
 
     public InterviewBuilder() {
-        this.isOnline = IS_ONLINE;
+        this.isOnline = IS_NOT_ONLINE;
         this.interviewAddress = new Address(DEFAULT_ADDRESS_1);
         this.interviewDate = new ApplicationDate(DEFAULT_DATE_1);
+    }
+
+    public InterviewBuilder(Interview toCopy) {
+        this.isOnline = toCopy.isOnline;
+        this.interviewDate = new ApplicationDate(toCopy.getInterviewDate());
+        this.interviewAddress = toCopy.getInterviewAddress();
     }
 
     /**
@@ -62,10 +65,6 @@ public class InterviewBuilder {
 
     public Interview build() {
         return new Interview(isOnline, interviewDate, interviewAddress);
-    }
-
-    public Interview buildAlternative() {
-        return new Interview(IS_NOT_ONLINE, new ApplicationDate(DEFAULT_DATE_2), new Address(DEFAULT_ADDRESS_2));
     }
 
 }
