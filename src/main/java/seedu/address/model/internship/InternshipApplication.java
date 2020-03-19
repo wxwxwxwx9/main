@@ -89,7 +89,8 @@ public class InternshipApplication {
         for (Interview currentInterview: interviews) {
             LocalDate earliestDate = earliestInterview.getInterviewDate();
             LocalDate currentDate = currentInterview.getInterviewDate();
-            if (currentDate.compareTo(earliestDate) < 0 && currentDate.compareTo(todayDate) >= 0) {
+            if ((currentDate.compareTo(earliestDate) <= 0 || earliestDate.compareTo(todayDate) < 0)
+                    && currentDate.compareTo(todayDate) >= 0) {
                 earliestInterview = currentInterview;
             }
         }
@@ -99,6 +100,10 @@ public class InternshipApplication {
 
     public void addInterview(Interview interview) {
         interviews.add(interview);
+    }
+
+    public ArrayList<Interview> getInterviews() {
+        return interviews;
     }
 
     /**
