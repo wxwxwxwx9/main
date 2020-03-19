@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
@@ -113,7 +114,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code Date}.
+     * Parses a {@code String date} into an {@code LocalDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code date} is invalid.
@@ -126,6 +127,22 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             throw new ParseException("Date should be in the form: DD MM YYYY");
         }
+    }
+
+    /**
+     * Parses a {@code String applicationDate} into an {@code ApplicationDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static ApplicationDate parseApplicationDate(String applicationDate) throws ParseException {
+        requireNonNull(applicationDate);
+        String trimmedDate = applicationDate.trim();
+        if (!ApplicationDate.isValidApplicationDate(trimmedDate)) {
+            throw new ParseException(ApplicationDate.MESSAGE_CONSTRAINTS);
+        }
+
+        return new ApplicationDate(trimmedDate);
     }
 
     /**
@@ -157,6 +174,6 @@ public class ParserUtil {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
         // replaces all whitespace with _
-        return Status.valueOf(trimmedStatus);
+        return Status.valueOf(trimmedStatus.toUpperCase());
     }
 }

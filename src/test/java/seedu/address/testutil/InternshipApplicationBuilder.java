@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -25,14 +26,14 @@ public class InternshipApplicationBuilder {
     public static final String DEFAULT_EMAIL = "richardma@gmail.com";
     public static final String DEFAULT_APPLICATION_DATE = "12 03 2020";
     public static final Integer DEFAULT_PRIORITY = 10;
-    public static final Status DEFAULT_STATUS = Status.APPLICATION_DONE;
+    public static final Status DEFAULT_STATUS = Status.APPLIED;
 
     private Company company;
     private Role role;
     private Address address;
     private Phone phone;
     private Email email;
-    private LocalDate applicationDate;
+    private ApplicationDate applicationDate;
     private Priority priority;
     private Status status;
 
@@ -43,7 +44,8 @@ public class InternshipApplicationBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         try {
-            applicationDate = LocalDate.parse(DEFAULT_APPLICATION_DATE, DateTimeFormatter.ofPattern("dd MM yyyy"));
+            applicationDate = new ApplicationDate(LocalDate.parse(DEFAULT_APPLICATION_DATE,
+                    DateTimeFormatter.ofPattern("dd MM yyyy")));
         } catch (DateTimeParseException e) {
             e.printStackTrace();
         }
@@ -123,7 +125,7 @@ public class InternshipApplicationBuilder {
     /**
      * Sets the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
      */
-    public InternshipApplicationBuilder withApplicationDate(LocalDate applicationDate) {
+    public InternshipApplicationBuilder withApplicationDate(ApplicationDate applicationDate) {
         this.applicationDate = applicationDate;
         return this;
     }
@@ -133,7 +135,8 @@ public class InternshipApplicationBuilder {
      */
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
         try {
-            this.applicationDate = LocalDate.parse(applicationDate, DateTimeFormatter.ofPattern("dd MM yyyy"));
+            this.applicationDate = new ApplicationDate(LocalDate.parse(applicationDate, DateTimeFormatter.ofPattern(
+                    "dd MM yyyy")));
             return this;
         } catch (DateTimeParseException e) {
             System.err.println("error in parsing date");

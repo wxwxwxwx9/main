@@ -1,14 +1,11 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -23,8 +20,6 @@ import seedu.address.model.status.Status;
 class JsonAdaptedInternship {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Internship's %s field is missing!";
-    public static final String DATE_TIME_PATTERN = "dd/MM/yyyy";
-    private static final String ERROR_MESSAGE_PLACEHOLDER = "Error message.";
 
     private final String company;
     private final String role;
@@ -62,7 +57,7 @@ class JsonAdaptedInternship {
         address = source.getAddress().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        applicationDate = source.getApplicationDate().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
+        applicationDate = source.getApplicationDate().toString();
         priority = Integer.toString(source.getPriority().fullPriority);
         status = source.getStatus().name();
     }
@@ -113,41 +108,29 @@ class JsonAdaptedInternship {
         }
         final Address modelAddress = new Address(address);
 
-        LocalDate modelDate = null;
+        ApplicationDate modelDate;
         if (applicationDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LocalDate.class.getSimpleName()));
+                    ApplicationDate.class.getSimpleName()));
         }
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
-        try {
-            modelDate = LocalDate.parse(applicationDate, dateFormat);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException(ERROR_MESSAGE_PLACEHOLDER);
+        if (!ApplicationDate.isValidApplicationDate(applicationDate)) {
+            throw new IllegalValueException(ApplicationDate.MESSAGE_CONSTRAINTS);
         }
-        if (modelDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LocalDate.class.getSimpleName()));
-        }
+        modelDate = new ApplicationDate(applicationDate);
 
         if (priority == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
         }
-        if (!priority.matches("-?(0|[1-9]\\d*)")) { // Check if integer.
+        if (!Priority.isValidPriority(priority)) {
             throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
         }
-        final int intPriority = Integer.parseInt(priority);
-        if (!Priority.isValidPriority(intPriority)) {
-            throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
-        }
-        final Priority modelPriority = new Priority(intPriority);
+        final Priority modelPriority = new Priority(priority);
 
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
-        try {
-            Status.valueOf(status);
-        } catch (IllegalArgumentException e) {
+        if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
         final Status modelStatus = Status.valueOf(status);

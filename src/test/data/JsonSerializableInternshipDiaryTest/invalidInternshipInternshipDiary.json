@@ -5,8 +5,8 @@
     "address": "4th street",
     "phone": "9482424",
     "email": "invalid@ex@mple!com",
-    "applicationDate": "11/11/2020",
+    "applicationDate": "11 11 2020",
     "priority": "1",
-    "status": "ACTIVE"
+    "status": "APPLIED"
   } ]
 }
