@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InterviewBuilder;
+import seedu.address.testutil.TypicalInterviews;
 
 public class InternshipApplicationTest {
 
@@ -105,7 +106,7 @@ public class InternshipApplicationTest {
         LocalDate date = LocalDate.MAX;
         InternshipApplication internshipApplication = new InternshipApplicationBuilder()
                 .withInterview(new InterviewBuilder().build())
-                .withInterview(new InterviewBuilder().buildAlternative())
+                .withInterview(new InterviewBuilder(TypicalInterviews.CENTRAL_LIBRARY).build())
                 .buildWithInterviews();
 
         assertTrue(internshipApplication.getEarliestInterview(date).isEmpty());
@@ -116,7 +117,7 @@ public class InternshipApplicationTest {
         LocalDate maxDate = LocalDate.MAX;
         InternshipApplication internshipApplication = new InternshipApplicationBuilder()
                 .withInterview(new InterviewBuilder().build())
-                .withInterview(new InterviewBuilder().buildAlternative())
+                .withInterview(new InterviewBuilder(TypicalInterviews.CENTRAL_LIBRARY).build())
                 .withInterview(new InterviewBuilder().withDate(maxDate).build())
                 .buildWithInterviews();
 
@@ -128,7 +129,7 @@ public class InternshipApplicationTest {
         LocalDate minDate = LocalDate.MIN;
         InternshipApplication internshipApplication = new InternshipApplicationBuilder()
                 .withInterview(new InterviewBuilder().build())
-                .withInterview(new InterviewBuilder().buildAlternative())
+                .withInterview(new InterviewBuilder(TypicalInterviews.CENTRAL_LIBRARY).build())
                 .withInterview(new InterviewBuilder().withDate(minDate).build())
                 .buildWithInterviews();
 
