@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Internship Diary - User Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="stylesheets/asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Internship Diary - User Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>CS2103T-F10-2</code>      Since: <code>Feb 2020</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_quick_start">2. Quick Start</a></li>
+<li><a href="#Features">3. Features</a>
+<ul class="sectlevel2">
+<li><a href="#_viewing_help_help">3.1. Viewing help : <code>help</code></a></li>
+<li><a href="#_adding_an_internship_company_add">3.2. Adding an internship company: <code>add</code></a></li>
+<li><a href="#_listing_all_internship_companies_list">3.3. Listing all internship companies : <code>list</code></a></li>
+<li><a href="#_editing_an_internship_company_edit">3.4. Editing an internship company : <code>edit</code></a></li>
+<li><a href="#_locating_an_internship_company_by_name_find">3.5. Locating an internship company by name: <code>find</code></a></li>
+<li><a href="#_searching_internship_companies_by_tag_search">3.6. Searching internship companies by Tag : <code>search</code></a></li>
+<li><a href="#_listing_contacts_of_all_internship_companies_contacts">3.7. Listing contacts of all internship companies : <code>contacts</code></a></li>
+<li><a href="#_deleting_an_internship_company_delete">3.8. Deleting an internship company : <code>delete</code></a></li>
+<li><a href="#_clearing_all_entries_clear">3.9. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#_getting_deadline_reminders_reminder">3.10. Getting deadline reminders : <code>reminder</code></a></li>
+<li><a href="#_rating_internship_companies_rate">3.11. Rating internship companies : <code>rate</code></a></li>
+<li><a href="#_exiting_the_program_exit">3.12. Exiting the program : <code>exit</code></a></li>
+<li><a href="#_saving_the_data">3.13. Saving the data</a></li>
+<li><a href="#_encrypting_data_files_coming_in_v2_0">3.14. Encrypting data files <code>[coming in v2.0]</code></a></li>
+</ul>
+</li>
+<li><a href="#_faq">4. FAQ</a></li>
+<li><a href="#_command_summary">5. Command Summary</a></li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Internship Diary is an application to assist students in managing their internship applications. The Internship Diary
+will be able to help you in tracking, tagging and reviewing all your internship applications. Additionally, Internship
+Diary is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits
+of a Graphical User Interface (GUI).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start">2. Quick Start</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java <code>11</code> or above installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest <code>internshipdiary.jar</code> <a href="https://github.com/AY1920S2-CS2103T-F10-2/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features">3. Features</h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Command Format</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/COMPANY_NAME</code>, <code>COMPANY_NAME</code> is a
+parameter which can be used as <code>add n/Google</code>.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g <code>n/COMPANY_NAME [t/TAG]</code> can be used as <code>n/Google t/good</code> or as <code>n/Google</code>.</p>
+</li>
+<li>
+<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code>
+(i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+</li>
+<li>
+<p>Parameters can be in any order e.g. if the command specifies <code>s/NEW p/POSITION</code>, <code>p/COMPANY_NAME</code> is also
+acceptable.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_viewing_help_help">3.1. Viewing help : <code>help</code></h3>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_an_internship_company_add">3.2. Adding an internship company: <code>add</code></h3>
+<div class="paragraph">
+<p>Adds a company to the internship diary<br>
+Format: <code>add n/COMPANY_NAME s/STATUS p/POSITION [t/TAG]…​</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+A company can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add n/Google s/new p/Software Engineer</code></p>
+</li>
+<li>
+<p><code>add n/Microsoft s/new p/Software Engineer</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_listing_all_internship_companies_list">3.3. Listing all internship companies : <code>list</code></h3>
+<div class="paragraph">
+<p>Shows a list of all internship companies that you have applied to. Sorted by alphabetical order.<br>
+Format: <code>list</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_editing_an_internship_company_edit">3.4. Editing an internship company : <code>edit</code></h3>
+<div class="paragraph">
+<p>Edits an internship company in the internship diary.<br>
+Format: <code>edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]…​</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the internship company at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all internship companies' tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit 1 s/new p/Product Management</code><br>
+Edits the status and position of the internship company to be <code>new</code> and <code>Product Management</code> respectively.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_locating_an_internship_company_by_name_find">3.5. Locating an internship company by name: <code>find</code></h3>
+<div class="paragraph">
+<p>Find companies whose names contain any of the given keywords.<br>
+Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>google</code> will match <code>Google</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>AI Singapore</code> will match <code>Singapore AI</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Singapore</code> will not match <code>Singapores</code></p>
+</li>
+<li>
+<p>Companies matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>AI</code> will return <code>AI Singapore</code>, <code>AI Malaysia</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find Google</code><br>
+Returns <code>Google</code> and <code>Google Deepmind</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_searching_internship_companies_by_tag_search">3.6. Searching internship companies by Tag : <code>search</code></h3>
+<div class="paragraph">
+<p>Search for internship companies based on their tag.<br>
+Format: <code>search t/TAG</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Search for the companies​ that has a tag corresponding to TAG</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>search NEW</code><br>
+Returns companies that are tagged as New.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_listing_contacts_of_all_internship_companies_contacts">3.7. Listing contacts of all internship companies : <code>contacts</code></h3>
+<div class="paragraph">
+<p>List all the contacts from all internship companies.<br>
+Format: <code>contacts</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deleting_an_internship_company_delete">3.8. Deleting an internship company : <code>delete</code></h3>
+<div class="paragraph">
+<p>Deletes the specified internship company from the diary.<br>
+Format: <code>delete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the company at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed company list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>delete 2</code><br>
+Deletes the 2nd internship company in the list.</p>
+</li>
+<li>
+<p><code>find Google</code><br>
+<code>delete 1</code><br>
+Deletes the 1st internship company in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clearing_all_entries_clear">3.9. Clearing all entries : <code>clear</code></h3>
+<div class="paragraph">
+<p>Clears all entries from the Internship Diary.<br>
+Format: <code>clear</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_deadline_reminders_reminder">3.10. Getting deadline reminders : <code>reminder</code></h3>
+<div class="paragraph">
+<p>Lists all deadlines/appointments from the Internship Diary in the next 7 days.<br>
+Format: <code>reminder</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rating_internship_companies_rate">3.11. Rating internship companies : <code>rate</code></h3>
+<div class="paragraph">
+<p>Rates the specified internship company from the diary.<br>
+Format: <code>rate INDEX RATING</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Rates the company at the specified INDEX with score RATING.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed company list.</p>
+</li>
+<li>
+<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;​</p>
+</li>
+<li>
+<p>The rating must be a positive integer between 1 to 10 inclusive.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>rate 2 10</code><br>
+Rates the 2nd internship company in the list with a score of 10.</p>
+</li>
+<li>
+<p><code>find Google</code><br>
+<code>rate 1 7</code><br>
+Rates the 1st internship company in the results of the find command with a score of 7.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exiting_the_program_exit">3.12. Exiting the program : <code>exit</code></h3>
+<div class="paragraph">
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_saving_the_data">3.13. Saving the data</h3>
+<div class="paragraph">
+<p>Internship Diary is saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_encrypting_data_files_coming_in_v2_0">3.14. Encrypting data files <code>[coming in v2.0]</code></h3>
+<div class="paragraph">
+<p><em>{explain how the user can enable/disable data encryption}</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">4. FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Internship Diary folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_command_summary">5. Command Summary</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
+</li>
+<li>
+<p><strong>Add</strong> <code>add n/COMPANY_NAME s/STATUS p/POSITION [t/TAG]&#8230;&#8203;​</code><br>
+e.g. <code>add n/Google s/new p/Software Engineer</code></p>
+</li>
+<li>
+<p><strong>List</strong> : <code>list</code></p>
+</li>
+<li>
+<p><strong>Edit</strong> : <code>edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>edit 2 n/Google s/Shortlisted p/Product Management</code></p>
+</li>
+<li>
+<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
+e.g. <code>find James Jake</code></p>
+</li>
+<li>
+<p><strong>Search</strong> : <code>search t/TAG</code><br>
+e.g. <code>search t/Product Management</code></p>
+</li>
+<li>
+<p><strong>Contacts</strong> : <code>contacts</code></p>
+</li>
+<li>
+<p><strong>Delete</strong> : <code>delete INDEX</code><br>
+e.g. <code>delete 3</code></p>
+</li>
+<li>
+<p><strong>Clear</strong> : <code>clear</code></p>
+</li>
+<li>
+<p><strong>Reminder</strong> : <code>reminder</code></p>
+</li>
+<li>
+<p><strong>Rate</strong> : <code>rate INDEX RATING</code><br>
+e.g. <code>rate 2 5</code></p>
+</li>
+<li>
+<p><strong>Exit</strong> : <code>exit</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-02-28 15:40:27 +0800
+</div>
+</div>
+</body>
+</html>

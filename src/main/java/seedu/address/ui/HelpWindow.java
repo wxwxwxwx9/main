@@ -1,5 +1,11 @@
 package seedu.address.ui;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -8,7 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import org.asciidoctor.log.LogHandler;
+import org.asciidoctor.log.LogRecord;
 import seedu.address.commons.core.LogsCenter;
+
+import static org.asciidoctor.Asciidoctor.Factory.create;
+import org.asciidoctor.Asciidoctor;
 
 /**
  * Controller for a help page
@@ -16,8 +27,9 @@ import seedu.address.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-f10-2.github.io/main/UserGuide.html";
-
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    private static final File userGuide = new File("./docs/UserGuide.adoc");
+    private static final Asciidoctor asciidoctor = create();
+    public static final String HELP_MESSAGE = asciidoctor.convertFile(userGuide, new HashMap<String, Object>());
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -35,7 +47,31 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+
+        String userGuide = usingBufferedReader("./docs/UserGuide.adoc");
+        String html = asciidoctor.convert(userGuide, new HashMap<String, Object>());
+        System.out.println(html);
+
+        helpMessage.setText(html);
+    }
+
+    private static String usingBufferedReader(String filePath)
+    {
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath)))
+        {
+
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null)
+            {
+                contentBuilder.append(sCurrentLine).append("\n");
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return contentBuilder.toString();
     }
 
     /**
