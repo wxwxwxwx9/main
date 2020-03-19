@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
@@ -12,6 +13,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -36,6 +38,7 @@ public class InternshipApplicationBuilder {
     private ApplicationDate applicationDate;
     private Priority priority;
     private Status status;
+    private ArrayList<Interview> interviews;
 
     public InternshipApplicationBuilder() {
         company = new Company(DEFAULT_COMPANY);
@@ -51,6 +54,8 @@ public class InternshipApplicationBuilder {
         }
         priority = new Priority(DEFAULT_PRIORITY);
         status = DEFAULT_STATUS;
+        //default interviews is nil
+        interviews = new ArrayList<>();
     }
 
     /**
@@ -65,6 +70,7 @@ public class InternshipApplicationBuilder {
         applicationDate = toCopy.getApplicationDate();
         priority = toCopy.getPriority();
         status = toCopy.getStatus();
+        interviews = toCopy.getInterviews();
     }
 
     /**
@@ -159,8 +165,28 @@ public class InternshipApplicationBuilder {
         return withStatus(Status.valueOf(status));
     }
 
+    /**
+     * Adds an Interview object into the array list of interviews.
+     */
+    public InternshipApplicationBuilder withInterview(Interview interview) {
+        this.interviews.add(interview);
+        return this;
+    }
+
     public InternshipApplication build() {
         return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
+    }
+
+    /**
+     * Builds the Internship Application object with interviews.
+     */
+    public InternshipApplication buildWithInterviews() {
+        InternshipApplication internshipApplication =
+                new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
+        for (Interview interview: interviews) {
+            internshipApplication.addInterview(interview);
+        }
+        return internshipApplication;
     }
 
 }
