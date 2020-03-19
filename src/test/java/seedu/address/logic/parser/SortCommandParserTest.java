@@ -21,6 +21,13 @@ public class SortCommandParserTest {
     }
 
     @Test
+    public void parse_invalidArg_throwsParseException() {
+        // includes stuff other than a single Prefix
+        assertParseFailure(parser, PREFIX_COMPANY.toString() + " random",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_returnsSortCommand() {
         // no leading and trailing whitespaces
         SortCommand expectedSortCommand =
