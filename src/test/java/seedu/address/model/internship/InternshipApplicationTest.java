@@ -11,9 +11,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.InternshipApplicationBuilder;
+import seedu.address.testutil.InterviewBuilder;
 
 public class InternshipApplicationTest {
 
@@ -88,6 +91,48 @@ public class InternshipApplicationTest {
         editedGoogle = new InternshipApplicationBuilder(GOOGLE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(GOOGLE.equals(editedGoogle));
 
+    }
+
+    @Test
+    public void getEarliestInterview_noInterviewsInApplication_returnsEmptyOptional() {
+        LocalDate date = LocalDate.MIN;
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
+        assertTrue(internshipApplication.getEarliestInterview(date).isEmpty());
+    }
+
+    @Test
+    public void getEarliestInterview_allInterviewsExpired_returnsEmptyOptional() {
+        LocalDate date = LocalDate.MAX;
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder()
+                .withInterview(new InterviewBuilder().build())
+                .withInterview(new InterviewBuilder().buildAlternative())
+                .buildWithInterviews();
+
+        assertTrue(internshipApplication.getEarliestInterview(date).isEmpty());
+    }
+
+    @Test
+    public void getEarliestInterview_someInterviewsExpired_returnsSmallestNonExpiredDate() {
+        LocalDate maxDate = LocalDate.MAX;
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder()
+                .withInterview(new InterviewBuilder().build())
+                .withInterview(new InterviewBuilder().buildAlternative())
+                .withInterview(new InterviewBuilder().withDate(maxDate).build())
+                .buildWithInterviews();
+
+        assertTrue(internshipApplication.getEarliestInterview(maxDate).get().getInterviewDate().equals(maxDate));
+    }
+
+    @Test
+    public void getEarliestInterview_allInterviewsValid_returnsSmallestDate() {
+        LocalDate minDate = LocalDate.MIN;
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder()
+                .withInterview(new InterviewBuilder().build())
+                .withInterview(new InterviewBuilder().buildAlternative())
+                .withInterview(new InterviewBuilder().withDate(minDate).build())
+                .buildWithInterviews();
+
+        assertTrue(internshipApplication.getEarliestInterview(minDate).get().getInterviewDate().equals(minDate));
     }
 
 }
