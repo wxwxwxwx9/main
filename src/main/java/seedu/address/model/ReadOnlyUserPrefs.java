@@ -12,7 +12,4 @@ public interface ReadOnlyUserPrefs {
     GuiSettings getGuiSettings();
 
     Path getInternshipDiaryFilePath();
-
-    //============== Old Code ================================================================================
-    Path getAddressBookFilePath();
 }

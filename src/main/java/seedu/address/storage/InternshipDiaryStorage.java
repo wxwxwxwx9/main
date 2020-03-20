@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyInternshipDiary;
 
 /**
- * Represents a storage for {@link seedu.address.model.AddressBook}.
+ * Represents a storage for {@link seedu.address.model.InternshipDiary}.
  */
 public interface InternshipDiaryStorage {
 

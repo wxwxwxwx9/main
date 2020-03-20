@@ -9,7 +9,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.model.internship.AddressContainsKeywordsPredicate;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
+import seedu.address.model.internship.EmailContainsKeywordsPredicate;
+import seedu.address.model.internship.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.RoleContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -24,11 +28,18 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new CompanyContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+                new FindCommand(new CompanyContainsKeywordsPredicate(Arrays.asList("Google", "Facebook")),
+                        new RoleContainsKeywordsPredicate(Arrays.asList("Software", "Engineer")),
+                        new AddressContainsKeywordsPredicate(Arrays.asList("Main", "Street")),
+                        new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
+                        new EmailContainsKeywordsPredicate(Arrays.asList("Alice")));
+        assertParseSuccess(parser, " c/Google Facebook r/Software Engineer a/Main Street p/12345 e/Alice",
+                expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " c/Google Facebook \n \t\n r/Software Engineer     "
+                        + "a/Main Street     \t      \n    p/12345  \t  e/Alice",
+                expectedFindCommand);
     }
 
 }

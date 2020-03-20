@@ -11,13 +11,11 @@ import java.time.format.DateTimeParseException;
  * Represents a InternshipApplication's application date in the internship diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidApplicationDate(String)}
  */
-public class ApplicationDate {
+public class ApplicationDate implements Comparable<ApplicationDate> {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should be in the form: DD MM YYYY";
 
     public static final String DATE_PATTERN = "dd MM yyyy";
-
-    public static final String DATE_STRING_PATTERN = "dd/MM/yyyy";
 
     public final LocalDate fullApplicationDate;
 
@@ -57,16 +55,19 @@ public class ApplicationDate {
 
     @Override
     public String toString() {
-        return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_STRING_PATTERN));
+        return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 
     @Override
     public boolean equals(Object other) {
-        System.err.println(fullApplicationDate);
-        System.err.println(((ApplicationDate) other).fullApplicationDate);
         return other == this // short circuit if same object
                 || (other instanceof ApplicationDate // instanceof handles nulls
                 && fullApplicationDate.equals(((ApplicationDate) other).fullApplicationDate)); // state check
+    }
+
+    @Override
+    public int compareTo(ApplicationDate other) {
+        return fullApplicationDate.compareTo(other.fullApplicationDate);
     }
 
     @Override

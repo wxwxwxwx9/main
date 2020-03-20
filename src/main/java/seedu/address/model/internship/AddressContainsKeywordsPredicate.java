@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code InternshipApplication}'s {@code Company} matches any of the keywords given.
+ * Tests that a {@code InternshipApplication}'s {@code Address} matches any of the keywords given.
  */
-public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApplication> {
+public class AddressContainsKeywordsPredicate implements Predicate<InternshipApplication> {
     private final List<String> keywords;
 
-    public CompanyContainsKeywordsPredicate(List<String> keywords) {
+    public AddressContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -22,14 +22,14 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(internshipApplication.getCompany().fullCompany,
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(internshipApplication.getAddress().value,
                         keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CompanyContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((CompanyContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof AddressContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((AddressContainsKeywordsPredicate) other).keywords)); // state check
     }
 }

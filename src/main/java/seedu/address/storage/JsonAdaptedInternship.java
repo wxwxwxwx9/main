@@ -1,9 +1,5 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,8 +20,6 @@ import seedu.address.model.status.Status;
 class JsonAdaptedInternship {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Internship's %s field is missing!";
-    public static final String DATE_TIME_PATTERN = "dd/MM/yyyy";
-    private static final String ERROR_MESSAGE_PLACEHOLDER = "Error message.";
 
     private final String company;
     private final String role;
@@ -114,41 +108,29 @@ class JsonAdaptedInternship {
         }
         final Address modelAddress = new Address(address);
 
-        ApplicationDate modelDate = null;
+        ApplicationDate modelDate;
         if (applicationDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ApplicationDate.class.getSimpleName()));
         }
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
-        try {
-            modelDate = new ApplicationDate(LocalDate.parse(applicationDate, dateFormat));
-        } catch (DateTimeParseException e) {
+        if (!ApplicationDate.isValidApplicationDate(applicationDate)) {
             throw new IllegalValueException(ApplicationDate.MESSAGE_CONSTRAINTS);
         }
-        if (modelDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ApplicationDate.class.getSimpleName()));
-        }
+        modelDate = new ApplicationDate(applicationDate);
 
         if (priority == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
         }
-        if (!priority.matches("-?(0|[1-9]\\d*)")) { // Check if integer.
+        if (!Priority.isValidPriority(priority)) {
             throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
         }
-        final int intPriority = Integer.parseInt(priority);
-        if (!Priority.isValidPriority(intPriority)) {
-            throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
-        }
-        final Priority modelPriority = new Priority(intPriority);
+        final Priority modelPriority = new Priority(priority);
 
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
-        try {
-            Status.valueOf(status);
-        } catch (IllegalArgumentException e) {
+        if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
         final Status modelStatus = Status.valueOf(status);
