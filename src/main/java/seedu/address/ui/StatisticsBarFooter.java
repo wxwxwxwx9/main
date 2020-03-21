@@ -35,6 +35,11 @@ public class StatisticsBarFooter extends UiPart<Region> {
         updateStatisticsOnChange(statistics, internshipApplicationList);
     }
 
+    /**
+     * Adds an event listener to update the statistics upon any changes in the given list of internship application.
+     * @param statistics
+     * @param internshipApplicationList
+     */
     public void updateStatisticsOnChange(Statistics statistics,
                                          ObservableList<InternshipApplication> internshipApplicationList) {
         internshipApplicationList.addListener((ListChangeListener<InternshipApplication>) c -> {
@@ -46,6 +51,11 @@ public class StatisticsBarFooter extends UiPart<Region> {
         });
     }
 
+    /**
+     * Computes and binds the statistics to the user interface.
+     * @param statistics
+     * @param internshipApplicationList
+     */
     public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         int wishlistCount = statistics.getWishlistCount();

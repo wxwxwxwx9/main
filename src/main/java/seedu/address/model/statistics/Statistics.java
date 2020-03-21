@@ -4,9 +4,13 @@ import javafx.collections.ObservableList;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 
+/**
+ * Represents a statistics generator model.
+ * Generates relevant statistics for internship applications.
+ */
 public class Statistics {
-    public final static double TOTAL_PERCENTAGE = 100;
-    public final static String TOTAL = "TOTAL";
+    public static final String TOTAL = "TOTAL";
+    public static final double TOTAL_PERCENTAGE = 100;
 
     private int wishlistCount = 0;
     private int appliedCount = 0;
@@ -21,6 +25,10 @@ public class Statistics {
     private double offeredPercentage = 0;
     private double rejectedPercentage = 0;
 
+    /**
+     * Computes and updates the statistics based on the list of internship applications given.
+     * @param internshipApplicationList
+     */
     public void computeAndUpdateStatistics(ObservableList<InternshipApplication> internshipApplicationList) {
         resetStatistics();
         for (int i = 0; i < internshipApplicationList.size(); i++) {
@@ -53,6 +61,9 @@ public class Statistics {
         rejectedPercentage = ((double) rejectedCount / totalCount) * 100;
     }
 
+    /**
+     * Resets the current statistics.
+     */
     public void resetStatistics() {
         this.wishlistCount = 0;
         this.appliedCount = 0;
