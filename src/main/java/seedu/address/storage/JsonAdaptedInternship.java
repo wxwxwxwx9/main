@@ -31,7 +31,7 @@ class JsonAdaptedInternship {
     private final String status;
 
     /**
-     * Constructs a {@code JsonAdaptedInternship} with the given person details.
+     * Constructs a {@code JsonAdaptedInternship} with the given internship application details.
      */
     @JsonCreator
     public JsonAdaptedInternship(@JsonProperty("company") String company, @JsonProperty("role") String role,
