@@ -64,17 +64,12 @@ public class StatisticsBarFooter extends UiPart<Region> {
         int offeredCount = statistics.getOfferedCount();
         int rejectedCount = statistics.getRejectedCount();
         int totalCount = statistics.getTotalCount();
-        double wishlistPercentage = statistics.getWishlistPercentage();
-        double appliedPercentage = statistics.getAppliedPercentage();
-        double offeredPercentage = statistics.getOfferedPercentage();
-        double interviewPercentage = statistics.getInterviewPercentage();
-        double rejectedPercentage = statistics.getRejectedPercentage();
-        wishlist.setText(String.format("%s: %d (%.2f%%)", Status.WISHLIST, wishlistCount, wishlistPercentage));
-        applied.setText(String.format("%s: %d (%.2f%%)", Status.APPLIED, appliedCount, appliedPercentage));
-        interview.setText(String.format("%s: %d (%.2f%%)", Status.INTERVIEW, interviewCount, interviewPercentage));
-        offered.setText(String.format("%s: %d (%.2f%%)", Status.OFFERED, offeredCount, offeredPercentage));
-        rejected.setText(String.format("%s: %d (%.2f%%)", Status.REJECTED, rejectedCount, rejectedPercentage));
-        total.setText(String.format("%s: %d (%.2f%%)", Statistics.TOTAL, totalCount, Statistics.TOTAL_PERCENTAGE));
+        wishlist.setText(String.format("%s: %d", Status.WISHLIST, wishlistCount));
+        applied.setText(String.format("%s: %d", Status.APPLIED, appliedCount));
+        interview.setText(String.format("%s: %d", Status.INTERVIEW, interviewCount));
+        offered.setText(String.format("%s: %d", Status.OFFERED, offeredCount));
+        rejected.setText(String.format("%s: %d", Status.REJECTED, rejectedCount));
+        total.setText(String.format("%s: %d", Statistics.TOTAL, totalCount));
     }
 
 }
