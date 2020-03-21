@@ -221,6 +221,8 @@ e.g. `edit 2 n/Google s/Shortlisted p/Product Management`
 e.g. `find James Jake`
 * *Search* : `search t/TAG` +
 e.g. `search t/Product Management`
+* *sort* : `sort FIELD` +
+e.g. `sort c/`
 * *Contacts* : `contacts`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
