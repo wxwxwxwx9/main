@@ -97,11 +97,13 @@ public class StatisticsWindow extends UiPart<Stage> {
                 new XYChart.Data(Status.OFFERED.toString(), statistics.getOfferedCount()),
                 new XYChart.Data(Status.REJECTED.toString(), statistics.getRejectedCount())
         );
+
         ObservableList<XYChart.Series<String, Integer>> series = FXCollections.observableArrayList(
                 new XYChart.Series(xyChartData)
         );
+
         internshipApplicationChart.setLegendVisible(false);
-        internshipApplicationChart.setData(series);
+        internshipApplicationChart.getData().addAll(series);
     }
 
     /**
@@ -116,12 +118,17 @@ public class StatisticsWindow extends UiPart<Stage> {
                 new PieChart.Data(Status.OFFERED.toString(), statistics.getOfferedPercentage()),
                 new PieChart.Data(Status.REJECTED.toString(), statistics.getRejectedPercentage())
         );
-        pieChartData.forEach(data ->
+        // internshipApplicationPie.setData(pieChartData);
+        internshipApplicationPie.getData().addAll(pieChartData);
+        pieChartData.forEach(data -> {
+                // tooltip not working for some reason
+                // Tooltip tip = new Tooltip(String.format("%.2f", data.getPieValue()));
+                // Tooltip.install(data.getNode(), tip);
                 data.nameProperty().bind(
-                        Bindings.concat(String.format("%s (%.2f%%)", data.getName(), data.getPieValue()))
-                )
+                    Bindings.concat(String.format("%s (%.2f%%)", data.getName(), data.getPieValue()))
+                );
+            }
         );
-        internshipApplicationPie.setData(pieChartData);
     }
 
     /**
