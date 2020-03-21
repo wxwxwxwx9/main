@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * Represents the in-memory model of the internship diary data.
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
+    private final Statistics statistics;
 
     private InternshipDiary internshipDiary = new InternshipDiary();
     private FilteredList<InternshipApplication> filteredInternshipApplications =
@@ -41,6 +43,7 @@ public class ModelManager implements Model {
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.statistics = new Statistics();
         filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getInternshipList());
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
     }
@@ -159,6 +162,13 @@ public class ModelManager implements Model {
         return internshipDiary.equals(other.internshipDiary)
                 && userPrefs.equals(other.userPrefs)
                 && filteredInternshipApplications.equals(other.filteredInternshipApplications);
+    }
+
+    //=========== Statistics ==================================================================================
+
+    @Override
+    public Statistics getStatistics() {
+        return statistics;
     }
 
 }

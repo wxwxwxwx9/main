@@ -1,23 +1,12 @@
-package seedu.address.ui;
+package seedu.address.model.statistics;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 
-/**
- * A ui for the statistics that is displayed at the footer of the application.
- */
-public class Statistics extends UiPart<Region> {
-
-    private static final String FXML = "Statistics.fxml";
-    private final ObservableList<InternshipApplication> internshipApplicationList;
-
-    private final double TOTAL_PERCENTAGE = 100;
-    private final String TOTAL = "TOTAL";
+public class Statistics {
+    public final static double TOTAL_PERCENTAGE = 100;
+    public final static String TOTAL = "TOTAL";
 
     private int wishlistCount = 0;
     private int appliedCount = 0;
@@ -32,51 +21,10 @@ public class Statistics extends UiPart<Region> {
     private double offeredPercentage = 0;
     private double rejectedPercentage = 0;
 
-    @FXML
-    private Label wishlist;
-    @FXML
-    private Label applied;
-    @FXML
-    private Label interview;
-    @FXML
-    private Label offered;
-    @FXML
-    private Label rejected;
-    @FXML
-    private Label total;
-
-    public Statistics(ObservableList<InternshipApplication> internshipApplicationList) {
-        super(FXML);
-        this.internshipApplicationList = internshipApplicationList;
-        updateStatisticsOnChange(internshipApplicationList);
-        bindUpdatedStatistics();
-
-    }
-
-    public void updateStatisticsOnChange(ObservableList<InternshipApplication> internshipApplicationList) {
-        internshipApplicationList.addListener((ListChangeListener<InternshipApplication>) c -> {
-            while (c.next()) {
-                if (c.wasAdded() || c.wasRemoved() || c.wasUpdated() || c.wasReplaced()) {
-                    bindUpdatedStatistics();
-                }
-            }
-        });
-    }
-
-    public void bindUpdatedStatistics() {
-        computeAndUpdateStatistics();
-        wishlist.setText(String.format("%s: %d (%.2f%%)", Status.WISHLIST, wishlistCount, wishlistPercentage));
-        applied.setText(String.format("%s: %d (%.2f%%)", Status.APPLIED, appliedCount, appliedPercentage));
-        interview.setText(String.format("%s: %d (%.2f%%)", Status.INTERVIEW, interviewCount, interviewPercentage));
-        offered.setText(String.format("%s: %d (%.2f%%)", Status.OFFERED, offeredCount, offeredPercentage));
-        rejected.setText(String.format("%s: %d (%.2f%%)", Status.REJECTED, rejectedCount, rejectedPercentage));
-        total.setText(String.format("%s: %d (%.2f%%)", TOTAL, totalCount, TOTAL_PERCENTAGE));
-    }
-
-    public void computeAndUpdateStatistics() {
+    public void computeAndUpdateStatistics(ObservableList<InternshipApplication> internshipApplicationList) {
         resetStatistics();
-        for (int i = 0; i < this.internshipApplicationList.size(); i++) {
-            InternshipApplication ia = this.internshipApplicationList.get(i);
+        for (int i = 0; i < internshipApplicationList.size(); i++) {
+            InternshipApplication ia = internshipApplicationList.get(i);
             Status iaStatus = ia.getStatus();
             switch (iaStatus) {
             case WISHLIST:
@@ -94,6 +42,7 @@ public class Statistics extends UiPart<Region> {
             case REJECTED:
                 rejectedCount++;
                 break;
+            default:
             }
         }
         this.totalCount = wishlistCount + appliedCount + interviewCount + offeredCount + rejectedCount;

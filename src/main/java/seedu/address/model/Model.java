@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * The API of the Model component.
@@ -98,5 +99,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator);
+
+    Statistics getStatistics();
 
 }

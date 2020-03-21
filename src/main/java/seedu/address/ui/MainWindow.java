@@ -120,8 +120,9 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        Statistics statistics = new Statistics(logic.getFilteredInternshipApplicationList());
-        statisticsPlaceholder.getChildren().add(statistics.getRoot());
+        StatisticsBarFooter statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
+                logic.getFilteredInternshipApplicationList());
+        statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
