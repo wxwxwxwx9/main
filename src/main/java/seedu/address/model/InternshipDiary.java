@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
 import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.UniqueInternshipApplicationList;
@@ -106,7 +107,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
 
     @Override
     public ObservableList<InternshipApplication> getInternshipList() {
-        return internships.asUnmodifiableObservableList().sorted(new DateComparator());
+        return internships.asUnmodifiableObservableList().sorted(new ApplicationDateThenInterviewDateComparator());
     }
 
     @Override
