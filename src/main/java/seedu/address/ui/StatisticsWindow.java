@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -11,12 +13,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for the statistics page
@@ -78,12 +79,16 @@ public class StatisticsWindow extends UiPart<Stage> {
     public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         internshipApplicationChart.getData().clear();
         statistics.computeAndUpdateStatistics(internshipApplicationList);
-//        status.setLabel("Status");
-//        count.setLabel("Count");
+        // status.setLabel("Status");
+        // count.setLabel("Count");
         loadBarChart(statistics);
         loadPieChart(statistics);
     }
 
+    /**
+     * Loads bar chart with the generated statistics.
+     * @param statistics
+     */
     public void loadBarChart(Statistics statistics) {
         ObservableList<XYChart.Data> xyChartData = FXCollections.observableArrayList(
                 new XYChart.Data(Status.WISHLIST.toString(), statistics.getWishlistCount()),
@@ -99,6 +104,10 @@ public class StatisticsWindow extends UiPart<Stage> {
         internshipApplicationChart.setData(series);
     }
 
+    /**
+     * Loads pie chart with the generated statistics.
+     * @param statistics
+     */
     public void loadPieChart(Statistics statistics) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data(Status.WISHLIST.toString(), statistics.getWishlistPercentage()),
