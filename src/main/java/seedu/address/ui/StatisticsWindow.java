@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
 
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**
@@ -25,6 +28,7 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(StatisticsWindow.class);
     private static final String FXML = "StatisticsWindow.fxml";
+    private final DecimalFormat df = new DecimalFormat("###.##");
 
     @FXML
     private BarChart<String, Integer> internshipApplicationChart;
@@ -76,19 +80,45 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param internshipApplicationList
      */
     public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
-        // issue: color changes, and there is transition upon re-rendering
-        // one solution can be to generate new Xaxis, Yaxis, and barchart each time, instead of reusing
         internshipApplicationChart.getData().clear();
         statistics.computeAndUpdateStatistics(internshipApplicationList);
 //        status.setLabel("Status");
 //        count.setLabel("Count");
-        XYChart.Series<String, Integer> series = new XYChart.Series();
-        series.getData().add(new XYChart.Data<>(Status.WISHLIST.toString(), statistics.getWishlistCount()));
-        series.getData().add(new XYChart.Data<>(Status.APPLIED.toString(), statistics.getAppliedCount()));
-        series.getData().add(new XYChart.Data<>(Status.INTERVIEW.toString(), statistics.getInterviewCount()));
-        series.getData().add(new XYChart.Data<>(Status.OFFERED.toString(), statistics.getOfferedCount()));
-        series.getData().add(new XYChart.Data<>(Status.REJECTED.toString(), statistics.getRejectedCount()));
-        internshipApplicationChart.getData().add(series);
+        loadBarChart(statistics);
+        loadPieChart(statistics);
+    }
+
+    public void loadBarChart(Statistics statistics) {
+        // issue: color changes, and there is transition upon re-rendering
+        // one solution can be to generate new Xaxis, Yaxis, and barchart each time, instead of reusing
+        ObservableList<XYChart.Data> xyChartData = FXCollections.observableArrayList(
+                new XYChart.Data(Status.WISHLIST.toString(), statistics.getWishlistCount()),
+                new XYChart.Data(Status.APPLIED.toString(), statistics.getAppliedCount()),
+                new XYChart.Data(Status.INTERVIEW.toString(), statistics.getInterviewCount()),
+                new XYChart.Data(Status.OFFERED.toString(), statistics.getOfferedCount()),
+                new XYChart.Data(Status.REJECTED.toString(), statistics.getRejectedCount())
+        );
+        ObservableList<XYChart.Series<String, Integer>> series = FXCollections.observableArrayList(
+                new XYChart.Series(xyChartData)
+        );
+        internshipApplicationChart.setLegendVisible(false);
+        internshipApplicationChart.setData(series);
+    }
+
+    public void loadPieChart(Statistics statistics) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data(Status.WISHLIST.toString(), statistics.getWishlistPercentage()),
+                new PieChart.Data(Status.APPLIED.toString(), statistics.getAppliedPercentage()),
+                new PieChart.Data(Status.INTERVIEW.toString(), statistics.getInterviewPercentage()),
+                new PieChart.Data(Status.OFFERED.toString(), statistics.getOfferedPercentage()),
+                new PieChart.Data(Status.REJECTED.toString(), statistics.getRejectedPercentage())
+        );
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(String.format("%s (%.2f%%)", data.getName(), data.getPieValue()))
+                )
+        );
+        internshipApplicationPie.setData(pieChartData);
     }
 
     /**
