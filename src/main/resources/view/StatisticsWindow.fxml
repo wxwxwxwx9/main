@@ -9,10 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
+<?import java.net.URL?>
 <fx:root resizable="false" title="Internship Diary Statistics" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
+            <stylesheets>
+                <URL value="@Statistics.css" />
+            </stylesheets>
              <VBox>
                 <children>
                     <BarChart fx:id="internshipApplicationChart">

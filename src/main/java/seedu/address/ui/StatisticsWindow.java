@@ -5,20 +5,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.Pane;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
 
-import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**
@@ -28,7 +25,6 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(StatisticsWindow.class);
     private static final String FXML = "StatisticsWindow.fxml";
-    private final DecimalFormat df = new DecimalFormat("###.##");
 
     @FXML
     private BarChart<String, Integer> internshipApplicationChart;
@@ -89,8 +85,6 @@ public class StatisticsWindow extends UiPart<Stage> {
     }
 
     public void loadBarChart(Statistics statistics) {
-        // issue: color changes, and there is transition upon re-rendering
-        // one solution can be to generate new Xaxis, Yaxis, and barchart each time, instead of reusing
         ObservableList<XYChart.Data> xyChartData = FXCollections.observableArrayList(
                 new XYChart.Data(Status.WISHLIST.toString(), statistics.getWishlistCount()),
                 new XYChart.Data(Status.APPLIED.toString(), statistics.getAppliedCount()),
