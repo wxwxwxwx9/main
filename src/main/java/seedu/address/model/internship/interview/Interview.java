@@ -31,8 +31,15 @@ public class Interview {
         this.interviewAddress = new Address(ADDRESS_NOT_APPLICABLE);
     }
 
+    /**
+     * Returns the interview date in local date format.
+     */
     public LocalDate getInterviewDate() {
         return interviewDate.fullApplicationDate;
+    }
+
+    public ApplicationDate getDate() {
+        return interviewDate;
     }
 
     public Address getInterviewAddress() {
