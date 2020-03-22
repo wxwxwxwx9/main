@@ -204,14 +204,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseInterviewPreamble_invalidValueWithInsufficientStrings_throwsParseException() {
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_1String));
+        assertThrows(ParseException.class, () -> ParserUtil
+                .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_1String));
     }
 
     @Test
     public void parseInterviewPreamble_invalidValueWithExcessStrings_throwsParseException() {
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_4Strings));
+        assertThrows(ParseException.class, () -> ParserUtil
+                .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_4Strings));
     }
 
     @Test
