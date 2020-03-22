@@ -89,6 +89,7 @@ public class CommandTestUtil {
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "010420"; // date format is DD MM YYYY
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "a"; // only numbers allowed in priority
     public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "Not"; // 'Not' is not a status
+    public static final String INVALID_BOOLEAN_DESC = " " + PREFIX_IS_ONLINE + "n"; // 'n' is not a boolean
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
