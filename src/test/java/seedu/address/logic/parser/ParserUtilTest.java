@@ -23,7 +23,8 @@ public class ParserUtilTest {
     private static final String INVALID_DATE = "010120";
     private static final String INVALID_PRIORITY = "r";
     private static final String INVALID_STATUS = "status";
-    private static final String INVALID_INTERVIEW_PREAMBLE = "0";
+    private static final String INVALID_INTERVIEW_PREAMBLE_1String = "0";
+    private static final String INVALID_INTERVIEW_PREAMBLE_4Strings = "this is four strings";
 
     private static final String VALID_COMPANY = "Google";
     private static final String VALID_ROLE = "Software Engineer";
@@ -182,9 +183,28 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseInterviewPreamble_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE));
+    public void parseInterviewPreamble_validValueWithWhiteSpace_returnsStringArray() throws Exception {
+        String preamble = WHITESPACE + VALID_INTERVIEW_PREAMBLE + WHITESPACE;
+        String[] expectedArray = new String[] {"1", "add"};
+        String[] resultArray = ParserUtil.parseInterviewPreamble(preamble);
+        assertEquals(expectedArray[0], resultArray[0]);
+        assertEquals(expectedArray[1], resultArray[1]);
     }
+
+    @Test
+    public void parseInterviewPreamble_invalidValueWithInsufficientStrings_throwsParseException() {
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_1String));
+    }
+
+    @Test
+    public void parseInterviewPreamble_invalidValueWithExcessStrings_throwsParseException() {
+        assertThrows(ParseException.class,
+                () -> ParserUtil.parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_4Strings));
+    }
+
+    @Test
+    
 
     /* below are all tests for Tags
     @Test
