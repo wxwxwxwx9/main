@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -39,7 +38,6 @@ import static seedu.address.testutil.TypicalInternshipApplications.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.internship.Address;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -85,14 +83,29 @@ public class AddCommandParserTest {
         // Add new test cases for Role, Priority, Date, Status
     }
 
-    /*This test is currently not used, as we have no optional fields
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        InternshipApplication expectedInternshipApplication = new InternshipApplicationBuilder(AMY).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
+        InternshipApplication expectedInternshipApplication;
+
+        // missing phone
+        expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withPhone("").build();
+        assertParseSuccess(parser, COMPANY_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
-    }*/
+
+        // missing email
+        expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withEmail("").build();
+        assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+                new AddCommand(expectedInternshipApplication));
+
+        // missing address
+        expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withAddress("").build();
+        assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+                new AddCommand(expectedInternshipApplication));
+    }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -102,17 +115,17 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_COMPANY_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, COMPANY_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
+        // // missing phone prefix
+        // assertParseFailure(parser, COMPANY_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
+        //
+        // // missing email prefix
+        // assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB
+        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
+        //
+        // // missing address prefix
+        // assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
         // missing role prefix
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -149,9 +162,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
 
-        // invalid address
-        assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Address.MESSAGE_CONSTRAINTS);
+        // no invalid address
+        // assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
+        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Address.MESSAGE_CONSTRAINTS);
 
         // invalid role
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -173,7 +186,7 @@ public class AddCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_COMPANY_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + INVALID_ADDRESS_DESC + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+                        + VALID_ADDRESS_BOB + INVALID_ROLE_DESC + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 Company.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
