@@ -52,6 +52,7 @@ public class FindCommand extends Command {
     private final ApplicationDateIsDatePredicate dPredicate;
     private final PriorityContainsNumbersPredicate wPredicate;
     private final StatusContainsKeywordsPredicate sPredicate;
+    private final List<Predicate<InternshipApplication>> predicates = new ArrayList<Predicate<InternshipApplication>>();
     private final boolean isPreamble;
 
     public FindCommand(CompanyContainsKeywordsPredicate cPredicate) {
@@ -80,21 +81,41 @@ public class FindCommand extends Command {
         this.wPredicate = wPredicate;
         this.sPredicate = sPredicate;
         this.isPreamble = isPreamble;
+        if (!cPredicate.isNull()) {
+            predicates.add(cPredicate);
+        }
+        if (!rPredicate.isNull()) {
+            predicates.add(rPredicate);
+        }
+        if (!aPredicate.isNull()) {
+            predicates.add(aPredicate);
+        }
+        if (!pPredicate.isNull()) {
+            predicates.add(pPredicate);
+        }
+        if (!ePredicate.isNull()) {
+            predicates.add(ePredicate);
+        }
+        if (!dPredicate.isNull()) {
+            predicates.add(dPredicate);
+        }
+        if (!wPredicate.isNull()) {
+            predicates.add(wPredicate);
+        }
+        if (!sPredicate.isNull()) {
+            predicates.add(sPredicate);
+        }
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        List<Predicate<InternshipApplication>> predicates = new ArrayList<Predicate<InternshipApplication>>();
-        predicates.add(cPredicate);
-        predicates.add(rPredicate);
-        predicates.add(aPredicate);
-        predicates.add(pPredicate);
-        predicates.add(ePredicate);
-        predicates.add(dPredicate);
-        predicates.add(wPredicate);
-        predicates.add(sPredicate);
-        Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> true, Predicate::and);
+        Predicate<InternshipApplication> predicate;
+        if (isPreamble) {
+            predicate = predicates.stream().reduce(x -> false, Predicate::or);
+        } else {
+            predicate = predicates.stream().reduce(x -> true, Predicate::and);
+        }
         model.updateFilteredInternshipApplicationList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW,
@@ -113,6 +134,7 @@ public class FindCommand extends Command {
                 && dPredicate.equals(((FindCommand) other).dPredicate)
                 && wPredicate.equals(((FindCommand) other).wPredicate)
                 && sPredicate.equals(((FindCommand) other).sPredicate)
+                && predicates.equals(((FindCommand) other).predicates)
                 && isPreamble == ((FindCommand) other).isPreamble); // state check
     }
 }

@@ -41,7 +41,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         if (!areAnyPrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
                 PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS)
-                || !argMultimap.getPreamble().isEmpty()) {
+                && argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
@@ -53,6 +53,19 @@ public class FindCommandParser implements Parser<FindCommand> {
         ApplicationDateIsDatePredicate dPredicate = new ApplicationDateIsDatePredicate(null);
         PriorityContainsNumbersPredicate wPredicate = new PriorityContainsNumbersPredicate(null);
         StatusContainsKeywordsPredicate sPredicate = new StatusContainsKeywordsPredicate(null);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            String[] preamble = argMultimap.getPreamble().split("\\s+");
+            cPredicate = new CompanyContainsKeywordsPredicate(Arrays.asList(preamble));
+            rPredicate = new RoleContainsKeywordsPredicate(Arrays.asList(preamble));
+            aPredicate = new AddressContainsKeywordsPredicate(Arrays.asList(preamble));
+            pPredicate = new PhoneContainsNumbersPredicate(Arrays.asList(preamble));
+            ePredicate = new EmailContainsKeywordsPredicate(Arrays.asList(preamble));
+            wPredicate = new PriorityContainsNumbersPredicate(Arrays.asList(preamble));
+            sPredicate = new StatusContainsKeywordsPredicate(Arrays.asList(preamble));
+            return new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate, dPredicate, wPredicate,
+                    sPredicate, true);
+        }
 
         if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
             String[] companyKeywords = argMultimap.getValue(PREFIX_COMPANY).get().split("\\s+");
