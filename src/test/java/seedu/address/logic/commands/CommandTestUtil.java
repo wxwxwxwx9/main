@@ -19,12 +19,14 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
+import seedu.address.testutil.EditInterviewDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -93,6 +95,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditInternshipDescriptor DESC_AMY;
     public static final EditCommand.EditInternshipDescriptor DESC_BOB;
+    public static final InterviewEditCommand.EditInterviewDescriptor DESC_NUS;
+    public static final InterviewEditCommand.EditInterviewDescriptor DESC_ONLINE;
 
     static {
         DESC_AMY = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
@@ -103,6 +107,10 @@ public class CommandTestUtil {
                 .withRole(VALID_ROLE_BOB).withApplicationDate(VALID_DATE_BOB).withPriority(VALID_PRIORITY_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withStatus(VALID_STATUS_BOB).build();
+        DESC_NUS = new EditInterviewDescriptorBuilder().withAddress(VALID_ADDRESS_NUS)
+                .withInterviewDate(VALID_DATE_NUS).withIsOnline(VALID_IS_ONLINE_NUS).build();
+        DESC_ONLINE = new EditInterviewDescriptorBuilder().withAddress(VALID_ADDRESS_ONLINE)
+                .withInterviewDate(VALID_DATE_ONLINE).withIsOnline(VALID_IS_ONLINE_ONLINE).build();
     }
 
     /**
