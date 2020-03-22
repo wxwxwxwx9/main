@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.interview.Interview;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * A utility class to help build EditInterviewDescriptor objects.

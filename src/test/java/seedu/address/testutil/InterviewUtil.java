@@ -1,25 +1,15 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.InterviewCommand;
-import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
-import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.interview.Interview;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 
 import java.time.format.DateTimeFormatter;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
+import seedu.address.logic.commands.InterviewCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
+import seedu.address.model.internship.interview.Interview;
 
 /**
  * A utility class for Interviews.
