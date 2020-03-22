@@ -1,9 +1,16 @@
 package seedu.address.logic.commands.interviewsubcommands;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
+import seedu.address.model.internship.interview.Interview;
+
+import java.util.Optional;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -24,5 +31,77 @@ public class InterviewEditCommand extends InterviewCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         return null;
+    }
+
+    /**
+     * Stores the details to edit the interview with. Each non-empty field value will replace the
+     * corresponding field value of the interview.
+     */
+    public static class EditInterviewDescriptor {
+        private boolean isOnline;
+        private Address address;
+        private ApplicationDate date;
+
+        public EditInterviewDescriptor() {}
+
+        /**
+         * Copy constructor.
+         */
+        public EditInterviewDescriptor(EditInterviewDescriptor toCopy) {
+            setOnline(toCopy.isOnline);
+            setAddress(toCopy.address);
+            setDate(toCopy.date);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(address, date, isOnline);
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
+        }
+
+        public void setDate(ApplicationDate date) {
+            this.date = date;
+        }
+
+        public Optional<ApplicationDate> getInterviewDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public void setOnline(boolean isOnline) {
+            this.isOnline = isOnline;
+        }
+
+        public Optional<Boolean> getIsOnline() {
+            return Optional.ofNullable(isOnline);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditInterviewDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditInterviewDescriptor e = (EditInterviewDescriptor) other;
+
+            return getAddress().equals(e.getAddress())
+                    && getInterviewDate().equals(e.getInterviewDate())
+                    && getIsOnline().equals(e.getIsOnline());
+        }
     }
 }
