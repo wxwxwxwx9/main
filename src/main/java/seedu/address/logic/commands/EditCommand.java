@@ -117,7 +117,7 @@ public class EditCommand extends Command {
         // leaving in here for now
 
         return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus);
+                updatedEmail, updatedDate, updatedPriority, updatedStatus, internshipToEdit.isArchived());
     }
 
     @Override

@@ -80,7 +80,6 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param internshipApplicationList
      */
     public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
-        internshipApplicationChart.getData().clear();
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         // status.setLabel("Status");
         // count.setLabel("Count");
@@ -93,6 +92,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statistics
      */
     public void loadBarChart(Statistics statistics) {
+        internshipApplicationChart.getData().clear();
         ObservableList<XYChart.Data> xyChartData = FXCollections.observableArrayList(
                 new XYChart.Data(Status.WISHLIST.toString(), statistics.getWishlistCount()),
                 new XYChart.Data(Status.APPLIED.toString(), statistics.getAppliedCount()),
@@ -114,6 +114,7 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statistics
      */
     public void loadPieChart(Statistics statistics) {
+        internshipApplicationPie.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data(Status.WISHLIST.toString(), statistics.getWishlistPercentage()),
                 new PieChart.Data(Status.APPLIED.toString(), statistics.getAppliedPercentage()),
