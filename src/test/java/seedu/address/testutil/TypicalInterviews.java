@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
-import seedu.address.model.internship.interview.Interview;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_NUS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ONLINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_NUS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_ONLINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_IS_ONLINE_NUS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_IS_ONLINE_ONLINE;
+
+import seedu.address.model.internship.interview.Interview;
 
 /**
  * A utility class consisting of a list of {@code Interview} objects to be used in tests.
