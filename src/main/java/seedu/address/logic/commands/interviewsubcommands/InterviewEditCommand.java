@@ -122,7 +122,7 @@ public class InterviewEditCommand extends InterviewCommand {
      * corresponding field value of the interview.
      */
     public static class EditInterviewDescriptor {
-        private boolean isOnline;
+        private Boolean isOnline;
         private Address address;
         private ApplicationDate date;
 
