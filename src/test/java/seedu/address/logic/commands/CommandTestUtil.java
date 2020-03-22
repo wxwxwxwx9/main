@@ -98,9 +98,6 @@ public class CommandTestUtil {
             Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
-            System.out.println("actual model: " + actualModel.getFilteredInternshipApplicationList());
-            System.out.println("expected model: " + expectedModel.getFilteredInternshipApplicationList());
-            System.out.println("result: " + expectedModel.equals(actualModel));
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {

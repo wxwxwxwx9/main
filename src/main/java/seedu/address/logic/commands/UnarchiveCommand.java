@@ -36,11 +36,12 @@ public class UnarchiveCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<InternshipApplication> lastShownList = model.getFilteredInternshipApplicationList();
-        InternshipApplication internshipToUnarchive = lastShownList.get(targetIndex.getZeroBased());
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
         }
+
+        InternshipApplication internshipToUnarchive = lastShownList.get(targetIndex.getZeroBased());
 
         if (!internshipToUnarchive.isArchived()) {
             throw new CommandException(MESSAGE_ALREADY_UNARCHIVED);
