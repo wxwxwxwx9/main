@@ -1,17 +1,21 @@
 package seedu.address.logic.commands.interviewsubcommands;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
+import java.util.List;
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
@@ -26,11 +30,69 @@ public class InterviewEditCommand extends InterviewCommand {
             + "Example: " + COMMAND_WORD + " 1 edit "
             + PREFIX_IS_ONLINE + "false "
             + PREFIX_ADDRESS + "123 road "
-            + PREFIX_DATE + "01 02 2020 ";;
+            + PREFIX_DATE + "01 02 2020 ";
+    public static final String MESSAGE_EDIT_INTERVIEW_SUCCESS = "Edited Interview: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_INTERVIEW =
+            "This interview already exists in the following internship application: %1$s.";
 
+    private final Index internshipIndex;
+    private final Index interviewIndex;
+    private final EditInterviewDescriptor editInterviewDescriptor;
+
+    /**
+     * @param internshipIndex index of the internship application to modify the interviews in.
+     * @param interviewIndex index of the interview under the internship application above.
+     * @param editInterviewDescriptor details to edit the interview with.
+     */
+    public InterviewEditCommand(Index internshipIndex,
+                                Index interviewIndex, EditInterviewDescriptor editInterviewDescriptor) {
+        requireNonNull(internshipIndex);
+        requireNonNull(interviewIndex);
+        requireNonNull(editInterviewDescriptor);
+
+        this.internshipIndex = internshipIndex;
+        this.interviewIndex = interviewIndex;
+        this.editInterviewDescriptor = editInterviewDescriptor;
+    }
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+        InternshipApplication internshipToEdit = super.getInternshipApplication(model, internshipIndex);
+
+        List<Interview> lastShownList = internshipToEdit.getInterviews();
+
+        if (interviewIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX);
+        }
+
+        Interview interviewToEdit = lastShownList.get(interviewIndex.getZeroBased());
+        Interview editedInterview = createEditedInterview(interviewToEdit, editInterviewDescriptor);
+
+        if (internshipToEdit.hasInterview(editedInterview)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_INTERVIEW, internshipToEdit));
+        }
+
+        lastShownList.set(interviewIndex.getZeroBased(), editedInterview);
+        // todo: update display
+        return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview));
+    }
+
+    /**
+     * Creates and returns a {@code InternshipApplication} with the details of {@code internshipToEdit}
+     * edited with {@code editInternshipDescriptor}.
+     */
+    private static Interview createEditedInterview(Interview interviewToEdit,
+                                                   EditInterviewDescriptor editInterviewDescriptor) {
+        assert interviewToEdit != null;
+
+        Address updatedAddress = editInterviewDescriptor.getAddress().orElse(interviewToEdit.getInterviewAddress());
+        ApplicationDate updatedDate = editInterviewDescriptor.getInterviewDate()
+                .orElse(interviewToEdit.getDate());
+        boolean updatedIsOnline = editInterviewDescriptor.getIsOnline().orElse(interviewToEdit.isOnline);
+
+        return new Interview(updatedIsOnline, updatedDate, updatedAddress);
+
     }
 
     /**
