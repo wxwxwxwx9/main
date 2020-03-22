@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.interviewcode.InterviewCode;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.Address;
@@ -16,6 +17,7 @@ import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -24,6 +26,8 @@ import seedu.address.model.status.Status;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_PREAMBLE =
+            "Index followed by Command Code of add, edit, or delete is expected";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -175,5 +179,28 @@ public class ParserUtil {
         }
         // replaces all whitespace with _
         return Status.valueOf(trimmedStatus.toUpperCase());
+    }
+
+    /**
+     *
+     * @param preamble
+     * @return
+     * @throws ParseException
+     */
+    public static String[] parseInterviewPreamble(String preamble) throws ParseException {
+        String[] indexAndCode = preamble.trim().split(" ");
+        if (indexAndCode.length != 2) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+        return indexAndCode;
+    }
+
+    public static InterviewCode parseInterviewCode(String code) throws ParseException {
+        requireNonNull(code);
+        String trimmedCode = code.trim();
+        if (!InterviewCode.isValidCode(trimmedCode)) {
+            throw new ParseException(InterviewCode.MESSAGE_CONSTRAINTS);
+        }
+        return InterviewCode.valueOf(trimmedCode.toUpperCase());
     }
 }
