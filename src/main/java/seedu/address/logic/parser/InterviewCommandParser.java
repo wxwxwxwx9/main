@@ -73,6 +73,10 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         }
 
         boolean isOnline = Boolean.parseBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get());
+        if (!isOnline && !argMultimap.getValue(PREFIX_IS_ONLINE).get().toUpperCase().equals("FALSE")) {
+            throw new ParseException(Interview.INVALID_IS_ONLINE);
+        }
+
         ApplicationDate date = ParserUtil.parseApplicationDate(argMultimap.getValue(PREFIX_DATE).get());
         Interview interview = new Interview(isOnline, date);
         // if not an online interview but address prefix is missing.
