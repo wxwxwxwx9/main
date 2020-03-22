@@ -1,5 +1,10 @@
 package seedu.address.logic.commands.interviewsubcommands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.InterviewCommand;
@@ -8,11 +13,9 @@ import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
-
+/**
+ * Adds an interview into an Internship Application.
+ */
 public class InterviewAddCommand extends InterviewCommand {
     public static final String MESSAGE_SUCCESS = "New Interview added: %1$s";
     public static final String MESSAGE_DUPLICATE_INTERVIEW =

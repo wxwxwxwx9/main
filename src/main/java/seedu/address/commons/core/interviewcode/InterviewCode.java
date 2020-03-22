@@ -9,8 +9,11 @@ package seedu.address.commons.core.interviewcode;
 public enum InterviewCode {
     LIST, ADD, EDIT, DELETE;
 
-    public static String MESSAGE_CONSTRAINTS = "Interview should have an add, edit or delete after index.";
+    public static final String MESSAGE_CONSTRAINTS = "Interview should have an add, edit or delete after index.";
 
+    /**
+     * Returns true is the given {@code code} is a valid {@code InterviewCode}.
+     */
     public static boolean isValidCode(String code) {
         String upperCaseCode = code.toUpperCase();
         return upperCaseCode.equals("ADD") || upperCaseCode.equals("EDIT")

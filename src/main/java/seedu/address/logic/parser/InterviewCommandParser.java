@@ -20,9 +20,10 @@ import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.interview.Interview;
 
+/**
+ * Parses input arguments and creates a new Interview Command object.
+ */
 public class InterviewCommandParser implements Parser<InterviewCommand> {
-
-
     @Override
     public InterviewCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -63,6 +64,9 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         }
     }
 
+    /**
+     * Parses the add version of interview command. Returns an InterviewAddCommand object.
+     */
     private InterviewCommand parseAdd(Index index, ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_IS_ONLINE, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewCommand.MESSAGE_USAGE));
@@ -83,6 +87,9 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         return new InterviewAddCommand(index, interview);
     }
 
+    /**
+     * Parses the delete version of interview command. Returns an InterviewDeleteCommand object.
+     */
     private InterviewCommand parseDelete(Index internshipIndex, String interviewIndex) throws ParseException {
         Index index;
         try {
@@ -94,6 +101,9 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         }
     }
 
+    /**
+     * Parses the edit version of interview command. Returns an InterviewEditCommand object.
+     */
     private InterviewCommand parseEdit(Index internshipIndex,
                                        String interviewIndex, ArgumentMultimap argMultimap) throws ParseException {
         Index index;

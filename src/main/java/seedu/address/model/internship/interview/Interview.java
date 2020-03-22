@@ -46,6 +46,17 @@ public class Interview {
         return interviewAddress;
     }
 
+    /**
+     * Checks if the interview is valid. If it is an online interview, it should not have an address.
+     * Otherwise, any valid address is fine.
+     */
+    public boolean isValid() {
+        if (isOnline) {
+            return interviewAddress.equals(new Address(ADDRESS_NOT_APPLICABLE));
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

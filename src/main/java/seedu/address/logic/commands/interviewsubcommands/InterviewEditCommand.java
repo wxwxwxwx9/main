@@ -1,5 +1,13 @@
 package seedu.address.logic.commands.interviewsubcommands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
+
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -12,14 +20,9 @@ import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
-import java.util.List;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
-
+/**
+ * Edits the details of an existing interview in an Internship Application.
+ */
 public class InterviewEditCommand extends InterviewCommand {
     public static final String MESSAGE_USAGE = "Edits an Interview from an Internship Application "
             + "by using an index of the internship application, followed by an index of interview to be edited.\n"

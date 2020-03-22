@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.interviewsubcommands;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
@@ -9,8 +11,9 @@ import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
-import java.util.ArrayList;
-
+/**
+ * Deletes an interview from an Internship Application.
+ */
 public class InterviewDeleteCommand extends InterviewCommand {
     public static final String MESSAGE_SUCCESS = "Deleted Interview: %1$s";
     public static final String MESSAGE_USAGE = "Deletes an Interview from an Internship Application "
@@ -31,7 +34,7 @@ public class InterviewDeleteCommand extends InterviewCommand {
         InternshipApplication internshipToModify = super.getInternshipApplication(model, internshipIndex);
         ArrayList<Interview> interviews = internshipToModify.getInterviews();
 
-        if (interviewIndex.getZeroBased() >= interviews.size() ) {
+        if (interviewIndex.getZeroBased() >= interviews.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX);
         }
 

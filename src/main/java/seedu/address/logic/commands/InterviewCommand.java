@@ -1,17 +1,16 @@
 package seedu.address.logic.commands;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 
-import java.util.List;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
-
+/**
+ * Represents an abstract interview command that modifies interviews in an Internship Application.
+ */
 public abstract class InterviewCommand extends Command {
 
     public static final String COMMAND_WORD = "interview";

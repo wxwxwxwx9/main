@@ -17,7 +17,6 @@ import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
-import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -182,10 +181,12 @@ public class ParserUtil {
     }
 
     /**
+     * Parses the preamble of an interview command.
+     * Leading and trailing whitespaces will be trimmed.
+     * The preamble should consist of either 2 or 3 strings separated by a single whitespace.
      *
-     * @param preamble
-     * @return
-     * @throws ParseException
+     * @throws ParseException if the given {@code preamble}
+     * has more than or less than 2/3 strings separated by a single whitespace.
      */
     public static String[] parseInterviewPreamble(String preamble) throws ParseException {
         String[] indexAndCode = preamble.trim().split(" ");
@@ -195,6 +196,12 @@ public class ParserUtil {
         return indexAndCode;
     }
 
+    /**
+     * Parses a {@code code} into an {@code InterviewCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code code} is invalid.
+     */
     public static InterviewCode parseInterviewCode(String code) throws ParseException {
         requireNonNull(code);
         String trimmedCode = code.trim();
