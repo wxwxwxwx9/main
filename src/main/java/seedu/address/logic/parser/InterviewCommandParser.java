@@ -95,9 +95,31 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
     }
 
     private InterviewCommand parseEdit(Index internshipIndex,
-                                       String interviewIndex, ArgumentMultimap argMultimap) {
+                                       String interviewIndex, ArgumentMultimap argMultimap) throws ParseException {
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(interviewIndex);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE), pe);
+        }
+        InterviewEditCommand.EditInterviewDescriptor editInterviewDescriptor =
+                new InterviewEditCommand.EditInterviewDescriptor();
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            editInterviewDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editInterviewDescriptor.setDate(ParserUtil.parseApplicationDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_IS_ONLINE).isPresent()) {
+            editInterviewDescriptor.setOnline(Boolean.parseBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get()));
+        }
 
-        return null;
+        if (!editInterviewDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(InterviewEditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new InterviewEditCommand(internshipIndex, index, editInterviewDescriptor);
     }
 
     /**
