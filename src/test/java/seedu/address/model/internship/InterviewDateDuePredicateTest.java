@@ -32,22 +32,22 @@ class InterviewDateDuePredicateTest {
         InterviewDateDuePredicate predicate = new InterviewDateDuePredicate();
 
         // interview date is same as current date
-        InternshipApplicationBuilder internshipApplication_testCurrent = new InternshipApplicationBuilder();
+        InternshipApplicationBuilder internshipApplicationTestCurrent = new InternshipApplicationBuilder();
         LocalDate currentDate = LocalDate.now();
         String newDate = currentDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterview_testCurrent = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestCurrent = new Interview(true, new ApplicationDate(newDate),
                 new Address("123 Stevens Road"));
-        internshipApplication_testCurrent.withInterview(newInterview_testCurrent);
-        assertTrue(predicate.test(internshipApplication_testCurrent.buildWithInterviews()));
+        internshipApplicationTestCurrent.withInterview(newInterviewTestCurrent);
+        assertTrue(predicate.test(internshipApplicationTestCurrent.buildWithInterviews()));
 
         // interview date is within 7 days from current date
-        InternshipApplicationBuilder internshipApplication_testWithin = new InternshipApplicationBuilder();
+        InternshipApplicationBuilder internshipApplicationTestWithin = new InternshipApplicationBuilder();
         LocalDate laterDate = LocalDate.now().plus(4, ChronoUnit.DAYS);
         newDate = laterDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterview_testWithin = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestWithin = new Interview(true, new ApplicationDate(newDate),
                 new Address("123 Stevens Road"));
-        internshipApplication_testWithin.withInterview(newInterview_testWithin);
-        assertTrue(predicate.test(internshipApplication_testWithin.buildWithInterviews()));
+        internshipApplicationTestWithin.withInterview(newInterviewTestWithin);
+        assertTrue(predicate.test(internshipApplicationTestWithin.buildWithInterviews()));
     }
 
     @Test
@@ -55,13 +55,13 @@ class InterviewDateDuePredicateTest {
         InterviewDateDuePredicate predicate = new InterviewDateDuePredicate();
 
         // interview date date is before current date
-        InternshipApplicationBuilder internshipApplication_testPast = new InternshipApplicationBuilder();
+        InternshipApplicationBuilder internshipApplicationTestPast = new InternshipApplicationBuilder();
         LocalDate pastDate = LocalDate.now().minus(4, ChronoUnit.DAYS);
         String newDate = pastDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterview_testPast = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestPast = new Interview(true, new ApplicationDate(newDate),
                 new Address("123 Stevens Road"));
-        internshipApplication_testPast.withInterview(newInterview_testPast);
-        assertFalse(predicate.test(internshipApplication_testPast.buildWithInterviews()));
+        internshipApplicationTestPast.withInterview(newInterviewTestPast);
+        assertFalse(predicate.test(internshipApplicationTestPast.buildWithInterviews()));
     }
 
     @Test
@@ -69,12 +69,12 @@ class InterviewDateDuePredicateTest {
         InterviewDateDuePredicate predicate = new InterviewDateDuePredicate();
 
         // interview date is more than 7 days past current date
-        InternshipApplicationBuilder internshipApplication_testMore = new InternshipApplicationBuilder();
+        InternshipApplicationBuilder internshipApplicationTestMore = new InternshipApplicationBuilder();
         LocalDate laterDate = LocalDate.now().plus(10, ChronoUnit.DAYS);
         String newDate = laterDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterview_testMore = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestMore = new Interview(true, new ApplicationDate(newDate),
                 new Address("123 Stevens Road"));
-        internshipApplication_testMore.withInterview(newInterview_testMore);
-        assertFalse(predicate.test(internshipApplication_testMore.buildWithInterviews()));
+        internshipApplicationTestMore.withInterview(newInterviewTestMore);
+        assertFalse(predicate.test(internshipApplicationTestMore.buildWithInterviews()));
     }
 }
