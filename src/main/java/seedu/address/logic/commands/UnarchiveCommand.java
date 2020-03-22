@@ -24,6 +24,7 @@ public class UnarchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS = "Unarchived Internship Application: %1$s";
+    public static final String MESSAGE_ALREADY_UNARCHIVED = "Internship Application already unarchived";
 
     private final Index targetIndex;
 
@@ -35,14 +36,16 @@ public class UnarchiveCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<InternshipApplication> lastShownList = model.getFilteredInternshipApplicationList();
+        InternshipApplication internshipToUnarchive = lastShownList.get(targetIndex.getZeroBased());
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
         }
 
-        // implement guard clause to handle case where archiving already archived internship
+        if (!internshipToUnarchive.isArchived()) {
+            throw new CommandException(MESSAGE_ALREADY_UNARCHIVED);
+        }
 
-        InternshipApplication internshipToUnarchive = lastShownList.get(targetIndex.getZeroBased());
         InternshipApplication editedInternship = new InternshipApplication(
             internshipToUnarchive.getCompany(),
             internshipToUnarchive.getRole(),
@@ -55,7 +58,7 @@ public class UnarchiveCommand extends Command {
                false
         );
 
-        model.setInternshipApplication(internshipToUnarchive, editedInternship);
+        model.unarchiveInternshipApplication(internshipToUnarchive, editedInternship);
 
         return new CommandResult(String.format(MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, internshipToUnarchive));
     }

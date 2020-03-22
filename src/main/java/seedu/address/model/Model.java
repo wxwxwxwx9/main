@@ -68,6 +68,18 @@ public interface Model {
     boolean hasInternshipApplication(InternshipApplication internshipApplication);
 
     /**
+     * Archives the given internship application.
+     * The application must exist in the internship diary.
+     */
+    void archiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship);
+
+    /**
+     * Unarchives the given internship application.
+     * The application must exist in the internship diary.
+     */
+    void unarchiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship);
+
+    /**
      * Deletes the given internship application.
      * The application must exist in the internship diary.
      */
@@ -104,6 +116,9 @@ public interface Model {
      */
     void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator);
 
+    /**
+     * Returns a statistics object that can compute relevant internship application statistics.
+     */
     Statistics getStatistics();
 
 }

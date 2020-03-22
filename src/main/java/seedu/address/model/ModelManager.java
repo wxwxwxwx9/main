@@ -108,6 +108,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void archiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship) {
+        setInternshipApplication(target, editedInternship);
+    }
+
+    @Override
+    public void unarchiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship) {
+        setInternshipApplication(target, editedInternship);
+    }
+
+    @Override
     public void deleteInternshipApplication(InternshipApplication target) {
         internshipDiary.removeInternship(target);
     }

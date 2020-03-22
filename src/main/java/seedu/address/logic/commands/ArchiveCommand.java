@@ -24,6 +24,7 @@ public class ArchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS = "Archived Internship Application: %1$s";
+    public static final String MESSAGE_ALREADY_ARCHIVED = "Internship Application already archived";
 
     private final Index targetIndex;
 
@@ -35,14 +36,16 @@ public class ArchiveCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<InternshipApplication> lastShownList = model.getFilteredInternshipApplicationList();
+        InternshipApplication internshipToArchive = lastShownList.get(targetIndex.getZeroBased());
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
         }
 
-        // implement guard clause to handle case where archiving already archived internship
+        if (internshipToArchive.isArchived()) {
+            throw new CommandException(MESSAGE_ALREADY_ARCHIVED);
+        }
 
-        InternshipApplication internshipToArchive = lastShownList.get(targetIndex.getZeroBased());
         InternshipApplication editedInternship = new InternshipApplication(
             internshipToArchive.getCompany(),
             internshipToArchive.getRole(),
@@ -54,18 +57,9 @@ public class ArchiveCommand extends Command {
             internshipToArchive.getStatus(),
             true
         );
-        // implementation is questionable, will relook into how I can improve this
-        // basically idea is just to deep clone the internshipToArchive and set isArchived to true
-        // initially thought of using edit command, but it's too cumbersome
-        // add, delete, setInternshipApplication updates the UI automatically
-        // no need to go through manual filtering (like below)
-        model.setInternshipApplication(internshipToArchive, editedInternship);
 
-        // internshipToArchive.archive();
-        // need PREDICATE_SHOW_ALL as a buffer before SHOW_NOT_ARCHIVED
-        // without show all, show not archived won't work, for some yet unknown reason
-        // model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ALL_INTERNSHIPS);
-        // model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
+        model.archiveInternshipApplication(internshipToArchive, editedInternship);
+
         return new CommandResult(String.format(MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, internshipToArchive));
     }
 
