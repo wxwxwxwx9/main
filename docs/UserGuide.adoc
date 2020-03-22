@@ -91,23 +91,31 @@ Examples:
 * `edit 1 s/new p/Product Management` +
 Edits the status and position of the internship company to be `new` and `Product Management` respectively.
 
-=== Locating an internship company by name: `find`
+=== Locating an internship application by fields: `find`
 
-Find companies whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Find internship application whose specified fields contain the given keywords. +
+Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
 
 ****
 * The search is case insensitive. e.g `google` will match `Google`
 * The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`
-* Only the name is searched.
-* Only full words will be matched e.g. `Singapore` will not match `Singapores`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI` will return `AI Singapore`, `AI Malaysia`
+* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named
+`Singapores`
+* If `[KEYWORDS]` is provided, find will look for match in any field based on `KEYWORDS`, regardless of whether other
+fields are specified
+* When fields are specified, only applications where all specified field match are returned (i.e. `AND` search). e
+.g.
+`find c/google r/software engineer` will return
+application with company being `Google` and role being `Software Engineer` but not company that is `Facebook` and
+role being `Software Engineer`
 ****
 
 Examples:
 
 * `find Google` +
-Returns `Google` and `Google Deepmind`
+Returns internship applications with company `Google` and `Google Deepmind` or with email `alice@google.com`
+* `find c/Google s/applied` +
+Returns internship applications with company `Google` and status `APPLIED`
 
 === Sorting internship companies by field : `sort`
 
@@ -217,8 +225,8 @@ e.g. `add n/Google s/new p/Software Engineer`
 * *List* : `list`
 * *Edit* : `edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]...` +
 e.g. `edit 2 n/Google s/Shortlisted p/Product Management`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Find* : `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]` +
+e.g. `find c/google r/engineer`
 * *Search* : `search t/TAG` +
 e.g. `search t/Product Management`
 * *sort* : `sort FIELD` +
