@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,6 +29,38 @@ import seedu.address.model.internship.InternshipApplication;
 public class ArchiveCommandTest {
 
     private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
+    private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+
+    @Test
+    public void execute_archiveOneInternshipApplication_success() {
+        InternshipApplication internshipApplication =
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        InternshipApplication editedInternship = new InternshipApplication(
+            internshipApplication.getCompany(),
+            internshipApplication.getRole(),
+            internshipApplication.getAddress(),
+            internshipApplication.getPhone(),
+            internshipApplication.getEmail(),
+            internshipApplication.getApplicationDate(),
+            internshipApplication.getPriority(),
+            internshipApplication.getStatus(),
+            true
+        );
+        expectedModel.setInternshipDiary(new InternshipDiary());
+        expectedModel.addInternshipApplication(editedInternship);
+        expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+
+        model.setInternshipDiary(new InternshipDiary());
+        model.addInternshipApplication(internshipApplication);
+        ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+        try {
+            archiveCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+        assertEquals(model, expectedModel);
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -49,26 +84,6 @@ public class ArchiveCommandTest {
 
         assertCommandFailure(archiveCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
-
-    /*
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
-
-        InternshipApplication internshipApplicationToArchive =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-        ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-
-        String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS,
-                internshipApplicationToArchive);
-
-        Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
-        expectedModel.archiveInternshipApplication(internshipApplicationToArchive);
-        showNoInternshipApplication(expectedModel);
-
-        assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
-    }
-    */
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
