@@ -46,7 +46,7 @@ public class InterviewDeleteCommand extends InterviewCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof InterviewAddCommand
+                || (other instanceof InterviewDeleteCommand
                 && interviewIndex.equals(((InterviewDeleteCommand) other).interviewIndex)
                 && internshipIndex.equals(((InterviewDeleteCommand) other).internshipIndex));
     }

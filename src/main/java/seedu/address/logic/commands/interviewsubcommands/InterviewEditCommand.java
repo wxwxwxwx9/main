@@ -12,6 +12,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -96,6 +97,25 @@ public class InterviewEditCommand extends InterviewCommand {
 
         return new Interview(updatedIsOnline, updatedDate, updatedAddress);
 
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof InterviewEditCommand)) {
+            return false;
+        }
+
+        // state check
+        InterviewEditCommand e = (InterviewEditCommand) other;
+        return interviewIndex.equals(e.interviewIndex)
+                && internshipIndex.equals(e.internshipIndex)
+                && editInterviewDescriptor.equals(e.editInterviewDescriptor);
     }
 
     /**
