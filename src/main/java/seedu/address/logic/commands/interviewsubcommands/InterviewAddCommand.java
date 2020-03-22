@@ -50,4 +50,12 @@ public class InterviewAddCommand extends InterviewCommand {
         internshipToModify.addInterview(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof InterviewAddCommand
+                && toAdd.equals(((InterviewAddCommand) other).toAdd)
+                && index.equals(((InterviewAddCommand) other).index));
+    }
 }

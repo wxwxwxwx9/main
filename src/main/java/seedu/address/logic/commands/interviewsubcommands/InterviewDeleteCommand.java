@@ -42,4 +42,12 @@ public class InterviewDeleteCommand extends InterviewCommand {
         interviews.remove(interviewIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_SUCCESS, interviewToDelete));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof InterviewAddCommand
+                && interviewIndex.equals(((InterviewDeleteCommand) other).interviewIndex)
+                && internshipIndex.equals(((InterviewDeleteCommand) other).internshipIndex));
+    }
 }

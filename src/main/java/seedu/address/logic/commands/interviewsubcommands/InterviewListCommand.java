@@ -28,4 +28,11 @@ public class InterviewListCommand extends InterviewCommand {
         // Todo: change interviews into observable list and make it show here.
         return new CommandResult(String.format(MESSAGE_SUCCESS, internshipToList));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof InterviewListCommand
+                && index.equals(((InterviewListCommand) other).index));
+    }
 }
