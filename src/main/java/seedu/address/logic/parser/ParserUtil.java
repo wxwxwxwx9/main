@@ -189,6 +189,7 @@ public class ParserUtil {
      * has more than or less than 2/3 strings separated by a single whitespace.
      */
     public static String[] parseInterviewPreamble(String preamble) throws ParseException {
+        requireNonNull(preamble);
         String[] indexAndCode = preamble.trim().split(" ");
         if (indexAndCode.length != 2 && indexAndCode.length != 3) {
             throw new ParseException(MESSAGE_INVALID_PREAMBLE);
