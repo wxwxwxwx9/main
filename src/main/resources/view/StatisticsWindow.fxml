@@ -16,7 +16,7 @@
             <stylesheets>
                 <URL value="@Statistics.css" />
             </stylesheets>
-             <VBox>
+            <VBox>
                 <children>
                     <BarChart fx:id="internshipApplicationChart">
                         <xAxis>
@@ -25,16 +25,16 @@
                         <yAxis>
                             <NumberAxis fx:id="count" side="LEFT" />
                         </yAxis>
-                   </BarChart>
-                   <PieChart fx:id="internshipApplicationPie" />
+                    </BarChart>
+                    <PieChart fx:id="internshipApplicationPie" />
                 </children>
                 <opaqueInsets>
-                   <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                 </opaqueInsets>
                 <padding>
-                   <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                 </padding>
-             </VBox>
+            </VBox>
         </Scene>
     </scene>
 </fx:root>
