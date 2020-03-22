@@ -1,5 +1,13 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.internship.InternshipApplication;
+
+import java.util.List;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
@@ -18,6 +26,16 @@ public abstract class InterviewCommand extends Command {
             + PREFIX_IS_ONLINE + "false"
             + PREFIX_ADDRESS + "123 road"
             + PREFIX_DATE + "01 02 2020";
+
+    protected InternshipApplication getInternshipApplication(Model model, Index index) throws CommandException {
+        List<InternshipApplication> lastShownList = model.getFilteredInternshipApplicationList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
+        }
+
+        return lastShownList.get(index.getZeroBased());
+    }
 
 
 }
