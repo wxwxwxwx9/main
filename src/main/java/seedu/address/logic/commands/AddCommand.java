@@ -30,7 +30,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + PREFIX_DATE + "APPLICATION DATE "
-            + "[" +PREFIX_PRIORITY + "PRIORITY] "
+            + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + PREFIX_STATUS + "STATUS "
             + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_COMPANY + "Google "
