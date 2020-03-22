@@ -116,8 +116,7 @@ Format: `sort FIELD`.
 
 Available values for `FIELD`: +
 `c/`: Sorts by company name. +
-`d/`: Sorts by most recent interview date,
-or application date if internship does not have listed interviews. +
+`d/`: Sorts by application date. +
 `w/`: Sorts by priority level. +
 `s/`: Sorts by Status.
 
