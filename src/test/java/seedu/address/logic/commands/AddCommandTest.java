@@ -128,13 +128,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void archiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship) {
+        public void archiveInternshipApplication(InternshipApplication target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void unarchiveInternshipApplication(InternshipApplication target,
-                                                   InternshipApplication editedInternship) {
+        public void unarchiveInternshipApplication(InternshipApplication target) {
             throw new AssertionError("This method should not be called.");
         }
 

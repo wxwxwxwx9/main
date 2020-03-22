@@ -71,13 +71,13 @@ public interface Model {
      * Archives the given internship application.
      * The application must exist in the internship diary.
      */
-    void archiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship);
+    void archiveInternshipApplication(InternshipApplication target);
 
     /**
      * Unarchives the given internship application.
      * The application must exist in the internship diary.
      */
-    void unarchiveInternshipApplication(InternshipApplication target, InternshipApplication editedInternship);
+    void unarchiveInternshipApplication(InternshipApplication target);
 
     /**
      * Deletes the given internship application.

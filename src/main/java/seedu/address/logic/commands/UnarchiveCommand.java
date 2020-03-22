@@ -46,19 +46,7 @@ public class UnarchiveCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_UNARCHIVED);
         }
 
-        InternshipApplication editedInternship = new InternshipApplication(
-            internshipToUnarchive.getCompany(),
-            internshipToUnarchive.getRole(),
-            internshipToUnarchive.getAddress(),
-            internshipToUnarchive.getPhone(),
-            internshipToUnarchive.getEmail(),
-            internshipToUnarchive.getApplicationDate(),
-            internshipToUnarchive.getPriority(),
-            internshipToUnarchive.getStatus(),
-               false
-        );
-
-        model.unarchiveInternshipApplication(internshipToUnarchive, editedInternship);
+        model.unarchiveInternshipApplication(internshipToUnarchive);
 
         return new CommandResult(String.format(MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, internshipToUnarchive));
     }

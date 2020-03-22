@@ -46,19 +46,7 @@ public class ArchiveCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_ARCHIVED);
         }
 
-        InternshipApplication editedInternship = new InternshipApplication(
-            internshipToArchive.getCompany(),
-            internshipToArchive.getRole(),
-            internshipToArchive.getAddress(),
-            internshipToArchive.getPhone(),
-            internshipToArchive.getEmail(),
-            internshipToArchive.getApplicationDate(),
-            internshipToArchive.getPriority(),
-            internshipToArchive.getStatus(),
-            true
-        );
-
-        model.archiveInternshipApplication(internshipToArchive, editedInternship);
+        model.archiveInternshipApplication(internshipToArchive);
 
         return new CommandResult(String.format(MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, internshipToArchive));
     }
