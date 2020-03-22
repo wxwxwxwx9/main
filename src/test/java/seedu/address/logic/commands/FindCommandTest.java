@@ -7,8 +7,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INTERNSHIP_LISTED_OVER
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +18,14 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.internship.AddressContainsKeywordsPredicate;
+import seedu.address.model.internship.ApplicationDateIsDatePredicate;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.EmailContainsKeywordsPredicate;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.PriorityContainsNumbersPredicate;
 import seedu.address.model.internship.RoleContainsKeywordsPredicate;
+import seedu.address.model.internship.StatusContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -50,22 +56,40 @@ public class FindCommandTest {
                 new EmailContainsKeywordsPredicate(Collections.singletonList("first"));
         EmailContainsKeywordsPredicate eSecondPredicate =
                 new EmailContainsKeywordsPredicate(Collections.singletonList("second"));
+        ApplicationDateIsDatePredicate dFirstPredicate =
+                new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01));
+        ApplicationDateIsDatePredicate dSecondPredicate =
+                new ApplicationDateIsDatePredicate(LocalDate.of(2021, 03, 02));
+        PriorityContainsNumbersPredicate wFirstPredicate =
+                new PriorityContainsNumbersPredicate(Collections.singletonList("first"));
+        PriorityContainsNumbersPredicate wSecondPredicate =
+                new PriorityContainsNumbersPredicate(Collections.singletonList("second"));
+        StatusContainsKeywordsPredicate sFirstPredicate =
+                new StatusContainsKeywordsPredicate(Collections.singletonList("first"));
+        StatusContainsKeywordsPredicate sSecondPredicate =
+                new StatusContainsKeywordsPredicate(Collections.singletonList("second"));
 
 
         FindCommand findFirstCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate);
-        FindCommand findSecondCommand = new FindCommand(cSecondPredicate, rSecondPredicate, aSecondPredicate,
-                pSecondPredicate, eSecondPredicate);
-        FindCommand findThirdCommand = new FindCommand(cSecondPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate);
-        FindCommand findFourthCommand = new FindCommand(cFirstPredicate, rSecondPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate);
-        FindCommand findFifthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aSecondPredicate,
-                pFirstPredicate, eFirstPredicate);
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
+        FindCommand findSecondCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, true);
+        FindCommand findThirdCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sSecondPredicate, false);
+        FindCommand findFourthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wSecondPredicate, sFirstPredicate, false);
+        FindCommand findFifthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dSecondPredicate, wFirstPredicate, sFirstPredicate, false);
         FindCommand findSixthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pSecondPredicate, eFirstPredicate);
+                pFirstPredicate, eSecondPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
         FindCommand findSeventhCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eSecondPredicate);
+                pSecondPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
+        FindCommand findEighthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aSecondPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
+        FindCommand findNinthCommand = new FindCommand(cFirstPredicate, rSecondPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
+        FindCommand findTenthCommand = new FindCommand(cSecondPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
 
 
         // same object -> returns true
@@ -73,7 +97,7 @@ public class FindCommandTest {
 
         // same values -> returns true
         FindCommand findFirstCommandCopy = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate);
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -91,6 +115,9 @@ public class FindCommandTest {
         assertFalse(findFirstCommand.equals(findFifthCommand));
         assertFalse(findFirstCommand.equals(findSixthCommand));
         assertFalse(findFirstCommand.equals(findSeventhCommand));
+        assertFalse(findFirstCommand.equals(findEighthCommand));
+        assertFalse(findFirstCommand.equals(findNinthCommand));
+        assertFalse(findFirstCommand.equals(findTenthCommand));
     }
 
     @Test
@@ -101,8 +128,12 @@ public class FindCommandTest {
         AddressContainsKeywordsPredicate aPredicate = prepareAddressPredicate(" ");
         PhoneContainsNumbersPredicate pPredicate = preparePhonePredicate(" ");
         EmailContainsKeywordsPredicate ePredicate = prepareEmailPredicate(" ");
+        ApplicationDateIsDatePredicate dPredicate = new ApplicationDateIsDatePredicate(null);
+        PriorityContainsNumbersPredicate wPredicate = preparePriorityPredicate(" ");
+        StatusContainsKeywordsPredicate sPredicate = prepareStatusPredicate(" ");
 
-        FindCommand command = new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate);
+        FindCommand command = new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate, dPredicate,
+                wPredicate, sPredicate, false);
         expectedModel.updateFilteredInternshipApplicationList(cPredicate.and(rPredicate)
                 .and(aPredicate)
                 .and(pPredicate)
@@ -117,8 +148,30 @@ public class FindCommandTest {
         CompanyContainsKeywordsPredicate cPredicate = prepareCompanyPredicate("google facebook");
         FindCommand command = new FindCommand(cPredicate, new RoleContainsKeywordsPredicate(null) ,
                 new AddressContainsKeywordsPredicate(null), new PhoneContainsNumbersPredicate(null),
-                new EmailContainsKeywordsPredicate(null));
+                new EmailContainsKeywordsPredicate(null), new ApplicationDateIsDatePredicate(null),
+                new PriorityContainsNumbersPredicate(null), new StatusContainsKeywordsPredicate(null),
+                false);
         expectedModel.updateFilteredInternshipApplicationList(cPredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_isPreamble_multipleInternshipApplicationsFound() {
+        String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 2);
+        CompanyContainsKeywordsPredicate cPredicate = prepareCompanyPredicate("goo");
+        RoleContainsKeywordsPredicate rPredicate = prepareRolePredicate("goo");
+        AddressContainsKeywordsPredicate aPredicate = prepareAddressPredicate("goo");
+        PhoneContainsNumbersPredicate pPredicate = preparePhonePredicate("goo");
+        EmailContainsKeywordsPredicate ePredicate = prepareEmailPredicate("goo");
+        PriorityContainsNumbersPredicate wPredicate = preparePriorityPredicate("goo");
+        StatusContainsKeywordsPredicate sPredicate = prepareStatusPredicate("goo");
+
+        FindCommand command = new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate,
+                new ApplicationDateIsDatePredicate(null), wPredicate, sPredicate,
+                true);
+        Predicate<InternshipApplication> predicate =
+                cPredicate.or(rPredicate).or(aPredicate).or(pPredicate).or(ePredicate).or(wPredicate).or(sPredicate);
+        expectedModel.updateFilteredInternshipApplicationList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -155,6 +208,20 @@ public class FindCommandTest {
      */
     private EmailContainsKeywordsPredicate prepareEmailPredicate(String userInput) {
         return new EmailContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code PriorityContainsNumbersPredicate}.
+     */
+    private PriorityContainsNumbersPredicate preparePriorityPredicate(String userInput) {
+        return new PriorityContainsNumbersPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code StatusContainsKeywordsPredicate}.
+     */
+    private StatusContainsKeywordsPredicate prepareStatusPredicate(String userInput) {
+        return new StatusContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 
 }
