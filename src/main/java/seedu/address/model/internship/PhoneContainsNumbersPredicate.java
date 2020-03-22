@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code InternshipApplication}'s {@code Phone} matches any of the keywords given.
+ * Tests that a {@code InternshipApplication}'s {@code Phone} contains any of the numbers given.
  */
 public class PhoneContainsNumbersPredicate implements Predicate<InternshipApplication> {
     private final List<String> numbers;

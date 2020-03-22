@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code InternshipApplication}'s {@code Email} matches any of the keywords given.
+ * Tests that a {@code InternshipApplication}'s {@code Email} contains any of the keywords given.
  */
 public class EmailContainsKeywordsPredicate implements Predicate<InternshipApplication> {
     private final List<String> keywords;
