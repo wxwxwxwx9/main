@@ -106,6 +106,10 @@ public class InternshipApplication {
         return interviews;
     }
 
+    public boolean hasInterview(Interview interview) {
+        return interviews.contains(interview);
+    }
+
     /**
      * Returns true if all but priority and status fields are the same.
      * This defines a weaker notion of equality between two internship applications.
