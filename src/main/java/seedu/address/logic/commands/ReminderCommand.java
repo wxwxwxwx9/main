@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.internship.ApplicationDateDuePredicate;
 import seedu.address.model.internship.InternshipApplication;
@@ -39,6 +40,7 @@ public class ReminderCommand extends Command {
         predicates.add(interviewDatePredicate);
         Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> true, Predicate::or);
         model.updateFilteredInternshipApplicationList(appDatePredicate); //todo: to update after interviews can be added
+        model.updateFilteredInternshipApplicationList(new ApplicationDateThenInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

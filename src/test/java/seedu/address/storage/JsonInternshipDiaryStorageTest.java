@@ -1,12 +1,12 @@
 package seedu.address.storage;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-//import static seedu.address.testutil.TypicalInternshipApplications.AMY;
-//import static seedu.address.testutil.TypicalInternshipApplications.BOB;
-//import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
-//import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
+import static seedu.address.testutil.TypicalInternshipApplications.AMY;
+import static seedu.address.testutil.TypicalInternshipApplications.BOB;
+import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
+import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -65,7 +65,6 @@ public class JsonInternshipDiaryStorageTest {
                         readInternshipDiary("invalidAndValidInternshipInternshipDiary.json"));
     }
 
-    /**
     @Test
     public void readAndSaveInternshipDiary_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempInternshipDiary.json");
@@ -91,7 +90,6 @@ public class JsonInternshipDiaryStorageTest {
         assertEquals(original, new InternshipDiary(readBack));
 
     }
-     **/
 
     @Test
     public void saveInternshipDiary_nullInternshipDiary_throwsNullPointerException() {

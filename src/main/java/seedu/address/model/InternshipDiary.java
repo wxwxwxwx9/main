@@ -106,7 +106,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
 
     @Override
     public ObservableList<InternshipApplication> getInternshipList() {
-        return internships.asUnmodifiableObservableList().sorted(new ApplicationDateThenInterviewDateComparator());
+        return internships.asUnmodifiableObservableList();
     }
 
     @Override
