@@ -89,11 +89,10 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    /*
     @Test
     public void execute_filteredList_success() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
-
+        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
 
         InternshipApplication internshipApplicationInFilteredList =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
@@ -109,9 +108,9 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),
                 editedInternshipApplication);
+
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-    */
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
