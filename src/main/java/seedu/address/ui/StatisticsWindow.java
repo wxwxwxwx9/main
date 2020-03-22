@@ -50,6 +50,9 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Creates a new StatisticsWindow.
+     *
+     * @param statistics
+     * @param internshipApplicationList
      */
     public StatisticsWindow(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         this(new Stage(), statistics, internshipApplicationList);

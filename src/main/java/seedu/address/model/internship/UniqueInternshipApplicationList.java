@@ -85,6 +85,17 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
         }
     }
 
+    /**
+     * Archives the equivalent internship application from the list.
+     * The internship application must exist in the list.
+     */
+//    public void archive(InternshipApplication toArchive) {
+//        requireNonNull(toArchive);
+//        if (!internalList.get(toRemove)) {
+//            throw new InternshipApplicationNotFoundException();
+//        }
+//    }
+
     public void setInternshipApplications(UniqueInternshipApplicationList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

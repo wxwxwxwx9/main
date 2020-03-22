@@ -7,6 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ArchivalCommand;
+import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -74,6 +76,12 @@ public class InternshipDiaryParser {
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommand();
+
+        case ArchiveCommand.COMMAND_WORD:
+            return new ArchiveCommandParser().parse(arguments);
+
+        case ArchivalCommand.COMMAND_WORD:
+            return new ArchivalCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

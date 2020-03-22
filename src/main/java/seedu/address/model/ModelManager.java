@@ -45,6 +45,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
         filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getInternshipList());
+        // Set default view to show UNARCHIVED internships
+        updateFilteredInternshipApplicationList(PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
     }
 
@@ -104,6 +106,11 @@ public class ModelManager implements Model {
         requireNonNull(internshipApplication);
         return internshipDiary.hasInternship(internshipApplication);
     }
+
+//    @Override
+//    public void archiveInternshipApplication(InternshipApplication target) {
+//        internshipDiary.archiveInternship(target);
+//    }
 
     @Override
     public void deleteInternshipApplication(InternshipApplication target) {

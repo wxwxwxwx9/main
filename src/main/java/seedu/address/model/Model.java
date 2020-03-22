@@ -16,6 +16,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<InternshipApplication> PREDICATE_SHOW_ALL_INTERNSHIPS = unused -> true;
+    Predicate<InternshipApplication> PREDICATE_SHOW_ARCHIVED_INTERNSHIPS =
+            (InternshipApplication internshipApplication) -> internshipApplication.isArchived();
+    Predicate<InternshipApplication> PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS =
+            (InternshipApplication internshipApplication) -> !internshipApplication.isArchived();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -62,6 +66,12 @@ public interface Model {
      * exists in the Internship Diary.
      */
     boolean hasInternshipApplication(InternshipApplication internshipApplication);
+
+//    /**
+//     * Archives the given internship application.
+//     * The application must exist in the internship diary.
+//     */
+//    void archiveInternshipApplication(InternshipApplication target);
 
     /**
      * Deletes the given internship application.

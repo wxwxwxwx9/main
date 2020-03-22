@@ -91,7 +91,9 @@ public class EditCommand extends Command {
         }
 
         model.setInternshipApplication(internshipToEdit, editedInternship);
-        model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ALL_INTERNSHIPS);
+//        model.addInternshipApplication(internshipToEdit);
+//        model.deleteInternshipApplication(internshipToEdit);
+//        model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ALL_INTERNSHIPS);
         return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship));
     }
 
@@ -111,9 +113,14 @@ public class EditCommand extends Command {
         ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
         Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
+        Boolean isArchived = editInternshipDescriptor.isArchived().orElse(internshipToEdit.isArchived());
+
+        // actually don't need isArchived in editInternshipDescriptor / createEditInternship
+        // this is because we will never set isArchived to true via edit function
+        // leaving in here for now
 
         return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus);
+                updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
     }
 
     @Override
@@ -147,6 +154,7 @@ public class EditCommand extends Command {
         private ApplicationDate date;
         private Priority priority;
         private Status status;
+        private Boolean isArchived;
 
         public EditInternshipDescriptor() {}
 
@@ -163,13 +171,16 @@ public class EditCommand extends Command {
             setDate(toCopy.date);
             setPriority(toCopy.priority);
             setStatus(toCopy.status);
+            setArchived(toCopy.isArchived);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(company, role, address, phone, email, date, priority, status);
+            return CollectionUtil.isAnyNonNull(
+                    company, role, address, phone, email, date, priority, status, isArchived
+            );
         }
 
         public void setCompany(Company company) {
@@ -236,6 +247,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
+        public void setArchived(Boolean isArchived) {
+            this.isArchived = isArchived;
+        }
+
+        public Optional<Boolean> isArchived() {
+            return Optional.ofNullable(isArchived);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -258,7 +277,8 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getDate().equals(e.getDate())
                     && getPriority().equals(e.getPriority())
-                    && getStatus().equals(e.getStatus());
+                    && getStatus().equals(e.getStatus())
+                    && isArchived().equals(e.isArchived());
         }
     }
 }
