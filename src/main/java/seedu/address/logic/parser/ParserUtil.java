@@ -189,7 +189,7 @@ public class ParserUtil {
      */
     public static String[] parseInterviewPreamble(String preamble) throws ParseException {
         String[] indexAndCode = preamble.trim().split(" ");
-        if (indexAndCode.length != 2) {
+        if (indexAndCode.length != 2 && indexAndCode.length != 3) {
             throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
         return indexAndCode;
