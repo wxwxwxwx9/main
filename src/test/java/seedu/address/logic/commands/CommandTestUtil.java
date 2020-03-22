@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
@@ -22,6 +23,7 @@ import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
 
 /**
@@ -46,6 +48,13 @@ public class CommandTestUtil {
     public static final String VALID_STATUS_AMY = "WISHLIST";
     public static final String VALID_STATUS_BOB = "APPLIED";
 
+    public static final String VALID_ADDRESS_NUS = "123 Kent Ridge Road";
+    public static final String VALID_ADDRESS_ONLINE = Interview.ADDRESS_NOT_APPLICABLE;
+    public static final String VALID_DATE_NUS = "10 10 2010";
+    public static final String VALID_DATE_ONLINE = "20 02 2020";
+    public static final String VALID_IS_ONLINE_NUS = "false";
+    public static final String VALID_IS_ONLINE_ONLINE = "true";
+
     public static final String COMPANY_DESC_AMY = " " + PREFIX_COMPANY + VALID_COMPANY_AMY;
     public static final String COMPANY_DESC_BOB = " " + PREFIX_COMPANY + VALID_COMPANY_BOB;
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
@@ -62,6 +71,13 @@ public class CommandTestUtil {
     public static final String PRIORITY_DESC_BOB = " " + PREFIX_PRIORITY + VALID_PRIORITY_BOB;
     public static final String STATUS_DESC_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
     public static final String STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
+
+    public static final String ADDRESS_DESC_NUS = " " + PREFIX_ADDRESS + VALID_ADDRESS_NUS;
+    public static final String ADDRESS_DESC_ONLINE = " " + PREFIX_ADDRESS + VALID_ADDRESS_ONLINE;
+    public static final String DATE_DESC_NUS = " " + PREFIX_DATE + VALID_DATE_NUS;
+    public static final String DATE_DESC_ONLINE = " " + PREFIX_DATE + VALID_DATE_ONLINE;
+    public static final String ONLINE_DESC_NUS = " " + PREFIX_IS_ONLINE + VALID_IS_ONLINE_NUS;
+    public static final String ONLINE_DESC_ONLINE = " " + PREFIX_IS_ONLINE + VALID_IS_ONLINE_ONLINE;
 
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY + "Google&"; // '&' not allowed in company
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "So&"; // '&' not allowed in company
