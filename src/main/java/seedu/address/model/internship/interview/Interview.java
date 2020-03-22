@@ -13,6 +13,7 @@ import seedu.address.model.internship.ApplicationDate;
  */
 public class Interview {
     public static final String ADDRESS_NOT_APPLICABLE = "NA";
+    public static final String INVALID_IS_ONLINE = "IsOnline should be either true or false";
 
     public final boolean isOnline;
 
