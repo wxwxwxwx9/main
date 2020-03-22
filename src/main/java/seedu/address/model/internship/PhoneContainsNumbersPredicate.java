@@ -29,4 +29,8 @@ public class PhoneContainsNumbersPredicate implements Predicate<InternshipApplic
                 || (other instanceof PhoneContainsNumbersPredicate // instanceof handles nulls
                 && numbers.equals(((PhoneContainsNumbersPredicate) other).numbers)); // state check
     }
+
+    public boolean isNull() {
+        return numbers == null;
+    }
 }

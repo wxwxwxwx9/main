@@ -30,4 +30,8 @@ public class PriorityContainsNumbersPredicate implements Predicate<InternshipApp
                 || (other instanceof PriorityContainsNumbersPredicate // instanceof handles nulls
                 && numbers.equals(((PriorityContainsNumbersPredicate) other).numbers)); // state check
     }
+
+    public boolean isNull() {
+        return numbers == null;
+    }
 }

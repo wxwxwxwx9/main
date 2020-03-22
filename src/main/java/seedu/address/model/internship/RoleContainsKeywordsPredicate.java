@@ -30,4 +30,8 @@ public class RoleContainsKeywordsPredicate implements Predicate<InternshipApplic
                 || (other instanceof RoleContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((RoleContainsKeywordsPredicate) other).keywords)); // state check
     }
+
+    public boolean isNull() {
+        return keywords == null;
+    }
 }

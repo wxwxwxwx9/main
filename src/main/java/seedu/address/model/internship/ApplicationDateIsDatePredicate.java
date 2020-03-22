@@ -28,4 +28,8 @@ public class ApplicationDateIsDatePredicate implements Predicate<InternshipAppli
                 || (other instanceof ApplicationDateIsDatePredicate // instanceof handles nulls
                 && date.isEqual(((ApplicationDateIsDatePredicate) other).date)); // state check
     }
+
+    public boolean isNull() {
+        return date == null;
+    }
 }

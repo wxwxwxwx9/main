@@ -30,4 +30,8 @@ public class AddressContainsKeywordsPredicate implements Predicate<InternshipApp
                 || (other instanceof AddressContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((AddressContainsKeywordsPredicate) other).keywords)); // state check
     }
+
+    public boolean isNull() {
+        return keywords == null;
+    }
 }

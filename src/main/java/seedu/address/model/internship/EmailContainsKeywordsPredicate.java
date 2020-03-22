@@ -30,4 +30,8 @@ public class EmailContainsKeywordsPredicate implements Predicate<InternshipAppli
                 || (other instanceof EmailContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((EmailContainsKeywordsPredicate) other).keywords)); // state check
     }
+
+    public boolean isNull() {
+        return keywords == null;
+    }
 }

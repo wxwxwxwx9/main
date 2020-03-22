@@ -30,4 +30,8 @@ public class StatusContainsKeywordsPredicate implements Predicate<InternshipAppl
                 || (other instanceof StatusContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((StatusContainsKeywordsPredicate) other).keywords)); // state check
     }
+
+    public boolean isNull() {
+        return keywords == null;
+    }
 }
