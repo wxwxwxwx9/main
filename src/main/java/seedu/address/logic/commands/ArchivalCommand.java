@@ -1,10 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.comparator.DateComparator;
-import seedu.address.model.Model;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS;
+
+import seedu.address.model.Model;
 
 /**
  * Lists all internship applications in the internship diary to the user.

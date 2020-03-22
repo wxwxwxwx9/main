@@ -62,7 +62,7 @@ public class AddCommandParserTest {
                         + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
 
-        // multiple names - last company accepted
+        // multiple companies - last company accepted
         assertParseSuccess(parser, COMPANY_DESC_AMY + COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));

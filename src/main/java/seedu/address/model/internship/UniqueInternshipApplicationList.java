@@ -67,22 +67,11 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
             throw new InternshipApplicationNotFoundException();
         }
 
-        System.out.println("before");
-
-        internalList.forEach(s -> { System.out.println(s.getCompany()); });
-
-        System.out.println(String.format("target: %s (%d) edited: %s", target.getCompany(), index,
-                editedInternshipApplication.getCompany()));
-
         if (!target.isSameInternshipApplication(editedInternshipApplication) && contains(editedInternshipApplication)) {
             throw new DuplicateInternshipApplicationException();
         }
 
         internalList.set(index, editedInternshipApplication);
-
-        System.out.println("after");
-
-        internalList.forEach(s -> { System.out.println(s.getCompany()); });
 
     }
 

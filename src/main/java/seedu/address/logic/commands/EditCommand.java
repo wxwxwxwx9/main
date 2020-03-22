@@ -9,8 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
-import static seedu.address.model.Model.PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS;
 
 import java.util.List;
 import java.util.Optional;
@@ -112,14 +110,14 @@ public class EditCommand extends Command {
         ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
         Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
-        Boolean isArchived = editInternshipDescriptor.isArchived().orElse(internshipToEdit.isArchived());
+        // Boolean isArchived = editInternshipDescriptor.isArchived().orElse(internshipToEdit.isArchived());
 
         // actually don't need isArchived in editInternshipDescriptor / createEditInternship
         // this is because we will never set isArchived to true via edit function
         // leaving in here for now
 
         return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+                updatedEmail, updatedDate, updatedPriority, updatedStatus);
     }
 
     @Override
@@ -153,7 +151,7 @@ public class EditCommand extends Command {
         private ApplicationDate date;
         private Priority priority;
         private Status status;
-        private Boolean isArchived;
+        // private Boolean isArchived;
 
         public EditInternshipDescriptor() {}
 
@@ -170,7 +168,7 @@ public class EditCommand extends Command {
             setDate(toCopy.date);
             setPriority(toCopy.priority);
             setStatus(toCopy.status);
-            setArchived(toCopy.isArchived);
+            // setArchived(toCopy.isArchived);
         }
 
         /**
@@ -178,7 +176,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
-                    company, role, address, phone, email, date, priority, status, isArchived
+                    company, role, address, phone, email, date, priority, status
             );
         }
 
@@ -246,13 +244,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        public void setArchived(Boolean isArchived) {
-            this.isArchived = isArchived;
-        }
+        // public void setArchived(Boolean isArchived) {
+        //     this.isArchived = isArchived;
+        // }
 
-        public Optional<Boolean> isArchived() {
+        /* public Optional<Boolean> isArchived() {
             return Optional.ofNullable(isArchived);
-        }
+        }*/
 
         @Override
         public boolean equals(Object other) {
@@ -276,8 +274,8 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getDate().equals(e.getDate())
                     && getPriority().equals(e.getPriority())
-                    && getStatus().equals(e.getStatus())
-                    && isArchived().equals(e.isArchived());
+                    && getStatus().equals(e.getStatus());
+            // && isArchived().equals(e.isArchived());
         }
     }
 }

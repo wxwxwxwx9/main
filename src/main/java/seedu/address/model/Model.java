@@ -16,10 +16,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<InternshipApplication> PREDICATE_SHOW_ALL_INTERNSHIPS = unused -> true;
-    Predicate<InternshipApplication> PREDICATE_SHOW_ARCHIVED_INTERNSHIPS =
-            (InternshipApplication internshipApplication) -> internshipApplication.isArchived();
-    Predicate<InternshipApplication> PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS =
-            (InternshipApplication internshipApplication) -> !internshipApplication.isArchived();
+    Predicate<InternshipApplication> PREDICATE_SHOW_ARCHIVED_INTERNSHIPS = (
+            InternshipApplication internshipApplication) -> internshipApplication.isArchived();
+    Predicate<InternshipApplication> PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS = (
+            InternshipApplication internshipApplication) -> !internshipApplication.isArchived();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

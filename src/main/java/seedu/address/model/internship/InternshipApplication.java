@@ -25,7 +25,7 @@ public class InternshipApplication {
     private final Priority priority;
     private final Status status;
     private final ArrayList<Interview> interviews;
-    private boolean isArchived;
+    private Boolean isArchived;
 
     /**
      * Every field must be present and not null.
@@ -95,7 +95,7 @@ public class InternshipApplication {
         return status;
     }
 
-    public boolean isArchived() {
+    public Boolean isArchived() {
         return isArchived;
     }
 
@@ -171,14 +171,14 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus())
-                && internshipApplication.getStatus().equals(isArchived());
+                && internshipApplication.getStatus().equals(getStatus());
+        // && internshipApplication.isArchived().equals(isArchived());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status, isArchived);
+        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status);
     }
 
     @Override
@@ -198,9 +198,9 @@ public class InternshipApplication {
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" Status: ")
-                .append(getStatus())
-                .append(" Archived: ")
-                .append(isArchived());
+                .append(getStatus());
+        // .append(" Archived: ")
+        // .append(isArchived());
         return builder.toString();
     }
 }
