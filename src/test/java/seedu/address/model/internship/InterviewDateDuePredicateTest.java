@@ -1,15 +1,16 @@
 package seedu.address.model.internship;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.internship.interview.Interview;
-import seedu.address.testutil.InternshipApplicationBuilder;
-import seedu.address.testutil.InterviewBuilder;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.internship.interview.Interview;
+import seedu.address.testutil.InternshipApplicationBuilder;
 
 class InterviewDateDuePredicateTest {
     @Test

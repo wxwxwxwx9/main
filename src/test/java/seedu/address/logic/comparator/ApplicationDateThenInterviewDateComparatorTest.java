@@ -1,11 +1,13 @@
 package seedu.address.logic.comparator;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.internship.InternshipApplication;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Comparator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.internship.InternshipApplication;
 
 class ApplicationDateThenInterviewDateComparatorTest {
 

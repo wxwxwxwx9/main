@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
-import seedu.address.logic.comparator.DateComparator;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.UniqueInternshipApplicationList;
 
