@@ -139,6 +139,16 @@ public class InterviewCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE));
     }
 
+    @Test
+    public void parse_editInvalidIndex_failure() {
+        assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                + "notValid", String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE));
+    }
 
+    @Test
+    public void parse_editNoEdits_failure() {
+        assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                + INDEX_FIRST_INTERVIEW.getOneBased(), InterviewEditCommand.MESSAGE_NOT_EDITED);
+    }
 
 }
