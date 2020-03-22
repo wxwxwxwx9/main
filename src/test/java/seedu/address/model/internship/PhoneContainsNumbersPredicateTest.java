@@ -67,15 +67,28 @@ public class PhoneContainsNumbersPredicateTest {
         PhoneContainsNumbersPredicate predicate = new PhoneContainsNumbersPredicate(Collections.emptyList());
         assertFalse(predicate.test(new InternshipApplicationBuilder().withPhone("12345678").build()));
 
-        // Non-matching keyword
+        // Non-matching number
         predicate = new PhoneContainsNumbersPredicate(Arrays.asList("876"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withPhone("12345678").build()));
 
-        // Keywords match company, role, email and address, but does not match phone
+        // Keywords match company, role, email, address, priority and status, but does not match phone
         predicate = new PhoneContainsNumbersPredicate(Arrays.asList("Google", "Software", "Engineer",
-                "alice@email.com", "Main", "Street"));
+                "alice@email.com", "Main", "Street", "8", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
                 .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withEmail("alice@email.com").withAddress("Main Street").withPriority("8")
+                .withStatus("APPLIED").build()));
+    }
+
+    @Test
+    public void isNull_nullNumbers_returnsTrue() {
+        PhoneContainsNumbersPredicate predicate = new PhoneContainsNumbersPredicate(null);
+        assertTrue(predicate.isNull());
+    }
+
+    @Test
+    public void isNull_nonNullNumbers_returnsFalse() {
+        PhoneContainsNumbersPredicate predicate = new PhoneContainsNumbersPredicate(Arrays.asList("12345"));
+        assertFalse(predicate.isNull());
     }
 }

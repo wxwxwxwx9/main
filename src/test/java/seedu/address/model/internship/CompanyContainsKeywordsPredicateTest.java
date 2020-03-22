@@ -71,12 +71,24 @@ public class CompanyContainsKeywordsPredicateTest {
         predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Google"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Apple Facebook").build()));
 
-        // Keywords match role, phone, email and address, but does not match company
+        // Keywords match role, phone, email, address, priority and status, but does not match company
         predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Software", "Engineer", "12345",
-                "alice@email.com",
-                "Main", "Street"));
+                "alice@email.com", "Main", "Street", "1", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
                 .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+                .withStatus("APPLIED").build()));
+    }
+
+    @Test
+    public void isNull_nullKeywords_returnsTrue() {
+        CompanyContainsKeywordsPredicate predicate = new CompanyContainsKeywordsPredicate(null);
+        assertTrue(predicate.isNull());
+    }
+
+    @Test
+    public void isNull_nonNullKeywords_returnsFalse() {
+        CompanyContainsKeywordsPredicate predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Google"));
+        assertFalse(predicate.isNull());
     }
 }
