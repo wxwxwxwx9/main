@@ -32,7 +32,7 @@ class ApplicationDateDuePredicateTest {
 
         // application date is same as current date
         LocalDate currentDate = LocalDate.now();
-        ApplicationDate newDate = new ApplicationDate(currentDate.format(DateTimeFormatter.ofPattern("dd MM YYYY")));
+        ApplicationDate newDate = new ApplicationDate(currentDate);
         assertTrue(predicate.test(new InternshipApplicationBuilder().withApplicationDate(newDate).build()));
 
         // application date is within 7 days from current date
