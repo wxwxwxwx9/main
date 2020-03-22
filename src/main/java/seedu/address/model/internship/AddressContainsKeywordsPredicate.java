@@ -3,10 +3,8 @@ package seedu.address.model.internship;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
- * Tests that a {@code InternshipApplication}'s {@code Address} matches any of the keywords given.
+ * Tests that a {@code InternshipApplication}'s {@code Address} contains any of the keywords given.
  */
 public class AddressContainsKeywordsPredicate implements Predicate<InternshipApplication> {
     private final List<String> keywords;
@@ -22,8 +20,8 @@ public class AddressContainsKeywordsPredicate implements Predicate<InternshipApp
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(internshipApplication.getAddress().value,
-                        keyword));
+                .anyMatch(keyword -> internshipApplication.getAddress().value.toLowerCase()
+                        .contains(keyword.toLowerCase()));
     }
 
     @Override
