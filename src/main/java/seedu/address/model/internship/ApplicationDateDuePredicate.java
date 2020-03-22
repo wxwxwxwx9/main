@@ -19,11 +19,7 @@ public class ApplicationDateDuePredicate implements Predicate<InternshipApplicat
         LocalDate applicationDate = internshipApplication.getApplicationDate().fullApplicationDate;
         // count days between current internship application date and current date
         Period period = Period.between(currentDate, applicationDate);
-        boolean check1 = applicationDate.compareTo(currentDate) > 0;
-        boolean check2 = period.getDays() <= 7;
-        System.out.println("check1 is: " + check1);
-        System.out.println(check2);
-        return (applicationDate.compareTo(currentDate) > 0) && (period.getDays() <= 7);
+        return (applicationDate.compareTo(currentDate) >= 0) && (period.getDays() <= 7);
     }
 
     @Override

@@ -5,6 +5,7 @@ import seedu.address.model.internship.interview.Interview;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -25,8 +26,8 @@ public class InterviewDateDuePredicate implements Predicate<InternshipApplicatio
         for (Interview interview: interviews){
             LocalDate interviewDate = interview.getInterviewDate();
             // count days between every interview in the internship application and current date
-            Duration duration = Duration.between(currentDate, interviewDate);
-            if ((interviewDate.compareTo(currentDate) > 0) && (duration.toDays() <= 7)) {
+            Period duration = Period.between(currentDate, interviewDate);
+            if ((interviewDate.compareTo(currentDate) >= 0) && (duration.getDays() <= 7)) {
                 hasAtLeastOneInterviewDue = true;
                 break;
             }

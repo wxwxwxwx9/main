@@ -37,7 +37,7 @@ public class PhoneContainsNumbersPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different numbers -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
