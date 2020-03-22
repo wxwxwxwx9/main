@@ -3,9 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -13,10 +16,13 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.AddressContainsKeywordsPredicate;
+import seedu.address.model.internship.ApplicationDateIsDatePredicate;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.EmailContainsKeywordsPredicate;
 import seedu.address.model.internship.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.PriorityContainsNumbersPredicate;
 import seedu.address.model.internship.RoleContainsKeywordsPredicate;
+import seedu.address.model.internship.StatusContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -31,10 +37,10 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
-                        PREFIX_PHONE, PREFIX_EMAIL);
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS);
 
         if (!areAnyPrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
-                PREFIX_PHONE, PREFIX_EMAIL)
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -44,6 +50,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         AddressContainsKeywordsPredicate aPredicate = new AddressContainsKeywordsPredicate(null);
         PhoneContainsNumbersPredicate pPredicate = new PhoneContainsNumbersPredicate(null);
         EmailContainsKeywordsPredicate ePredicate = new EmailContainsKeywordsPredicate(null);
+        ApplicationDateIsDatePredicate dPredicate = new ApplicationDateIsDatePredicate(null);
+        PriorityContainsNumbersPredicate wPredicate = new PriorityContainsNumbersPredicate(null);
+        StatusContainsKeywordsPredicate sPredicate = new StatusContainsKeywordsPredicate(null);
 
         if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
             String[] companyKeywords = argMultimap.getValue(PREFIX_COMPANY).get().split("\\s+");
@@ -58,14 +67,27 @@ public class FindCommandParser implements Parser<FindCommand> {
             aPredicate = new AddressContainsKeywordsPredicate(Arrays.asList(addressKeywords));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            String[]phoneKeywords = argMultimap.getValue(PREFIX_PHONE).get().split("\\s+");
-            pPredicate = new PhoneContainsNumbersPredicate(Arrays.asList(phoneKeywords));
+            String[] phoneNumbers = argMultimap.getValue(PREFIX_PHONE).get().split("\\s+");
+            pPredicate = new PhoneContainsNumbersPredicate(Arrays.asList(phoneNumbers));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             String[] emailKeywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
             ePredicate = new EmailContainsKeywordsPredicate(Arrays.asList(emailKeywords));
         }
-        return new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate);
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            String date = argMultimap.getValue(PREFIX_DATE).get();
+            dPredicate = new ApplicationDateIsDatePredicate(ParserUtil.parseApplicationDate(date).fullApplicationDate);
+        }
+        if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
+            String[] priorityNumbers = argMultimap.getValue(PREFIX_PRIORITY).get().split("\\s+");
+            wPredicate = new PriorityContainsNumbersPredicate(Arrays.asList(priorityNumbers));
+        }
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            String[] statusKeywords = argMultimap.getValue(PREFIX_STATUS).get().split("\\s+");
+            sPredicate = new StatusContainsKeywordsPredicate(Arrays.asList(statusKeywords));
+        }
+        return new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate, dPredicate, wPredicate,
+                sPredicate, false);
     }
 
     /**
