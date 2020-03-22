@@ -95,14 +95,6 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
         internships.remove(key);
     }
 
-//    /**
-//     * Archives {@code key} from this {@code InternshipDiary}.
-//     * {@code key} must exist in the internship diary.
-//     */
-//    public void archiveInternship(InternshipApplication key) {
-//        internships.remove(key);
-//    }
-
     //// util methods
 
     @Override

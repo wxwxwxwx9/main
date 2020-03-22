@@ -49,7 +49,7 @@ public class InternshipApplication {
      * Overloaded constructor to set isArchived field (probably not needed).
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-             ApplicationDate applicationDate, Priority priority, Status status, boolean isArchived) {
+             ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;

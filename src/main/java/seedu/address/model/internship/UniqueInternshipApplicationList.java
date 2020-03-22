@@ -67,11 +67,23 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
             throw new InternshipApplicationNotFoundException();
         }
 
+        System.out.println("before");
+
+        internalList.forEach(s -> { System.out.println(s.getCompany()); });
+
+        System.out.println(String.format("target: %s (%d) edited: %s", target.getCompany(), index,
+                editedInternshipApplication.getCompany()));
+
         if (!target.isSameInternshipApplication(editedInternshipApplication) && contains(editedInternshipApplication)) {
             throw new DuplicateInternshipApplicationException();
         }
 
         internalList.set(index, editedInternshipApplication);
+
+        System.out.println("after");
+
+        internalList.forEach(s -> { System.out.println(s.getCompany()); });
+
     }
 
     /**
@@ -84,17 +96,6 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
             throw new InternshipApplicationNotFoundException();
         }
     }
-
-    /**
-     * Archives the equivalent internship application from the list.
-     * The internship application must exist in the list.
-     */
-//    public void archive(InternshipApplication toArchive) {
-//        requireNonNull(toArchive);
-//        if (!internalList.get(toRemove)) {
-//            throw new InternshipApplicationNotFoundException();
-//        }
-//    }
 
     public void setInternshipApplications(UniqueInternshipApplicationList replacement) {
         requireNonNull(replacement);

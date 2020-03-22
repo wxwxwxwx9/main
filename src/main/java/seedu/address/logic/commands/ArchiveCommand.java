@@ -59,6 +59,7 @@ public class ArchiveCommand extends Command {
             true
         );
         // implementation is questionable, will relook into how I can improve this
+        // basically idea is just to deep clone the internshipToArchive and set isArchived to true
         // initially thought of using edit command, but it's too cumbersome
         // add, delete, setInternshipApplication updates the UI automatically
         // no need to go through manual filtering (like below)

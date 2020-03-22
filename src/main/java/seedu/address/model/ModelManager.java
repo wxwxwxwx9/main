@@ -107,11 +107,6 @@ public class ModelManager implements Model {
         return internshipDiary.hasInternship(internshipApplication);
     }
 
-//    @Override
-//    public void archiveInternshipApplication(InternshipApplication target) {
-//        internshipDiary.archiveInternship(target);
-//    }
-
     @Override
     public void deleteInternshipApplication(InternshipApplication target) {
         internshipDiary.removeInternship(target);

@@ -67,12 +67,6 @@ public interface Model {
      */
     boolean hasInternshipApplication(InternshipApplication internshipApplication);
 
-//    /**
-//     * Archives the given internship application.
-//     * The application must exist in the internship diary.
-//     */
-//    void archiveInternshipApplication(InternshipApplication target);
-
     /**
      * Deletes the given internship application.
      * The application must exist in the internship diary.

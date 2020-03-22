@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
+import static seedu.address.model.Model.PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,9 +92,7 @@ public class EditCommand extends Command {
         }
 
         model.setInternshipApplication(internshipToEdit, editedInternship);
-//        model.addInternshipApplication(internshipToEdit);
-//        model.deleteInternshipApplication(internshipToEdit);
-//        model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ALL_INTERNSHIPS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship));
     }
 
