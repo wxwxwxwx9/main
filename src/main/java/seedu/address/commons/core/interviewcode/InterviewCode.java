@@ -7,12 +7,13 @@ package seedu.address.commons.core.interviewcode;
  * InterviewCode should come right after {@code Index} when inputting interview command.
  */
 public enum InterviewCode {
-    ADD, EDIT, DELETE;
+    LIST, ADD, EDIT, DELETE;
 
     public static String MESSAGE_CONSTRAINTS = "Interview should have an add, edit or delete after index.";
 
     public static boolean isValidCode(String code) {
         String upperCaseCode = code.toUpperCase();
-        return upperCaseCode.equals("ADD") || upperCaseCode.equals("EDIT") || upperCaseCode.equals("DELETE");
+        return upperCaseCode.equals("ADD") || upperCaseCode.equals("EDIT")
+                || upperCaseCode.equals("DELETE") || upperCaseCode.equals("LIST");
     }
 }
