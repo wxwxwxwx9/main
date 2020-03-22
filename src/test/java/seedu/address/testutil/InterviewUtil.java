@@ -30,7 +30,7 @@ public class InterviewUtil {
      * Returns an add command string for adding the {@code interview}.
      */
     public static String getAddCommand(Interview interview) {
-        return InterviewCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION + " add "
+        return InterviewCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
                 + getInterviewDetails(interview);
     }
 
