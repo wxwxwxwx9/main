@@ -11,8 +11,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.comparator.ApplicationDateComparator;
 import seedu.address.logic.comparator.CompanyComparator;
-import seedu.address.logic.comparator.DateComparator;
 import seedu.address.logic.comparator.PriorityComparator;
 import seedu.address.logic.comparator.StatusComparator;
 
@@ -38,7 +38,7 @@ public class SortCommandParserTest {
         SortCommand expectedSortCommand = new SortCommand(new CompanyComparator());
         assertParseSuccess(parser, PREFIX_COMPANY.toString(), expectedSortCommand);
 
-        expectedSortCommand = new SortCommand(new DateComparator());
+        expectedSortCommand = new SortCommand(new ApplicationDateComparator());
         assertParseSuccess(parser, PREFIX_DATE.toString(), expectedSortCommand);
 
         expectedSortCommand = new SortCommand(new PriorityComparator());
