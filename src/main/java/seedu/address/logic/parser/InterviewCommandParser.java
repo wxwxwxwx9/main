@@ -6,20 +6,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
 
-import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.interviewcode.InterviewCode;
 import seedu.address.logic.commands.InterviewCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
-import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
 public class InterviewCommandParser implements Parser<InterviewCommand> {
@@ -47,9 +45,17 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         case ADD:
             return parseAdd(index, argumentMultimap);
         case DELETE:
+            if (indexAndCode.length != 3) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewDeleteCommand.MESSAGE_USAGE));
+            }
             return parseDelete(index, indexAndCode[2]);
         case EDIT:
-            return parseEdit(index, indexAndCode[3], argumentMultimap);
+            if (indexAndCode.length != 3) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE));
+            }
+            return parseEdit(index, indexAndCode[2], argumentMultimap);
         case LIST:
             return new InterviewListCommand(index);
         default:
@@ -77,9 +83,15 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         return new InterviewAddCommand(index, interview);
     }
 
-    private InterviewCommand parseDelete(Index internshipIndex, String interviewIndex) {
-
-        return null;
+    private InterviewCommand parseDelete(Index internshipIndex, String interviewIndex) throws ParseException {
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(interviewIndex);
+            return new InterviewDeleteCommand(internshipIndex, index);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewDeleteCommand.MESSAGE_USAGE), pe);
+        }
     }
 
     private InterviewCommand parseEdit(Index internshipIndex,
