@@ -1,20 +1,20 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.showInternshipApplicationAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.internship.InternshipApplication;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
-import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
-
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -24,21 +24,23 @@ public class UnarchiveCommandTest {
 
     private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
 
-//    @Test
-//    public void execute_validIndexUnfilteredList_success() {
-//        InternshipApplication internshipApplicationToUnarchive =
-//                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-//        model.archiveInternshipApplication(internshipApplicationToUnarchive);
-//        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-//
-//        String expectedMessage =
-//                String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, internshipApplicationToUnarchive);
-//
-//        ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
-//        expectedModel.archiveInternshipApplication(internshipApplicationToUnarchive);
-//
-//        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
-//    }
+    /*
+    @Test
+    public void execute_validIndexUnfilteredList_success() {
+        InternshipApplication internshipApplicationToUnarchive =
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        model.archiveInternshipApplication(internshipApplicationToUnarchive);
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+
+        String expectedMessage =
+                String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, internshipApplicationToUnarchive);
+
+        ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+        expectedModel.archiveInternshipApplication(internshipApplicationToUnarchive);
+
+        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
+    }
+    */
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
@@ -48,23 +50,25 @@ public class UnarchiveCommandTest {
         assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
 
-//    @Test
-//    public void execute_validIndexFilteredList_success() {
-//        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
-//
-//        InternshipApplication internshipApplicationToUnarchive =
-//                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-//        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-//
-//        String expectedMessage = String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS,
-//                internshipApplicationToUnarchive);
-//
-//        Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
-//        expectedModel.unarchiveInternshipApplication(internshipApplicationToUnarchive);
-//        showNoInternshipApplication(expectedModel);
-//
-//        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
-//    }
+    /*
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
+
+        InternshipApplication internshipApplicationToUnarchive =
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+
+        String expectedMessage = String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS,
+                internshipApplicationToUnarchive);
+
+        Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+        expectedModel.unarchiveInternshipApplication(internshipApplicationToUnarchive);
+        showNoInternshipApplication(expectedModel);
+
+        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
+    }
+    */
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {

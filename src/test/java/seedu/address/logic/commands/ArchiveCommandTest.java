@@ -50,23 +50,25 @@ public class ArchiveCommandTest {
         assertCommandFailure(archiveCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
 
-//    @Test
-//    public void execute_validIndexFilteredList_success() {
-//        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
-//
-//        InternshipApplication internshipApplicationToArchive =
-//                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-//        ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-//
-//        String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS,
-//                internshipApplicationToArchive);
-//
-//        Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
-//        expectedModel.archiveInternshipApplication(internshipApplicationToArchive);
-//        showNoInternshipApplication(expectedModel);
-//
-//        assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
-//    }
+    /*
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
+
+        InternshipApplication internshipApplicationToArchive =
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+
+        String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS,
+                internshipApplicationToArchive);
+
+        Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+        expectedModel.archiveInternshipApplication(internshipApplicationToArchive);
+        showNoInternshipApplication(expectedModel);
+
+        assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
+    }
+    */
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
