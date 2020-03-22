@@ -18,14 +18,10 @@ public abstract class InterviewCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Modifies Interviews in an Internship Application by using an index to specify application followed"
             + "by a command word to specify action to be taken.\n"
-            + "Parameters: INDEX (must be a positive integer) COMMAND_CODE (must be either add, edit or delete)"
-            + "[" + PREFIX_IS_ONLINE + "is it an online interview (true/false)] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS (optional if online interview] "
-            + "Example: " + COMMAND_WORD + " 1 add "
-            + PREFIX_IS_ONLINE + "false"
-            + PREFIX_ADDRESS + "123 road"
-            + PREFIX_DATE + "01 02 2020";
+            + "Parameters: INDEX (must be a positive integer) "
+            + "COMMAND_CODE (must be either add, edit, delete, or list) "
+            + "other parameters as defined by the command code. "
+            + "type help or interview INDEX COMMAND_CODE to find out the respective required parameters.";
 
     protected InternshipApplication getInternshipApplication(Model model, Index index) throws CommandException {
         List<InternshipApplication> lastShownList = model.getFilteredInternshipApplicationList();

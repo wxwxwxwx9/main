@@ -9,11 +9,23 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
 
 public class InterviewAddCommand extends InterviewCommand {
     public static final String MESSAGE_SUCCESS = "New Interview added: %1$s";
     public static final String MESSAGE_DUPLICATE_INTERVIEW =
             "This interview already exists in the internship application: %1$s";
+    public static final String MESSAGE_USAGE = "Adds an interview into an Internship Application.\n"
+            + "Parameters: INDEX (must be a positive integer) add "
+            + "[" + PREFIX_IS_ONLINE + "is it an online interview (true/false)] "
+            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS (optional if online interview] "
+            + "Example: " + COMMAND_WORD + " 1 add "
+            + PREFIX_IS_ONLINE + "false "
+            + PREFIX_ADDRESS + "123 road "
+            + PREFIX_DATE + "01 02 2020 ";
 
     private final Index index;
     private final Interview toAdd;
