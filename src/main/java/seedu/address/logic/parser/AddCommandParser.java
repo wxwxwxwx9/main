@@ -39,8 +39,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_ROLE,
-                PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_DATE, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -51,7 +50,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(""));
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));
         ApplicationDate date = ParserUtil.parseApplicationDate(argMultimap.getValue(PREFIX_DATE).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse("5"));
         Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
 
         InternshipApplication internshipApplication =

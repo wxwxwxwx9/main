@@ -49,7 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_DATE + "APPLICATION DATE] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_STATUS + "STATUS] "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 

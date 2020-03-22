@@ -105,6 +105,12 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
+
+        // missing priority
+        expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withPriority("5").build();
+        assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + ROLE_DESC_BOB + DATE_DESC_BOB + STATUS_DESC_BOB,
+                new AddCommand(expectedInternshipApplication));
     }
 
     @Test
@@ -115,18 +121,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_COMPANY_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
-        // // missing phone prefix
-        // assertParseFailure(parser, COMPANY_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
-        //
-        // // missing email prefix
-        // assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB
-        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
-        //
-        // // missing address prefix
-        // assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
-        //         + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
-
         // missing role prefix
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + VALID_ROLE_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
@@ -135,17 +129,13 @@ public class AddCommandParserTest {
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + VALID_DATE_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
-        // missing priority prefix
-        assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + VALID_PRIORITY_BOB + STATUS_DESC_BOB, expectedMessage);
-
         // missing status prefix
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + VALID_STATUS_BOB, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_COMPANY_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB
-                + VALID_ROLE_BOB + VALID_DATE_BOB + VALID_PRIORITY_BOB + VALID_STATUS_BOB, expectedMessage);
+        assertParseFailure(parser, VALID_COMPANY_BOB + VALID_ROLE_BOB + VALID_DATE_BOB + VALID_STATUS_BOB,
+                expectedMessage);
     }
 
     @Test
