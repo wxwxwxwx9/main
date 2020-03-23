@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.showInternshipApplicationAtIndex;
+import static seedu.address.testutil.InternshipApplicationUtil.createArchivedInternshipApplication;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
@@ -30,7 +31,28 @@ public class UnarchiveCommandTest {
     private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
 
     @Test
-    public void execute_unarchiveOneInternshipApplication_success() {
+    public void execute_unarchiveOneInternshipApplication_archivalViewSuccess() {
+        InternshipApplication internshipApplication =
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        InternshipApplication archivedInternship = createArchivedInternshipApplication(internshipApplication);
+        model.setInternshipDiary(new InternshipDiary());
+        model.addInternshipApplication(archivedInternship);
+        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+        try {
+            unarchiveCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+        expectedModel.setInternshipDiary(new InternshipDiary());
+        expectedModel.addInternshipApplication(internshipApplication);
+        expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+
+        assertEquals(model, expectedModel);
+    }
+
+    @Test
+    public void execute_unarchiveOneInternshipApplication_listViewSuccess() {
         InternshipApplication internshipApplication =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         model.setInternshipDiary(new InternshipDiary());
@@ -91,15 +113,6 @@ public class UnarchiveCommandTest {
 
         // different internship application index -> returns false
         assertFalse(unarchiveFirstCommand.equals(unarchiveSecondCommand));
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoInternshipApplication(Model model) {
-        model.updateFilteredInternshipApplicationList(p -> false);
-
-        assertTrue(model.getFilteredInternshipApplicationList().isEmpty());
     }
 
 }

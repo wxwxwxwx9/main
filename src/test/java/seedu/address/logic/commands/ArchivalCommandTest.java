@@ -28,13 +28,13 @@ public class ArchivalCommandTest {
     }
 
     @Test
-    public void execute_noArchivedInternshipApplication_showsEmptyList() {
+    public void execute_noArchivedInternshipApplication_archivalShowsEmptyList() {
         expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
         assertCommandSuccess(new ArchivalCommand(), model, ArchivalCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_archiveOneInternshipApplication_showsOneArchivedInternshipApplication() {
+    public void execute_archiveOneInternshipApplication_archivalShowsOneArchivedInternshipApplication() {
         InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
                 .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         model.archiveInternshipApplication(internshipApplication);
@@ -42,4 +42,5 @@ public class ArchivalCommandTest {
         expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
         assertCommandSuccess(new ArchivalCommand(), model, ArchivalCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
 }

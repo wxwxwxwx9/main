@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showInternshipApplicationAtIndex;
+import static seedu.address.testutil.InternshipApplicationUtil.createArchivedInternshipApplication;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
@@ -32,27 +33,18 @@ public class ArchiveCommandTest {
     private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
 
     @Test
-    public void archive_oneInternshipApplication_success() {
+    public void execute_archiveOneInternshipApplication_archivalViewSuccess() {
         InternshipApplication internshipApplication =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-        InternshipApplication editedInternship = new InternshipApplication(
-            internshipApplication.getCompany(),
-            internshipApplication.getRole(),
-            internshipApplication.getAddress(),
-            internshipApplication.getPhone(),
-            internshipApplication.getEmail(),
-            internshipApplication.getApplicationDate(),
-            internshipApplication.getPriority(),
-            internshipApplication.getStatus(),
-            true
-        );
+        InternshipApplication archivedInternship = createArchivedInternshipApplication(internshipApplication);
         expectedModel.setInternshipDiary(new InternshipDiary());
-        expectedModel.addInternshipApplication(editedInternship);
+        expectedModel.addInternshipApplication(archivedInternship);
         expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
 
         model.setInternshipDiary(new InternshipDiary());
         model.addInternshipApplication(internshipApplication);
         ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+
         try {
             archiveCommand.execute(model);
         } catch (CommandException ce) {
@@ -63,7 +55,7 @@ public class ArchiveCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_archiveOneInternshipApplication_listViewSuccess() {
         InternshipApplication internshipApplicationToArchive =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
@@ -71,7 +63,6 @@ public class ArchiveCommandTest {
         String expectedMessage =
                 String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, internshipApplicationToArchive);
 
-        ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
         expectedModel.archiveInternshipApplication(internshipApplicationToArchive);
 
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
@@ -120,12 +111,4 @@ public class ArchiveCommandTest {
         assertFalse(archiveFirstCommand.equals(archiveSecondCommand));
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoInternshipApplication(Model model) {
-        model.updateFilteredInternshipApplicationList(p -> false);
-
-        assertTrue(model.getFilteredInternshipApplicationList().isEmpty());
-    }
 }

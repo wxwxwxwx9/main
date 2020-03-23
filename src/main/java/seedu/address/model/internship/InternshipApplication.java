@@ -146,7 +146,8 @@ public class InternshipApplication {
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate());
+                && internshipApplication.getApplicationDate().equals(getApplicationDate())
+                && internshipApplication.isArchived().equals(isArchived());
     }
 
     /**
@@ -171,14 +172,14 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus());
-        // && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.getStatus().equals(getStatus())
+                && internshipApplication.isArchived().equals(isArchived());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status);
+        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status, isArchived);
     }
 
     @Override
@@ -198,9 +199,9 @@ public class InternshipApplication {
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" Status: ")
-                .append(getStatus());
-        // .append(" Archived: ")
-        // .append(isArchived());
+                .append(getStatus())
+                .append(" Archived: ")
+                .append(isArchived());
         return builder.toString();
     }
 }
