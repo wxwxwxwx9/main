@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.comparator.ApplicationDateComparator;
 import seedu.address.logic.comparator.CompanyComparator;
-import seedu.address.logic.comparator.DateComparator;
 import seedu.address.logic.comparator.PriorityComparator;
 import seedu.address.logic.comparator.StatusComparator;
 import seedu.address.model.Model;
@@ -30,7 +30,7 @@ public class SortCommandTest {
 
     private List<Comparator<InternshipApplication>> comparators = Arrays.asList(
             new CompanyComparator(),
-            new DateComparator(),
+            new ApplicationDateComparator(),
             new PriorityComparator(),
             new StatusComparator()
     );
@@ -38,7 +38,7 @@ public class SortCommandTest {
     @Test
     public void equals() {
         Comparator<InternshipApplication> companyComparator = new CompanyComparator();
-        Comparator<InternshipApplication> dateComparator = new DateComparator();
+        Comparator<InternshipApplication> dateComparator = new ApplicationDateComparator();
 
         SortCommand sortCompanyCommand = new SortCommand(companyComparator);
         SortCommand sortDateCommand = new SortCommand(dateComparator);
