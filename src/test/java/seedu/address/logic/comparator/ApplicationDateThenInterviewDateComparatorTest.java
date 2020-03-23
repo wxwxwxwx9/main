@@ -21,12 +21,14 @@ class ApplicationDateThenInterviewDateComparatorTest {
 
     @Test
     public void compare() {
+        LocalDate currentDate = LocalDate.now();
+        assertEquals(currentDate.compareTo(currentDate), 0);
         InternshipApplicationBuilder internship1 = new InternshipApplicationBuilder();
-        internship1.withApplicationDate(new ApplicationDate(LocalDate.now()));
+        internship1.withApplicationDate(new ApplicationDate(currentDate));
         InternshipApplicationBuilder internship2 = new InternshipApplicationBuilder();
-        internship2.withApplicationDate(new ApplicationDate(LocalDate.now().plus(1, ChronoUnit.DAYS)));
+        internship2.withApplicationDate(new ApplicationDate(currentDate.plus(1, ChronoUnit.DAYS)));
         InternshipApplicationBuilder internship3 = new InternshipApplicationBuilder();
-        internship3.withApplicationDate(new ApplicationDate(LocalDate.now().plus(1, ChronoUnit.DAYS)));
+        internship3.withApplicationDate(new ApplicationDate(currentDate.plus(1, ChronoUnit.DAYS)));
 
         // an application's application date compared to itself -> returns 0
         assertEquals(internship1.getApplicationDate().compareTo(internship1.getApplicationDate()), 0);
@@ -39,20 +41,20 @@ class ApplicationDateThenInterviewDateComparatorTest {
         // with same application date, comparing internship2(with earlier 'earliest interview date') and
         // internship3(with later 'earliest interview date') --> returns negative int
         Interview newInterviewForInternship2 = new Interview(true,
-                new ApplicationDate(LocalDate.now().plus(12, ChronoUnit.DAYS)),
+                new ApplicationDate(currentDate.plus(12, ChronoUnit.DAYS)),
                 new Address("123 Stevens Road"));
         Interview anotherInterviewForInternship2 = new Interview(true,
-                new ApplicationDate(LocalDate.now().plus(25, ChronoUnit.DAYS)),
+                new ApplicationDate(currentDate.plus(25, ChronoUnit.DAYS)),
                 new Address("123 Stevens Road"));
         internship2.withInterview(newInterviewForInternship2);
         internship2.withInterview(anotherInterviewForInternship2);
         Interview newInterviewForInternship3 = new Interview(true,
-                new ApplicationDate(LocalDate.now().plus(16, ChronoUnit.DAYS)),
+                new ApplicationDate(currentDate.plus(16, ChronoUnit.DAYS)),
                 new Address("123 Stevens Road"));
         internship3.withInterview(newInterviewForInternship3);
-        Optional<Interview> earliestInterviewForInternship2 = internship2.getEarliestInterview(LocalDate.now());
+        Optional<Interview> earliestInterviewForInternship2 = internship2.getEarliestInterview(currentDate);
         assertTrue(earliestInterviewForInternship2.isPresent());
-        Optional<Interview> earliestInterviewForInternship3 = internship3.getEarliestInterview(LocalDate.now());
+        Optional<Interview> earliestInterviewForInternship3 = internship3.getEarliestInterview(currentDate);
         assertTrue(earliestInterviewForInternship3.isPresent());
         LocalDate earliestInterviewDateForInternship2 = earliestInterviewForInternship2.get().getInterviewDate();
         LocalDate earliestInterviewDateForInternship3 = earliestInterviewForInternship3.get().getInterviewDate();
