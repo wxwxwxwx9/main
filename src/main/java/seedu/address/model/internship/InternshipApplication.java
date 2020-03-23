@@ -102,6 +102,10 @@ public class InternshipApplication {
         interviews.add(interview);
     }
 
+    public void setInterviews(ArrayList<Interview> interviews) {
+        this.interviews.addAll(interviews);
+    }
+
     public ArrayList<Interview> getInterviews() {
         return interviews;
     }
