@@ -1,5 +1,9 @@
 package seedu.address.model.statistics;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
@@ -10,20 +14,9 @@ import seedu.address.model.status.Status;
  */
 public class Statistics {
     public static final String TOTAL = "TOTAL";
-    public static final double TOTAL_PERCENTAGE = 100;
 
-    private int wishlistCount = 0;
-    private int appliedCount = 0;
-    private int interviewCount = 0;
-    private int offeredCount = 0;
-    private int rejectedCount = 0;
-    private int totalCount = 0;
-
-    private double wishlistPercentage = 0;
-    private double appliedPercentage = 0;
-    private double interviewPercentage = 0;
-    private double offeredPercentage = 0;
-    private double rejectedPercentage = 0;
+    private Status[] statuses = Status.class.getEnumConstants();
+    private HashMap<Status, Integer> statusCount = new HashMap<>();
 
     /**
      * Computes and updates the overall statistics based on the list of internship applications given.
@@ -32,7 +25,6 @@ public class Statistics {
     public void computeAndUpdateStatistics(ObservableList<InternshipApplication> internshipApplicationList) {
         resetStatistics();
         computeCount(internshipApplicationList);
-        computePercentage();
     }
 
     /**
@@ -40,95 +32,68 @@ public class Statistics {
      * @param internshipApplicationList
      */
     public void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {
-        for (int i = 0; i < internshipApplicationList.size(); i++) {
-            InternshipApplication ia = internshipApplicationList.get(i);
-            Status iaStatus = ia.getStatus();
-            switch (iaStatus) {
-            case WISHLIST:
-                wishlistCount++;
-                break;
-            case APPLIED:
-                appliedCount++;
-                break;
-            case INTERVIEW:
-                interviewCount++;
-                break;
-            case OFFERED:
-                offeredCount++;
-                break;
-            case REJECTED:
-                rejectedCount++;
-                break;
-            default:
-            }
+        List<Status> newStatuses = internshipApplicationList.stream()
+                .map(ia -> {
+                    return ia.getStatus();
+                })
+                .collect(Collectors.toList());
+        for (Status status : newStatuses) {
+            int count = statusCount.get(status);
+            statusCount.put(status, ++count);
         }
-    }
-
-    /**
-     * Computes and updates the percentage for each internship application status.
-     */
-    public void computePercentage() {
-        this.totalCount = wishlistCount + appliedCount + interviewCount + offeredCount + rejectedCount;
-        wishlistPercentage = ((double) wishlistCount / totalCount) * 100;
-        appliedPercentage = ((double) appliedCount / totalCount) * 100;
-        interviewPercentage = ((double) interviewCount / totalCount) * 100;
-        offeredPercentage = ((double) offeredCount / totalCount) * 100;
-        rejectedPercentage = ((double) rejectedCount / totalCount) * 100;
     }
 
     /**
      * Resets the current statistics.
      */
     public void resetStatistics() {
-        this.wishlistCount = 0;
-        this.appliedCount = 0;
-        this.interviewCount = 0;
-        this.offeredCount = 0;
-        this.rejectedCount = 0;
+        for (Status status : statuses) {
+            statusCount.put(status, 0);
+        }
     }
 
     public int getWishlistCount() {
-        return this.wishlistCount;
+        return statusCount.get(Status.WISHLIST);
     }
 
     public int getAppliedCount() {
-        return this.appliedCount;
+        return statusCount.get(Status.APPLIED);
     }
 
     public int getInterviewCount() {
-        return this.interviewCount;
+        return statusCount.get(Status.INTERVIEW);
     }
 
     public int getOfferedCount() {
-        return this.offeredCount;
+        return statusCount.get(Status.OFFERED);
     }
 
     public int getRejectedCount() {
-        return this.rejectedCount;
+        return statusCount.get(Status.REJECTED);
     }
 
     public int getTotalCount() {
-        return this.totalCount;
+        return getWishlistCount() + getAppliedCount() + getInterviewCount() + getOfferedCount() + getRejectedCount();
     }
 
     public double getWishlistPercentage() {
-        return this.wishlistPercentage;
+        return ((double) getWishlistCount() / getTotalCount()) * 100;
     }
 
     public double getAppliedPercentage() {
-        return this.appliedPercentage;
+        return ((double) getAppliedCount() / getTotalCount()) * 100;
     }
 
     public double getInterviewPercentage() {
-        return this.interviewPercentage;
+        return ((double) getInterviewCount() / getTotalCount()) * 100;
     }
 
     public double getOfferedPercentage() {
-        return this.offeredPercentage;
+        return ((double) getOfferedCount() / getTotalCount()) * 100;
     }
 
     public double getRejectedPercentage() {
-        return this.rejectedPercentage;
+        return ((double) getRejectedCount() / getTotalCount()) * 100;
     }
 
 }
