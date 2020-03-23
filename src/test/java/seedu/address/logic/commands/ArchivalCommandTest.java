@@ -14,7 +14,7 @@ import seedu.address.model.internship.InternshipApplication;
 
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ArchivalCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for {@code ArchivalCommand}.
  */
 public class ArchivalCommandTest {
 

@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+/**
+ * Contains unit tests for {@code StatisticsCommand}.
+ */
 public class StatisticsCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();

@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS;
 import seedu.address.model.Model;
 
 /**
- * Lists all internship applications in the internship diary to the user.
+ * Lists all internship applications from the archival to the user.
  */
 public class ArchivalCommand extends Command {
 

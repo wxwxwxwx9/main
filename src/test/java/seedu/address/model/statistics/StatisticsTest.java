@@ -17,6 +17,9 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for {@code Statistics}.
+ */
 public class StatisticsTest {
 
     public static final InternshipApplication APPLE = new InternshipApplicationBuilder().withCompany("Apple")

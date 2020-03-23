@@ -2,15 +2,19 @@
 .data0.chart-bar {
     -fx-background-color: #cd70ff;
 }
+
 .data1.chart-bar {
     -fx-background-color: #209cee;
 }
+
 .data2.chart-bar {
     -fx-background-color: #22c65b;
 }
+
 .data3.chart-bar {
     -fx-background-color: #ffdd57;
 }
+
 .data4.chart-bar {
     -fx-background-color: #ff3860;
 }

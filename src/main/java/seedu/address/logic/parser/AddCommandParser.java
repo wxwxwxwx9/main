@@ -25,7 +25,7 @@ import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddCommand object.
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
