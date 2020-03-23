@@ -58,25 +58,6 @@ class JsonAdaptedInternship {
     }
 
     /**
-     * Overloaded constructor to construct a {@code JsonAdaptedInternship} with the given internship details without
-     * interviews.
-     */
-    @JsonCreator
-    public JsonAdaptedInternship(@JsonProperty("company") String company, @JsonProperty("role") String role,
-                                 @JsonProperty("address") String address, @JsonProperty("phone") String phone,
-                                 @JsonProperty("email") String email, @JsonProperty("applicationDate") String applicationDate,
-                                 @JsonProperty("priority") String priority, @JsonProperty("status") String status) {
-        this.company = company;
-        this.role = role;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.applicationDate = applicationDate;
-        this.priority = priority;
-        this.status = status;
-    }
-
-    /**
      * Converts a given {@code InternshipApplication} into this class for Jackson use.
      */
     public JsonAdaptedInternship(InternshipApplication source) {
