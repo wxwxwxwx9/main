@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showInternshipApplica
 import static seedu.address.testutil.InternshipApplicationUtil.createArchivedInternshipApplication;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import org.junit.jupiter.api.Test;
@@ -33,37 +34,33 @@ public class ArchiveCommandTest {
     private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
 
     @Test
-    public void execute_archiveOneInternshipApplication_archivalViewSuccess() {
-        InternshipApplication internshipApplication =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-        InternshipApplication archivedInternship = createArchivedInternshipApplication(internshipApplication);
+    public void execute_archiveOneInternshipApplication_archivalViewCorrect() {
+        InternshipApplication archivedInternship = createArchivedInternshipApplication(GOOGLE);
         expectedModel.setInternshipDiary(new InternshipDiary());
         expectedModel.addInternshipApplication(archivedInternship);
         expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
 
         model.setInternshipDiary(new InternshipDiary());
-        model.addInternshipApplication(internshipApplication);
+        model.addInternshipApplication(GOOGLE);
         ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-
         try {
             archiveCommand.execute(model);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
         model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+
         assertEquals(model, expectedModel);
     }
 
     @Test
-    public void execute_archiveOneInternshipApplication_listViewSuccess() {
-        InternshipApplication internshipApplicationToArchive =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+    public void execute_archiveOneInternshipApplication_listViewCorrect() {
         ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         String expectedMessage =
-                String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, internshipApplicationToArchive);
+                String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, GOOGLE);
 
-        expectedModel.archiveInternshipApplication(internshipApplicationToArchive);
+        expectedModel.archiveInternshipApplication(GOOGLE);
 
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
     }
