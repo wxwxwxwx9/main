@@ -20,7 +20,7 @@ import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
 
 /**
- * Controller for the statistics page
+ * A ui for the statistics window page.
  */
 public class StatisticsWindow extends UiPart<Stage> {
 
@@ -81,8 +81,6 @@ public class StatisticsWindow extends UiPart<Stage> {
      */
     public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
-        // status.setLabel("Status");
-        // count.setLabel("Count");
         loadBarChart(statistics);
         loadPieChart(statistics);
     }
@@ -122,7 +120,6 @@ public class StatisticsWindow extends UiPart<Stage> {
                 new PieChart.Data(Status.OFFERED.toString(), statistics.getOfferedPercentage()),
                 new PieChart.Data(Status.REJECTED.toString(), statistics.getRejectedPercentage())
         );
-        // internshipApplicationPie.setData(pieChartData);
         internshipApplicationPie.getData().addAll(pieChartData);
         pieChartData.forEach(data -> {
                 // tooltip not working for some reason

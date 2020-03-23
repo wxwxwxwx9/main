@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
- * Archives an internship application identified using it's displayed index from the internship diary.
+ * Archives an internship application identified using its displayed index from the internship diary.
  */
 public class ArchiveCommand extends Command {
 
