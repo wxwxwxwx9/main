@@ -3,7 +3,9 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.BooleanUtil;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
@@ -141,10 +143,10 @@ class JsonAdaptedInternship {
         final Status modelStatus = Status.valueOf(status);
 
         if (isArchived == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "isArchived"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Messages.IS_ARCHIVED));
         }
-        if (!(Boolean.valueOf(isArchived) instanceof Boolean)) {
-            throw new IllegalValueException("Please use valid boolean.");
+        if (!BooleanUtil.isValidBoolean(isArchived)) {
+            throw new IllegalValueException(BooleanUtil.INVALID_BOOLEAN);
         }
         final Boolean modelIsArchived = Boolean.valueOf(isArchived);
 
