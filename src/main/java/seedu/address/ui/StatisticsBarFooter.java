@@ -56,7 +56,8 @@ public class StatisticsBarFooter extends UiPart<Region> {
      * @param statistics
      * @param internshipApplicationList
      */
-    public void computeAndBindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
+    public void computeAndBindStatistics(Statistics statistics,
+                                         ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         int wishlistCount = statistics.getWishlistCount();
         int appliedCount = statistics.getAppliedCount();

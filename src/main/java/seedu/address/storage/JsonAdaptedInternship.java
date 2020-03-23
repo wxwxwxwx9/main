@@ -144,7 +144,7 @@ class JsonAdaptedInternship {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "isArchived"));
         }
         if (!(Boolean.valueOf(isArchived) instanceof Boolean)) {
-            throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException("Please use valid boolean.");
         }
         final Boolean modelIsArchived = Boolean.valueOf(isArchived);
 
