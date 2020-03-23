@@ -5,6 +5,11 @@ import static seedu.address.storage.JsonAdaptedInternship.MISSING_FIELD_MESSAGE_
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -13,10 +18,6 @@ import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JsonAdaptedInternshipTest {
     private static final String INVALID_COMPANY = "";
