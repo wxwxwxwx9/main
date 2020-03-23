@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
@@ -26,9 +25,6 @@ import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -45,7 +41,6 @@ import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
 import seedu.address.model.status.Status;
-
 import seedu.address.testutil.InternshipApplicationBuilder;
 
 public class AddCommandParserTest {
@@ -91,25 +86,25 @@ public class AddCommandParserTest {
         // missing phone
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withPhone("").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+                        + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
 
         // missing email
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withEmail("").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+                        + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
 
         // missing address
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withAddress("").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+                        + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
 
         // missing priority
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withPriority("5").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + STATUS_DESC_BOB,
+                        + ROLE_DESC_BOB + DATE_DESC_BOB + STATUS_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
     }
 
