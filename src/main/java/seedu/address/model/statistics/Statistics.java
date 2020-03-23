@@ -26,11 +26,20 @@ public class Statistics {
     private double rejectedPercentage = 0;
 
     /**
-     * Computes and updates the statistics based on the list of internship applications given.
+     * Computes and updates the overall statistics based on the list of internship applications given.
      * @param internshipApplicationList
      */
     public void computeAndUpdateStatistics(ObservableList<InternshipApplication> internshipApplicationList) {
         resetStatistics();
+        computeCount(internshipApplicationList);
+        computePercentage();
+    }
+
+    /**
+     * Computes and updates the count for each internship application status.
+     * @param internshipApplicationList
+     */
+    public void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {
         for (int i = 0; i < internshipApplicationList.size(); i++) {
             InternshipApplication ia = internshipApplicationList.get(i);
             Status iaStatus = ia.getStatus();
@@ -53,6 +62,12 @@ public class Statistics {
             default:
             }
         }
+    }
+
+    /**
+     * Computes and updates the percentage for each internship application status.
+     */
+    public void computePercentage() {
         this.totalCount = wishlistCount + appliedCount + interviewCount + offeredCount + rejectedCount;
         wishlistPercentage = ((double) wishlistCount / totalCount) * 100;
         appliedPercentage = ((double) appliedCount / totalCount) * 100;

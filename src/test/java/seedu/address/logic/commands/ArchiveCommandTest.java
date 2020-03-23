@@ -32,7 +32,7 @@ public class ArchiveCommandTest {
     private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
 
     @Test
-    public void execute_archiveOneInternshipApplication_success() {
+    public void archive_oneInternshipApplication_success() {
         InternshipApplication internshipApplication =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         InternshipApplication editedInternship = new InternshipApplication(
