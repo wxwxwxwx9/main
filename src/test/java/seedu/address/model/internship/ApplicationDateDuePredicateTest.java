@@ -45,7 +45,7 @@ class ApplicationDateDuePredicateTest {
     }
 
     @Test
-    public void test_applicationDateHasPassed_returnsFalse() {
+    public void test_applicationDateHasAlreadyPassed_returnsFalse() {
         ApplicationDateDuePredicate predicate = new ApplicationDateDuePredicate();
 
         // application date is before current date
@@ -61,7 +61,7 @@ class ApplicationDateDuePredicateTest {
     }
 
     @Test
-    public void test_applicationDateIsNotWithin7Days_returnsFalse() {
+    public void test_futureApplicationDateIsNotWithin7Days_returnsFalse() {
         ApplicationDateDuePredicate predicate = new ApplicationDateDuePredicate();
 
         // application date is more than 7 days past current date

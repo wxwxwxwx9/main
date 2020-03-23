@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
@@ -137,6 +138,13 @@ public class InternshipApplicationBuilder {
     }
 
     /**
+     * Returns the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
+     */
+    public ApplicationDate getApplicationDate() {
+        return applicationDate;
+    }
+
+    /**
      * Overloaded withApplicationDate method to set date from String.
      */
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
@@ -173,6 +181,15 @@ public class InternshipApplicationBuilder {
         return this;
     }
 
+    /**
+     * Returns the {@code interviews} of the {@code InternshipApplication} we are building.
+     *
+     * @return list of interviews
+     */
+    public ArrayList<Interview> getInterview() {
+        return interviews;
+    }
+
     public InternshipApplication build() {
         return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
     }
@@ -189,4 +206,26 @@ public class InternshipApplicationBuilder {
         return internshipApplication;
     }
 
+    /**
+     * Returns the earliest interview from today in the list of interviews of the application.
+     * @param todayDate The current date today.
+     * @return an Optional of LocalDate. Will return empty if there are no interviews after today's date.
+     */
+    public Optional<Interview> getEarliestInterview(LocalDate todayDate) {
+        if (interviews.size() <= 0) {
+            return Optional.empty();
+        }
+
+        Interview earliestInterview = interviews.get(0);
+        for (Interview currentInterview: interviews) {
+            LocalDate earliestDate = earliestInterview.getInterviewDate();
+            LocalDate currentDate = currentInterview.getInterviewDate();
+            if ((currentDate.compareTo(earliestDate) <= 0 || earliestDate.compareTo(todayDate) < 0)
+                    && currentDate.compareTo(todayDate) >= 0) {
+                earliestInterview = currentInterview;
+            }
+        }
+        return earliestInterview.getInterviewDate().compareTo(todayDate) >= 0
+                ? Optional.of(earliestInterview) : Optional.empty();
+    }
 }

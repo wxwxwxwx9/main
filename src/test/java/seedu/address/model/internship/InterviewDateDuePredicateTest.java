@@ -34,8 +34,7 @@ class InterviewDateDuePredicateTest {
         // interview date is same as current date
         InternshipApplicationBuilder internshipApplicationTestCurrent = new InternshipApplicationBuilder();
         LocalDate currentDate = LocalDate.now();
-        String newDate = currentDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterviewTestCurrent = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestCurrent = new Interview(true, new ApplicationDate(currentDate),
                 new Address("123 Stevens Road"));
         internshipApplicationTestCurrent.withInterview(newInterviewTestCurrent);
         assertTrue(predicate.test(internshipApplicationTestCurrent.buildWithInterviews()));
@@ -43,8 +42,7 @@ class InterviewDateDuePredicateTest {
         // interview date is within 7 days from current date
         InternshipApplicationBuilder internshipApplicationTestWithin = new InternshipApplicationBuilder();
         LocalDate laterDate = LocalDate.now().plus(4, ChronoUnit.DAYS);
-        newDate = laterDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterviewTestWithin = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestWithin = new Interview(true, new ApplicationDate(laterDate),
                 new Address("123 Stevens Road"));
         internshipApplicationTestWithin.withInterview(newInterviewTestWithin);
         assertTrue(predicate.test(internshipApplicationTestWithin.buildWithInterviews()));
@@ -57,8 +55,7 @@ class InterviewDateDuePredicateTest {
         // interview date date is before current date
         InternshipApplicationBuilder internshipApplicationTestPast = new InternshipApplicationBuilder();
         LocalDate pastDate = LocalDate.now().minus(4, ChronoUnit.DAYS);
-        String newDate = pastDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterviewTestPast = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestPast = new Interview(true, new ApplicationDate(pastDate),
                 new Address("123 Stevens Road"));
         internshipApplicationTestPast.withInterview(newInterviewTestPast);
         assertFalse(predicate.test(internshipApplicationTestPast.buildWithInterviews()));
@@ -71,8 +68,7 @@ class InterviewDateDuePredicateTest {
         // interview date is more than 7 days past current date
         InternshipApplicationBuilder internshipApplicationTestMore = new InternshipApplicationBuilder();
         LocalDate laterDate = LocalDate.now().plus(10, ChronoUnit.DAYS);
-        String newDate = laterDate.format(DateTimeFormatter.ofPattern("dd MM YYYY"));
-        Interview newInterviewTestMore = new Interview(true, new ApplicationDate(newDate),
+        Interview newInterviewTestMore = new Interview(true, new ApplicationDate(laterDate),
                 new Address("123 Stevens Road"));
         internshipApplicationTestMore.withInterview(newInterviewTestMore);
         assertFalse(predicate.test(internshipApplicationTestMore.buildWithInterviews()));

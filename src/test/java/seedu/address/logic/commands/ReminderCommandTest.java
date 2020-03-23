@@ -25,6 +25,13 @@ class ReminderCommandTest {
     }
 
     @Test
+    public void execute_afterReminder_showsFilteredList() {
+        expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateThenInterviewDateComparator());
+        CommandResult expectedMessage = new CommandResult(MESSAGE_SUCCESS);
+        assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void equals() {
         ReminderCommand firstReminder = new ReminderCommand();
 
@@ -36,13 +43,5 @@ class ReminderCommandTest {
 
         // null -> returns false
         assertNotEquals(null, firstReminder);
-    }
-
-    @Test
-    public void execute_afterReminder_showsFilteredList() {
-        expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateThenInterviewDateComparator());
-        CommandResult expectedMessage = new CommandResult(MESSAGE_SUCCESS);
-        assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
-
     }
 }
