@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
 public class AddCommandTest {
@@ -127,6 +128,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void archiveInternshipApplication(InternshipApplication target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unarchiveInternshipApplication(InternshipApplication target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteInternshipApplication(InternshipApplication target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -153,6 +164,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
 

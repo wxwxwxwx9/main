@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * API of the Logic component
@@ -47,4 +48,7 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    Statistics getStatistics();
+
 }

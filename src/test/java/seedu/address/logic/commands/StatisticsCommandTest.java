@@ -1,22 +1,25 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.address.logic.commands.StatisticsCommand.SHOWING_STATISTICS_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-public class ExitCommandTest {
+/**
+ * Contains unit tests for {@code StatisticsCommand}.
+ */
+public class StatisticsCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_exit_success() {
+    public void execute_statistics_success() {
         CommandResult expectedCommandResult = new CommandResult(
-                MESSAGE_EXIT_ACKNOWLEDGEMENT, false, false, true
+                SHOWING_STATISTICS_MESSAGE, false, true, false
         );
-        assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new StatisticsCommand(), model, expectedCommandResult, expectedModel);
     }
 }

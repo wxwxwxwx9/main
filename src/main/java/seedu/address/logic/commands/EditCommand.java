@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,7 +90,7 @@ public class EditCommand extends Command {
         }
 
         model.setInternshipApplication(internshipToEdit, editedInternship);
-        model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ALL_INTERNSHIPS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship));
     }
 
@@ -111,9 +110,10 @@ public class EditCommand extends Command {
         ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
         Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
+        Boolean isArchived = internshipToEdit.isArchived();
 
         return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus);
+                updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
     }
 
     @Override
@@ -169,7 +169,9 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(company, role, address, phone, email, date, priority, status);
+            return CollectionUtil.isAnyNonNull(
+                    company, role, address, phone, email, date, priority, status
+            );
         }
 
         public void setCompany(Company company) {

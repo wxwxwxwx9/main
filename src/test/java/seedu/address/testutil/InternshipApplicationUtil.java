@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
@@ -65,4 +66,45 @@ public class InternshipApplicationUtil {
 
         return sb.toString();
     }
+
+    /**
+     * Modifies an internship application to be archived.
+     */
+    public static InternshipApplication createArchivedInternshipApplication(
+            InternshipApplication internshipApplication) {
+        InternshipApplication archivedInternship = new InternshipApplication(
+                internshipApplication.getCompany(),
+                internshipApplication.getRole(),
+                internshipApplication.getAddress(),
+                internshipApplication.getPhone(),
+                internshipApplication.getEmail(),
+                internshipApplication.getApplicationDate(),
+                internshipApplication.getPriority(),
+                internshipApplication.getStatus(),
+                true
+        );
+        assertTrue(archivedInternship.isArchived());
+        return archivedInternship;
+    }
+
+    /**
+     * Modifies an internship application to be unarchived.
+     */
+    public static InternshipApplication createUnarchivedInternshipApplication(
+            InternshipApplication internshipApplication) {
+        InternshipApplication archivedInternship = new InternshipApplication(
+                internshipApplication.getCompany(),
+                internshipApplication.getRole(),
+                internshipApplication.getAddress(),
+                internshipApplication.getPhone(),
+                internshipApplication.getEmail(),
+                internshipApplication.getApplicationDate(),
+                internshipApplication.getPriority(),
+                internshipApplication.getStatus(),
+                false
+        );
+        assertTrue(archivedInternship.isArchived());
+        return archivedInternship;
+    }
+
 }

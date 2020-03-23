@@ -68,11 +68,27 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     }
 
     /**
+     * Archives an internship application in the internship diary.
+     * The internship application must already exist in the internship diary.
+     */
+    public void archiveInternshipApplication(InternshipApplication internshipApplication) {
+        internships.archive(internshipApplication);
+    }
+
+    /**
+     * Unarchives an internship application in the internship diary.
+     * The internship application must already exist in the internship diary.
+     */
+    public void unarchiveInternshipApplication(InternshipApplication internshipApplication) {
+        internships.unarchive(internshipApplication);
+    }
+
+    /**
      * Adds an internship application to the internship diary.
      * The internship application must not already exist in the internship diary.
      */
-    public void addInternshipApplication(InternshipApplication i) {
-        internships.add(i);
+    public void addInternshipApplication(InternshipApplication internshipApplication) {
+        internships.add(internshipApplication);
     }
 
     /**
