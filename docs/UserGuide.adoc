@@ -109,19 +109,26 @@ Examples:
 * `find Google` +
 Returns `Google` and `Google Deepmind`
 
-=== Searching internship companies by Tag : `search`
+=== Sorting internship companies by field : `sort`
 
-Search for internship companies based on their tag. +
-Format: `search t/TAG`
+Sort displayed internship companies based on a given FIELD. +
+Format: `sort FIELD`.
+
+Available values for `FIELD`: +
+`c/`: Sorts by company name. +
+`d/`: Sorts by most recent interview date,
+or application date if internship does not have listed interviews. +
+`w/`: Sorts by priority level. +
+`s/`: Sorts by Status.
 
 ****
-* Search for the companies​ that has a tag corresponding to TAG
+* Sort displayed internship companies based on a given FIELD
 ****
 
 Examples:
 
-* `search NEW` +
-Returns companies that are tagged as New.
+* `Sort c/` +
+Returns a list of currently displayed companies sorted by company name.
 
 === Listing contacts of all internship companies : `contacts`
 
@@ -234,6 +241,8 @@ e.g. `edit 2 n/Google s/Shortlisted p/Product Management`
 e.g. `find James Jake`
 * *Search* : `search t/TAG` +
 e.g. `search t/Product Management`
+* *sort* : `sort FIELD` +
+e.g. `sort c/`
 * *Contacts* : `contacts`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
