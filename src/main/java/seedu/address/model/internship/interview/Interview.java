@@ -47,6 +47,7 @@ public class Interview {
         return interviewAddress;
     }
 
+
     /**
      * Checks if the interview is valid. If it is an online interview, it should not have an address.
      * Otherwise, any valid address is fine.
