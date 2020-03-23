@@ -37,10 +37,10 @@ public class Statistics {
                     return ia.getStatus();
                 })
                 .collect(Collectors.toList());
-        for (Status status : newStatuses) {
+        newStatuses.forEach((status) -> {
             int count = statusCount.get(status);
             statusCount.put(status, ++count);
-        }
+        });
     }
 
     /**
