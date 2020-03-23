@@ -7,7 +7,8 @@
     "email": "hans@example.com",
     "applicationDate": "11 11 2020",
     "priority": "1",
-    "status": "ACTIVE"
+    "status": "ACTIVE",
+    "interview": []
   }, {
     "company": "Company With Invalid Phone Field",
     "role": "Fun officer",
@@ -16,6 +17,7 @@
     "email": "hans@example.com",
     "applicationDate": "11 11 2020",
     "priority": "1",
-    "status": "ACTIVE"
+    "status": "ACTIVE",
+    "interviews": []
   } ]
 }
