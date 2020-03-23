@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.ReminderCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ReminderCommand.MESSAGE_SUCCESS;
+
 import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

@@ -138,13 +138,6 @@ public class InternshipApplicationBuilder {
     }
 
     /**
-     * Returns the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
-     */
-    public ApplicationDate getApplicationDate() {
-        return applicationDate;
-    }
-
-    /**
      * Overloaded withApplicationDate method to set date from String.
      */
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
@@ -156,6 +149,13 @@ public class InternshipApplicationBuilder {
             System.err.println("error in parsing date");
             return this;
         }
+    }
+
+    /**
+     * Returns the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
+     */
+    public ApplicationDate getApplicationDate() {
+        return applicationDate;
     }
 
     /**
