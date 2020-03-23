@@ -17,7 +17,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.testutil.InternshipDiaryBuilder;
+
 
 public class ModelManagerTest {
 
@@ -87,6 +89,28 @@ public class ModelManagerTest {
     public void hasInternshipApplication_internshipApplicationInInternshipDiary_returnsTrue() {
         modelManager.addInternshipApplication(GOOGLE);
         assertTrue(modelManager.hasInternshipApplication(GOOGLE));
+    }
+
+    @Test
+    public void archiveInternshipApplication_internshipApplicationIsUnarchived_internshipApplicationIsArchived() {
+        modelManager.addInternshipApplication(GOOGLE);
+        modelManager.archiveInternshipApplication(GOOGLE);
+        InternshipApplication newArchivedGoogleApplication =
+                modelManager.getInternshipDiary().getInternshipList().get(0);
+
+        assertTrue(newArchivedGoogleApplication.isArchived());
+    }
+
+    @Test
+    public void unarchiveInternshipApplication_internshipApplicationIsUnarchived_internshipApplicationIsArchived() {
+        modelManager.addInternshipApplication(GOOGLE);
+        modelManager.archiveInternshipApplication(GOOGLE);
+        InternshipApplication newArchivedGoogleApplication =
+                modelManager.getInternshipDiary().getInternshipList().get(0);
+        modelManager.unarchiveInternshipApplication(newArchivedGoogleApplication);
+        InternshipApplication newUnarchivedGoogleApplication =
+                modelManager.getInternshipDiary().getInternshipList().get(0);
+        assertTrue(!newUnarchivedGoogleApplication.isArchived());
     }
 
     @Test

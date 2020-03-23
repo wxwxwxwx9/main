@@ -8,7 +8,8 @@
     "email": "larry@google.com",
     "applicationDate": "23 03 2020",
     "priority": "10",
-    "status": "APPLIED"
+    "status": "APPLIED",
+    "isArchived": "false"
   }, {
     "company": "Facebook",
     "role": "Product Management",
@@ -17,6 +18,7 @@
     "email": "mark@google.com",
     "applicationDate": "25 03 2020",
     "priority": "8",
-    "status": "REJECTED"
+    "status": "REJECTED",
+    "isArchived": "false"
   } ]
 }

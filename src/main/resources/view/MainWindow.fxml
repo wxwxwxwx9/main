@@ -30,6 +30,9 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+          <Menu mnemonicParsing="false" text="Statistics">
+            <MenuItem fx:id="statisticsMenuItem" mnemonicParsing="false" onAction="#handleStatistics" text="Statistics" />
+          </Menu>
         </MenuBar>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
@@ -51,6 +54,8 @@
           </padding>
           <StackPane fx:id="internshipApplicationListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
+
+        <StackPane fx:id="statisticsPlaceholder" VBox.vgrow="NEVER" />
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

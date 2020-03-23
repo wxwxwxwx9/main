@@ -3,7 +3,9 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.BooleanUtil;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
@@ -29,15 +31,17 @@ class JsonAdaptedInternship {
     private final String applicationDate;
     private final String priority;
     private final String status;
+    private final String isArchived;
 
     /**
-     * Constructs a {@code JsonAdaptedInternship} with the given person details.
+     * Constructs a {@code JsonAdaptedInternship} with the given internship application details.
      */
     @JsonCreator
     public JsonAdaptedInternship(@JsonProperty("company") String company, @JsonProperty("role") String role,
             @JsonProperty("address") String address, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("applicationDate") String applicationDate,
-            @JsonProperty("priority") String priority, @JsonProperty("status") String status) {
+            @JsonProperty("priority") String priority, @JsonProperty("status") String status,
+            @JsonProperty("isArchived") String isArchived) {
         this.company = company;
         this.role = role;
         this.address = address;
@@ -46,6 +50,7 @@ class JsonAdaptedInternship {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.status = status;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -60,10 +65,12 @@ class JsonAdaptedInternship {
         applicationDate = source.getApplicationDate().toString();
         priority = Integer.toString(source.getPriority().fullPriority);
         status = source.getStatus().name();
+        isArchived = source.isArchived().toString();
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Internship} object.
+     * Converts this Jackson-friendly adapted internship application object
+     * into the model's {@code InternshipApplication} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
@@ -135,8 +142,16 @@ class JsonAdaptedInternship {
         }
         final Status modelStatus = Status.valueOf(status);
 
+        if (isArchived == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Messages.IS_ARCHIVED));
+        }
+        if (!BooleanUtil.isValidBoolean(isArchived)) {
+            throw new IllegalValueException(BooleanUtil.INVALID_BOOLEAN);
+        }
+        final Boolean modelIsArchived = Boolean.valueOf(isArchived);
+
         return new InternshipApplication(modelCompany, modelRole, modelAddress,
-                modelPhone, modelEmail, modelDate, modelPriority, modelStatus);
+                modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
     }
 
 }
