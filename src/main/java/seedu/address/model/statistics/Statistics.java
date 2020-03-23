@@ -1,7 +1,9 @@
 package seedu.address.model.statistics;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -52,48 +54,23 @@ public class Statistics {
         }
     }
 
-    public int getWishlistCount() {
-        return statusCount.get(Status.WISHLIST);
-    }
-
-    public int getAppliedCount() {
-        return statusCount.get(Status.APPLIED);
-    }
-
-    public int getInterviewCount() {
-        return statusCount.get(Status.INTERVIEW);
-    }
-
-    public int getOfferedCount() {
-        return statusCount.get(Status.OFFERED);
-    }
-
-    public int getRejectedCount() {
-        return statusCount.get(Status.REJECTED);
+    public int getCount(Status status) {
+        return statusCount.get(status);
     }
 
     public int getTotalCount() {
-        return getWishlistCount() + getAppliedCount() + getInterviewCount() + getOfferedCount() + getRejectedCount();
+        Iterator statusCountIterator = statusCount.entrySet().iterator();
+        int totalCount = 0;
+        while (statusCountIterator.hasNext()) {
+            Map.Entry element = (Map.Entry) statusCountIterator.next();
+            int count = (int) element.getValue();
+            totalCount += count;
+        }
+        return totalCount;
     }
 
-    public double getWishlistPercentage() {
-        return ((double) getWishlistCount() / getTotalCount()) * 100;
-    }
-
-    public double getAppliedPercentage() {
-        return ((double) getAppliedCount() / getTotalCount()) * 100;
-    }
-
-    public double getInterviewPercentage() {
-        return ((double) getInterviewCount() / getTotalCount()) * 100;
-    }
-
-    public double getOfferedPercentage() {
-        return ((double) getOfferedCount() / getTotalCount()) * 100;
-    }
-
-    public double getRejectedPercentage() {
-        return ((double) getRejectedCount() / getTotalCount()) * 100;
+    public double getPercentage(Status status) {
+        return ((double) statusCount.get(status)) * 100;
     }
 
 }

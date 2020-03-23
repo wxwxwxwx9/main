@@ -61,42 +61,34 @@ public class StatisticsTest {
     @Test
     public void computeAndUpdateStatistics_updateStatistics_success() {
         statistics.computeAndUpdateStatistics(model.getFilteredInternshipApplicationList());
-        int wishlistCount = statistics.getWishlistCount();
-        int appliedCount = statistics.getAppliedCount();
-        int interviewCount = statistics.getInterviewCount();
-        int offeredCount = statistics.getOfferedCount();
-        int rejectedCount = statistics.getRejectedCount();
+        int wishlistCount = statistics.getCount(Status.WISHLIST);
+        int appliedCount = statistics.getCount(Status.INTERVIEW);
+        int interviewCount = statistics.getCount(Status.INTERVIEW);
+        int offeredCount = statistics.getCount(Status.OFFERED);
+        int rejectedCount = statistics.getCount(Status.REJECTED);
+        int totalCount = statistics.getTotalCount();
         assertNotEquals(wishlistCount, 0);
         assertNotEquals(appliedCount, 0);
         assertNotEquals(interviewCount, 0);
         assertNotEquals(offeredCount, 0);
         assertNotEquals(rejectedCount, 0);
+        assertEquals(totalCount, wishlistCount + appliedCount + interviewCount + offeredCount + rejectedCount);
     }
 
     @Test
-    public void resetStatistics_allRelevantMetricsZero_success() {
+    public void resetStatistics_allStatusCountsZero_success() {
         statistics.computeAndUpdateStatistics(model.getFilteredInternshipApplicationList());
-        int wishlistCount = statistics.getWishlistCount();
-        int appliedCount = statistics.getAppliedCount();
-        int interviewCount = statistics.getInterviewCount();
-        int offeredCount = statistics.getOfferedCount();
-        int rejectedCount = statistics.getRejectedCount();
-        assertNotEquals(wishlistCount, 0);
-        assertNotEquals(appliedCount, 0);
-        assertNotEquals(interviewCount, 0);
-        assertNotEquals(offeredCount, 0);
-        assertNotEquals(rejectedCount, 0);
+        assertNotEquals(statistics.getCount(Status.WISHLIST), 0);
+        assertNotEquals(statistics.getCount(Status.APPLIED), 0);
+        assertNotEquals(statistics.getCount(Status.INTERVIEW), 0);
+        assertNotEquals(statistics.getCount(Status.OFFERED), 0);
+        assertNotEquals(statistics.getCount(Status.REJECTED), 0);
         statistics.resetStatistics();
-        wishlistCount = statistics.getWishlistCount();
-        appliedCount = statistics.getAppliedCount();
-        interviewCount = statistics.getInterviewCount();
-        offeredCount = statistics.getOfferedCount();
-        rejectedCount = statistics.getRejectedCount();
-        assertEquals(wishlistCount, 0);
-        assertEquals(appliedCount, 0);
-        assertEquals(interviewCount, 0);
-        assertEquals(offeredCount, 0);
-        assertEquals(rejectedCount, 0);
+        assertEquals(statistics.getCount(Status.WISHLIST), 0);
+        assertEquals(statistics.getCount(Status.APPLIED), 0);
+        assertEquals(statistics.getCount(Status.INTERVIEW), 0);
+        assertEquals(statistics.getCount(Status.OFFERED), 0);
+        assertEquals(statistics.getCount(Status.REJECTED), 0);
     }
 
 }

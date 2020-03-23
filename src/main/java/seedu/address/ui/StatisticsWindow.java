@@ -95,11 +95,11 @@ public class StatisticsWindow extends UiPart<Stage> {
     public void loadBarChart(Statistics statistics) {
         internshipApplicationChart.getData().clear();
         ObservableList<XYChart.Data> xyChartData = FXCollections.observableArrayList(
-                new XYChart.Data(Status.WISHLIST.toString(), statistics.getWishlistCount()),
-                new XYChart.Data(Status.APPLIED.toString(), statistics.getAppliedCount()),
-                new XYChart.Data(Status.INTERVIEW.toString(), statistics.getInterviewCount()),
-                new XYChart.Data(Status.OFFERED.toString(), statistics.getOfferedCount()),
-                new XYChart.Data(Status.REJECTED.toString(), statistics.getRejectedCount())
+                new XYChart.Data(Status.WISHLIST.toString(), statistics.getCount(Status.WISHLIST)),
+                new XYChart.Data(Status.APPLIED.toString(), statistics.getCount(Status.APPLIED)),
+                new XYChart.Data(Status.INTERVIEW.toString(), statistics.getCount(Status.INTERVIEW)),
+                new XYChart.Data(Status.OFFERED.toString(), statistics.getCount(Status.OFFERED)),
+                new XYChart.Data(Status.REJECTED.toString(), statistics.getCount(Status.REJECTED))
         );
 
         ObservableList<XYChart.Series<String, Integer>> series = FXCollections.observableArrayList(
@@ -118,11 +118,11 @@ public class StatisticsWindow extends UiPart<Stage> {
     public void loadPieChart(Statistics statistics) {
         internshipApplicationPie.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data(Status.WISHLIST.toString(), statistics.getWishlistPercentage()),
-                new PieChart.Data(Status.APPLIED.toString(), statistics.getAppliedPercentage()),
-                new PieChart.Data(Status.INTERVIEW.toString(), statistics.getInterviewPercentage()),
-                new PieChart.Data(Status.OFFERED.toString(), statistics.getOfferedPercentage()),
-                new PieChart.Data(Status.REJECTED.toString(), statistics.getRejectedPercentage())
+                new PieChart.Data(Status.WISHLIST.toString(), statistics.getPercentage(Status.WISHLIST)),
+                new PieChart.Data(Status.APPLIED.toString(), statistics.getPercentage(Status.APPLIED)),
+                new PieChart.Data(Status.INTERVIEW.toString(), statistics.getPercentage(Status.INTERVIEW)),
+                new PieChart.Data(Status.OFFERED.toString(), statistics.getPercentage(Status.OFFERED)),
+                new PieChart.Data(Status.REJECTED.toString(), statistics.getPercentage(Status.REJECTED))
         );
         internshipApplicationPie.getData().addAll(pieChartData);
         pieChartData.forEach(data -> {

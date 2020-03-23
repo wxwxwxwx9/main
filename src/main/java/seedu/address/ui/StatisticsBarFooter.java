@@ -59,11 +59,11 @@ public class StatisticsBarFooter extends UiPart<Region> {
     public void computeAndBindStatistics(Statistics statistics,
                                          ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
-        int wishlistCount = statistics.getWishlistCount();
-        int appliedCount = statistics.getAppliedCount();
-        int interviewCount = statistics.getInterviewCount();
-        int offeredCount = statistics.getOfferedCount();
-        int rejectedCount = statistics.getRejectedCount();
+        int wishlistCount = statistics.getCount(Status.WISHLIST);
+        int appliedCount = statistics.getCount(Status.APPLIED);
+        int interviewCount = statistics.getCount(Status.INTERVIEW);
+        int offeredCount = statistics.getCount(Status.OFFERED);
+        int rejectedCount = statistics.getCount(Status.REJECTED);
         int totalCount = statistics.getTotalCount();
         bindStatistics(wishlistCount, appliedCount, interviewCount, offeredCount, rejectedCount, totalCount);
     }
