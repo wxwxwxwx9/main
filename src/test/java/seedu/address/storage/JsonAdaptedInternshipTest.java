@@ -15,8 +15,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
+import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
+import seedu.address.model.internship.Priority;
+import seedu.address.model.internship.Role;
+import seedu.address.model.status.Status;
 
 
 public class JsonAdaptedInternshipTest {
@@ -55,21 +59,46 @@ public class JsonAdaptedInternshipTest {
         assertEquals(GOOGLE, internship.toModelType());
     }
 
-    // @Test
-    // public void toModelType_invalidName_throwsIllegalValueException() {
-    //     JsonAdaptedInternship internship =
-    //             new JsonAdaptedInternship(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-    //     String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-    //     assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
-    // }
+    @Test
+    public void toModelType_invalidCompany_throwsIllegalValueException() {
+        JsonAdaptedInternship internship =
+                new JsonAdaptedInternship(INVALID_COMPANY,
+                        VALID_ROLE, VALID_ADDRESS, VALID_PHONE, VALID_EMAIL,
+                        VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS, VALID_INTERVIEWS);
+        String expectedMessage = Company.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
 
-    // @Test
-    // public void toModelType_nullName_throwsIllegalValueException() {
-    //     JsonAdaptedInternship internship =
-    //          new JsonAdaptedInternship(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-    //     String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-    //     assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
-    // }
+    @Test
+    public void toModelType_nullCompany_throwsIllegalValueException() {
+        JsonAdaptedInternship internship =
+                new JsonAdaptedInternship(null,
+                        VALID_ROLE, VALID_ADDRESS, VALID_PHONE, VALID_EMAIL,
+                        VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS, VALID_INTERVIEWS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidRole_throwsIllegalValueException() {
+        JsonAdaptedInternship internship =
+                new JsonAdaptedInternship(VALID_COMPANY,
+                        INVALID_ROLE,
+                        VALID_ADDRESS, VALID_PHONE, VALID_EMAIL,
+                        VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS, VALID_INTERVIEWS);
+        String expectedMessage = Role.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullRole_throwsIllegalValueException() {
+        JsonAdaptedInternship internship =
+                new JsonAdaptedInternship(VALID_COMPANY,
+                        null, VALID_ADDRESS, VALID_PHONE, VALID_EMAIL,
+                        VALID_APPLICATION_DATE, VALID_PRIORITY, VALID_STATUS, VALID_INTERVIEWS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
@@ -152,4 +181,55 @@ public class JsonAdaptedInternshipTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ApplicationDate.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
     }
+
+    @Test
+    public void toModelType_invalidPriority_throwsIllegalValueException() {
+        JsonAdaptedInternship internship = new JsonAdaptedInternship(VALID_COMPANY, VALID_ROLE,
+                VALID_ADDRESS, VALID_PHONE, VALID_EMAIL, VALID_APPLICATION_DATE,
+                INVALID_PRIORITY,
+                VALID_STATUS, VALID_INTERVIEWS);
+        String expectedMessage = Priority.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullPriority_throwsIllegalValueException() {
+        JsonAdaptedInternship internship = new JsonAdaptedInternship(VALID_COMPANY, VALID_ROLE,
+                VALID_ADDRESS, VALID_PHONE, VALID_EMAIL, VALID_APPLICATION_DATE,
+                null,
+                VALID_STATUS, VALID_INTERVIEWS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidStatus_throwsIllegalValueException() {
+        JsonAdaptedInternship internship = new JsonAdaptedInternship(VALID_COMPANY, VALID_ROLE,
+                VALID_ADDRESS, VALID_PHONE, VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY,
+                INVALID_STATUS,
+                VALID_INTERVIEWS);
+        String expectedMessage = Status.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullStatus_throwsIllegalValueException() {
+        JsonAdaptedInternship internship = new JsonAdaptedInternship(VALID_COMPANY, VALID_ROLE,
+                VALID_ADDRESS, VALID_PHONE, VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY,
+                null,
+                VALID_INTERVIEWS);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    }
+
+/* todo: nullPointerException to catch in original JsonAdaptedInternship
+    @Test
+    public void toModelType_nullInterview_throwsIllegalValueException() {
+        JsonAdaptedInternship internship = new JsonAdaptedInternship(VALID_COMPANY, VALID_ROLE,
+                VALID_ADDRESS, VALID_PHONE, VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY,
+                VALID_STATUS,
+                null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
+    } */
 }
