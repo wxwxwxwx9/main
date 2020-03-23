@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,10 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<InternshipApplication> PREDICATE_SHOW_ALL_INTERNSHIPS = unused -> true;
+    Predicate<InternshipApplication> PREDICATE_SHOW_ARCHIVED_INTERNSHIPS = (
+            InternshipApplication internshipApplication) -> internshipApplication.isArchived();
+    Predicate<InternshipApplication> PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS = (
+            InternshipApplication internshipApplication) -> !internshipApplication.isArchived();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -63,6 +68,18 @@ public interface Model {
     boolean hasInternshipApplication(InternshipApplication internshipApplication);
 
     /**
+     * Archives the given internship application.
+     * The application must exist in the internship diary.
+     */
+    void archiveInternshipApplication(InternshipApplication target);
+
+    /**
+     * Unarchives the given internship application.
+     * The application must exist in the internship diary.
+     */
+    void unarchiveInternshipApplication(InternshipApplication target);
+
+    /**
      * Deletes the given internship application.
      * The application must exist in the internship diary.
      */
@@ -98,5 +115,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator);
+
+    /**
+     * Returns a statistics object that can compute relevant internship application statistics.
+     */
+    Statistics getStatistics();
 
 }

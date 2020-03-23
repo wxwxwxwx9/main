@@ -116,8 +116,7 @@ Format: `sort FIELD`.
 
 Available values for `FIELD`: +
 `c/`: Sorts by company name. +
-`d/`: Sorts by most recent interview date,
-or application date if internship does not have listed interviews. +
+`d/`: Sorts by application date. +
 `w/`: Sorts by priority level. +
 `s/`: Sorts by Status.
 
@@ -166,6 +165,26 @@ Format: `clear`
 
 Lists all deadlines/appointments from the Internship Diary in the next 7 days. +
 Format: `reminder`
+
+=== Getting statistics about internship applications: `stats`
+
+Displays the current statistics regarding your internship application +
+Format: `stats`
+
+=== Archiving your internship applications: `archive`
+
+Stores your internship applications into the archival. +
+Format: `archive INDEX`
+
+=== Unarchiving your internship applications: `unarchive`
+
+Moves your internship application from archival to main list. +
+Format: `unarchive INDEX`
+
+=== View your internship applications archival: `archival`
+
+Switches the view from main list to archival list. +
+Format: `archival`
 
 === Rating internship companies : `rate`
 

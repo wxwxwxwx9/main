@@ -9,7 +9,8 @@
     "applicationDate": "01 12 2019",
     "priority": "10",
     "status": "APPLIED",
-    "interviews": []
+    "interviews": [],
+    "isArchived": "false"
   }, {
     "company": "Facebook",
     "role": "Product Management",
@@ -19,6 +20,7 @@
     "applicationDate": "11 11 2009",
     "priority": "8",
     "status": "REJECTED",
-    "interviews": []
+    "interviews": [],
+    "isArchived": "false"
   } ]
 }

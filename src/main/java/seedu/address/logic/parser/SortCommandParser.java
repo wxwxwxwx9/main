@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.Comparator;
 
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.comparator.ApplicationDateComparator;
 import seedu.address.logic.comparator.CompanyComparator;
-import seedu.address.logic.comparator.DateComparator;
 import seedu.address.logic.comparator.PriorityComparator;
 import seedu.address.logic.comparator.StatusComparator;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,7 +45,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         if (prefix.equals(PREFIX_COMPANY.getPrefix())) {
             return new CompanyComparator();
         } else if (prefix.equals(PREFIX_DATE.getPrefix())) {
-            return new DateComparator();
+            return new ApplicationDateComparator();
         } else if (prefix.equals(PREFIX_PRIORITY.getPrefix())) {
             return new PriorityComparator();
         } else if (prefix.equals(PREFIX_STATUS.getPrefix())) {

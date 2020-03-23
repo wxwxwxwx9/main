@@ -85,7 +85,7 @@ public class CommandTestUtil {
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "So&"; // '&' not allowed in company
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + " "; // no invalid addresses
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "010420"; // date format is DD MM YYYY
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "a"; // only numbers allowed in priority
     public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "Not"; // 'Not' is not a status

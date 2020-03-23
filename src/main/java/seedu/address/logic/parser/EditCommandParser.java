@@ -65,7 +65,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             editInternshipDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
 
-
         if (!editInternshipDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }

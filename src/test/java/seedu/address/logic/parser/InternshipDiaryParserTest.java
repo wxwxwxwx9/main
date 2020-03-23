@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ArchivalCommand;
+import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -23,6 +25,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
@@ -138,10 +142,37 @@ public class InternshipDiaryParserTest {
                 new EditInterviewDescriptorBuilder(interview).build();
         InterviewEditCommand command = (InterviewEditCommand) parser.parseCommand(
                 InterviewCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit " + INDEX_FIRST_INTERVIEW.getOneBased()
-                + " " + InterviewUtil.getEditInterviewApplicationDescriptorDetails(descriptor));
+                        + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                        + INDEX_FIRST_INTERVIEW.getOneBased()
+                        + " " + InterviewUtil.getEditInterviewApplicationDescriptorDetails(descriptor));
         assertEquals(new InterviewEditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
                 INDEX_FIRST_INTERVIEW, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_stats() throws Exception {
+        assertTrue(parser.parseCommand(StatisticsCommand.COMMAND_WORD) instanceof StatisticsCommand);
+        assertTrue(parser.parseCommand(StatisticsCommand.COMMAND_WORD + " 3") instanceof StatisticsCommand);
+    }
+
+    @Test
+    public void parseCommand_archive() throws Exception {
+        ArchiveCommand command = (ArchiveCommand) parser.parseCommand(
+                ArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        assertEquals(new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
+    }
+
+    @Test
+    public void parseCommand_unarchive() throws Exception {
+        UnarchiveCommand command = (UnarchiveCommand) parser.parseCommand(
+                UnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        assertEquals(new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
+    }
+
+    @Test
+    public void parseCommand_archival() throws Exception {
+        assertTrue(parser.parseCommand(ArchivalCommand.COMMAND_WORD) instanceof ArchivalCommand);
+        assertTrue(parser.parseCommand(ArchivalCommand.COMMAND_WORD + " 3") instanceof ArchivalCommand);
     }
 
     @Test

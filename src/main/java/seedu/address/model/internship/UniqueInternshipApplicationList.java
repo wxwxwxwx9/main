@@ -53,6 +53,46 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
     }
 
     /**
+     * Archives an internship application in the list.
+     * The internship application must already exist in the list.
+     */
+    public void archive(InternshipApplication toArchive) {
+        requireNonNull(toArchive);
+        InternshipApplication editedInternship = new InternshipApplication(
+            toArchive.getCompany(),
+            toArchive.getRole(),
+            toArchive.getAddress(),
+            toArchive.getPhone(),
+            toArchive.getEmail(),
+            toArchive.getApplicationDate(),
+            toArchive.getPriority(),
+            toArchive.getStatus(),
+            true
+        );
+        setInternshipApplication(toArchive, editedInternship);
+    }
+
+    /**
+     * Unarchives an internship application in the list.
+     * The internship application must already exist in the list.
+     */
+    public void unarchive(InternshipApplication toUnarchive) {
+        requireNonNull(toUnarchive);
+        InternshipApplication editedInternship = new InternshipApplication(
+            toUnarchive.getCompany(),
+            toUnarchive.getRole(),
+            toUnarchive.getAddress(),
+            toUnarchive.getPhone(),
+            toUnarchive.getEmail(),
+            toUnarchive.getApplicationDate(),
+            toUnarchive.getPriority(),
+            toUnarchive.getStatus(),
+            false
+        );
+        setInternshipApplication(toUnarchive, editedInternship);
+    }
+
+    /**
      * Replaces the internship application {@code target} in the list with {@code editedInternshipApplication}.
      * {@code target} must exist in the list.
      * The internship application identity of {@code editedInternshipApplication}
@@ -72,6 +112,7 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
         }
 
         internalList.set(index, editedInternshipApplication);
+
     }
 
     /**
