@@ -70,7 +70,7 @@ public class Statistics {
     }
 
     public double getPercentage(Status status) {
-        return ((double) statusCount.get(status)) * 100;
+        return ((double) statusCount.get(status) / getTotalCount()) * 100;
     }
 
 }
