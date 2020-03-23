@@ -31,7 +31,7 @@ public class StatisticsBarFooter extends UiPart<Region> {
 
     public StatisticsBarFooter(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         super(FXML);
-        bindStatistics(statistics, internshipApplicationList);
+        computeAndBindStatistics(statistics, internshipApplicationList);
         updateStatisticsOnChange(statistics, internshipApplicationList);
     }
 
@@ -45,18 +45,18 @@ public class StatisticsBarFooter extends UiPart<Region> {
         internshipApplicationList.addListener((ListChangeListener<InternshipApplication>) c -> {
             while (c.next()) {
                 if (c.wasAdded() || c.wasRemoved() || c.wasUpdated() || c.wasReplaced()) {
-                    bindStatistics(statistics, internshipApplicationList);
+                    computeAndBindStatistics(statistics, internshipApplicationList);
                 }
             }
         });
     }
 
     /**
-     * Computes and binds the statistics to the user interface.
+     * Updates statistics for statistics bar footer.
      * @param statistics
      * @param internshipApplicationList
      */
-    public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
+    public void computeAndBindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         int wishlistCount = statistics.getWishlistCount();
         int appliedCount = statistics.getAppliedCount();
@@ -64,6 +64,20 @@ public class StatisticsBarFooter extends UiPart<Region> {
         int offeredCount = statistics.getOfferedCount();
         int rejectedCount = statistics.getRejectedCount();
         int totalCount = statistics.getTotalCount();
+        bindStatistics(wishlistCount, appliedCount, interviewCount, offeredCount, rejectedCount, totalCount);
+    }
+
+    /**
+     * Binds the statistics to the user interface.
+     * @param wishlistCount
+     * @param appliedCount
+     * @param interviewCount
+     * @param offeredCount
+     * @param rejectedCount
+     * @param totalCount
+     */
+    public void bindStatistics(int wishlistCount, int appliedCount, int interviewCount,
+                               int offeredCount, int rejectedCount, int totalCount) {
         wishlist.setText(String.format("%s: %d", Status.WISHLIST, wishlistCount));
         applied.setText(String.format("%s: %d", Status.APPLIED, appliedCount));
         interview.setText(String.format("%s: %d", Status.INTERVIEW, interviewCount));
