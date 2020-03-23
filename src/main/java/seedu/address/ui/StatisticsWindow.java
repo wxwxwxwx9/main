@@ -60,6 +60,7 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Adds an event listener to update the statistics upon any changes in the given list of internship application.
+     *
      * @param statistics
      * @param internshipApplicationList
      */
@@ -76,6 +77,7 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Computes and binds the statistics to the user interface.
+     *
      * @param statistics
      * @param internshipApplicationList
      */
@@ -87,6 +89,7 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Loads bar chart with the generated statistics.
+     *
      * @param statistics
      */
     public void loadBarChart(Statistics statistics) {
@@ -109,6 +112,7 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Loads pie chart with the generated statistics.
+     *
      * @param statistics
      */
     public void loadPieChart(Statistics statistics) {
