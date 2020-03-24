@@ -168,8 +168,7 @@ public class FindCommandTest {
         StatusContainsKeywordsPredicate sPredicate = prepareStatusPredicate("goo");
 
         FindCommand command = new FindCommand(List.of(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate,
-                new ApplicationDateIsDatePredicate(null), wPredicate, sPredicate),
-                true);
+                wPredicate, sPredicate), true);
         Predicate<InternshipApplication> predicate =
                 cPredicate.or(rPredicate).or(aPredicate).or(pPredicate).or(ePredicate).or(wPredicate).or(sPredicate);
         expectedModel.updateFilteredInternshipApplicationList(predicate);
