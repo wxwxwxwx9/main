@@ -19,6 +19,7 @@ import static seedu.address.testutil.TypicalInterviews.ONLINE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.BooleanUtil;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
@@ -109,7 +110,7 @@ public class InterviewCommandParserTest {
                 + ADDRESS_DESC_NUS + INVALID_DATE_DESC + ONLINE_DESC_NUS, ApplicationDate.MESSAGE_CONSTRAINTS);
         //invalid boolean
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
-                + ADDRESS_DESC_NUS + DATE_DESC_NUS + INVALID_BOOLEAN_DESC, Interview.INVALID_IS_ONLINE);
+                + ADDRESS_DESC_NUS + DATE_DESC_NUS + INVALID_BOOLEAN_DESC, BooleanUtil.INVALID_BOOLEAN);
     }
 
     @Test
@@ -147,6 +148,18 @@ public class InterviewCommandParserTest {
     public void parse_editNoEdits_failure() {
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
                 + INDEX_FIRST_INTERVIEW.getOneBased(), InterviewEditCommand.MESSAGE_NOT_EDITED);
+    }
+
+    @Test
+    public void parse_editInvalidValue_failure() {
+        //invalid date
+        assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                + INDEX_FIRST_INTERVIEW.getOneBased() + " "
+                + ADDRESS_DESC_NUS + INVALID_DATE_DESC + ONLINE_DESC_NUS, ApplicationDate.MESSAGE_CONSTRAINTS);
+        //invalid boolean
+        assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                + INDEX_FIRST_INTERVIEW.getOneBased() + " "
+                + ADDRESS_DESC_NUS + DATE_DESC_NUS + INVALID_BOOLEAN_DESC, BooleanUtil.INVALID_BOOLEAN);
     }
 
 }

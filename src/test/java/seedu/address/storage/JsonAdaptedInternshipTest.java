@@ -243,15 +243,4 @@ public class JsonAdaptedInternshipTest {
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Messages.IS_ARCHIVED);
         assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
     }
-
-    /* todo: nullPointerException to catch in original JsonAdaptedInternship
-    @Test
-    public void toModelType_nullInterview_throwsIllegalValueException() {
-        JsonAdaptedInternship internship = new JsonAdaptedInternship(VALID_COMPANY, VALID_ROLE,
-                VALID_ADDRESS, VALID_PHONE, VALID_EMAIL, VALID_APPLICATION_DATE, VALID_PRIORITY,
-                VALID_STATUS,
-                null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, internship::toModelType);
-    } */
 }
