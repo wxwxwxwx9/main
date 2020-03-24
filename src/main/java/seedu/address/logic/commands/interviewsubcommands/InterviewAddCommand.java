@@ -34,6 +34,8 @@ public class InterviewAddCommand extends InterviewCommand {
     private final Interview toAdd;
 
     public InterviewAddCommand(Index index, Interview interview) {
+        requireNonNull(interview);
+        requireNonNull(index);
         this.index = index;
         toAdd = interview;
     }

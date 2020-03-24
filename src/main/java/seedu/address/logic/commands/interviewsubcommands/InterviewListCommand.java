@@ -18,6 +18,7 @@ public class InterviewListCommand extends InterviewCommand {
     private Index index;
 
     public InterviewListCommand(Index index) {
+        requireNonNull(index);
         this.index = index;
     }
 

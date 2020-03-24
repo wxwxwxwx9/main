@@ -11,6 +11,8 @@ import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Deletes an interview from an Internship Application.
  */
@@ -25,6 +27,8 @@ public class InterviewDeleteCommand extends InterviewCommand {
     private Index interviewIndex;
 
     public InterviewDeleteCommand(Index internshipIndex, Index interviewIndex) {
+        requireNonNull(internshipIndex);
+        requireNonNull(interviewIndex);
         this.internshipIndex = internshipIndex;
         this.interviewIndex = interviewIndex;
     }
