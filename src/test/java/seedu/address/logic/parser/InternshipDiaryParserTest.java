@@ -84,14 +84,14 @@ public class InternshipDiaryParserTest {
                 "w/5", "s/Active");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new CompanyContainsKeywordsPredicate(Arrays.asList("google")),
+        assertEquals(new FindCommand(List.of(new CompanyContainsKeywordsPredicate(Arrays.asList("google")),
                 new RoleContainsKeywordsPredicate(Arrays.asList("engineer")),
                 new AddressContainsKeywordsPredicate(Arrays.asList("main")),
                 new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
                 new EmailContainsKeywordsPredicate(Arrays.asList("alice")),
                 new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01)),
                 new PriorityContainsNumbersPredicate(Arrays.asList("5")),
-                new StatusContainsKeywordsPredicate(Arrays.asList("Active")),
+                new StatusContainsKeywordsPredicate(Arrays.asList("Active"))),
                 false), command);
     }
 

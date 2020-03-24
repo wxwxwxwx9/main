@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,14 +33,14 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new CompanyContainsKeywordsPredicate(Arrays.asList("Google", "Facebook")),
+                new FindCommand(List.of(new CompanyContainsKeywordsPredicate(Arrays.asList("Google", "Facebook")),
                         new RoleContainsKeywordsPredicate(Arrays.asList("Software", "Engineer")),
                         new AddressContainsKeywordsPredicate(Arrays.asList("Main", "Street")),
                         new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
                         new EmailContainsKeywordsPredicate(Arrays.asList("Alice")),
                         new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01)),
                         new PriorityContainsNumbersPredicate(Arrays.asList("5")),
-                        new StatusContainsKeywordsPredicate(Arrays.asList("Active")),
+                        new StatusContainsKeywordsPredicate(Arrays.asList("Active"))),
                         false);
         assertParseSuccess(parser, " c/Google Facebook r/Software Engineer a/Main Street p/12345 e/Alice "
                 + "d/01 02 2020 w/5 s/Active", expectedFindCommand);

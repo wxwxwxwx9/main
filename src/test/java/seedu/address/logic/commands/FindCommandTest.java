@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInt
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -70,34 +71,34 @@ public class FindCommandTest {
                 new StatusContainsKeywordsPredicate(Collections.singletonList("second"));
 
 
-        FindCommand findFirstCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
-        FindCommand findSecondCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, true);
-        FindCommand findThirdCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sSecondPredicate, false);
-        FindCommand findFourthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wSecondPredicate, sFirstPredicate, false);
-        FindCommand findFifthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dSecondPredicate, wFirstPredicate, sFirstPredicate, false);
-        FindCommand findSixthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eSecondPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
-        FindCommand findSeventhCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pSecondPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
-        FindCommand findEighthCommand = new FindCommand(cFirstPredicate, rFirstPredicate, aSecondPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
-        FindCommand findNinthCommand = new FindCommand(cFirstPredicate, rSecondPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
-        FindCommand findTenthCommand = new FindCommand(cSecondPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
+        FindCommand findFirstCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
+        FindCommand findSecondCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), true);
+        FindCommand findThirdCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sSecondPredicate), false);
+        FindCommand findFourthCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wSecondPredicate, sFirstPredicate), false);
+        FindCommand findFifthCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dSecondPredicate, wFirstPredicate, sFirstPredicate), false);
+        FindCommand findSixthCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eSecondPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
+        FindCommand findSeventhCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pSecondPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
+        FindCommand findEighthCommand = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aSecondPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
+        FindCommand findNinthCommand = new FindCommand(List.of(cFirstPredicate, rSecondPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
+        FindCommand findTenthCommand = new FindCommand(List.of(cSecondPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
 
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(cFirstPredicate, rFirstPredicate, aFirstPredicate,
-                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate, false);
+        FindCommand findFirstCommandCopy = new FindCommand(List.of(cFirstPredicate, rFirstPredicate, aFirstPredicate,
+                pFirstPredicate, eFirstPredicate, dFirstPredicate, wFirstPredicate, sFirstPredicate), false);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -132,8 +133,8 @@ public class FindCommandTest {
         PriorityContainsNumbersPredicate wPredicate = preparePriorityPredicate(" ");
         StatusContainsKeywordsPredicate sPredicate = prepareStatusPredicate(" ");
 
-        FindCommand command = new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate, dPredicate,
-                wPredicate, sPredicate, false);
+        FindCommand command = new FindCommand(List.of(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate,
+                dPredicate, wPredicate, sPredicate), false);
         expectedModel.updateFilteredInternshipApplicationList(cPredicate.and(rPredicate)
                 .and(aPredicate)
                 .and(pPredicate)
@@ -146,10 +147,10 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multipleInternshipApplicationsFound() {
         String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 2);
         CompanyContainsKeywordsPredicate cPredicate = prepareCompanyPredicate("google facebook");
-        FindCommand command = new FindCommand(cPredicate, new RoleContainsKeywordsPredicate(null) ,
+        FindCommand command = new FindCommand(List.of(cPredicate, new RoleContainsKeywordsPredicate(null) ,
                 new AddressContainsKeywordsPredicate(null), new PhoneContainsNumbersPredicate(null),
                 new EmailContainsKeywordsPredicate(null), new ApplicationDateIsDatePredicate(null),
-                new PriorityContainsNumbersPredicate(null), new StatusContainsKeywordsPredicate(null),
+                new PriorityContainsNumbersPredicate(null), new StatusContainsKeywordsPredicate(null)),
                 false);
         expectedModel.updateFilteredInternshipApplicationList(cPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -166,8 +167,8 @@ public class FindCommandTest {
         PriorityContainsNumbersPredicate wPredicate = preparePriorityPredicate("goo");
         StatusContainsKeywordsPredicate sPredicate = prepareStatusPredicate("goo");
 
-        FindCommand command = new FindCommand(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate,
-                new ApplicationDateIsDatePredicate(null), wPredicate, sPredicate,
+        FindCommand command = new FindCommand(List.of(cPredicate, rPredicate, aPredicate, pPredicate, ePredicate,
+                new ApplicationDateIsDatePredicate(null), wPredicate, sPredicate),
                 true);
         Predicate<InternshipApplication> predicate =
                 cPredicate.or(rPredicate).or(aPredicate).or(pPredicate).or(ePredicate).or(wPredicate).or(sPredicate);
