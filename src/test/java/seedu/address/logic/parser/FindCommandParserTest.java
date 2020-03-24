@@ -31,7 +31,7 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        // no leading and trailing whitespaces
+        // no leading and trailing whitespaces on non preamble find
         FindCommand expectedFindCommand =
                 new FindCommand(List.of(new CompanyContainsKeywordsPredicate(Arrays.asList("Google", "Facebook")),
                         new RoleContainsKeywordsPredicate(Arrays.asList("Software", "Engineer")),
@@ -45,9 +45,31 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, " c/Google Facebook r/Software Engineer a/Main Street p/12345 e/Alice "
                 + "d/01 02 2020 w/5 s/Active", expectedFindCommand);
 
-        // multiple whitespaces between keywords
+        // multiple whitespaces between keywords on non preamble find
         assertParseSuccess(parser, " c/Google Facebook \n \t\n r/Software Engineer     "
                         + "a/Main Street     \t      \n    p/12345  \t  e/Alice d/01 02 2020 \t w/5 \n s/Active",
+                expectedFindCommand);
+
+        // no leading and trailing whitespaces on preamble find
+        expectedFindCommand =
+                new FindCommand(List.of(new CompanyContainsKeywordsPredicate(Arrays.asList("Google")),
+                        new RoleContainsKeywordsPredicate(Arrays.asList("Google")),
+                        new AddressContainsKeywordsPredicate(Arrays.asList("Google")),
+                        new PhoneContainsNumbersPredicate(Arrays.asList("Google")),
+                        new EmailContainsKeywordsPredicate(Arrays.asList("Google")),
+                        new PriorityContainsNumbersPredicate(Arrays.asList("Google")),
+                        new StatusContainsKeywordsPredicate(Arrays.asList("Google"))),
+                        true);
+        assertParseSuccess(parser, "Google c/Google Facebook r/Software Engineer a/Main Street p/12345 e/Alice "
+                + "d/01 02 2020 w/5 s/Active", expectedFindCommand);
+
+        assertParseSuccess(parser, "Google", expectedFindCommand);
+
+        // multiple whitespaces between keywords on preamble find
+        assertParseSuccess(parser, "Google c/Google Facebook \n \t\n r/Software Engineer     "
+                        + "a/Main Street     \t      \n    p/12345  \t  e/Alice d/01 02 2020 \t w/5 \n s/Active",
+                expectedFindCommand);
+        assertParseSuccess(parser, "\t  Google \n",
                 expectedFindCommand);
     }
 

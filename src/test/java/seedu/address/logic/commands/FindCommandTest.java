@@ -176,6 +176,16 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_isNotPreamble_multipleInternshipApplicationsFound() {
+        String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 2);
+        EmailContainsKeywordsPredicate ePredicate = prepareEmailPredicate("google");
+
+        FindCommand command = new FindCommand(List.of(ePredicate), false);
+        expectedModel.updateFilteredInternshipApplicationList(ePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
     /**
      * Parses {@code userInput} into a {@code CompanyContainsKeywordsPredicate}.
      */
