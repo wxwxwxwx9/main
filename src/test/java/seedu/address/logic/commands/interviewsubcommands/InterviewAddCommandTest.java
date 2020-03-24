@@ -14,7 +14,6 @@ import static seedu.address.testutil.TypicalInterviews.ORCHARD_TOWER;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -24,6 +23,9 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InterviewBuilder;
 
+/**
+ * Contains integration tests with model and unit test for {@code InterviewAddCommand}.
+ */
 public class InterviewAddCommandTest {
 
     private Model model = new ModelManager(getTypicalInternshipDiaryWithInterviews(), new UserPrefs());
@@ -41,7 +43,15 @@ public class InterviewAddCommandTest {
     }
 
     @Test
-    public void execute_validArguments_addSuccess() throws CommandException{
+    public void execute_nullModel_throwsNullPointerException() {
+        InterviewAddCommand command = new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
+                new InterviewBuilder().build());
+        assertThrows(NullPointerException.class, () ->
+                command.execute(null));
+    }
+
+    @Test
+    public void execute_validArguments_addSuccess() throws CommandException {
         Interview interview = new InterviewBuilder(ORCHARD_TOWER).build();
         InterviewAddCommand command = new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, interview);
         CommandResult result = command.execute(model);
