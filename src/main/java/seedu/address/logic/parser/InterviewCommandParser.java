@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.interviewcode.InterviewCode;
+import seedu.address.commons.util.BooleanUtil;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
@@ -74,7 +75,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
 
         boolean isOnline = Boolean.parseBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get());
         if (!isOnline && !argMultimap.getValue(PREFIX_IS_ONLINE).get().toUpperCase().equals("FALSE")) {
-            throw new ParseException(Interview.INVALID_IS_ONLINE);
+            throw new ParseException(BooleanUtil.INVALID_BOOLEAN);
         }
 
         ApplicationDate date = ParserUtil.parseApplicationDate(argMultimap.getValue(PREFIX_DATE).get());
@@ -126,6 +127,9 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
             editInterviewDescriptor.setDate(ParserUtil.parseApplicationDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_IS_ONLINE).isPresent()) {
+            if (!BooleanUtil.isValidBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get())) {
+                throw new ParseException(BooleanUtil.INVALID_BOOLEAN);
+            }
             editInterviewDescriptor.setOnline(Boolean.parseBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get()));
         }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.BooleanUtil;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.interview.Interview;
@@ -66,8 +67,8 @@ public class JsonAdaptedInterview {
         if (isOnline == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Boolean"));
         }
-        if (!Boolean.parseBoolean(isOnline) && !isOnline.toLowerCase().equals("false")) {
-            throw new IllegalValueException(Interview.INVALID_IS_ONLINE);
+        if (!BooleanUtil.isValidBoolean(isOnline)) {
+            throw new IllegalValueException(BooleanUtil.INVALID_BOOLEAN);
         }
         Boolean modelIsOnline = Boolean.parseBoolean(isOnline);
 
