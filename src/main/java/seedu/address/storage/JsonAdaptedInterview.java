@@ -36,7 +36,7 @@ public class JsonAdaptedInterview {
      */
     public JsonAdaptedInterview(Interview source) {
         interviewAddress = source.getInterviewAddress().value;
-        interviewDate = source.getInterviewDate().toString();
+        interviewDate = source.getDate().toString();
         isOnline = Boolean.toString(source.isOnline);
     }
 
@@ -65,7 +65,7 @@ public class JsonAdaptedInterview {
         modelDate = new ApplicationDate(interviewDate);
 
         if (isOnline == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Boolean"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Boolean.class.getSimpleName()));
         }
         if (!BooleanUtil.isValidBoolean(isOnline)) {
             throw new IllegalValueException(BooleanUtil.INVALID_BOOLEAN);
