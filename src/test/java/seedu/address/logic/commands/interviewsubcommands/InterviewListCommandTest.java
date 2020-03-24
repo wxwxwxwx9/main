@@ -3,6 +3,7 @@ package seedu.address.logic.commands.interviewsubcommands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.interviewsubcommands.InterviewListCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,12 @@ public class InterviewListCommandTest {
         model = new ModelManager(TypicalInternshipApplications
                 .getTypicalInternshipDiaryWithInterviews(), new UserPrefs());
         expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+    }
+
+    @Test
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                new InterviewListCommand(null));
     }
 
     @Test
