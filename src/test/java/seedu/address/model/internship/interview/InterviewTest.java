@@ -14,16 +14,21 @@ import seedu.address.testutil.InterviewBuilder;
 public class InterviewTest {
 
     @Test
-    public void isValid() {
+    public void isValid_validInterview_returnTrue() {
         //Not online and address available
         Interview interview = new InterviewBuilder().build();
         assertTrue(interview.isValid());
-        //Online and address is not NA
-        interview = new InterviewBuilder().withIsOnline(true).build();
-        assertFalse(interview.isValid());
         //Online and address is NA
         interview = new InterviewBuilder(ONLINE).build();
         assertTrue(interview.isValid());
+    }
+
+    @Test
+    public void isValid_invalidInterview_returnFalse() {
+        Interview interview = new InterviewBuilder().build();
+        //Online and address is not NA
+        interview = new InterviewBuilder().withIsOnline(true).build();
+        assertFalse(interview.isValid());
     }
 
     @Test

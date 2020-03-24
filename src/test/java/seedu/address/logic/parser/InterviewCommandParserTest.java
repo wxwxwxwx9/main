@@ -161,5 +161,4 @@ public class InterviewCommandParserTest {
                 + INDEX_FIRST_INTERVIEW.getOneBased() + " "
                 + ADDRESS_DESC_NUS + DATE_DESC_NUS + INVALID_BOOLEAN_DESC, BooleanUtil.INVALID_BOOLEAN);
     }
-
 }
