@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
