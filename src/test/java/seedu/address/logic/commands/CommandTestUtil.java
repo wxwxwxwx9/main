@@ -22,9 +22,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
-import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
+import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
 import seedu.address.testutil.EditInterviewDescriptorBuilder;
 

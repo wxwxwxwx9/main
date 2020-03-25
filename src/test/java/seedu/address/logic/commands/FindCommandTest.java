@@ -18,15 +18,15 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.internship.AddressContainsKeywordsPredicate;
-import seedu.address.model.internship.ApplicationDateIsDatePredicate;
-import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
-import seedu.address.model.internship.EmailContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.PhoneContainsNumbersPredicate;
-import seedu.address.model.internship.PriorityContainsNumbersPredicate;
-import seedu.address.model.internship.RoleContainsKeywordsPredicate;
-import seedu.address.model.internship.StatusContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.AddressContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.ApplicationDateIsDatePredicate;
+import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.predicate.PriorityContainsNumbersPredicate;
+import seedu.address.model.internship.predicate.RoleContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.StatusContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

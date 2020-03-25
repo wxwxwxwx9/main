@@ -1,4 +1,4 @@
-package seedu.address.model.internship;
+package seedu.address.model.internship.predicate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,6 +8,8 @@ import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.internship.Address;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
