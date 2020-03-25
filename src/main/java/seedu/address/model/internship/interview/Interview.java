@@ -1,6 +1,7 @@
 package seedu.address.model.internship.interview;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
@@ -30,12 +31,31 @@ public class Interview {
         this.interviewAddress = new Address(ADDRESS_NOT_APPLICABLE);
     }
 
+    /**
+     * Returns the interview date in local date format.
+     */
     public LocalDate getInterviewDate() {
         return interviewDate.fullApplicationDate;
     }
 
+    public ApplicationDate getDate() {
+        return interviewDate;
+    }
+
     public Address getInterviewAddress() {
         return interviewAddress;
+    }
+
+
+    /**
+     * Checks if the interview is valid. If it is an online interview, it should not have an address.
+     * Otherwise, any valid address is fine.
+     */
+    public boolean isValid() {
+        if (isOnline) {
+            return interviewAddress.equals(new Address(ADDRESS_NOT_APPLICABLE));
+        }
+        return true;
     }
 
     @Override
@@ -54,4 +74,18 @@ public class Interview {
                 && interview.isOnline == isOnline;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        if (isOnline) {
+            builder.append("Online Interview on: ")
+                    .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)));
+        } else {
+            builder.append("Interview on: ")
+                    .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)))
+                    .append(" at: ")
+                    .append(getInterviewAddress());
+        }
+        return builder.toString();
+    }
 }

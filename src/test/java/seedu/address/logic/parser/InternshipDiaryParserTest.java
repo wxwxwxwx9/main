@@ -6,7 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERVIEW;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,19 +24,31 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
+import seedu.address.logic.commands.interviewsubcommands.InterviewListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.AddressContainsKeywordsPredicate;
+import seedu.address.model.internship.ApplicationDateIsDatePredicate;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.EmailContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.PriorityContainsNumbersPredicate;
 import seedu.address.model.internship.RoleContainsKeywordsPredicate;
+import seedu.address.model.internship.StatusContainsKeywordsPredicate;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
+import seedu.address.testutil.EditInterviewDescriptorBuilder;
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InternshipApplicationUtil;
+import seedu.address.testutil.InterviewBuilder;
+import seedu.address.testutil.InterviewUtil;
 
 public class InternshipDiaryParserTest {
 
@@ -80,14 +94,19 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("c/google", "r/engineer", "a/main", "p/12345", "e/alice");
+        List<String> keywords = Arrays.asList("c/google", "r/engineer", "a/main", "p/12345", "e/alice", "d/01 02 2020",
+                "w/5", "s/Active");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new CompanyContainsKeywordsPredicate(Arrays.asList("google")),
+        assertEquals(new FindCommand(List.of(new CompanyContainsKeywordsPredicate(Arrays.asList("google")),
                 new RoleContainsKeywordsPredicate(Arrays.asList("engineer")),
                 new AddressContainsKeywordsPredicate(Arrays.asList("main")),
                 new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
-                new EmailContainsKeywordsPredicate(Arrays.asList("alice"))), command);
+                new EmailContainsKeywordsPredicate(Arrays.asList("alice")),
+                new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01)),
+                new PriorityContainsNumbersPredicate(Arrays.asList("5")),
+                new StatusContainsKeywordsPredicate(Arrays.asList("Active"))),
+                false), command);
     }
 
     @Test
@@ -100,6 +119,43 @@ public class InternshipDiaryParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_interview_list() throws Exception {
+        InterviewListCommand command = (InterviewListCommand) parser.parseCommand(InterviewCommand.COMMAND_WORD
+                + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " list");
+        assertEquals(new InterviewListCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
+    }
+
+    @Test
+    public void parseCommand_interview_add() throws Exception {
+        Interview interview = new InterviewBuilder().build();
+        InterviewAddCommand command = (InterviewAddCommand)
+                parser.parseCommand(InterviewUtil.getAddCommand(interview));
+        assertEquals(new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, interview), command);
+    }
+
+    @Test
+    public void parseCommand_interview_delete() throws Exception {
+        InterviewDeleteCommand command = (InterviewDeleteCommand) parser.parseCommand(
+                InterviewCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased()
+                        + " delete " + INDEX_FIRST_INTERVIEW.getOneBased());
+        assertEquals(new InterviewDeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, INDEX_FIRST_INTERVIEW), command);
+    }
+
+    @Test
+    public void parseCommand_interview_edit() throws Exception {
+        Interview interview = new InterviewBuilder().build();
+        InterviewEditCommand.EditInterviewDescriptor descriptor =
+                new EditInterviewDescriptorBuilder(interview).build();
+        InterviewEditCommand command = (InterviewEditCommand) parser.parseCommand(
+                InterviewCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                        + INDEX_FIRST_INTERVIEW.getOneBased()
+                        + " " + InterviewUtil.getEditInterviewApplicationDescriptorDetails(descriptor));
+        assertEquals(new InterviewEditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
+                INDEX_FIRST_INTERVIEW, descriptor), command);
     }
 
     @Test

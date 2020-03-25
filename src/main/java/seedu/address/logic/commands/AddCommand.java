@@ -38,9 +38,9 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "123 Kent Ridge Road "
             + PREFIX_PHONE + "67654321 "
             + PREFIX_EMAIL + "example@google.com "
-            + PREFIX_DATE + "10 Feb 2020 "
+            + PREFIX_DATE + "10 01 2020 "
             + PREFIX_PRIORITY + "5 "
-            + PREFIX_STATUS + "Active ";
+            + PREFIX_STATUS + "APPLIED";
 
     public static final String MESSAGE_SUCCESS = "New internship application added: %1$s";
     public static final String MESSAGE_DUPLICATE_INTERNSHIP =

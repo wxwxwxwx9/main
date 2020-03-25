@@ -14,6 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("w/");
     public static final Prefix PREFIX_STATUS = new Prefix("s/");
+    public static final Prefix PREFIX_IS_ONLINE = new Prefix("o/");
 
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");

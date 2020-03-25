@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.interviewcode.InterviewCode;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.Address;
@@ -24,6 +25,8 @@ import seedu.address.model.status.Status;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_PREAMBLE =
+            "Index followed by Command Code of add, edit, or delete is expected";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -175,5 +178,37 @@ public class ParserUtil {
         }
         // replaces all whitespace with _
         return Status.valueOf(trimmedStatus.toUpperCase());
+    }
+
+    /**
+     * Parses the preamble of an interview command.
+     * Leading and trailing whitespaces will be trimmed.
+     * The preamble should consist of either 2 or 3 strings separated by a single whitespace.
+     *
+     * @throws ParseException if the given {@code preamble}
+     * has more than or less than 2/3 strings separated by a single whitespace.
+     */
+    public static String[] parseInterviewPreamble(String preamble) throws ParseException {
+        requireNonNull(preamble);
+        String[] indexAndCode = preamble.trim().split(" ");
+        if (indexAndCode.length != 2 && indexAndCode.length != 3) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+        return indexAndCode;
+    }
+
+    /**
+     * Parses a {@code code} into an {@code InterviewCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static InterviewCode parseInterviewCode(String code) throws ParseException {
+        requireNonNull(code);
+        String trimmedCode = code.trim();
+        if (!InterviewCode.isValidCode(trimmedCode)) {
+            throw new ParseException(InterviewCode.MESSAGE_CONSTRAINTS);
+        }
+        return InterviewCode.valueOf(trimmedCode.toUpperCase());
     }
 }
