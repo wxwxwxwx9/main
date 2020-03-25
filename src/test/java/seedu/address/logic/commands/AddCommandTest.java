@@ -74,7 +74,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addNusCommand.equals(null));
 
-        // different person -> returns false
+        // different company -> returns false
         assertFalse(addNusCommand.equals(addNtuCommand));
     }
 
