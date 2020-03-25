@@ -33,7 +33,7 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow -down-> StatisticsWindow
-MainWindow -down-> StatisticsBarFooter
+MainWindow *-down-> StatisticsBarFooter
 MainWindow -down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
