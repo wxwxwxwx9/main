@@ -126,8 +126,20 @@ public class InternshipApplication {
         interviews.add(interview);
     }
 
+    public Interview getInterview(int index) {
+        return interviews.get(index);
+    }
+
+    public void setInterviews(ArrayList<Interview> interviews) {
+        this.interviews.addAll(interviews);
+    }
+
     public ArrayList<Interview> getInterviews() {
         return interviews;
+    }
+
+    public boolean hasInterview(Interview interview) {
+        return interviews.contains(interview);
     }
 
     /**
@@ -204,5 +216,6 @@ public class InternshipApplication {
                 .append(isArchived());
         return builder.toString();
     }
+
 }
 

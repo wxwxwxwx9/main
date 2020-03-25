@@ -14,6 +14,7 @@ import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.internship.ApplicationDateDuePredicate;
 
 class ReminderCommandTest {
 
@@ -22,14 +23,20 @@ class ReminderCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
-        expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+        UserPrefs userPrefs = new UserPrefs();
+        model = new ModelManager(getTypicalInternshipDiary(), userPrefs);
+        expectedModel = new ModelManager(model.getInternshipDiary(), userPrefs);
     }
 
     @Test
     public void execute_afterReminder_showsFilteredList() {
+        expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateDuePredicate());
         expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateThenInterviewDateComparator());
         CommandResult expectedMessage = new CommandResult(MESSAGE_SUCCESS);
+        assertEquals(expectedMessage, new ReminderCommand().execute(model));
+        System.err.println(model.getFilteredInternshipApplicationList());
+        System.err.println(expectedModel.getFilteredInternshipApplicationList());
+        System.err.println(model.equals(expectedModel));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
 

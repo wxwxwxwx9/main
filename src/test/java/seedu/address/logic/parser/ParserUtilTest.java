@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLI
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.interviewcode.InterviewCode;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
@@ -26,6 +27,9 @@ public class ParserUtilTest {
     private static final String INVALID_DATE = "010120";
     private static final String INVALID_PRIORITY = "r";
     private static final String INVALID_STATUS = "status";
+    private static final String INVALID_INTERVIEW_PREAMBLE_1String = "0";
+    private static final String INVALID_INTERVIEW_PREAMBLE_4Strings = "this is four strings";
+    private static final String INVALID_INTERVIEW_CODE = "invalid";
 
     private static final String VALID_COMPANY = "Google";
     private static final String VALID_ROLE = "Software Engineer";
@@ -34,7 +38,9 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_DATE = "01 01 2020";
     private static final String VALID_PRIORITY = "1";
-    private static final String VALID_STATUS = "APPLIED";
+    private static final String VALID_STATUS = "Applied";
+    private static final String VALID_INTERVIEW_PREAMBLE = "1 add";
+    private static final String VALID_INTERVIEW_CODE = "add";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -197,6 +203,88 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseInterviewPreamble_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseInterviewPreamble((String) null));
+    }
+
+    @Test
+    public void parseInterviewPreamble_validValueWithoutWhiteSpace_returnsStringArray() throws Exception {
+        String preamble = VALID_INTERVIEW_PREAMBLE;
+        String[] expectedArray = new String[] {"1", "add"};
+        String[] resultArray = ParserUtil.parseInterviewPreamble(preamble);
+        assertEquals(expectedArray[0], resultArray[0]);
+        assertEquals(expectedArray[1], resultArray[1]);
+    }
+
+    @Test
+    public void parseInterviewPreamble_validValueWithWhiteSpace_returnsStringArray() throws Exception {
+        String preamble = WHITESPACE + VALID_INTERVIEW_PREAMBLE + WHITESPACE;
+        String[] expectedArray = new String[] {"1", "add"};
+        String[] resultArray = ParserUtil.parseInterviewPreamble(preamble);
+        assertEquals(expectedArray[0], resultArray[0]);
+        assertEquals(expectedArray[1], resultArray[1]);
+    }
+
+    @Test
+    public void parseInterviewPreamble_invalidValueWithInsufficientStrings_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil
+                .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_1String));
+    }
+
+    @Test
+    public void parseInterviewPreamble_invalidValueWithExcessStrings_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil
+                .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_4Strings));
+    }
+
+    @Test
+    public void parseInterviewCode_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseInterviewCode((String) null));
+    }
+
+    @Test
+    public void parseInterviewCode_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseInterviewCode(INVALID_INTERVIEW_CODE));
+    }
+
+    @Test
+    public void parseInterviewCode_validValueWithoutWhiteSpace_returnsInterviewCode() throws ParseException {
+        InterviewCode interviewCode = InterviewCode.ADD;
+        assertEquals(interviewCode, ParserUtil.parseInterviewCode(VALID_INTERVIEW_CODE));
+    }
+
+    @Test
+    public void parseInterviewCode_validValueWithWhiteSpace_returnsInterviewCode() throws ParseException {
+        String codeWithWhitespace = WHITESPACE + VALID_INTERVIEW_CODE + WHITESPACE;
+        InterviewCode interviewCode = InterviewCode.ADD;
+        assertEquals(interviewCode, ParserUtil.parseInterviewCode(codeWithWhitespace));
+
+    }
+
+    @Test
+    public void parseStatus_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStatus((String) null));
+    }
+
+    @Test
+    public void parseStatus_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseStatus(INVALID_STATUS));
+    }
+
+    @Test
+    public void parseStatus_validValueWithoutWhiteSpace_returnsStatus() throws ParseException {
+        Status status = Status.APPLIED;
+        assertEquals(status, ParserUtil.parseStatus(VALID_STATUS));
+    }
+
+    @Test
+    public void parseStatus_validValueWithWhiteSpace_returnsStatus() throws ParseException {
+        String statusWithWhitespace = WHITESPACE + VALID_STATUS + WHITESPACE;
+        Status status = Status.APPLIED;
+        assertEquals(status, ParserUtil.parseStatus(statusWithWhitespace));
+    }
+
+    @Test
     public void parsePriority_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePriority((String) null));
     }
@@ -217,16 +305,6 @@ public class ParserUtilTest {
         String priorityWithWhitespace = WHITESPACE + VALID_PRIORITY + WHITESPACE;
         Priority expectedPriority = new Priority(VALID_PRIORITY);
         assertEquals(expectedPriority, ParserUtil.parsePriority(priorityWithWhitespace));
-    }
-
-    @Test
-    public void parseStatus_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseStatus((String) null));
-    }
-
-    @Test
-    public void parseStatus_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseStatus(INVALID_STATUS));
     }
 
     @Test

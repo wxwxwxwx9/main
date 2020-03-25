@@ -9,6 +9,7 @@
     "applicationDate": "23 03 2020",
     "priority": "10",
     "status": "APPLIED",
+    "interviews": [],
     "isArchived": "false"
   }, {
     "company": "Facebook",
@@ -19,6 +20,7 @@
     "applicationDate": "25 03 2020",
     "priority": "8",
     "status": "REJECTED",
+    "interviews": [],
     "isArchived": "false"
   } ]
 }

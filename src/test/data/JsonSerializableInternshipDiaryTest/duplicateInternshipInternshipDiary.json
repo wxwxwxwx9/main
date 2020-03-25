@@ -8,6 +8,7 @@
     "applicationDate": "11 11 2020",
     "priority": "1",
     "status": "APPLIED",
+    "interviews": [],
     "isArchived": "false"
   }, {
     "company": "Alice Inc",
@@ -18,6 +19,7 @@
     "applicationDate": "11 11 2020",
     "priority": "2",
     "status": "REJECTED",
+    "interviews": [],
     "isArchived": "false"
   } ]
 }

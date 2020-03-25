@@ -40,6 +40,13 @@ public class InterviewBuilder {
     }
 
     /**
+     * Sets isOnline based on a String.
+     */
+    public InterviewBuilder withIsOnline(String isOnline) {
+        return withIsOnline(Boolean.parseBoolean(isOnline));
+    }
+
+    /**
      * Sets the {@code interviewAddress} based on a String.
      */
     public InterviewBuilder withAddress(String address) {

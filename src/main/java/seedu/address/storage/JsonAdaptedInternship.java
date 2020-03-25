@@ -1,5 +1,9 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,6 +18,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -22,6 +27,7 @@ import seedu.address.model.status.Status;
 class JsonAdaptedInternship {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Internship's %s field is missing!";
+    public static final String MESSAGE_DUPLICATE_INTERVIEW = "Interviews list contains duplicate interview!";
 
     private final String company;
     private final String role;
@@ -31,7 +37,9 @@ class JsonAdaptedInternship {
     private final String applicationDate;
     private final String priority;
     private final String status;
+    private final List<JsonAdaptedInterview> interviews = new ArrayList<>();
     private final String isArchived;
+
 
     /**
      * Constructs a {@code JsonAdaptedInternship} with the given internship application details.
@@ -41,6 +49,7 @@ class JsonAdaptedInternship {
             @JsonProperty("address") String address, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("applicationDate") String applicationDate,
             @JsonProperty("priority") String priority, @JsonProperty("status") String status,
+            @JsonProperty("interviews") List<JsonAdaptedInterview> interviews,
             @JsonProperty("isArchived") String isArchived) {
         this.company = company;
         this.role = role;
@@ -50,6 +59,7 @@ class JsonAdaptedInternship {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.status = status;
+        this.interviews.addAll(interviews);
         this.isArchived = isArchived;
     }
 
@@ -65,6 +75,8 @@ class JsonAdaptedInternship {
         applicationDate = source.getApplicationDate().toString();
         priority = Integer.toString(source.getPriority().fullPriority);
         status = source.getStatus().name();
+        interviews.addAll(source.getInterviews()
+                .stream().map(JsonAdaptedInterview::new).collect(Collectors.toList()));
         isArchived = source.isArchived().toString();
     }
 
@@ -150,8 +162,18 @@ class JsonAdaptedInternship {
         }
         final Boolean modelIsArchived = Boolean.valueOf(isArchived);
 
-        return new InternshipApplication(modelCompany, modelRole, modelAddress,
+        InternshipApplication internshipApplication = new InternshipApplication(modelCompany, modelRole, modelAddress,
                 modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
+
+        for (JsonAdaptedInterview jsonAdaptedInterview: interviews) {
+            Interview interview = jsonAdaptedInterview.toModelType();
+            if (internshipApplication.hasInterview(interview)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_INTERVIEW);
+            }
+            internshipApplication.addInterview(interview);
+        }
+
+        return internshipApplication;
     }
 
 }
