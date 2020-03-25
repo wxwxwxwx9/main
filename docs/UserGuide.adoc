@@ -43,11 +43,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a
-parameter which can be used as `add n/Google`.
-* Items in square brackets are optional e.g `n/COMPANY_NAME [t/TAG]` can be used as `n/Google t/good` or as `n/Google`.
+parameter which can be used as `add c/Google`.
+* Items in square brackets are optional e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
 (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `s/NEW p/POSITION`, `p/COMPANY_NAME` is also
+* Parameters can be in any order e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also
 acceptable.
 ====
 
@@ -55,88 +55,91 @@ acceptable.
 
 Format: `help`
 
-=== Adding an internship company: `add`
+=== Adding an internship application: `add`
 
-Adds a company to the internship diary +
-Format: `add n/COMPANY_NAME s/STATUS p/POSITION [t/TAG]…​`
-
-[TIP]
-A company can have any number of tags (including 0)
+Adds an internship application to the internship diary +
+Format: `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]`
 
 Examples:
 
-* `add n/Google s/new p/Software Engineer`
-* `add n/Microsoft s/new p/Software Engineer`
+* `add c/Microsoft r/software engineer d/01 01 2020 s/rejected`
+* `add c/Google r/Software Engineer d/20 02 2020 s/applied p/91234567 e/google@google.com a/123 Orchard Road`
 
-=== Listing all internship companies : `list`
+=== Listing all internship applications : `list`
 
-Shows a list of all internship companies that you have applied to. Sorted by alphabetical order. +
+Shows a list of all internship applications that you have applied to. +
 Format: `list`
 
-=== Editing an internship company : `edit`
+=== Editing an internship application : `edit`
 
-Edits an internship company in the internship diary. +
-Format: `edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]…​`
+Edits an internship application in the internship diary. +
+Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​`
 
 ****
-* Edits the internship company at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the internship application at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all internship companies' tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 s/new p/Product Management` +
-Edits the status and position of the internship company to be `new` and `Product Management` respectively.
+* `edit 1 s/new r/Product Management` +
+Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
-=== Locating an internship company by name: `find`
+=== Locating an internship application by fields: `find`
 
-Find companies whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Find internship application whose specified fields contain the given keywords. +
+Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
 
 ****
 * The search is case insensitive. e.g `google` will match `Google`
 * The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`
-* Only the name is searched.
-* Only full words will be matched e.g. `Singapore` will not match `Singapores`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI` will return `AI Singapore`, `AI Malaysia`
+* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named
+`Singapores`
+* If `[KEYWORDS]` is provided, find will look for match in any field based on `KEYWORDS`, regardless of whether other
+fields are specified
+* When fields are specified, only applications where all specified field match are returned (i.e. `AND` search). e
+.g.
+`find c/google r/software engineer` will return
+application with company being `Google` and role being `Software Engineer` but not company that is `Facebook` and
+role being `Software Engineer`
 ****
 
 Examples:
 
 * `find Google` +
-Returns `Google` and `Google Deepmind`
+Returns internship applications with company `Google` and `Google Deepmind` or with email `alice@google.com`
+* `find c/Google s/applied` +
+Returns internship applications with company `Google` and status `APPLIED`
 
-=== Searching internship companies by Tag : `search`
+=== Sorting internship companies by field : `sort`
 
-Search for internship companies based on their tag. +
-Format: `search t/TAG`
+Sort displayed internship companies based on a given FIELD. +
+Format: `sort FIELD`.
+
+Available values for `FIELD`: +
+`c/`: Sorts by company name. +
+`d/`: Sorts by application date. +
+`w/`: Sorts by priority level. +
+`s/`: Sorts by Status.
 
 ****
-* Search for the companies​ that has a tag corresponding to TAG
+* Sort displayed internship companies based on a given FIELD
 ****
 
 Examples:
 
-* `search NEW` +
-Returns companies that are tagged as New.
+* `Sort c/` +
+Returns a list of currently displayed companies sorted by company name.
 
-=== Listing contacts of all internship companies : `contacts`
+=== Deleting an internship application : `delete`
 
-List all the contacts from all internship companies. +
-Format: `contacts`
-
-// tag::delete[]
-=== Deleting an internship company : `delete`
-
-Deletes the specified internship company from the diary. +
+Deletes the specified internship application from the diary. +
 Format: `delete INDEX`
 
 ****
-* Deletes the company at the specified `INDEX`.
-* The index refers to the index number shown in the displayed company list.
+* Deletes the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed internship application.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -144,10 +147,10 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd internship company in the list.
+Deletes the 2nd internship application in the list.
 * `find Google` +
 `delete 1` +
-Deletes the 1st internship company in the results of the `find` command.
+Deletes the 1st internship application in the results of the `find` command.
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -160,26 +163,72 @@ Format: `clear`
 Lists all deadlines/appointments from the Internship Diary in the next 7 days. +
 Format: `reminder`
 
-=== Rating internship companies : `rate`
+=== Getting statistics about internship applications: `stats`
 
-Rates the specified internship company from the diary. +
-Format: `rate INDEX RATING`
+Displays the current statistics regarding your internship application +
+Format: `stats`
+
+=== Archiving your internship applications: `archive`
+
+Stores your internship applications into the archival. +
+Format: `archive INDEX`
+
+=== Unarchiving your internship applications: `unarchive`
+
+Moves your internship application from archival to main list. +
+Format: `unarchive INDEX`
+
+=== View your internship applications archival: `archival`
+
+Switches the view from main list to archival list. +
+Format: `archival`
+
+=== Modifying an interview in an internship application : `interview`
+
+Add, list, edit or delete interviews within an internship application +
+[TIP]
+An interview must contain a date and a boolean that represents whether an interview is conducted online or not. +
+If the interview is not conducted online, an additional address field must be provided.
+
+Format:
+
+* Overview +
+`interview INTERNSHIP_INDEX COMMAND_WORD [INTERVIEW_INDEX] [a/ADDRESS] [d/DATE] [o/IS_ONLINE]`
 
 ****
-* Rates the company at the specified INDEX with score RATING.
-* The index refers to the index number shown in the displayed company list.
-* The index must be a positive integer 1, 2, 3, ...​
-* The rating must be a positive integer between 1 to 10 inclusive.
+* A `COMMAND_WORD` can be: `add list edit delete` +
+The command will behave identically to their internship application counterparts
+* The `INTERNSHIP_INDEX` corresponds to the index of the internship in the displayed internship list.
+Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the interview list. +
+Both indexes must be positive integer 1, 2, 3, ...
 ****
+* Specific format of each `COMMAND_WORD`:
+
+** Add interview +
+`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]`
+** List interview +
+`interview INTERNSHIP_INDEX list`
+** Edit interview +
+`interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE] [o/IS_ONLINE]`
+** Delete interview +
+`interview INTERNSHIP_INDEX delete INTERVIEW_INDEX`
 
 Examples:
 
 * `list` +
-`rate 2 10` +
-Rates the 2nd internship company in the list with a score of 10.
-* `find Google` +
-`rate 1 7` +
-Rates the 1st internship company in the results of the find command with a score of 7.
+`interview 2 list` +
+Lists all interviews in the 2nd internship application in the list
+* `list` +
+`interview 1 add o/false d/05 02 2020 a/123 Kent Ridge Road` +
+Adds an interview to the 1st internship application in the list.
+* `list` +
+`interview 2 list` +
+`interview 2 edit 1 d/05 01 2020` +
+Edits the date of the 1st interview in the 2nd internship application in the list to `05 01 2020`.
+* `list` +
+`interview 1 list` +
+`interview 1 delete 1` +
+Deletes the 1st interview in the 1st internship application in the list.
 
 === Exiting the program : `exit`
 
@@ -191,11 +240,6 @@ Format: `exit`
 Internship Diary is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
@@ -205,21 +249,35 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Help* : `help`
-* *Add* `add n/COMPANY_NAME s/STATUS p/POSITION [t/TAG]...​` +
-e.g. `add n/Google s/new p/Software Engineer`
+* *Add* `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​` +
+e.g. `add c/Google r/Software engineer s/wishlist d/10 10 2010`
 * *List* : `list`
-* *Edit* : `edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]...` +
-e.g. `edit 2 n/Google s/Shortlisted p/Product Management`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Edit* : `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]` +
+e.g. `edit 2 c/Google s/applied`
+* *Find* : `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]` +
+e.g. `find c/google r/engineer`
 * *Search* : `search t/TAG` +
 e.g. `search t/Product Management`
-* *Contacts* : `contacts`
+* *sort* : `sort FIELD` +
+e.g. `sort c/`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Clear* : `clear`
 * *Reminder* : `reminder`
-* *Rate* : `rate INDEX RATING` +
-e.g. `rate 2 5`
+* *Interview* :
+
+** Add:
+`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]` +
+e.g. `interview 1 add d/20 12 2020 o/true`
+** List:
+`interview INTERNSHIP_INDEX list` +
+e.g. `interview 1 list`
+** Edit:
+`interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE] [o/IS_ONLINE]` +
+e.g. `interview 1 edit 1 d/10 10 2020`
+** Delete:
+`interview INTERNSHIP_INDEX delete INTERVIEW_INDEX` +
+e.g. `interview 1 delete 1`
+
 * *Exit* : `exit`
 

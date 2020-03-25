@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents an InternshipApplication's priority in the internship diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidPriority(int)}
  */
-public class Priority {
+public class Priority implements Comparable<Priority> {
     public static final int HIGHEST_PRIORITY = 10;
     public static final int LOWEST_PRIORITY = 0;
     public static final String MESSAGE_CONSTRAINTS =
@@ -32,7 +32,9 @@ public class Priority {
      * @param priority a valid priority in the from of a String.
      */
     public Priority(String priority) {
-        this(Integer.parseInt(priority));
+        requireNonNull(priority);
+        checkArgument(isValidPriority(priority), MESSAGE_CONSTRAINTS);
+        fullPriority = Integer.parseInt(priority);
     }
 
     /**
@@ -64,6 +66,11 @@ public class Priority {
         return other == this // short circuit if same object
                 || (other instanceof Priority // instanceof handles nulls
                 && fullPriority == ((Priority) other).fullPriority); // state check
+    }
+
+    @Override
+    public int compareTo(Priority other) {
+        return fullPriority - other.fullPriority;
     }
 
     @Override

@@ -3,10 +3,8 @@ package seedu.address.model.internship;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
- * Tests that a {@code InternshipApplication}'s {@code Company} matches any of the keywords given.
+ * Tests that a {@code InternshipApplication}'s {@code Company} contains any of the keywords given.
  */
 public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApplication> {
     private final List<String> keywords;
@@ -17,9 +15,13 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
 
     @Override
     public boolean test(InternshipApplication internshipApplication) {
+        if (keywords == null) {
+            return true;
+        }
+
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(internshipApplication.getCompany().fullCompany,
-                        keyword));
+                .anyMatch(keyword -> internshipApplication.getCompany().fullCompany.toLowerCase()
+                        .contains(keyword.toLowerCase()));
     }
 
     @Override
@@ -27,5 +29,9 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
         return other == this // short circuit if same object
                 || (other instanceof CompanyContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((CompanyContainsKeywordsPredicate) other).keywords)); // state check
+    }
+
+    public boolean isNull() {
+        return keywords == null;
     }
 }

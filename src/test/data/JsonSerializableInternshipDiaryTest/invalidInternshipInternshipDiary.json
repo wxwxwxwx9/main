@@ -7,6 +7,8 @@
     "email": "invalid@ex@mple!com",
     "applicationDate": "11 11 2020",
     "priority": "1",
-    "status": "APPLIED"
+    "status": "APPLIED",
+    "interviews": [],
+    "isArchived": "false"
   } ]
 }

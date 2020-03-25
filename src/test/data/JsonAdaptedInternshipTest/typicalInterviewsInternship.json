@@ -1,0 +1,11 @@
+{
+  "interviews" : [ {
+    "interviewAddress": "1600 Amphitheatre Parkway",
+    "interviewDate": "01 12 2019",
+    "isOnline": "false"
+  }, {
+    "interviewAddress": "NA",
+    "interviewDate": "11 11 2009",
+    "isOnline": "true"
+  } ]
+}

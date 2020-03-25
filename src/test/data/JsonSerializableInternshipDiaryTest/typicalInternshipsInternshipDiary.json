@@ -6,17 +6,21 @@
     "address": "1600 Amphitheatre Parkway",
     "phone": "94351253",
     "email": "larry@google.com",
-    "applicationDate": "01 12 2019",
+    "applicationDate": "23 03 2020",
     "priority": "10",
-    "status": "APPLIED"
+    "status": "APPLIED",
+    "interviews": [],
+    "isArchived": "false"
   }, {
     "company": "Facebook",
     "role": "Product Management",
     "address": "1 Hacker Way, Menlo Park",
     "phone": "99751354",
     "email": "mark@google.com",
-    "applicationDate": "11 11 2009",
+    "applicationDate": "25 03 2020",
     "priority": "8",
-    "status": "REJECTED"
+    "status": "REJECTED",
+    "interviews": [],
+    "isArchived": "false"
   } ]
 }

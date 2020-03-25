@@ -22,25 +22,25 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an internship application to the internship diary. "
+            + ": Adds an internship application to the internship diary.\n"
             + "Parameters: "
             + PREFIX_COMPANY + "COMPANY "
             + PREFIX_ROLE + "ROLE "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
             + PREFIX_DATE + "APPLICATION DATE "
-            + PREFIX_PRIORITY + "PRIORITY "
+            + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + PREFIX_STATUS + "STATUS "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_COMPANY + "Google "
             + PREFIX_ROLE + "Software Engineer "
             + PREFIX_ADDRESS + "123 Kent Ridge Road "
             + PREFIX_PHONE + "67654321 "
             + PREFIX_EMAIL + "example@google.com "
-            + PREFIX_DATE + "10 Feb 2020 "
+            + PREFIX_DATE + "10 01 2020 "
             + PREFIX_PRIORITY + "5 "
-            + PREFIX_STATUS + "Active ";
+            + PREFIX_STATUS + "APPLIED";
 
     public static final String MESSAGE_SUCCESS = "New internship application added: %1$s";
     public static final String MESSAGE_DUPLICATE_INTERNSHIP =

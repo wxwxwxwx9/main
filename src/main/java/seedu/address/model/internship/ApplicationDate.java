@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Represents a InternshipApplication's application date in the internship diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidApplicationDate(String)}
  */
-public class ApplicationDate {
+public class ApplicationDate implements Comparable<ApplicationDate> {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should be in the form: DD MM YYYY";
 
@@ -63,6 +63,11 @@ public class ApplicationDate {
         return other == this // short circuit if same object
                 || (other instanceof ApplicationDate // instanceof handles nulls
                 && fullApplicationDate.equals(((ApplicationDate) other).fullApplicationDate)); // state check
+    }
+
+    @Override
+    public int compareTo(ApplicationDate other) {
+        return fullApplicationDate.compareTo(other.fullApplicationDate);
     }
 
     @Override

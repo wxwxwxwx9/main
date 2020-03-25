@@ -13,11 +13,11 @@ public class EmailTest {
         assertThrows(NullPointerException.class, () -> new Email(null));
     }
 
-    @Test
-    public void constructor_invalidEmail_throwsIllegalArgumentException() {
-        String invalidEmail = "";
-        assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
-    }
+    // @Test
+    // public void constructor_invalidEmail_throwsIllegalArgumentException() {
+    //     String invalidEmail = "";
+    //     assertThrows(IllegalArgumentException.class, () -> new Email(invalidEmail));
+    // }
 
     @Test
     public void isValidEmail() {
@@ -25,7 +25,6 @@ public class EmailTest {
         assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
 
         // blank email
-        assertFalse(Email.isValidEmail("")); // empty string
         assertFalse(Email.isValidEmail(" ")); // spaces only
 
         // missing parts
@@ -49,6 +48,7 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@example.com-")); // domain name ends with a hyphen
 
         // valid email
+        assertTrue(Email.isValidEmail("")); // means no email
         assertTrue(Email.isValidEmail("PeterJack_1190@example.com"));
         assertTrue(Email.isValidEmail("a@bc")); // minimal
         assertTrue(Email.isValidEmail("test@localhost")); // alphabets only

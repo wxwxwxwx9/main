@@ -3,6 +3,8 @@ package seedu.address.testutil;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
@@ -12,6 +14,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -36,6 +39,7 @@ public class InternshipApplicationBuilder {
     private ApplicationDate applicationDate;
     private Priority priority;
     private Status status;
+    private ArrayList<Interview> interviews;
 
     public InternshipApplicationBuilder() {
         company = new Company(DEFAULT_COMPANY);
@@ -51,6 +55,8 @@ public class InternshipApplicationBuilder {
         }
         priority = new Priority(DEFAULT_PRIORITY);
         status = DEFAULT_STATUS;
+        //default interviews is nil
+        interviews = new ArrayList<>();
     }
 
     /**
@@ -65,6 +71,7 @@ public class InternshipApplicationBuilder {
         applicationDate = toCopy.getApplicationDate();
         priority = toCopy.getPriority();
         status = toCopy.getStatus();
+        interviews = toCopy.getInterviews();
     }
 
     /**
@@ -145,6 +152,13 @@ public class InternshipApplicationBuilder {
     }
 
     /**
+     * Returns the {@code ApplicationDate} of the {@code InternshipApplication} that we are building.
+     */
+    public ApplicationDate getApplicationDate() {
+        return applicationDate;
+    }
+
+    /**
      * Sets the {@code Status} of the {@code InternshipApplication} that we are building.
      */
     public InternshipApplicationBuilder withStatus(Status status) {
@@ -159,8 +173,59 @@ public class InternshipApplicationBuilder {
         return withStatus(Status.valueOf(status));
     }
 
+    /**
+     * Adds an Interview object into the array list of interviews.
+     */
+    public InternshipApplicationBuilder withInterview(Interview interview) {
+        this.interviews.add(interview);
+        return this;
+    }
+
+    /**
+     * Returns the {@code interviews} of the {@code InternshipApplication} we are building.
+     *
+     * @return list of interviews
+     */
+    public ArrayList<Interview> getInterview() {
+        return interviews;
+    }
+
     public InternshipApplication build() {
         return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
     }
 
+    /**
+     * Builds the Internship Application object with interviews.
+     */
+    public InternshipApplication buildWithInterviews() {
+        InternshipApplication internshipApplication =
+                new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
+        for (Interview interview: interviews) {
+            internshipApplication.addInterview(interview);
+        }
+        return internshipApplication;
+    }
+
+    /**
+     * Returns the earliest interview from today in the list of interviews of the application.
+     * @param todayDate The current date today.
+     * @return an Optional of LocalDate. Will return empty if there are no interviews after today's date.
+     */
+    public Optional<Interview> getEarliestInterview(LocalDate todayDate) {
+        if (interviews.size() <= 0) {
+            return Optional.empty();
+        }
+
+        Interview earliestInterview = interviews.get(0);
+        for (Interview currentInterview: interviews) {
+            LocalDate earliestDate = earliestInterview.getInterviewDate();
+            LocalDate currentDate = currentInterview.getInterviewDate();
+            if ((currentDate.compareTo(earliestDate) <= 0 || earliestDate.compareTo(todayDate) < 0)
+                    && currentDate.compareTo(todayDate) >= 0) {
+                earliestInterview = currentInterview;
+            }
+        }
+        return earliestInterview.getInterviewDate().compareTo(todayDate) >= 0
+                ? Optional.of(earliestInterview) : Optional.empty();
+    }
 }

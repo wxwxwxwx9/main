@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private InternshipApplicationListPanel internshipApplicationListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsWindow statisticsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -50,6 +51,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane statisticsPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -63,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statisticsWindow = new StatisticsWindow(logic.getStatistics(), logic.getFilteredInternshipApplicationList());
     }
 
     public Stage getPrimaryStage() {
@@ -117,6 +122,10 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
+        StatisticsBarFooter statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
+                logic.getFilteredInternshipApplicationList());
+        statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
+
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -145,6 +154,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the statistics window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStatistics() {
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show();
+        } else {
+            statisticsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -158,6 +179,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statisticsWindow.hide();
         primaryStage.hide();
     }
 
@@ -178,6 +200,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowStatistics()) {
+                handleStatistics();
             }
 
             if (commandResult.isExit()) {

@@ -1,0 +1,11 @@
+{
+  "interviews": [ {
+    "interviewAddress": "4th street",
+    "interviewDate": "11 11 2020",
+    "isOnline": "false"
+  }, {
+    "interviewAddress": "4th street",
+    "interviewDate": "11 11 2020",
+    "isOnline": "false"
+  } ]
+}

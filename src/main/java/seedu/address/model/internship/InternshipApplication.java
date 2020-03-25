@@ -2,8 +2,12 @@ package seedu.address.model.internship;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -20,6 +24,8 @@ public class InternshipApplication {
     private final ApplicationDate applicationDate;
     private final Priority priority;
     private final Status status;
+    private final ArrayList<Interview> interviews;
+    private Boolean isArchived;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +41,26 @@ public class InternshipApplication {
         this.status = status;
         this.applicationDate = applicationDate;
         this.priority = priority;
+        this.isArchived = false;
+        interviews = new ArrayList<>();
+    }
+
+    /**
+     * Overloaded constructor to set isArchived field (probably not needed).
+     */
+    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
+             ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived) {
+        requireAllNonNull(company, phone, email, address, status);
+        this.company = company;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.applicationDate = applicationDate;
+        this.priority = priority;
+        this.isArchived = isArchived;
+        interviews = new ArrayList<>();
     }
 
     public Company getCompany() {
@@ -45,15 +71,15 @@ public class InternshipApplication {
         return role;
     }
 
-    public seedu.address.model.internship.Address getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public seedu.address.model.internship.Phone getPhone() {
+    public Phone getPhone() {
         return phone;
     }
 
-    public seedu.address.model.internship.Email getEmail() {
+    public Email getEmail() {
         return email;
     }
 
@@ -67,6 +93,53 @@ public class InternshipApplication {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Boolean isArchived() {
+        return isArchived;
+    }
+
+    /**
+     * Returns the earliest interview from today in the list of interviews of the application.
+     * @param todayDate The current date today.
+     * @return an Optional of LocalDate. Will return empty if there are no interviews after today's date.
+     */
+    public Optional<Interview> getEarliestInterview(LocalDate todayDate) {
+        if (interviews.size() <= 0) {
+            return Optional.empty();
+        }
+
+        Interview earliestInterview = interviews.get(0);
+        for (Interview currentInterview: interviews) {
+            LocalDate earliestDate = earliestInterview.getInterviewDate();
+            LocalDate currentDate = currentInterview.getInterviewDate();
+            if ((currentDate.compareTo(earliestDate) <= 0 || earliestDate.compareTo(todayDate) < 0)
+                    && currentDate.compareTo(todayDate) >= 0) {
+                earliestInterview = currentInterview;
+            }
+        }
+        return earliestInterview.getInterviewDate().compareTo(todayDate) >= 0
+                ? Optional.of(earliestInterview) : Optional.empty();
+    }
+
+    public void addInterview(Interview interview) {
+        interviews.add(interview);
+    }
+
+    public Interview getInterview(int index) {
+        return interviews.get(index);
+    }
+
+    public void setInterviews(ArrayList<Interview> interviews) {
+        this.interviews.addAll(interviews);
+    }
+
+    public ArrayList<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public boolean hasInterview(Interview interview) {
+        return interviews.contains(interview);
     }
 
     /**
@@ -85,7 +158,8 @@ public class InternshipApplication {
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate());
+                && internshipApplication.getApplicationDate().equals(getApplicationDate())
+                && internshipApplication.isArchived().equals(isArchived());
     }
 
     /**
@@ -110,13 +184,14 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus());
+                && internshipApplication.getStatus().equals(getStatus())
+                && internshipApplication.isArchived().equals(isArchived());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status);
+        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status, isArchived);
     }
 
     @Override
@@ -136,8 +211,11 @@ public class InternshipApplication {
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" Status: ")
-                .append(getStatus());
+                .append(getStatus())
+                .append(" Archived: ")
+                .append(isArchived());
         return builder.toString();
     }
+
 }
 

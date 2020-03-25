@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * Represents the in-memory model of the internship diary data.
@@ -21,10 +24,13 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
+    private final Statistics statistics;
 
     private InternshipDiary internshipDiary = new InternshipDiary();
     private FilteredList<InternshipApplication> filteredInternshipApplications =
             new FilteredList<>(internshipDiary.getInternshipList());
+    private SortedList<InternshipApplication> sortedFilteredInternshipApplications =
+            new SortedList<>(filteredInternshipApplications);
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
@@ -37,7 +43,11 @@ public class ModelManager implements Model {
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.statistics = new Statistics();
         filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getInternshipList());
+        // Set default view to show UNARCHIVED internships
+        updateFilteredInternshipApplicationList(PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
+        sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
     }
 
     public ModelManager() {
@@ -98,6 +108,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void archiveInternshipApplication(InternshipApplication target) {
+        internshipDiary.archiveInternshipApplication(target);
+    }
+
+    @Override
+    public void unarchiveInternshipApplication(InternshipApplication target) {
+        internshipDiary.unarchiveInternshipApplication(target);
+    }
+
+    @Override
     public void deleteInternshipApplication(InternshipApplication target) {
         internshipDiary.removeInternship(target);
     }
@@ -122,14 +142,19 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
-        return filteredInternshipApplications;
+        return sortedFilteredInternshipApplications;
     }
 
     @Override
     public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
         requireNonNull(predicate);
-
         filteredInternshipApplications.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
+        requireNonNull(comparator);
+        sortedFilteredInternshipApplications.setComparator(comparator);
     }
 
     @Override
@@ -149,6 +174,13 @@ public class ModelManager implements Model {
         return internshipDiary.equals(other.internshipDiary)
                 && userPrefs.equals(other.userPrefs)
                 && filteredInternshipApplications.equals(other.filteredInternshipApplications);
+    }
+
+    //=========== Statistics ==================================================================================
+
+    @Override
+    public Statistics getStatistics() {
+        return statistics;
     }
 
 }

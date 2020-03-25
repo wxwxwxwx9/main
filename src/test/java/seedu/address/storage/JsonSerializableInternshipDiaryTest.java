@@ -28,9 +28,9 @@ public class JsonSerializableInternshipDiaryTest {
     public void toModelType_typicalInternshipsFile_success() throws Exception {
         JsonSerializableInternshipDiary dataFromFile = JsonUtil.readJsonFile(TYPICAL_INTERNSHIPS_FILE,
                 JsonSerializableInternshipDiary.class).get();
-        InternshipDiary addressBookFromFile = dataFromFile.toModelType();
+        InternshipDiary internshipDiaryFromFile = dataFromFile.toModelType();
         InternshipDiary typicalInternshipsInternshipDiary = TypicalInternshipApplications.getTypicalInternshipDiary();
-        assertEquals(addressBookFromFile, typicalInternshipsInternshipDiary);
+        assertEquals(internshipDiaryFromFile, typicalInternshipsInternshipDiary);
     }
 
     @Test

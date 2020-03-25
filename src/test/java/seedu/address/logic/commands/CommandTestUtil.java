@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
@@ -18,11 +19,14 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
+import seedu.address.testutil.EditInterviewDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -46,6 +50,13 @@ public class CommandTestUtil {
     public static final String VALID_STATUS_AMY = "WISHLIST";
     public static final String VALID_STATUS_BOB = "APPLIED";
 
+    public static final String VALID_ADDRESS_NUS = "123 Kent Ridge Road";
+    public static final String VALID_ADDRESS_ONLINE = Interview.ADDRESS_NOT_APPLICABLE;
+    public static final String VALID_DATE_NUS = "10 10 2010";
+    public static final String VALID_DATE_ONLINE = "20 02 2020";
+    public static final String VALID_IS_ONLINE_NUS = "false";
+    public static final String VALID_IS_ONLINE_ONLINE = "true";
+
     public static final String COMPANY_DESC_AMY = " " + PREFIX_COMPANY + VALID_COMPANY_AMY;
     public static final String COMPANY_DESC_BOB = " " + PREFIX_COMPANY + VALID_COMPANY_BOB;
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
@@ -63,20 +74,30 @@ public class CommandTestUtil {
     public static final String STATUS_DESC_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
     public static final String STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
 
+    public static final String ADDRESS_DESC_NUS = " " + PREFIX_ADDRESS + VALID_ADDRESS_NUS;
+    public static final String ADDRESS_DESC_ONLINE = " " + PREFIX_ADDRESS + VALID_ADDRESS_ONLINE;
+    public static final String DATE_DESC_NUS = " " + PREFIX_DATE + VALID_DATE_NUS;
+    public static final String DATE_DESC_ONLINE = " " + PREFIX_DATE + VALID_DATE_ONLINE;
+    public static final String ONLINE_DESC_NUS = " " + PREFIX_IS_ONLINE + VALID_IS_ONLINE_NUS;
+    public static final String ONLINE_DESC_ONLINE = " " + PREFIX_IS_ONLINE + VALID_IS_ONLINE_ONLINE;
+
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY + "Google&"; // '&' not allowed in company
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "So&"; // '&' not allowed in company
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + " "; // no invalid addresses
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "010420"; // date format is DD MM YYYY
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "a"; // only numbers allowed in priority
     public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "Not"; // 'Not' is not a status
+    public static final String INVALID_BOOLEAN_DESC = " " + PREFIX_IS_ONLINE + "n"; // 'n' is not a boolean
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditInternshipDescriptor DESC_AMY;
     public static final EditCommand.EditInternshipDescriptor DESC_BOB;
+    public static final InterviewEditCommand.EditInterviewDescriptor DESC_NUS;
+    public static final InterviewEditCommand.EditInterviewDescriptor DESC_ONLINE;
 
     static {
         DESC_AMY = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
@@ -87,6 +108,10 @@ public class CommandTestUtil {
                 .withRole(VALID_ROLE_BOB).withApplicationDate(VALID_DATE_BOB).withPriority(VALID_PRIORITY_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withStatus(VALID_STATUS_BOB).build();
+        DESC_NUS = new EditInterviewDescriptorBuilder().withAddress(VALID_ADDRESS_NUS)
+                .withInterviewDate(VALID_DATE_NUS).withIsOnline(VALID_IS_ONLINE_NUS).build();
+        DESC_ONLINE = new EditInterviewDescriptorBuilder().withAddress(VALID_ADDRESS_ONLINE)
+                .withInterviewDate(VALID_DATE_ONLINE).withIsOnline(VALID_IS_ONLINE_ONLINE).build();
     }
 
     /**
