@@ -75,16 +75,39 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseCompany_validValueWithoutWhitespace_returnsName() throws Exception {
+    public void parseCompany_validValueWithoutWhitespace_returnsCompany() throws Exception {
         Company expectedCompany = new Company(VALID_COMPANY);
         assertEquals(expectedCompany, ParserUtil.parseCompany(VALID_COMPANY));
     }
 
     @Test
-    public void parseCompany_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+    public void parseCompany_validValueWithWhitespace_returnsTrimmedCompany() throws Exception {
+        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
         Company expectedCompany = new Company(VALID_COMPANY);
-        assertEquals(expectedCompany, ParserUtil.parseCompany(nameWithWhitespace));
+        assertEquals(expectedCompany, ParserUtil.parseCompany(companyWithWhitespace));
+    }
+
+    @Test
+    public void parseRole_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRole((String) null));
+    }
+
+    @Test
+    public void parseRole_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRole(INVALID_ROLE));
+    }
+
+    @Test
+    public void parseRole_validValueWithoutWhitespace_returnsRole() throws Exception {
+        Role expectedRole = new Role(VALID_ROLE);
+        assertEquals(expectedRole, ParserUtil.parseRole(VALID_ROLE));
+    }
+
+    @Test
+    public void parseRole_validValueWithWhitespace_returnsTrimmedRole() throws Exception {
+        String roleWithWhitespace = WHITESPACE + VALID_ROLE + WHITESPACE;
+        Role expectedRole = new Role(VALID_ROLE);
+        assertEquals(expectedRole, ParserUtil.parseRole(roleWithWhitespace));
     }
 
     @Test
@@ -235,6 +258,7 @@ public class ParserUtilTest {
         String codeWithWhitespace = WHITESPACE + VALID_INTERVIEW_CODE + WHITESPACE;
         InterviewCode interviewCode = InterviewCode.ADD;
         assertEquals(interviewCode, ParserUtil.parseInterviewCode(codeWithWhitespace));
+
     }
 
     @Test
@@ -261,29 +285,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseRole_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseRole((String) null));
-    }
-
-    @Test
-    public void parseRole_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseRole(INVALID_ROLE));
-    }
-
-    @Test
-    public void parseRole_validValueWithoutWhitespace_returnsRole() throws Exception {
-        Role expectedRole = new Role(VALID_ROLE);
-        assertEquals(expectedRole, ParserUtil.parseRole(VALID_ROLE));
-    }
-
-    @Test
-    public void parseRole_validValueWithWhitespace_returnsTrimmedRole() throws Exception {
-        String roleWithWhitespace = WHITESPACE + VALID_ROLE + WHITESPACE;
-        Role expectedRole = new Role(VALID_ROLE);
-        assertEquals(expectedRole, ParserUtil.parseRole(roleWithWhitespace));
-    }
-
-    @Test
     public void parsePriority_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePriority((String) null));
     }
@@ -304,6 +305,19 @@ public class ParserUtilTest {
         String priorityWithWhitespace = WHITESPACE + VALID_PRIORITY + WHITESPACE;
         Priority expectedPriority = new Priority(VALID_PRIORITY);
         assertEquals(expectedPriority, ParserUtil.parsePriority(priorityWithWhitespace));
+    }
+
+    @Test
+    public void parseStatus_validValueWithoutWhitespace_returnsStatus() throws Exception {
+        Status expectedStatus = Status.APPLIED;
+        assertEquals(expectedStatus, ParserUtil.parseStatus(VALID_STATUS));
+    }
+
+    @Test
+    public void parseStatus_validValueWithWhitespace_returnsTrimmedStatus() throws Exception {
+        String statusWithWhitespace = WHITESPACE + VALID_STATUS + WHITESPACE;
+        Status expectedStatus = Status.APPLIED;
+        assertEquals(expectedStatus, ParserUtil.parseStatus(statusWithWhitespace));
     }
 
     /* below are all tests for Tags

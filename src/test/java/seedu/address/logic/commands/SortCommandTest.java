@@ -56,7 +56,7 @@ public class SortCommandTest {
         // null -> returns false
         assertNotEquals(null, sortCompanyCommand);
 
-        // different person -> returns false
+        // different company -> returns false
         assertNotEquals(sortCompanyCommand, sortDateCommand);
     }
 

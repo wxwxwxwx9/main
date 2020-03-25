@@ -71,11 +71,24 @@ public class RoleContainsKeywordsPredicateTest {
         predicate = new RoleContainsKeywordsPredicate(Arrays.asList("Cleaner"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withRole("Software Engineer").build()));
 
-        // Keywords match company, phone, email and address, but does not match role
+        // Keywords match company, phone, email, address, priority and status, but does not match role
         predicate = new RoleContainsKeywordsPredicate(Arrays.asList("Google", "12345", "alice@email.com", "Main",
-                "Street"));
+                "Street", "1", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
                 .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+                .withStatus("APPLIED").build()));
+    }
+
+    @Test
+    public void isNull_nullKeyword_returnsTrue() {
+        RoleContainsKeywordsPredicate predicate = new RoleContainsKeywordsPredicate(null);
+        assertTrue(predicate.isNull());
+    }
+
+    @Test
+    public void isNull_nonNullKeyword_returnsFalse() {
+        RoleContainsKeywordsPredicate predicate = new RoleContainsKeywordsPredicate(Arrays.asList("Engineer"));
+        assertFalse(predicate.isNull());
     }
 }

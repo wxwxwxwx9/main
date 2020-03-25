@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code InternshipApplication}'s {@code Company} contains any of the keywords given.
+ * Tests that a {@code InternshipApplication}'s {@code Status} contains any of the keywords given.
  */
-public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApplication> {
+public class StatusContainsKeywordsPredicate implements Predicate<InternshipApplication> {
     private final List<String> keywords;
 
-    public CompanyContainsKeywordsPredicate(List<String> keywords) {
+    public StatusContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -20,15 +20,15 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> internshipApplication.getCompany().fullCompany.toLowerCase()
+                .anyMatch(keyword -> internshipApplication.getStatus().name().toLowerCase()
                         .contains(keyword.toLowerCase()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CompanyContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((CompanyContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof StatusContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((StatusContainsKeywordsPredicate) other).keywords)); // state check
     }
 
     public boolean isNull() {
