@@ -73,11 +73,24 @@ public class AddressContainsKeywordsPredicateTest {
         assertFalse(predicate
                 .test(new InternshipApplicationBuilder().withAddress("Blk 456, Den Road, #01-355").build()));
 
-        // Keywords match company, role, phone and email, but does not match address
+        // Keywords match company, role, phone, email, priority and status, but does not match address
         predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Google", "Software",
-                "Engineer", "12345", "alice@email.com"));
+                "Engineer", "12345", "alice@email.com", "1", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
                 .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+                .withStatus("APPLIED").build()));
+    }
+
+    @Test
+    public void isNull_nullKeywords_returnsTrue() {
+        AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(null);
+        assertTrue(predicate.isNull());
+    }
+
+    @Test
+    public void isNull_nonNullKeywords_returnsFalse() {
+        AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Main"));
+        assertFalse(predicate.isNull());
     }
 }
