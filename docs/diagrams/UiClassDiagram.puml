@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
+skinparam arrowThickness 1.0
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
@@ -10,10 +10,12 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class StatisticsWindow
 Class ResultDisplay
 Class InternshipApplicationListPanel
 Class InternshipApplicationCard
 Class StatusBarFooter
+Class StatisticsBarFooter
 Class CommandBox
 }
 
@@ -31,10 +33,12 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow -up-> StatisticsWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> InternshipApplicationListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-up-> StatisticsBarFooter
 
 InternshipApplicationListPanel -down-> InternshipApplicationCard
 
@@ -45,16 +49,22 @@ CommandBox --|> UiPart
 InternshipApplicationListPanel --|> UiPart
 InternshipApplicationCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+StatisticsBarFooter --|> UiPart
+HelpWindow --|> UiPart
+StatisticsWindow --|> UiPart
 
+StatisticsBarFooter ..> Model
+StatisticsWindow ..> Model
 InternshipApplicationCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+StatisticsWindow -[hidden]left- InternshipApplicationListPanel
 InternshipApplicationListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatisticsBarFooter -[hidden]left- StatisticsWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml
