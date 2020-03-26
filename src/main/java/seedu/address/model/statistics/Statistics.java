@@ -27,9 +27,14 @@ public class Statistics {
      */
     private HashMap<Status, Integer> statusCount = new HashMap<>();
 
+    public Statistics() {
+        resetStatistics();
+    }
+
     /**
      * Computes and updates the overall statistics based on the latest list of internship applications given.
      * It will reset any existing statistics before re-computing.
+     *
      * @param internshipApplicationList list of existing internship application(s).
      */
     public void computeAndUpdateStatistics(ObservableList<InternshipApplication> internshipApplicationList) {
@@ -39,6 +44,7 @@ public class Statistics {
 
     /**
      * Computes and updates the count for each internship application status.
+     *
      * @param internshipApplicationList
      */
     public void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {

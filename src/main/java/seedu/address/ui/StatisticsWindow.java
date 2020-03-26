@@ -82,7 +82,8 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statistics statistics object that generates relevant statistics.
      * @param internshipApplicationList list of existing internship application(s).
      */
-    public void updateStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
+    public void updateStatistics(Statistics statistics,
+                                 ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         loadBarChart(statistics);
         loadPieChart(statistics);
@@ -97,7 +98,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     public void loadBarChart(Statistics statistics) {
         internshipApplicationChart.getData().clear();
         ObservableList<XYChart.Data<String, Integer>> barChartData = generateBarChartData(statistics);
-         internshipApplicationChart.getData().addAll(new XYChart.Series<String, Integer>(barChartData));
+        internshipApplicationChart.getData().addAll(new XYChart.Series<String, Integer>(barChartData));
     }
 
     /**
@@ -126,12 +127,12 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statistics statistics object that generates relevant statistics.
      */
     public ObservableList<XYChart.Data<String, Integer>> generateBarChartData(Statistics statistics) {
-        ObservableList<XYChart.Data<String, Integer>> XYChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Data<String, Integer>> xyChartData = FXCollections.observableArrayList();
         for (Status status : statistics.getStatuses()) {
             XYChart.Data<String, Integer> data = new XYChart.Data<>(status.toString(), statistics.getCount(status));
-            XYChartData.add(data);
+            xyChartData.add(data);
         }
-        return XYChartData;
+        return xyChartData;
     }
 
     /**
