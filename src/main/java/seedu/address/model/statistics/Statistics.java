@@ -17,12 +17,20 @@ import seedu.address.model.status.Status;
 public class Statistics {
     public static final String TOTAL = "TOTAL";
 
+    /**
+     * Contains all Status enum constants.
+     */
     private Status[] statuses = Status.class.getEnumConstants();
+
+    /**
+     * Stores mapping of each Status to their count across internship application(s).
+     */
     private HashMap<Status, Integer> statusCount = new HashMap<>();
 
     /**
-     * Computes and updates the overall statistics based on the list of internship applications given.
-     * @param internshipApplicationList
+     * Computes and updates the overall statistics based on the latest list of internship applications given.
+     * It will reset any existing statistics before re-computing.
+     * @param internshipApplicationList list of existing internship application(s).
      */
     public void computeAndUpdateStatistics(ObservableList<InternshipApplication> internshipApplicationList) {
         resetStatistics();
@@ -71,6 +79,10 @@ public class Statistics {
 
     public double getPercentage(Status status) {
         return ((double) statusCount.get(status) / getTotalCount()) * 100;
+    }
+
+    public Status[] getStatuses() {
+        return this.statuses;
     }
 
 }
