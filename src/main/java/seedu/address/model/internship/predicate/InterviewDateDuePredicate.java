@@ -1,10 +1,11 @@
-package seedu.address.model.internship;
+package seedu.address.model.internship.predicate;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 
 /**

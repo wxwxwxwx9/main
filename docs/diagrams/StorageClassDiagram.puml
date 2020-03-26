@@ -18,7 +18,7 @@ StorageManager o--> InternshipDiaryStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonInternshipDiaryStorage .left.|> InternshipDiaryStorage
-JsonInternshipDiaryStorage .down.> JsonSerializableInternshipDiaryStorage
-JsonSerializableInternshipDiaryStorage .right.> JsonSerializableInternshipApplication
-JsonSerializableInternshipApplication .right.> JsonAdaptedStatus
+JsonInternshipDiaryStorage .down.> JsonSerializableInternshipDiary
+JsonSerializableInternshipDiary .right.> JsonAdaptedInternship
+JsonAdaptedInternship .right.> JsonAdaptedInterview
 @enduml

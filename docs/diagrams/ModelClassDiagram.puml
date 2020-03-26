@@ -25,10 +25,11 @@ Class Company
 Class ApplicationDate
 Class UniqueInternshipApplicationList
 Class Priority
+Class Interview
 }
 
 Package Status {
-Class Status
+Class Status <<enumeration>>
 }
 }
 
@@ -45,14 +46,15 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 InternshipDiary *--> "1" UniqueInternshipApplicationList
 UniqueInternshipApplicationList o--> "*" InternshipApplication
-InternshipApplication *--> Company
-InternshipApplication *--> Role
-InternshipApplication *--> Address
-InternshipApplication *--> Phone
-InternshipApplication *--> Email
-InternshipApplication *--> ApplicationDate
-InternshipApplication *--> Priority
-InternshipApplication *-> "*" Status
+InternshipApplication *--> "1" Company
+InternshipApplication *--> "1" Role
+InternshipApplication *--> "0..1" Address
+InternshipApplication *--> "0..1" Phone
+InternshipApplication *--> "0..1" Email
+InternshipApplication *--> "1" ApplicationDate
+InternshipApplication *--> "1" Priority
+InternshipApplication *--> "*" Interview
+InternshipApplication *-> "1" Status
 
 Company -[hidden]right-> Role
 Role -[hidden]right-> Address

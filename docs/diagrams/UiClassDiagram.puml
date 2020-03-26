@@ -10,6 +10,8 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class StatisticsWindow
+Class StatisticsBarFooter
 Class ResultDisplay
 Class InternshipApplicationListPanel
 Class InternshipApplicationCard
@@ -30,7 +32,9 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+MainWindow -down-> StatisticsWindow
+MainWindow *-down-> StatisticsBarFooter
+MainWindow -down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> InternshipApplicationListPanel
@@ -45,12 +49,18 @@ CommandBox --|> UiPart
 InternshipApplicationListPanel --|> UiPart
 InternshipApplicationCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+StatisticsWindow --|> UiPart
+StatisticsBarFooter--|> UiPart
+HelpWindow --|> UiPart
 
+StatisticsBarFooter ..> Model
+StatisticsWindow ..> Model
 InternshipApplicationCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+StatisticsBarFooter -[hidden]left- StatisticsWindow
+StatisticsWindow -[hidden]left- InternshipApplicationListPanel
 InternshipApplicationListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
