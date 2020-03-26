@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.0
+skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
@@ -11,14 +11,11 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class StatisticsWindow
-<<<<<<< HEAD
-=======
 Class StatisticsBarFooter
 Class ResultDisplay
 Class InternshipApplicationListPanel
 Class InternshipApplicationCard
 Class StatusBarFooter
-Class StatisticsBarFooter
 Class CommandBox
 }
 
@@ -42,7 +39,6 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> InternshipApplicationListPanel
 MainWindow *-down-> StatusBarFooter
-MainWindow *-up-> StatisticsBarFooter
 
 InternshipApplicationListPanel -down-> InternshipApplicationCard
 
@@ -69,7 +65,6 @@ InternshipApplicationListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-StatisticsBarFooter -[hidden]left- StatisticsWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml
