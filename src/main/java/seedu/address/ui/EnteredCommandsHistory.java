@@ -38,6 +38,14 @@ public class EnteredCommandsHistory {
     }
 
     /**
+     * Returns the size of the command history.
+     * @return the size of the command history.
+     */
+    public int size() {
+        return commandsHistory.size();
+    }
+
+    /**
      * Resets the history iterator.
      */
     public void resetIterator() {
