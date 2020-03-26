@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.util.LinkedList;
-import java.util.ListIterator;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -23,8 +20,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private LinkedList<String> previousCommands = new LinkedList<>();
-    private ListIterator<String> previousCommandIterator;
+    private EnteredCommandsHistory commandsHistory = new EnteredCommandsHistory();
 
     @FXML
     private TextField commandTextField;
@@ -44,12 +40,9 @@ public class CommandBox extends UiPart<Region> {
         try {
             String text = commandTextField.getText();
             commandExecutor.execute(text);
-            previousCommands.addFirst(text);
+            commandsHistory.add(text);
+            commandsHistory.resetIterator();
             commandTextField.setText("");
-            if (previousCommands.size() > 20) {
-                previousCommands.removeLast();
-            }
-            previousCommandIterator = null;
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
@@ -61,26 +54,17 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleKeyPressed(KeyEvent ke) {
         if (ke.getCode() == KeyCode.UP) {
-            if (previousCommandIterator == null) {
-                previousCommandIterator = previousCommands.listIterator(0);
-            }
-            if (previousCommandIterator.hasNext()) {
-                commandTextField.setText(previousCommandIterator.next());
+            String text = commandsHistory.iterateNext();
+            if (text != null) {
+                commandTextField.setText(text);
             }
         } else if (ke.getCode() == KeyCode.DOWN) {
-            if (previousCommandIterator != null) {
-                if (previousCommandIterator.hasPrevious()) {
-                    previousCommandIterator.previous();
-                }
-                if (previousCommandIterator.hasPrevious()) {
-                    commandTextField.setText(previousCommandIterator.previous());
-                    previousCommandIterator.next();
-                } else {
-                    commandTextField.setText("");
-                }
+            String text = commandsHistory.iteratePrevious();
+            if (text != null) {
+                commandTextField.setText(text);
             }
         } else if (ke.getCode() != KeyCode.LEFT && ke.getCode() != KeyCode.RIGHT) {
-            previousCommandIterator = null;
+            commandsHistory.resetIterator();
         }
     }
 
