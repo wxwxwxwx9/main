@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.parser.exceptions.ClearCommandConfirmationParseException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -16,7 +17,7 @@ public class ClearCommandConfirmationParser extends InternshipDiaryParser {
         if (userInput.trim().toLowerCase().equals(CONFIRMATION_COMMAND_WORD)) {
             return new ClearCommand();
         } else {
-            throw new ParseException(CANCEL_CLEAR_COMMAND);
+            throw new ClearCommandConfirmationParseException(CANCEL_CLEAR_COMMAND);
         }
     }
 }

@@ -24,7 +24,7 @@ public class UnarchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS = "Unarchived Internship Application: %1$s";
-    public static final String MESSAGE_ALREADY_UNARCHIVED = "Internship Application already unarchived";
+    public static final String MESSAGE_ALREADY_UNARCHIVED = "Internship Application already unarchived!";
 
     private final Index targetIndex;
 
