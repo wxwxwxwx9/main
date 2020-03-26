@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import seedu.address.commons.util.DateTimeUtil;
+
 /**
  * Represents a InternshipApplication's application date in the internship diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidApplicationDate(String)}
@@ -15,6 +17,7 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should be in the form: DD MM YYYY";
 
+    // Default Pattern
     public static final String DATE_PATTERN = "dd MM yyyy";
 
     public final LocalDate fullApplicationDate;
@@ -27,7 +30,7 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
     public ApplicationDate(String date) {
         requireNonNull(date);
         checkArgument(isValidApplicationDate(date), MESSAGE_CONSTRAINTS);
-        fullApplicationDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
+        fullApplicationDate = DateTimeUtil.parseDate(date);
     }
 
     /**
@@ -46,7 +49,7 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
     public static boolean isValidApplicationDate(String test) {
         try {
             //simple parse test
-            LocalDate.parse(test, DateTimeFormatter.ofPattern(DATE_PATTERN));
+            DateTimeUtil.parseDate(test);
             return true;
         } catch (DateTimeParseException e) {
             return false;
