@@ -290,6 +290,96 @@ Able to use polymorphism to share operations between commands.
 Create a lot of repetition in code.
 // end::interview[]
 
+// tag::find[]
+=== Find command
+
+The find command allows the user to get a filtered list of internship applications. The following sequence
+diagram will illustrate the process of invocation for the command:
+
+image::FindSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the find command, as well as the 2
+versions of the command, find any match, and find match by fields.
+
+==== Implementation
+The find command is implemented in the class `FindCommand` and uses the `FindCommandParser` class to parse the
+arguments for the command.
+
+To facilitate the find command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
+
+* `CompanyContainsKeywordsPredicate` -- Predicate to check if an internship application's `Company` field contains any
+substring matching any words in the list supplied by its constructor `CompanyContainsKeywordsPredicate(List<String>
+keywords)`.
+* `RoleContainsKeywordsPredicate` -- Predicate to check if an internship application's `Role` field contains any
+substring matching any words in the list supplied by its constructor `RoleContainsKeywordsPredicate(List<String>
+keywords)`.
+* `AddressContainsKeywordsPredicate` -- Predicate to check if an internship application's `Address` field contains any
+substring matching any words in the list supplied by its constructor `AddressContainsKeywordsPredicate(List<String>
+keywords)`.
+* `PhoneContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any
+substring matching any words in the list supplied by its constructor `PhoneContainsNumbersPredicate(List<String>
+numbers)`.
+* `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any
+substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
+keywords)`.
+* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any
+substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
+numbers)`..
+* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is
+exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
+* `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any
+substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
+keywords)`.
+
+==== Find Any Match
+
+This version of the command is invoked when the user enters the command with preamble text in the parameter, e.g.
+`find google facebook` or `find google r/software`. The command will perform search for any internship application
+where any of the fields `Company`, `Role`, `Address`, `Phone`, `Email`, `Priority` or `Status` contains a substring
+matching at least one word in the preamble and display them, e.g. `find google facebook` will look for internship
+applications whose any of the above fields contains the substring `google` or `facebook`.
+
+The searching and displaying of the internship application is done by performing an `OR` operation on all the predicates
+`CompanyContainsKeywordsPredicate`, `RoleContainsKeywordsPredicate`, `AddressContainsKeywordsPredicate`,
+`PhoneContainsNumbersPredicate`, `EmailContainsKeywordsPredicate`, `PriorityContainsNumbersPredicate` and
+`StatusContainsKeywordsPredicate` to get a single predicate and passing that into the method
+`updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
+
+==== Find Match by Fields
+
+This version of the command is invoked when the user enters the command without any preamble text in the parameter, e.g.
+`find c/google r/software`. The command will perform a search for any internship application where the fields
+`Company`, `Role`, `Address`, `Phone`, `Email`, `ApplicationDate`, `Priority` and `Status` match any of the supplied
+word after their respective prefixes (if a field's prefix is not specified, the field is not checked),
+e.g. `find c/google facebook d/01 02 2020` will look for internship applications where the `Company` field contains
+a substring `google` or `facebook` and the `ApplicationDate` field matching the date 1st February 2020.
+
+The searching and displaying of the internship application is done by performing an `AND` operation on the
+required predicates that is any of `CompanyContainsKeywordsPredicate`, `RoleContainsKeywordsPredicate`,
+`AddressContainsKeywordsPredicate`, `PhoneContainsNumbersPredicate`, `EmailContainsKeywordsPredicate`,
+`ApplicationDateIsDatePredicate`, `PriorityContainsNumbersPredicate` and `StatusContainsKeywordsPredicate` to get a
+single predicate and passing that into the method `updateFilteredInternshipApplicationList()` of the `ModelManager`
+instance.
+
+==== Design Considerations
+
+===== Aspect: How to implement the different versions of find command
+* **Alternative 1 (current choice)**: Use a standardized command with the version to invoke determined by the type of
+user input parameters.
+** Pros: More streamlined, only one command. +
+This ensures that the user dont have to remember multiple command to use the different versions.
+** Cons: Longer and less specific execute method.
+
+* **Alternative 2**: Use separate commands for the different versions of find.
+** Pros: More specific execute method for each of the command.
+** Cons: Makes the user remember more commands.
+
+* **Alternative 3**: Use the first word of the user input parameter to select which version of find command to invoke.
+** Pros: Slightly more streamlined than multiple commands. +
+This still requires user to remember the right words to invoke the different versions.
+** Cons: Longer and less specific execution method.
+// end::find[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
