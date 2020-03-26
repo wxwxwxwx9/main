@@ -8,9 +8,9 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
 import seedu.address.model.Model;
-import seedu.address.model.internship.ApplicationDateDuePredicate;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.InterviewDateDuePredicate;
+import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 
 /**
  * Lists all internship applications in the internship diary that are due or have interview dates in 7 days.

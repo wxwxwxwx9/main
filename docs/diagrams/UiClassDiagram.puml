@@ -11,6 +11,10 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class StatisticsWindow
+<<<<<<< HEAD
+=======
+Class StatisticsBarFooter
+>>>>>>> 67f93a25817df7bd93a1aaae1b189859fdee7d46
 Class ResultDisplay
 Class InternshipApplicationListPanel
 Class InternshipApplicationCard
@@ -32,8 +36,14 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
+<<<<<<< HEAD
 MainWindow --> HelpWindow
 MainWindow -up-> StatisticsWindow
+=======
+MainWindow -down-> StatisticsWindow
+MainWindow *-down-> StatisticsBarFooter
+MainWindow -down-> HelpWindow
+>>>>>>> 67f93a25817df7bd93a1aaae1b189859fdee7d46
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> InternshipApplicationListPanel
@@ -49,9 +59,15 @@ CommandBox --|> UiPart
 InternshipApplicationListPanel --|> UiPart
 InternshipApplicationCard --|> UiPart
 StatusBarFooter --|> UiPart
+<<<<<<< HEAD
 StatisticsBarFooter --|> UiPart
 HelpWindow --|> UiPart
 StatisticsWindow --|> UiPart
+=======
+StatisticsWindow --|> UiPart
+StatisticsBarFooter--|> UiPart
+HelpWindow --|> UiPart
+>>>>>>> 67f93a25817df7bd93a1aaae1b189859fdee7d46
 
 StatisticsBarFooter ..> Model
 StatisticsWindow ..> Model
@@ -59,6 +75,10 @@ InternshipApplicationCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+<<<<<<< HEAD
+=======
+StatisticsBarFooter -[hidden]left- StatisticsWindow
+>>>>>>> 67f93a25817df7bd93a1aaae1b189859fdee7d46
 StatisticsWindow -[hidden]left- InternshipApplicationListPanel
 InternshipApplicationListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox

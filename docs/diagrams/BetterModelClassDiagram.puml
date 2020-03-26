@@ -12,13 +12,14 @@ UniqueStatusList -[hidden]down- UniqueInternshipApplicationList
 UniqueStatusList *-right-> "*" Status
 UniqueInternshipApplicationList o-right-> InternshipApplication
 
-InternshipApplication o-up-> "*" Status
+InternshipApplication o-up-> "1" Status
 
-InternshipApplication *--> Company
-InternshipApplication *--> Role
-InternshipApplication *--> Address
-InternshipApplication *--> Phone
-InternshipApplication *--> Email
-InternshipApplication *--> ApplicationDate
-InternshipApplication *--> Priority
+InternshipApplication *--> "1" Company
+InternshipApplication *--> "1" Role
+InternshipApplication *--> "0..1" Address
+InternshipApplication *--> "0..1" Phone
+InternshipApplication *--> "0..1" Email
+InternshipApplication *--> "1" ApplicationDate
+InternshipApplication *--> "1" Priority
+InternshipApplication *--> "*" Interview
 @enduml

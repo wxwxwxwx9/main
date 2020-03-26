@@ -1,7 +1,9 @@
-package seedu.address.model.internship;
+package seedu.address.model.internship.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.model.internship.InternshipApplication;
 
 /**
  * Tests that a {@code InternshipApplication}'s {@code Company} contains any of the keywords given.

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 import static seedu.address.testutil.Assert.assertThrows;
-
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
@@ -16,8 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.InternshipDiaryBuilder;
 
 

@@ -18,12 +18,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchivalCommand;
 import seedu.address.logic.commands.ArchiveCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InitClearCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -33,16 +33,16 @@ import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.internship.AddressContainsKeywordsPredicate;
-import seedu.address.model.internship.ApplicationDateIsDatePredicate;
-import seedu.address.model.internship.CompanyContainsKeywordsPredicate;
-import seedu.address.model.internship.EmailContainsKeywordsPredicate;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.PhoneContainsNumbersPredicate;
-import seedu.address.model.internship.PriorityContainsNumbersPredicate;
-import seedu.address.model.internship.RoleContainsKeywordsPredicate;
-import seedu.address.model.internship.StatusContainsKeywordsPredicate;
 import seedu.address.model.internship.interview.Interview;
+import seedu.address.model.internship.predicate.AddressContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.ApplicationDateIsDatePredicate;
+import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.PhoneContainsNumbersPredicate;
+import seedu.address.model.internship.predicate.PriorityContainsNumbersPredicate;
+import seedu.address.model.internship.predicate.RoleContainsKeywordsPredicate;
+import seedu.address.model.internship.predicate.StatusContainsKeywordsPredicate;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
 import seedu.address.testutil.EditInterviewDescriptorBuilder;
 import seedu.address.testutil.InternshipApplicationBuilder;
@@ -63,9 +63,9 @@ public class InternshipDiaryParserTest {
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    public void parseCommand_initClear() throws Exception {
+        assertTrue(parser.parseCommand(InitClearCommand.COMMAND_WORD) instanceof InitClearCommand);
+        assertTrue(parser.parseCommand(InitClearCommand.COMMAND_WORD + " 3") instanceof InitClearCommand);
     }
 
     @Test
@@ -186,8 +186,9 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand(""));
     }
 
     @Test

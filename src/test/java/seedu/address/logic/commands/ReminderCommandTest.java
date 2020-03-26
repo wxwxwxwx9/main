@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.ReminderCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
@@ -14,7 +13,7 @@ import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.internship.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
 
 class ReminderCommandTest {
 
