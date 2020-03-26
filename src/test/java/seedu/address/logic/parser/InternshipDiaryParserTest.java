@@ -24,6 +24,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InitClearCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -63,9 +64,9 @@ public class InternshipDiaryParserTest {
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    public void parseCommand_initClear() throws Exception {
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof InitClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof InitClearCommand);
     }
 
     @Test

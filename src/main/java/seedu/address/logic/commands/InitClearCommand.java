@@ -5,7 +5,7 @@ import seedu.address.logic.parser.InternshipDiaryParser;
 import seedu.address.model.Model;
 
 /**
- * Clears the internship diary.
+ * Asks for confirmation to clear the internship diary.
  */
 public class InitClearCommand extends Command {
 

@@ -4,6 +4,9 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses user input to confirm clear command.
+ */
 public class ClearCommandConfirmationParser extends InternshipDiaryParser {
     private static final String CANCEL_CLEAR_COMMAND = "Internship diary is not cleared. No data will be lost.";
 
