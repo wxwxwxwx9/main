@@ -29,6 +29,8 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final InternshipDiaryParser internshipDiaryParser;
 
+    private InternshipDiaryParser nextParser;
+
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -39,9 +41,17 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
-        Command command = internshipDiaryParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        InternshipDiaryParser nextParser = this.nextParser;
+        this.nextParser = null;
+
+        Command command;
+        if (nextParser == null) {
+            command = internshipDiaryParser.parseCommand(commandText);
+        } else {
+            command = nextParser.parseCommand(commandText);
+        }
+        CommandResult commandResult = command.execute(model);
+        this.nextParser = command.getNextInternshipDiaryParser();
 
         try {
             storage.saveInternshipDiary(model.getInternshipDiary());
