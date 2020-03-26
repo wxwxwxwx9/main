@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,32 +19,28 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code Statistics}.
  */
 public class StatisticsTest {
 
-    private final InternshipApplication FACEBOOK = new InternshipApplicationBuilder()
+    private static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder()
             .withCompany("Facebook")
             .withStatus(Status.WISHLIST)
             .build();
-    private final InternshipApplication APPLE = new InternshipApplicationBuilder()
+    private static final InternshipApplication APPLE = new InternshipApplicationBuilder()
             .withCompany("Apple")
             .withStatus(Status.APPLIED)
             .build();
-    private final InternshipApplication AMAZON = new InternshipApplicationBuilder()
+    private static final InternshipApplication AMAZON = new InternshipApplicationBuilder()
             .withCompany("Amazon")
             .withStatus(Status.INTERVIEW)
             .build();
-    private final InternshipApplication NETFLIX = new InternshipApplicationBuilder()
+    private static final InternshipApplication NETFLIX = new InternshipApplicationBuilder()
             .withCompany("Netflix")
             .withStatus(Status.OFFERED)
             .build();
-    private final InternshipApplication GOOGLE = new InternshipApplicationBuilder()
+    private static final InternshipApplication GOOGLE = new InternshipApplicationBuilder()
             .withCompany("Google")
             .withStatus(Status.REJECTED)
             .build();
@@ -50,9 +50,9 @@ public class StatisticsTest {
     private Model model;
     private Model emptyModel;
 
-    HashMap<Status, Integer> statusCount;
+    private HashMap<Status, Integer> statusCount;
 
-    Status[] statuses;
+    private Status[] statuses;
 
     @BeforeEach
     public void setUp() {
@@ -117,6 +117,9 @@ public class StatisticsTest {
         }
     }
 
+    /**
+     * Computes the actual count of statuses in internship application(s).
+     */
     private void computeActualStatusCount() {
         List<Status> statuses = model.getFilteredInternshipApplicationList().stream()
                 .map(ia -> {
