@@ -246,6 +246,50 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::interview[]
+=== Interview and Interview Commands
+==== Implementation
+The implementation of interviews will be facilitated by two overarching components, the Model Class `Interview`
+which is associated to an `InternshipApplication` (see Model Diagram <<Design-Model>> ) and the Logic Classes `InterviewCommandParser` and `InterviewCommand`.
+
+The class diagram below shows the classes associated to `Interview`. `Interview` will consist of the following variables:
+
+* `boolean` isOnline -- indicates whether the interview is online.
+* `ApplicationDate` interviewDate -- indicates the date of the interview.
+* `Address` interviewAddress -- indicates the address of the interview.
+
+In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement `interviewDate` and `interviewAddress`
+
+image::InterviewClassDiagram.png[]
+
+Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes.
+The `interview` command will encompass four types of sub-command: `add list edit delete`. Correspondingly, the `InterviewCommand`
+class will be made abstract with specific implementation of each sub-command in an inheriting class, this can be seen in the diagram below.
+
+image::InterviewCommandClassDiagram.png[]
+
+Additionally, `InterviewCommand` will implement the `InterviewCommand#getInternshipApplication(Model, Index)` operation.
+This is to facilitate all sub-commands to acquire the `InternshipApplication` to modify the `Interview` from.
+
+`InterviewCommandParser` is the entry point to all `interview` sub-command. It will be invoked from `InternshipDiaryParser`
+which is the primary logic parser for user input. The following sequence diagram will illustrate the process of invocation for
+ `InterviewAddCommand`. All other sub-commands will follow the same invocation format.
+
+image::InterviewCommandSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How to implement different interview commands
+* **Alternative 1 (current choice)**: Use a standardized command with sub-command type parsed as user input.
+** Pros: More streamlined, only one command. +
+Able to use polymorphism to share operations between commands.
+** Cons: Harder to implement and document.
+
+* **Alternative 2**: Use separate commands for each different method of modifying interview.
+** Pros: Easy to implement.
+** Cons: Makes the user remember more commands. +
+Create a lot of repetition in code.
+// end::interview[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
