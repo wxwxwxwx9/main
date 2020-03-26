@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInt
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.ClearCommandConfirmationParser;
-import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
