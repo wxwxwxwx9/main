@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -42,22 +44,23 @@ public class DateTimeUtil {
     /**
      * Parse the input string as a LocalDateTime if possible.
      *
-     * @param dateTime String to be parsed.
+     * @param dateString String to be parsed.
      * @return The parsed string as a LocalDateTime.
      * @throws DateTimeParseException if string unable to be parsed.
      */
-    public static LocalDate parseDate(String dateTime) throws DateTimeParseException {
+    public static LocalDate parseDate(String dateString) throws DateTimeParseException {
+        requireNonNull(dateString);
         int currentYear = LocalDate.now().getYear();
-        dateTime = dateTime.replaceAll("[\\\\/\\-]+", " ");
+        dateString = dateString.replaceAll("[\\\\/\\- ]+", " ");
         for (int i = 0; i < 3; i++) {
             try {
-                return LocalDate.parse(dateTime, getDateTimeFormatter(i, currentYear));
+                return LocalDate.parse(dateString, getDateTimeFormatter(i, currentYear));
             } catch (DateTimeParseException e) {
                 // It's fine if DateTimeParseException is thrown now, it's only used to check format of date.
                 // DateTimeParseException will be thrown if all cases fail.
             }
         }
         // This throws a DateTimeParseException
-        return LocalDate.parse(dateTime, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 }
