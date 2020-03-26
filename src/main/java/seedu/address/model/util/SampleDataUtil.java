@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.ReadOnlyInternshipDiary;
