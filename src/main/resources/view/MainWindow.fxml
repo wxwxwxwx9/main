@@ -13,65 +13,72 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/internship_app.jpg" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/internship_app.jpg"/>
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Statistics">
-            <MenuItem fx:id="statisticsMenuItem" mnemonicParsing="false" onAction="#handleStatistics" text="Statistics" />
-          </Menu>
-        </MenuBar>
+            <VBox>
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Statistics">
+                        <MenuItem fx:id="statisticsMenuItem" mnemonicParsing="false" onAction="#handleStatistics"
+                                  text="Statistics"/>
+                    </Menu>
+                </MenuBar>
 
-                    <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-            <SplitPane dividerPositions="0.2" orientation="VERTICAL" VBox.vgrow="ALWAYS" fx:id="splitPanePlaceholder">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="160.0">
-                     <children>
-            
-                                <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" prefHeight="100" prefWidth="195.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
-                      </padding>
-                    </StackPane>
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                     <children>
-            
-                    <VBox fx:id="internshipApplicationList" minWidth="340" prefWidth="340" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                      </padding>
-                      <StackPane fx:id="internshipApplicationListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                    </VBox>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5"/>
+                    </padding>
+                </StackPane>
+                <SplitPane dividerPositions="0.2" orientation="VERTICAL" VBox.vgrow="ALWAYS"
+                           fx:id="splitPanePlaceholder">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="160.0">
+                            <children>
+                                <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" prefHeight="100"
+                                           prefWidth="195.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
+                                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                           AnchorPane.topAnchor="0.0">
+                                    <padding>
+                                        <Insets bottom="5" left="10" right="10" top="5"/>
+                                    </padding>
+                                </StackPane>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                            <children>
+                                <VBox fx:id="internshipApplicationList" minWidth="340" prefWidth="340"
+                                      styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
+                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="0.0">
+                                    <padding>
+                                        <Insets bottom="10" left="10" right="10" top="10"/>
+                                    </padding>
+                                    <StackPane fx:id="internshipApplicationListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
 
-        <StackPane fx:id="statisticsPlaceholder" VBox.vgrow="NEVER" />
+                <StackPane fx:id="statisticsPlaceholder" VBox.vgrow="NEVER"/>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>
