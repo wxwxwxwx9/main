@@ -10,7 +10,7 @@ import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
 
 /**
- * A ui for the statistics that is displayed at the footer of the application.
+ * A graphical interface for the statistics that is displayed at the footer of the application.
  */
 public class StatisticsBarFooter extends UiPart<Region> {
 
@@ -31,32 +31,34 @@ public class StatisticsBarFooter extends UiPart<Region> {
 
     public StatisticsBarFooter(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         super(FXML);
-        computeAndBindStatistics(statistics, internshipApplicationList);
+        updateStatistics(statistics, internshipApplicationList);
         updateStatisticsOnChange(statistics, internshipApplicationList);
     }
 
     /**
      * Adds an event listener to update the statistics upon any changes in the given list of internship application.
-     * @param statistics
-     * @param internshipApplicationList
+     *
+     * @param statistics statistics object that generates relevant statistics.
+     * @param internshipApplicationList list of existing internship application(s).
      */
     public void updateStatisticsOnChange(Statistics statistics,
                                          ObservableList<InternshipApplication> internshipApplicationList) {
         internshipApplicationList.addListener((ListChangeListener<InternshipApplication>) c -> {
             while (c.next()) {
                 if (c.wasAdded() || c.wasRemoved() || c.wasUpdated() || c.wasReplaced()) {
-                    computeAndBindStatistics(statistics, internshipApplicationList);
+                    updateStatistics(statistics, internshipApplicationList);
                 }
             }
         });
     }
 
     /**
-     * Updates statistics for statistics bar footer.
-     * @param statistics
-     * @param internshipApplicationList
+     * Computes and updates the statistics for statistics bar footer.
+     *
+     * @param statistics statistics object that generates relevant statistics.
+     * @param internshipApplicationList list of existing internship application(s).
      */
-    public void computeAndBindStatistics(Statistics statistics,
+    public void updateStatistics(Statistics statistics,
                                          ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         int wishlistCount = statistics.getCount(Status.WISHLIST);
@@ -70,6 +72,7 @@ public class StatisticsBarFooter extends UiPart<Region> {
 
     /**
      * Binds the statistics to the user interface.
+     *
      * @param wishlistCount
      * @param appliedCount
      * @param interviewCount

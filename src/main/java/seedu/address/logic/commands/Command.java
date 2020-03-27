@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.InternshipDiaryParser;
 import seedu.address.model.Model;
 
 /**
@@ -16,5 +17,14 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
+
+    /**
+     * Gets the next parser to use, if any.
+     *
+     * @return a InternshipDiaryParser, or {@code null} if there is none.
+     */
+    public InternshipDiaryParser getNextInternshipDiaryParser() {
+        return null;
+    }
 
 }
