@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":InternshipDiaryParser" as InternshipDiaryParser LOGIC_COLOR
+participant "d:ArchivalCommand" as ArchivalCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("archival")
+activate LogicManager
+
+LogicManager -> InternshipDiaryParser : parseCommand("archival")
+activate InternshipDiaryParser
+
+create ArchivalCommand
+InternshipDiaryParser -> ArchivalCommand
+activate ArchivalCommand
+
+ArchivalCommand --> InternshipDiaryParser : d
+deactivate ArchivalCommand
+
+InternshipDiaryParser --> LogicManager : d
+deactivate InternshipDiaryParser
+
+LogicManager -> ArchivalCommand : execute()
+activate ArchivalCommand
+
+ArchivalCommand -> Model : updateFilteredInternshipApplicationList(PREDICATE_SHOW_ARCHIVED_INTERNSHIPS)
+activate Model
+
+Model --> ArchivalCommand
+deactivate Model
+
+create CommandResult
+ArchivalCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ArchivalCommand
+deactivate CommandResult
+
+ArchivalCommand --> LogicManager : result
+deactivate ArchivalCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

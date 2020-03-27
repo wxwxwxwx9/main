@@ -380,6 +380,105 @@ This still requires user to remember the right words to invoke the different ver
 ** Cons: Longer and less specific execution method.
 // end::find[]
 
+=== Archival Feature
+
+This feature allows users to store their internship application(s) into the archival.
+
+The entire mechanism is driven by three commands: 1) `archival`, 2) `archive`, 3) `unarchive`.
+
+==== Implementation
+
+The following sequence diagrams illustrates how these commands are executed.
+
+1) The `archival` command is to switch the view from the master list to archival list, where they will be able to view
+their archived internship applications.
+
+image::ArchivalSequenceDiagram.png[]
+
+2) The `archive` command moves an internship application from the main list to the archival list.
+
+image::ArchiveSequenceDiagram.png[]
+
+3) The `unarchive` command moves an internship application from the archival list to the main list.
+
+image::UnarchiveSequenceDiagram.png[]
+
+In essence, a user would use the `archival` or `list` command to switch between their views and execute the
+`archive` or `unarchive` command respectively. To be specific, a user should not `archive` an internship application when it is
+already in the archival -- doing so will raise an exception. This is identical for the unarchive command in the master list
+as well.
+
+To further illustrate the above process, you may view the activity diagram that follows.
+
+image::ActivityDiagramArchiveCommand.png[]
+
+==== Design Considerations
+
+===== Aspect: How to implement the internship application archival mechanism
+* **Alternative 1 (current choice)**: Manipulate the current view of the internship diary to accommodate the archival mechanism.
+This is easily achieved with efficient use of the FilteredList and Predicates, along with a boolean isArchived variable
+for each internship application to help us decide if the internship application should be rendered.
+** Pros: Cleaner code and more maintainable codebase. More efficient use of memory and resources as well.
+** Cons: Users have to be mindful of the two different views in the internship diary.
+
+* **Alternative 2**: Create a separate internship diary dedicated to handle archived internship applications.
+** Pros: Straightforward and intuitive. +
+This should be easily understood by users as the idea is to replicate the current internship diary, with the same commands and features.
+To move internship application, one just has to archive / unarchive from the appropriate internship diary.
+** Cons: Users will have to deal with two internship diaries, which can be undesirable.
+This approach is memory-inefficient as well.
+
+
+=== Statistics Feature
+
+This feature allows users to view relevant metrics for their internship application(s).
+
+Such metrics include the amount of internship applications sent, and the percentage of internship applications in each
+status category -- `wishlist`, `applied`, `interview`, `offered`, `rejected`.
+
+Users will be able to view those metrics from two areas on the application: 1) `StatisticsBarFooter`, and 2) `StatisticsWindow`.
+
+==== Implementation
+
+`StatisticsBarFooter` serves as a quick view of the internship applications count. This bar footer is always visible to user
+and is attached to the `MainWindow` of the application.
+
+`StatisticsWindow` serves as an additional graphical statistics interface for users to get a visual breakdown of their internship
+application(s) in the form of a bar chart or pie chart.
+
+Users will be able to bring up the `StatisticsWindow` by executing the command `stats`.
+
+==== Design Considerations
+
+===== Aspect: Which list to retrieve data from to generate statistics
+* **Alternative 1 (current choice)**: Using filtered ObservableList +
+The filtered list is dynamically updated by `find` and `sort` command. The statistics model will generate statistics based
+on the dynamic filtering changes that occur in the list (the current view selected by user).
+** Pros: Users will be choose which list they want to view the relevant statistics for.
+Works well with `archival`, `list`, and `find` commands that dynamically changes the list.
+** Cons: Often re-computation upon changes in the filtered list may cause some performance bottleneck.
+
+* **Alternative 2**: Using base list that contains all of the internship application(s)
+The base list is not filtered according to predicate(s) set by users.
+** Pros: Recomputes lesser than using filtered ObservableList as it only recomputes upon addition(s), deletion(s), or changes
+in an internship application stored in the list.
+** Cons: May be unintuitive to some extent for users when the statistics do not tally with the current view of the list.
+
+===== Aspect: How to store the statistics generated from data
+A list of internship application(s) will be passed into the statistics model and upon function call,
+the statistics model will iterate through the list and generate/update the latest statistics accordingly.
+
+* **Alternative 1 (current choice)**: Storing the mapping between each status and count using a HashMap +
+The idea is to retrieve all the statuses available from the enum (whenever the statistics model is created)
+and creating a HashMap with those status as the key and respective count as the value.
+** Pros: Extensible and reusable. Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses. +
+** Cons: Seemingly negligible cons for our particular usage.
+
+* **Alternative 2**: Store each status count in separate variables that are initialized upon the creation of statistics model.
+** Pros: Straightforward and very easy to understand for future developers.
+** Cons: Very inextensible.
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
