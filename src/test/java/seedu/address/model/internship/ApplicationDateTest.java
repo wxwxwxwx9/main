@@ -19,24 +19,24 @@ public class ApplicationDateTest {
     }
 
     @Test
-    public void constructor_invalidCompany_throwsIllegalArgumentException() {
+    public void constructor_invalidApplicationDate_throwsIllegalArgumentException() {
         String invalidApplicationDate = "";
         assertThrows(IllegalArgumentException.class, () -> new ApplicationDate(invalidApplicationDate));
     }
 
     @Test
-    public void isValidCompany() {
+    public void isValidApplicationDate() {
         // null application date
         assertThrows(NullPointerException.class, () -> ApplicationDate.isValidApplicationDate(null));
 
         // invalid application date
-        assertFalse(Company.isValidCompany("")); // empty string
-        assertFalse(Company.isValidCompany(" ")); // spaces only
-        assertFalse(Company.isValidCompany("^")); // only non-alphanumeric characters
-        assertFalse(Company.isValidCompany("20-01-2020")); // contains non-alphanumeric characters
+        assertFalse(ApplicationDate.isValidApplicationDate("")); // empty string
+        assertFalse(ApplicationDate.isValidApplicationDate(" ")); // spaces only
+        assertFalse(ApplicationDate.isValidApplicationDate("^")); // only non-alphanumeric characters
+        assertFalse(ApplicationDate.isValidApplicationDate("20^01-2020")); // contains non-alphanumeric characters
 
         // valid application date
-        assertTrue(Company.isValidCompany("01 01 2020")); // first day of year
+        assertTrue(ApplicationDate.isValidApplicationDate("01 01 2020")); // first day of year
         assertTrue(Company.isValidCompany("31 12 2020")); // last day of year
     }
 }
