@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,9 @@ public class StatusComparatorTest {
 
         // same kind of object -> returns true
         assertEquals(statusComparator1, statusComparator2);
+
+        // Reverse is the same -> return true
+        assertEquals(statusComparator1.reversed(), statusComparator2.reversed());
     }
 
     @Test
@@ -58,6 +62,11 @@ public class StatusComparatorTest {
         // everything is different
         assertTrue(statusComparator.compare(google1, facebook2) < 0);
         assertTrue(statusComparator.compare(facebook2, google2) > 0);
+
+        // everything reversed is different
+        Comparator<InternshipApplication> reversed = statusComparator.reversed();
+        assertTrue(reversed.compare(google1, facebook2) > 0);
+        assertTrue(reversed.compare(facebook2, google2) < 0);
     }
 
     @Test

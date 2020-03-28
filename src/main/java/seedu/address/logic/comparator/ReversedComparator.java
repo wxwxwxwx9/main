@@ -26,4 +26,10 @@ class ReversedComparator implements Comparator<InternshipApplication> {
     public String toString() {
         return SortCommand.REVERSE_KEYWORD + " " + internalComparator.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ReversedComparator
+                && internalComparator.equals(((ReversedComparator) other).internalComparator);
+    }
 }
