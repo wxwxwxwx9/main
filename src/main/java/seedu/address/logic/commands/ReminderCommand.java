@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
 import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
 import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Lists all internship applications in the internship diary that are due or have interview dates in 7 days.
@@ -38,8 +38,8 @@ public class ReminderCommand extends Command {
         List<Predicate<InternshipApplication>> predicates = new ArrayList<>();
         predicates.add(appDatePredicate);
         predicates.add(interviewDatePredicate);
-        Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> true, Predicate::or);
-        model.updateFilteredInternshipApplicationList(appDatePredicate); //todo: to update after interviews can be added
+        Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> false, Predicate::or);
+        model.updateFilteredInternshipApplicationList(predicate);
         model.updateFilteredInternshipApplicationList(new ApplicationDateThenInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);
     }
