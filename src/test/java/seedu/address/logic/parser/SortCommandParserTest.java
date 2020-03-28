@@ -48,8 +48,8 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, " " + PREFIX_STATUS.toString(), expectedSortCommand);
 
         expectedSortCommand = new SortCommand(new CompanyComparator().reversed());
-        assertParseSuccess(parser, SortCommand.REVERSE_KEYWORD + " " +
-                PREFIX_COMPANY.toString(), expectedSortCommand);
+        assertParseSuccess(parser, SortCommand.REVERSE_KEYWORD + " "
+                + PREFIX_COMPANY.toString(), expectedSortCommand);
     }
 
 }

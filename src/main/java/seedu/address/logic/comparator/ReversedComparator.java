@@ -1,7 +1,5 @@
 package seedu.address.logic.comparator;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-
 import java.util.Comparator;
 
 import seedu.address.logic.commands.SortCommand;
@@ -11,7 +9,7 @@ import seedu.address.model.internship.InternshipApplication;
  * Identical to Comparator.reversed(). However, the string is overwritten.
  */
 class ReversedComparator implements Comparator<InternshipApplication> {
-    Comparator<InternshipApplication> internalComparator;
+    private Comparator<InternshipApplication> internalComparator;
 
     protected ReversedComparator(Comparator<InternshipApplication> comparator) {
         this.internalComparator = comparator;
