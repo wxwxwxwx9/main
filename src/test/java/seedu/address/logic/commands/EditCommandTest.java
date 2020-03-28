@@ -131,7 +131,6 @@ public class EditCommandTest {
                 model.getInternshipDiary().getInternshipList().get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
                 new EditInternshipDescriptorBuilder(internshipApplicationInList).build());
-
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_INTERNSHIP);
     }
 

@@ -1,14 +1,14 @@
 package seedu.address.model.internship;
 
-import seedu.address.model.internship.interview.Interview;
-import seedu.address.model.status.Status;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.internship.interview.Interview;
+import seedu.address.model.status.Status;
 
 /**
  * Represents an InternshipApplication in the internship diary.
@@ -138,7 +138,7 @@ public class InternshipApplication {
         if (isGhostedOrRejected && !lastStage.equals("")) {
             return " [You failed at " + lastStage + ":(]";
         } else {
-           return "";
+            return "";
         }
     }
 

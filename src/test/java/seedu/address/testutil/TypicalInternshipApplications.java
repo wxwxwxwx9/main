@@ -44,7 +44,7 @@ public class TypicalInternshipApplications {
     public static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder().withCompany("Facebook")
             .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
             .withPhone("99751354").withEmail("mark@google.com")
-            .withStatus(Status.REJECTED)
+            .withStatus(Status.INTERVIEW)
             .withApplicationDate(new ApplicationDate(LocalDate.of(2020, 3, 25)))
             .withPriority(8)
             .build();

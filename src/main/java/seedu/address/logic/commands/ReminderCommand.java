@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
-import seedu.address.model.Model;
-import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
-import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
+import seedu.address.model.Model;
+import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 
 /**
  * Lists all internship applications in the internship diary that are due or have interview dates in 7 days.
