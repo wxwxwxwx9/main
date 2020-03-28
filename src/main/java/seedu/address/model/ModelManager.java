@@ -26,11 +26,9 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final Statistics statistics;
 
-    private InternshipDiary internshipDiary = new InternshipDiary();
-    private FilteredList<InternshipApplication> filteredInternshipApplications =
-            new FilteredList<>(internshipDiary.getInternshipList());
-    private SortedList<InternshipApplication> sortedFilteredInternshipApplications =
-            new SortedList<>(filteredInternshipApplications);
+    private InternshipDiary internshipDiary;
+    private FilteredList<InternshipApplication> filteredInternshipApplications;
+    private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.

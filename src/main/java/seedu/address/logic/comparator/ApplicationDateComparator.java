@@ -1,5 +1,7 @@
 package seedu.address.logic.comparator;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+
 import java.util.Comparator;
 
 import seedu.address.model.internship.InternshipApplication;
@@ -15,8 +17,18 @@ public class ApplicationDateComparator implements Comparator<InternshipApplicati
     }
 
     @Override
+    public Comparator<InternshipApplication> reversed() {
+        return new ReversedComparator(this);
+    }
+
+    @Override
     public boolean equals(Object other) {
         // equal only if todayDate is same
         return other instanceof ApplicationDateComparator;
+    }
+
+    @Override
+    public String toString() {
+        return PREFIX_DATE.getPrefix();
     }
 }

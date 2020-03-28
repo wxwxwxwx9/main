@@ -21,10 +21,11 @@ import seedu.address.model.internship.InternshipApplication;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
+    public static final String REVERSE_KEYWORD = "reverse";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts current list by given parameter.\n"
-            + "Parameters: KEYWORD\n"
+            + "Parameters: [" + REVERSE_KEYWORD + "] KEYWORD\n"
             + "Available sorts: Company: " + PREFIX_COMPANY + ", "
             + "Date: " + PREFIX_DATE + ", "
             + "Priority: " + PREFIX_PRIORITY + ", "
