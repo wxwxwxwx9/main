@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
@@ -77,8 +78,7 @@ public class FindCommand extends Command {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        predicates.forEach(p -> str.append(p.toString()).append(" "));
-        str.append(isPreamble);
-        return str.toString();
+        String delimiter = isPreamble ? " OR " : " AND ";
+        return predicates.stream().map(Object::toString).collect(Collectors.joining(delimiter));
     }
 }
