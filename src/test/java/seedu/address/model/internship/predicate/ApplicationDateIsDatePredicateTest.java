@@ -55,7 +55,7 @@ public class ApplicationDateIsDatePredicateTest {
 
     @Test
     public void isNull_nullDate_returnsTrue() {
-        ApplicationDateIsDatePredicate predicate = new ApplicationDateIsDatePredicate(null);
+        ApplicationDateIsDatePredicate predicate = new ApplicationDateIsDatePredicate((LocalDate) null);
         assertTrue(predicate.isNull());
     }
 

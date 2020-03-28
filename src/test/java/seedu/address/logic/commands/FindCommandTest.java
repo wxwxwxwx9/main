@@ -129,7 +129,7 @@ public class FindCommandTest {
         AddressContainsKeywordsPredicate aPredicate = prepareAddressPredicate(" ");
         PhoneContainsNumbersPredicate pPredicate = preparePhonePredicate(" ");
         EmailContainsKeywordsPredicate ePredicate = prepareEmailPredicate(" ");
-        ApplicationDateIsDatePredicate dPredicate = new ApplicationDateIsDatePredicate(null);
+        ApplicationDateIsDatePredicate dPredicate = new ApplicationDateIsDatePredicate((LocalDate) null);
         PriorityContainsNumbersPredicate wPredicate = preparePriorityPredicate(" ");
         StatusContainsKeywordsPredicate sPredicate = prepareStatusPredicate(" ");
 
@@ -147,9 +147,9 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multipleInternshipApplicationsFound() {
         String expectedMessage = String.format(MESSAGE_INTERNSHIP_LISTED_OVERVIEW, 2);
         CompanyContainsKeywordsPredicate cPredicate = prepareCompanyPredicate("google facebook");
-        FindCommand command = new FindCommand(List.of(cPredicate, new RoleContainsKeywordsPredicate(null) ,
+        FindCommand command = new FindCommand(List.of(cPredicate, new RoleContainsKeywordsPredicate(null),
                 new AddressContainsKeywordsPredicate(null), new PhoneContainsNumbersPredicate(null),
-                new EmailContainsKeywordsPredicate(null), new ApplicationDateIsDatePredicate(null),
+                new EmailContainsKeywordsPredicate(null), new ApplicationDateIsDatePredicate((LocalDate) null),
                 new PriorityContainsNumbersPredicate(null), new StatusContainsKeywordsPredicate(null)),
                 false);
         expectedModel.updateFilteredInternshipApplicationList(cPredicate);

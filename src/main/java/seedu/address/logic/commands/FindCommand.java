@@ -67,9 +67,20 @@ public class FindCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
                 && predicates.equals(((FindCommand) other).predicates)
                 && isPreamble == ((FindCommand) other).isPreamble); // state check
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (Predicate<InternshipApplication> predicate : predicates) {
+            str.append(predicate.toString()).append(" ");
+        }
+        str.append(isPreamble);
+        return str.toString();
     }
 }

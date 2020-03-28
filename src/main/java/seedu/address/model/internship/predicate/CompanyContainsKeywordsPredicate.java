@@ -1,5 +1,7 @@
 package seedu.address.model.internship.predicate;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -35,5 +37,10 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
 
     public boolean isNull() {
         return keywords == null;
+    }
+
+    @Override
+    public String toString() {
+        return PREFIX_COMPANY + String.join(" ", keywords);
     }
 }
