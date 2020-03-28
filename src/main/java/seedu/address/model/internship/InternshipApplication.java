@@ -1,14 +1,14 @@
 package seedu.address.model.internship;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.internship.interview.Interview;
+import seedu.address.model.status.Status;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.model.internship.interview.Interview;
-import seedu.address.model.status.Status;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents an InternshipApplication in the internship diary.
@@ -26,6 +26,8 @@ public class InternshipApplication {
     private final Status status;
     private final ArrayList<Interview> interviews;
     private Boolean isArchived;
+    private Boolean isGhostedOrRejected;
+    private String lastStage;
 
     /**
      * Every field must be present and not null.
@@ -42,6 +44,8 @@ public class InternshipApplication {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.isArchived = false;
+        this.isGhostedOrRejected = false;
+        this.lastStage = "";
         interviews = new ArrayList<>();
     }
 
@@ -60,6 +64,8 @@ public class InternshipApplication {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.isArchived = isArchived;
+        this.isGhostedOrRejected = false;
+        this.lastStage = "";
         interviews = new ArrayList<>();
     }
 
@@ -93,6 +99,47 @@ public class InternshipApplication {
 
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Sets variable 'isGhostedOrRejected' to true to keep track of whether the last stage before the internship
+     * application failed (ghosted/ rejected) needs to be stored.
+     */
+    public void setIsGhostedOrRejected(Boolean bool) {
+        this.isGhostedOrRejected = bool;
+    }
+
+    public Boolean getIsGhostedOrRejected() {
+        return isGhostedOrRejected;
+    }
+
+    /**
+     * Stores the last stage of where the internship application failed (ghosted/ rejected) only when
+     * 'isGhostedOrRejected' is true.
+     * @param lastStage where the internship application failed.
+     */
+    public void setLastStage(String lastStage) {
+        this.lastStage = lastStage;
+    }
+
+    /**
+     * Returns the last stage before the status of an internship application was updated to be ghosted/ rejected.
+     * @return an enum of Status (APPLIED/ OFFERED/ INTERVIEW).
+     */
+    public String getLastStage() {
+        return lastStage;
+    }
+
+    /**
+     * Checks for whether current status is GHOSTED/ REJECTED and returns the last stage failed.
+     * @return last stage failed, else an empty string
+     */
+    public String getLastStageMessage() {
+        if (isGhostedOrRejected && !lastStage.equals("")) {
+            return " [You failed at " + lastStage + ":(]";
+        } else {
+           return "";
+        }
     }
 
     public Boolean isArchived() {
@@ -159,7 +206,10 @@ public class InternshipApplication {
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.isArchived().equals(isArchived())
+                && internshipApplication.getIsGhostedOrRejected().equals(getIsGhostedOrRejected())
+                && internshipApplication.getLastStage().equals(getLastStage())
+                && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     /**
@@ -185,7 +235,10 @@ public class InternshipApplication {
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
                 && internshipApplication.getStatus().equals(getStatus())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.isArchived().equals(isArchived())
+                && internshipApplication.getIsGhostedOrRejected().equals(getIsGhostedOrRejected())
+                && internshipApplication.getLastStage().equals(getLastStage())
+                && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     @Override
@@ -212,6 +265,7 @@ public class InternshipApplication {
                 .append(getPriority())
                 .append(" Status: ")
                 .append(getStatus())
+                .append(getLastStageMessage())
                 .append(" Archived: ")
                 .append(isArchived());
         return builder.toString();

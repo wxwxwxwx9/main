@@ -55,7 +55,7 @@ public class InternshipApplicationCard extends UiPart<Region> {
         role.setText(internshipApplication.getRole().fullRole);
         priority.setText(Integer.toString(internshipApplication.getPriority().fullPriority));
         applicationDate.setText(internshipApplication.getApplicationDate().toString());
-        status.setText(internshipApplication.getStatus().toString());
+        status.setText(internshipApplication.getStatus().toString() + internshipApplication.getLastStageMessage());
     }
 
     @Override

@@ -1,32 +1,18 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-
-import java.util.List;
-import java.util.Optional;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.internship.Address;
-import seedu.address.model.internship.ApplicationDate;
-import seedu.address.model.internship.Company;
-import seedu.address.model.internship.Email;
-import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.Phone;
-import seedu.address.model.internship.Priority;
-import seedu.address.model.internship.Role;
+import seedu.address.model.internship.*;
 import seedu.address.model.status.Status;
+
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Edits the details of an existing internship application in the internship diary.
@@ -83,7 +69,10 @@ public class EditCommand extends Command {
 
         InternshipApplication internshipToEdit = lastShownList.get(index.getZeroBased());
         InternshipApplication editedInternship = createEditedInternship(internshipToEdit, editInternshipDescriptor);
-
+        if (editedInternship.getIsGhostedOrRejected() && (internshipToEdit.getStatus() != Status.GHOSTED)
+                && (internshipToEdit.getStatus() != Status.REJECTED)) {
+            editedInternship.setLastStage(internshipToEdit.getStatus().toString());
+        }
         if (!internshipToEdit.isSameInternshipApplication(editedInternship)
                 && model.hasInternshipApplication(editedInternship)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERNSHIP);
@@ -109,11 +98,20 @@ public class EditCommand extends Command {
         Email updatedEmail = editInternshipDescriptor.getEmail().orElse(internshipToEdit.getEmail());
         ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
-        Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
+        Optional<Status> toBeUpdatedStatus = editInternshipDescriptor.getStatus();
+        Status updatedStatus = toBeUpdatedStatus.orElse(internshipToEdit.getStatus());
         Boolean isArchived = internshipToEdit.isArchived();
 
-        return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+        InternshipApplication updatedInternshipApplication = new InternshipApplication(updatedCompany, updatedRole,
+                updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+        if (toBeUpdatedStatus.isPresent()) {
+            if (toBeUpdatedStatus.get() == Status.GHOSTED || toBeUpdatedStatus.get() == Status.REJECTED) {
+                updatedInternshipApplication.setIsGhostedOrRejected(true);
+            } else {
+                updatedInternshipApplication.setIsGhostedOrRejected(false);
+            }
+        }
+        return updatedInternshipApplication;
     }
 
     @Override
