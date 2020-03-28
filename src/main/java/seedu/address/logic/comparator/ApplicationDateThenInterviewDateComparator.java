@@ -1,7 +1,5 @@
 package seedu.address.logic.comparator;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Optional;
