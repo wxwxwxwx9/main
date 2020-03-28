@@ -1,5 +1,7 @@
 package seedu.address.logic.comparator;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Optional;
@@ -39,5 +41,10 @@ public class ApplicationDateThenInterviewDateComparator implements Comparator<In
     @Override
     public boolean equals(Object other) {
         return other instanceof ApplicationDateThenInterviewDateComparator;
+    }
+
+    @Override
+    public String toString() {
+        return "Application date, then interview date";
     }
 }
