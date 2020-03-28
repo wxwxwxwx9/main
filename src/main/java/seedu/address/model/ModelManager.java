@@ -30,6 +30,8 @@ public class ModelManager implements Model {
     private FilteredList<InternshipApplication> filteredInternshipApplications;
     private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
+    private Comparator<InternshipApplication> comparator;
+
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
      */
@@ -144,6 +146,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Comparator<InternshipApplication> getComparator() {
+        return comparator;
+    }
+
+    @Override
     public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
         requireNonNull(predicate);
         filteredInternshipApplications.setPredicate(predicate);
@@ -152,6 +159,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
         requireNonNull(comparator);
+        this.comparator = comparator;
         sortedFilteredInternshipApplications.setComparator(comparator);
     }
 

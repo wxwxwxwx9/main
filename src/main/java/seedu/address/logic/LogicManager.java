@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -70,6 +71,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
         return model.getFilteredInternshipApplicationList();
+    }
+
+    @Override
+    public Comparator<InternshipApplication> getComparator() {
+        return model.getComparator();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of internship applications */
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
+
+    /** Returns comparator being used for the internship list */
+    Comparator<InternshipApplication> getComparator();
 
     /**
      * Returns the user prefs' internship diary file path.

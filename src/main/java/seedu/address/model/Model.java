@@ -105,6 +105,11 @@ public interface Model {
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
+     * Returns an comparator used to sort the filtered internship applications list
+     */
+    Comparator<InternshipApplication> getComparator();
+
+    /**
      * Updates the filter of the filtered internship application list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
