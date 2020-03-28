@@ -77,9 +77,7 @@ public class FindCommand extends Command {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (Predicate<InternshipApplication> predicate : predicates) {
-            str.append(predicate.toString()).append(" ");
-        }
+        predicates.forEach(p -> str.append(p.toString()).append(" "));
         str.append(isPreamble);
         return str.toString();
     }
