@@ -40,6 +40,9 @@ public class PhoneContainsNumbersPredicate implements Predicate<InternshipApplic
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_PHONE.toString();
+        }
         return PREFIX_PHONE + String.join(" ", numbers);
     }
 }

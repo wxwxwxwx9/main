@@ -41,6 +41,9 @@ public class AddressContainsKeywordsPredicate implements Predicate<InternshipApp
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_ADDRESS.toString();
+        }
         return PREFIX_ADDRESS + String.join(" ", keywords);
     }
 }

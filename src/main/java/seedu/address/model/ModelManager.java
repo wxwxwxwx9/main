@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
     private Comparator<InternshipApplication> comparator;
+    private String predicateString = "";
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
@@ -148,6 +149,16 @@ public class ModelManager implements Model {
     @Override
     public Comparator<InternshipApplication> getComparator() {
         return comparator;
+    }
+
+    @Override
+    public void setPredicateString(String predicateString) {
+        this.predicateString = predicateString;
+    }
+
+    @Override
+    public String getPredicateString() {
+        return predicateString;
     }
 
     @Override

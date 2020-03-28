@@ -39,6 +39,11 @@ public interface Logic {
     Comparator<InternshipApplication> getComparator();
 
     /**
+     * Get the string to be displayed for predicate display.
+     */
+    String getPredicateString();
+
+    /**
      * Returns the user prefs' internship diary file path.
      */
     Path getInternshipDiaryFilePath();

@@ -79,6 +79,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String getPredicateString() {
+        return model.getPredicateString();
+    }
+
+    @Override
     public Path getInternshipDiaryFilePath() {
         return model.getInternshipDiaryFilePath();
     }

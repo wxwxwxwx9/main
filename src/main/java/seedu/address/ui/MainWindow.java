@@ -55,13 +55,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane comparatorDisplayPlaceholder;
+
+    @FXML
+    private StackPane predicateDisplayPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
 
     @FXML
     private StackPane statisticsPlaceholder;
-
-    @FXML
-    private StackPane comparatorDisplayPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -155,6 +158,9 @@ public class MainWindow extends UiPart<Stage> {
 
         ComparatorDisplayFooter comparatorDisplayFooter = new ComparatorDisplayFooter(logic);
         comparatorDisplayPlaceholder.getChildren().add(comparatorDisplayFooter.getRoot());
+
+        PredicateDisplayFooter predicateDisplayFooter = new PredicateDisplayFooter((logic));
+        predicateDisplayPlaceholder.getChildren().add(predicateDisplayFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

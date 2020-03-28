@@ -163,6 +163,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getPredicateString() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPredicateString(String predicateString) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
             throw new AssertionError("This method should not be called.");
         }

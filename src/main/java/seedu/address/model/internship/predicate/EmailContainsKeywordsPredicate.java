@@ -41,6 +41,9 @@ public class EmailContainsKeywordsPredicate implements Predicate<InternshipAppli
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_EMAIL.toString();
+        }
         return PREFIX_EMAIL + String.join(" ", keywords);
     }
 }

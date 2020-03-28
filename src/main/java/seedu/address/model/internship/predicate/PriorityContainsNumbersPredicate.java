@@ -41,6 +41,9 @@ public class PriorityContainsNumbersPredicate implements Predicate<InternshipApp
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_PRIORITY.toString();
+        }
         return PREFIX_PRIORITY + String.join(" ", numbers);
     }
 }

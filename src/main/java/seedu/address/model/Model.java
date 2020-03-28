@@ -110,6 +110,16 @@ public interface Model {
     Comparator<InternshipApplication> getComparator();
 
     /**
+     * Sets the string to be displayed for predicate display.
+     */
+    void setPredicateString(String predicateString);
+
+    /**
+     * Get the string to be displayed for predicate display.
+     */
+    String getPredicateString();
+
+    /**
      * Updates the filter of the filtered internship application list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */

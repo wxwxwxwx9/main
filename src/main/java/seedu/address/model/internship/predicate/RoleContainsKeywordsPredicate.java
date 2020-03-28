@@ -41,6 +41,9 @@ public class RoleContainsKeywordsPredicate implements Predicate<InternshipApplic
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_ROLE.toString();
+        }
         return PREFIX_ROLE + String.join(" ", keywords);
     }
 }

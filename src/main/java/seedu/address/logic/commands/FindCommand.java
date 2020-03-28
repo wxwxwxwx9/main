@@ -60,6 +60,7 @@ public class FindCommand extends Command {
         } else {
             predicate = predicates.stream().reduce(x -> true, Predicate::and);
         }
+        model.setPredicateString(toString());
         model.updateFilteredInternshipApplicationList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW,

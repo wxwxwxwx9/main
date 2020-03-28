@@ -41,6 +41,9 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_COMPANY.toString();
+        }
         return PREFIX_COMPANY + String.join(" ", keywords);
     }
 }

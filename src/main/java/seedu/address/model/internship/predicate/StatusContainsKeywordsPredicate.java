@@ -41,6 +41,9 @@ public class StatusContainsKeywordsPredicate implements Predicate<InternshipAppl
 
     @Override
     public String toString() {
+        if (isNull()) {
+            return PREFIX_STATUS.toString();
+        }
         return PREFIX_STATUS + String.join(" ", keywords);
     }
 }

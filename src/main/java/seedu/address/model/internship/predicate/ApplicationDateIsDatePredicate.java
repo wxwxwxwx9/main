@@ -47,6 +47,9 @@ public class ApplicationDateIsDatePredicate implements Predicate<InternshipAppli
 
     @Override
     public String toString() {
-        return PREFIX_DATE + date.toString();
+        if (isNull()) {
+            return PREFIX_DATE.toString();
+        }
+        return PREFIX_DATE.toString() + date.toString();
     }
 }
