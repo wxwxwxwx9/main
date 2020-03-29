@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":InternshipDiaryParser" as InternshipDiaryParser LOGIC_COLOR
 participant "r:ReminderCommand" as ReminderCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
-participant "c:ApplicationDateThenInterviewComparator" as ApplicationDateThenInterviewComparator LOGIC_COLOR
+participant "c:ApplicationDateAndInterviewComparator" as ApplicationDateAndInterviewComparator LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -54,12 +54,12 @@ activate Model
 Model --> ReminderCommand
 deactivate Model
 
-create ApplicationDateThenInterviewComparator
-ReminderCommand -> ApplicationDateThenInterviewComparator
-activate ApplicationDateThenInterviewComparator
+create ApplicationDateAndInterviewComparator
+ReminderCommand -> ApplicationDateAndInterviewComparator
+activate ApplicationDateAndInterviewComparator
 
-ApplicationDateThenInterviewComparator --> ReminderCommand : c
-deactivate ApplicationDateThenInterviewComparator
+ApplicationDateAndInterviewComparator --> ReminderCommand : c
+deactivate ApplicationDateAndInterviewComparator
 
 ReminderCommand -> Model : updateFilteredInternshipApplicationList(c)
 activate Model
