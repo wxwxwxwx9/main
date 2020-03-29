@@ -25,6 +25,15 @@ create ReminderCommand
 InternshipDiaryParser -> ReminderCommand
 activate ReminderCommand
 
+ReminderCommand --> InternshipDiaryParser : r
+deactivate ReminderCommand
+
+InternshipDiaryParser --> LogicManager : r
+deactivate InternshipDiaryParser
+
+LogicManager -> ReminderCommand : execute()
+activate ReminderCommand
+
 create ApplicationDateDuePredicate
 ReminderCommand -> ApplicationDateDuePredicate
 activate ApplicationDateDuePredicate
@@ -38,15 +47,6 @@ activate InterviewDateDuePredicate
 
 InterviewDateDuePredicate --> ReminderCommand : i
 deactivate InterviewDateDuePredicate
-
-ReminderCommand --> InternshipDiaryParser : r
-deactivate ReminderCommand
-
-InternshipDiaryParser --> LogicManager : r
-deactivate InternshipDiaryParser
-
-LogicManager -> ReminderCommand : execute()
-activate ReminderCommand
 
 ReminderCommand -> Model : updateFilteredInternshipApplicationList(predicate)
 activate Model
