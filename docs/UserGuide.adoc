@@ -115,13 +115,14 @@ Returns internship applications with company `Google` and status `APPLIED`
 === Sorting internship companies by field : `sort`
 
 Sort displayed internship companies based on a given FIELD. +
-Format: `sort FIELD`.
+Type `reverse` before `FIELD` to sort in the reverse order.
+Format: `sort [reverse] FIELD`.
 
 Available values for `FIELD`: +
 `c/`: Sorts by company name. +
 `d/`: Sorts by application date. +
 `w/`: Sorts by priority level. +
-`s/`: Sorts by Status.
+`s/`: Sorts by status.
 
 ****
 * Sort displayed internship companies based on a given FIELD

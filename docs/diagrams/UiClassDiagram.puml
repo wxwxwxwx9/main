@@ -12,11 +12,14 @@ Class MainWindow
 Class HelpWindow
 Class StatisticsWindow
 Class StatisticsBarFooter
+Class ComparatorDisplayFooter
+Class PredicateDisplayFooter
 Class ResultDisplay
 Class InternshipApplicationListPanel
 Class InternshipApplicationCard
 Class StatusBarFooter
 Class CommandBox
+Class EnteredCommandsHistory
 }
 
 package Model <<Rectangle>> {
@@ -33,16 +36,20 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow -down-> StatisticsWindow
+MainWindow *-down-> ComparatorDisplayFooter
 MainWindow *-down-> StatisticsBarFooter
 MainWindow -down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> InternshipApplicationListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> PredicateDisplayFooter
 
 InternshipApplicationListPanel -down-> InternshipApplicationCard
 
 MainWindow -left-|> UiPart
+
+CommandBox -up-> EnteredCommandsHistory
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
@@ -51,20 +58,30 @@ InternshipApplicationCard --|> UiPart
 StatusBarFooter --|> UiPart
 StatisticsWindow --|> UiPart
 StatisticsBarFooter--|> UiPart
+ComparatorDisplayFooter --|> UiPart
+PredicateDisplayFooter --|> UiPart
 HelpWindow --|> UiPart
 
 StatisticsBarFooter ..> Model
 StatisticsWindow ..> Model
+PredicateDisplayFooter ..> Model
+ComparatorDisplayFooter ..> Model
 InternshipApplicationCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-StatisticsBarFooter -[hidden]left- StatisticsWindow
-StatisticsWindow -[hidden]left- InternshipApplicationListPanel
-InternshipApplicationListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
+
+PredicateDisplayFooter -[hidden]up- ComparatorDisplayFooter
+PredicateDisplayFooter -[hidden]left- StatisticsBarFooter
+
+StatisticsBarFooter -[hidden]up- StatisticsWindow
+StatisticsBarFooter -[hidden]left- InternshipApplicationListPanel
+InternshipApplicationListPanel -[hidden]left- ResultDisplay
+
+ResultDisplay -[hidden]up- HelpWindow
 ResultDisplay -[hidden]left- StatusBarFooter
+
+StatusBarFooter -[hidden]up- CommandBox
 
 MainWindow -[hidden]-|> UiPart
 @enduml
