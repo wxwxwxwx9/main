@@ -18,7 +18,10 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-(to be inserted)
+Internship Diary is an application to assist students in managing their internship applications. The Internship Diary
+will be able to help you in tracking, tagging and reviewing all your internship applications. Additionally, Internship
+Diary is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits
+of a Graphical User Interface (GUI).
 
 == Setting up
 
