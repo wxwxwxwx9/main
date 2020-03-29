@@ -81,7 +81,7 @@ InternshipApplicationListPanel -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]up- HelpWindow
 ResultDisplay -[hidden]left- StatusBarFooter
 
-StatusBarFooter -[hidden]up- CommandBox 
+StatusBarFooter -[hidden]up- CommandBox
 
 MainWindow -[hidden]-|> UiPart
 @enduml
