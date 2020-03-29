@@ -20,7 +20,7 @@ import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
 
 /**
- * A ui for the statistics window page.
+ * Controller for the statistics page.
  */
 public class StatisticsWindow extends UiPart<Stage> {
 
@@ -39,91 +39,76 @@ public class StatisticsWindow extends UiPart<Stage> {
     /**
      * Creates a new StatisticsWindow.
      *
-     * @param root Stage to use as the root of the StatisticsWindow.
-     */
-    public StatisticsWindow(Stage root, Statistics statistics,
-                            ObservableList<InternshipApplication> internshipApplicationList) {
-        super(FXML, root);
-        bindStatistics(statistics, internshipApplicationList);
-        updateStatisticsOnChange(statistics, internshipApplicationList);
-    }
-
-    /**
-     * Creates a new StatisticsWindow.
-     *
-     * @param statistics
-     * @param internshipApplicationList
+     * @param statistics statistics object that generates relevant statistics.
+     * @param internshipApplicationList list of existing internship applications.
      */
     public StatisticsWindow(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
         this(new Stage(), statistics, internshipApplicationList);
     }
 
     /**
+     * Creates a new StatisticsWindow.
+     *
+     * @param root Stage to use as the root of the StatisticsWindow.
+     */
+    public StatisticsWindow(Stage root, Statistics statistics,
+                            ObservableList<InternshipApplication> internshipApplicationList) {
+        super(FXML, root);
+        internshipApplicationChart.setLegendVisible(false);
+        updateStatistics(statistics, internshipApplicationList);
+        updateStatisticsOnChange(statistics, internshipApplicationList);
+    }
+
+    /**
      * Adds an event listener to update the statistics upon any changes in the given list of internship application.
      *
-     * @param statistics
-     * @param internshipApplicationList
+     * @param statistics statistics object that generates relevant statistics.
+     * @param internshipApplicationList list of existing internship application(s).
      */
     public void updateStatisticsOnChange(Statistics statistics,
                                          ObservableList<InternshipApplication> internshipApplicationList) {
         internshipApplicationList.addListener((ListChangeListener<InternshipApplication>) c -> {
             while (c.next()) {
                 if (c.wasAdded() || c.wasRemoved() || c.wasUpdated() || c.wasReplaced()) {
-                    bindStatistics(statistics, internshipApplicationList);
+                    updateStatistics(statistics, internshipApplicationList);
                 }
             }
         });
     }
 
     /**
-     * Computes and binds the statistics to the user interface.
+     * Computes and updates the statistics on both bar chart and pie chart.
      *
-     * @param statistics
-     * @param internshipApplicationList
+     * @param statistics statistics object that generates relevant statistics.
+     * @param internshipApplicationList list of existing internship application(s).
      */
-    public void bindStatistics(Statistics statistics, ObservableList<InternshipApplication> internshipApplicationList) {
+    public void updateStatistics(Statistics statistics,
+                                 ObservableList<InternshipApplication> internshipApplicationList) {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
         loadBarChart(statistics);
         loadPieChart(statistics);
     }
 
     /**
-     * Loads bar chart with the generated statistics.
+     * Clears the existing data and loads the bar chart with new data.
      *
-     * @param statistics
+     * @param statistics statistics object that generates relevant statistics.
      */
+    @SuppressWarnings("unchecked")
     public void loadBarChart(Statistics statistics) {
         internshipApplicationChart.getData().clear();
-        ObservableList<XYChart.Data> xyChartData = FXCollections.observableArrayList(
-                new XYChart.Data(Status.WISHLIST.toString(), statistics.getCount(Status.WISHLIST)),
-                new XYChart.Data(Status.APPLIED.toString(), statistics.getCount(Status.APPLIED)),
-                new XYChart.Data(Status.INTERVIEW.toString(), statistics.getCount(Status.INTERVIEW)),
-                new XYChart.Data(Status.OFFERED.toString(), statistics.getCount(Status.OFFERED)),
-                new XYChart.Data(Status.REJECTED.toString(), statistics.getCount(Status.REJECTED))
-        );
-
-        ObservableList<XYChart.Series<String, Integer>> series = FXCollections.observableArrayList(
-                new XYChart.Series(xyChartData)
-        );
-
-        internshipApplicationChart.setLegendVisible(false);
-        internshipApplicationChart.getData().addAll(series);
+        ObservableList<XYChart.Data<String, Integer>> barChartData = generateBarChartData(statistics);
+        internshipApplicationChart.getData().addAll(new XYChart.Series<String, Integer>(barChartData));
     }
 
     /**
-     * Loads pie chart with the generated statistics.
+     * Clears the existing data and loads the pie chart with new data.
      *
-     * @param statistics
+     * @param statistics statistics object that generates relevant statistics.
      */
     public void loadPieChart(Statistics statistics) {
         internshipApplicationPie.getData().clear();
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data(Status.WISHLIST.toString(), statistics.getPercentage(Status.WISHLIST)),
-                new PieChart.Data(Status.APPLIED.toString(), statistics.getPercentage(Status.APPLIED)),
-                new PieChart.Data(Status.INTERVIEW.toString(), statistics.getPercentage(Status.INTERVIEW)),
-                new PieChart.Data(Status.OFFERED.toString(), statistics.getPercentage(Status.OFFERED)),
-                new PieChart.Data(Status.REJECTED.toString(), statistics.getPercentage(Status.REJECTED))
-        );
+        ObservableList<PieChart.Data> pieChartData = generatePieChartData(statistics);
         internshipApplicationPie.getData().addAll(pieChartData);
         pieChartData.forEach(data -> {
                 // tooltip not working for some reason
@@ -134,6 +119,34 @@ public class StatisticsWindow extends UiPart<Stage> {
                 );
             }
         );
+    }
+
+    /**
+     * Generates the relevant bar chart data using the generated count statistics.
+     *
+     * @param statistics statistics object that generates relevant statistics.
+     */
+    public ObservableList<XYChart.Data<String, Integer>> generateBarChartData(Statistics statistics) {
+        ObservableList<XYChart.Data<String, Integer>> xyChartData = FXCollections.observableArrayList();
+        for (Status status : statistics.getStatuses()) {
+            XYChart.Data<String, Integer> data = new XYChart.Data<>(status.toString(), statistics.getCount(status));
+            xyChartData.add(data);
+        }
+        return xyChartData;
+    }
+
+    /**
+     * Generates the relevant pie chart data using the generated percentage statistics.
+     *
+     * @param statistics statistics object that generates relevant statistics.
+     */
+    public ObservableList<PieChart.Data> generatePieChartData(Statistics statistics) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Status status : statistics.getStatuses()) {
+            PieChart.Data data = new PieChart.Data(status.toString(), statistics.getPercentage(status));
+            pieChartData.add(data);
+        }
+        return pieChartData;
     }
 
     /**
