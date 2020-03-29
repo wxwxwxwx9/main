@@ -239,12 +239,60 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::sort[]
+=== Sort command
 
-_{Explain here how the data encryption feature will be implemented}_
+The find command allows the user to sort the currently visible list of internship applications. The following sequence
+diagram will illustrate the process of invocation for the command:
 
-// end::dataencryption[]
+image::SortSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the sort command.
+
+==== Implementation
+The find command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the
+arguments for the command.
+
+To facilitate the sort command, several comparator classes implementing `Comparator<InternshipApplication>` are used:
+
+* `ApplicationDateComparator` -- Comparator to compare internship applications by their `ApplicationDate` field
+in chronological order.
+* `CompanyComparator` -- Comparator to compare internship applications by their `Company` field
+in lexicographical order.
+* `PriorityComparator` -- Comparator to compare internship applications by their `Priority` field
+in ascending order.
+* `StatusComparator` -- Comparator to compare internship applications by their `Status` field
+by the order which they are declared in the Status Enum class.
+
+The `SortCommandParser` looks for a acceptable prefix in the command, and passes the corresponding comparator to `SortCommand`.
+If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
+
+==== Reverse sort
+
+This version of the command is invoked when the user enters the command with `reverse` as the
+preamble text in the parameter, e.g. `sort reverse c/`. After retrieving the correct `comparator` to use,
+the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
+This would reverse the order in which the currently visible list of internship applications is sorted in.
+
+==== Design Considerations
+
+===== Aspect: How to sort by multiple fields
+* **Alternative 1 (current choice)**: Accept only one field to sort by when using SortCommand.
+This works as the list uses stable sort.
+** Pros: More streamlined, less complex. +
+`EnteredCommandsHistory` allows the user to get the sort command template back
+in just one press of the up arrow key so there is little hassle. +
+Users do not have to remember the order to place the arguments to get the sort they want.
+** Cons: Feels a little restrictive.
+
+* **Alternative 2**: Allow multiple fields to sort by.
+** Pros: Two less key presses.
+** Cons: Code becomes much more complex. +
+Users has to remember the order to place the arguments to get the sort they want. +
+Users are highly unlikely to use this feature, as sorting one field by one feels more natural. +
+Harder to implement reverse sorting.
+
+// end::sort[]
 
 // tag::interview[]
 === Interview and Interview Commands
