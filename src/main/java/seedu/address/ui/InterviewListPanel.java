@@ -7,6 +7,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.model.internship.interview.Interview;
 
+/**
+ * Panel containing the list of interviews in a specific Internship Application.
+ */
 public class InterviewListPanel extends UiPart<Region> {
 
     public static final String FXML = "InterviewListPanel.fxml";

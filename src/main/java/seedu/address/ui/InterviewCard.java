@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.internship.interview.Interview;
 
+/**
+ * A UI component that shows information regarding an {@code Interview}.
+ */
 public class InterviewCard extends UiPart<Region> {
 
     public static final String FXML = "InterviewCard.fxml";

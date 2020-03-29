@@ -8,12 +8,14 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.internship.InternshipApplication;
 
-
+/**
+ * Represents a panel with the details of a specific {@code InternshipApplication}.
+ */
 public class InternshipApplicationDetail extends UiPart<Region> {
 
-    private static String FXML = "InternshipApplicationDetail.fxml";
+    private static final String FXML = "InternshipApplicationDetail.fxml";
 
-    public InternshipApplication internshipApplication;
+    private InternshipApplication internshipApplication;
 
     private InterviewListPanel interviewListPanel;
 
