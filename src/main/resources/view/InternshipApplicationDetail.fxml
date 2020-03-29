@@ -5,10 +5,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="detailPane" fx:id="detailPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<HBox id="detailPane" fx:id="detailPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+style="-fx-background-color: grey">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -17,15 +19,7 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="company" text="\$first" styleClass="cell_big_label" />
-            </HBox>
+            <Label fx:id="company" text="\$first" styleClass="cell_big_label"/>
             <Label fx:id="role" styleClass="cell_small_label" text="\$role" />
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
@@ -34,6 +28,16 @@
             <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
             <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
             <Label fx:id="isArchive" styleClass="cell_small_label" text="\$status" />
+            <Label fx:id="interviewPreamble" styleClass="cell_small_label" text="\$status" />
+            <AnchorPane minWidth="0.0" minHeight="0.0" prefWidth="80">
+                <children>
+                    <StackPane fx:id="interviewListPanelPlaceHolder" minHeight="100" prefHeight="100"
+                               prefWidth="195.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                               AnchorPane.topAnchor="0.0">
+                    </StackPane>
+                </children>
+            </AnchorPane>
         </VBox>
     </GridPane>
 </HBox>
