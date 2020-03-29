@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private InternshipApplicationListPanel internshipApplicationListPanel;
     private ResultDisplay resultDisplay;
+    private InternshipApplicationDetail internshipApplicationDetail;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
 
@@ -46,13 +47,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private SplitPane splitPanePlaceholder;
+    private SplitPane resultAndInternshipSplitPanePlaceholder;
+
+    @FXML
+    private SplitPane listAndDetailsSplitPanePlaceholder;
 
     @FXML
     private StackPane internshipApplicationListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane internshipApplicationDetailPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -90,7 +97,7 @@ public class MainWindow extends UiPart<Stage> {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    splitPanePlaceholder.setDividerPositions(split);
+                    resultAndInternshipSplitPanePlaceholder.setDividerPositions(split);
                     observable.removeListener(this);
                 }
             }
@@ -142,6 +149,10 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        internshipApplicationDetail = new InternshipApplicationDetail(
+                logic.getFilteredInternshipApplicationList().get(0));
+        internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
