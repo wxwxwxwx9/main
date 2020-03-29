@@ -2,9 +2,12 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -43,6 +46,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private SplitPane splitPanePlaceholder;
+
+    @FXML
     private StackPane internshipApplicationListPanelPlaceholder;
 
     @FXML
@@ -68,10 +74,27 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statisticsWindow = new StatisticsWindow(logic.getStatistics(), logic.getFilteredInternshipApplicationList());
+
+        setSplitPaneDefaultSplit(0.2);
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Sets the default split of the splitPane.
+     */
+    private void setSplitPaneDefaultSplit(double split) {
+        this.primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    splitPanePlaceholder.setDividerPositions(split);
+                    observable.removeListener(this);
+                }
+            }
+        });
     }
 
     private void setAccelerators() {
@@ -80,6 +103,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
