@@ -18,10 +18,8 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Internship Diary is an application to assist students in managing their internship applications. The Internship Diary
-will be able to help you in tracking, tagging and reviewing all your internship applications. Additionally, Internship
-Diary is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits
-of a Graphical User Interface (GUI).
+This developer guide is for software developers or designers who want to understand the system design and implementation
+of InternshipDiary.
 
 == Setting up
 
@@ -529,6 +527,57 @@ and creating a HashMap with those status as the key and respective count as the 
 ** Pros: Straightforward and very easy to understand for future developers.
 ** Cons: Very inextensible.
 
+//tag::reminder[]
+=== Reminder Command
+
+The reminder command displays to users a list of internship applications which need to be submitted or have interviews
+scheduled in 7 days.
+
+The following sequence diagram shows how the command is executed:
+
+.Sequence Diagram of `ReminderCommand`
+image::ReminderSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the reminder command.
+
+==== Implementation
+The reminder command is implemented in the class `ReminderCommand` and instantiates two predicates
+`ApplicationDateDuePredicate` and `InterviewDateDuePredicate` with every call of the command.
+
+The two predicates classes implementing `Predicate<InternshipApplication>` are used as per follows:
+
+* `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application
+has a date of the current date or within 7 days of the current date.
+
+* `InterviewDateDuePredicate` -- Predicate to check whether there is at least one interview in the `ArrayList<Interview>
+interviews` of an internship application that has a date of the current date or within 7 days from the current date.
+
+A comparator `ApplicationDateThenInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also used
+to sort internship applications in terms of which application is more urgent. It compares internship applications
+by their `ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
+applications, in order of either date being closer to current date. If two internship applications have the same date
+in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
+interviews` of the applications in order of which interview comes first.
+
+==== Design considerations
+
+====== Aspect: The order to display the internship applications
+* **Alternative 1 (current choice)**: Display the internship applications in the order of either their `ApplicationDate`
+or `interviewDate` of the earliest interview scheduled in `ArrayList<Interview> interviews` is closer to current date.
+
+** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless
+of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
+** Cons: Longer code.
+
+* **Alternative 2**: Display the internship applications in the order of which application's `ApplicationDate` is closer
+to current date.
+
+** Pros: Cleaner code.
+** Cons: Has the assumption that an internship application with a earlier `ApplicationDate` will have an interview
+scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`. User might miss out
+on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in
+to check `interviewDate`.
+//end::reminder[]
 
 === Logging
 
