@@ -26,6 +26,10 @@ public class InternshipApplicationListPanel extends UiPart<Region> {
         internshipApplicationListView.setCellFactory(listView -> new InternshipApplicationListViewCell());
     }
 
+    public ListView<InternshipApplication> getInternshipApplicationListView() {
+        return internshipApplicationListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code InternshipApplication} using a
      * {@code InternshipApplicationCard}.

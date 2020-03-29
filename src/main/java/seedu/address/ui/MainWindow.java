@@ -5,12 +5,15 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -19,6 +22,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.internship.InternshipApplication;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -147,12 +151,20 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredInternshipApplicationList());
         internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
 
+        ListView<InternshipApplication> internshipApplicationListView = internshipApplicationListPanel
+                .getInternshipApplicationListView();
+        // Show internship application details on click
+        internshipApplicationListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                internshipApplicationDetail = new InternshipApplicationDetail(internshipApplicationListView
+                        .getSelectionModel().getSelectedItem());
+                internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
+            }
+        });
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        internshipApplicationDetail = new InternshipApplicationDetail(
-                logic.getFilteredInternshipApplicationList().get(0));
-        internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
