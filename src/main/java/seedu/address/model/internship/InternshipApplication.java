@@ -190,6 +190,24 @@ public class InternshipApplication {
     }
 
     /**
+     * Returns application date or the earliest interview date scheduled, whichever is closer to current date.
+     * @return earliest date from current date.
+     */
+    public ApplicationDate getEarliestApplicationOrInterviewDate() {
+        LocalDate currentDate = LocalDate.now();
+        Optional<Interview> earliestInterview = getEarliestInterview(currentDate);
+        if (applicationDate.fullApplicationDate.compareTo(currentDate) < 0) { // application date before current date
+            return earliestInterview.get().getDate();
+        }
+        if (earliestInterview.isPresent()) { // there are interviews after current date
+            ApplicationDate earliestInterviewDate = earliestInterview.get().getDate();
+            return applicationDate.compareTo(earliestInterviewDate) >= 0 ? earliestInterviewDate : applicationDate;
+        } else { // there are no interviews after current date
+            return applicationDate;
+        }
+    }
+
+    /**
      * Returns true if all but priority and status fields are the same.
      * This defines a weaker notion of equality between two internship applications.
      */
