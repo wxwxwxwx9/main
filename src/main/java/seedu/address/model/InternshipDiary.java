@@ -2,9 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.UniqueInternshipApplicationList;
 
@@ -14,7 +20,16 @@ import seedu.address.model.internship.UniqueInternshipApplicationList;
  */
 public class InternshipDiary implements ReadOnlyInternshipDiary {
 
-    private final UniqueInternshipApplicationList internships;
+    private UniqueInternshipApplicationList unarchivedInternships;
+    private UniqueInternshipApplicationList archivedInternships;
+
+    /**
+     * The internship list that is shown to the user on the interface currently.
+     */
+    private UniqueInternshipApplicationList displayedInternships;
+    private InternshipApplicationViewType currentView = InternshipApplicationViewType.UNARCHIVED;
+
+    private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +39,10 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      *   among constructors.
      */
     {
-        internships = new UniqueInternshipApplicationList();
+        archivedInternships = new UniqueInternshipApplicationList();
+        unarchivedInternships = new UniqueInternshipApplicationList();
+        // default view is unarchivedInternships
+        displayedInternships = unarchivedInternships;
     }
 
     public InternshipDiary() {}
@@ -37,23 +55,77 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    //// internship list views
 
     /**
-     * Replaces the contents of the internship application list with {@code internshipApplications}.
-     * {@code internshipApplications} must not contain duplicate internship applications.
+     * Adds a listener for any changes in InternshipDiary.
      */
-    public void setInternships(List<InternshipApplication> internshipApplications) {
-        this.internships.setInternshipApplications(internshipApplications);
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
     }
 
     /**
-     * Resets the existing data of this {@code InternshipDiary} with {@code newData}.
+     * Sets the displayed internship application(s) list with archived internship application(s) list.
+     * Updates its observers about the change in the displayed internships.
+     */
+    public void viewArchivedInternshipApplicationList() {
+        this.displayedInternships = archivedInternships;
+        this.currentView = InternshipApplicationViewType.ARCHIVED;
+        changes.firePropertyChange("displayedInternships", null, getDisplayedInternshipList());
+    }
+
+    /**
+     * Sets the displayed internship application(s) list with unarchived internship application(s) list.
+     * Updates its observers about the change in the displayed internships.
+     */
+    public void viewUnarchivedInternshipApplicationList() {
+        this.displayedInternships = unarchivedInternships;
+        this.currentView = InternshipApplicationViewType.UNARCHIVED;
+        changes.firePropertyChange("displayedInternships", null, getDisplayedInternshipList());
+    }
+
+    /**
+     * Retrieves the current view of the internship applications (either archived or unarchived).
+     */
+    public InternshipApplicationViewType getCurrentView() {
+        return this.currentView;
+    }
+
+    //// list overwrite operations
+
+    /**
+     * Resets the existing archived and unarchived internship application data of this {@code InternshipDiary}
+     * with appropriate applications from {@code newData}.
      */
     public void resetData(ReadOnlyInternshipDiary newData) {
         requireNonNull(newData);
+        // temporary implementation to check if newData contains any duplicate internship applications as a whole
+        new UniqueInternshipApplicationList().setInternshipApplications(newData.getAllInternshipList());
+        setArchivedInternships(newData.getAllInternshipList());
+        setUnarchivedInternships(newData.getAllInternshipList());
+        viewUnarchivedInternshipApplicationList();
+    }
 
-        setInternships(newData.getInternshipList());
+    /**
+     * Replaces the contents of the archived internship application list with {@code internshipApplications}.
+     * {@code internshipApplications} must not contain duplicate internship applications.
+     */
+    public void setArchivedInternships(List<InternshipApplication> internshipApplications) {
+        List<InternshipApplication> archived = internshipApplications.stream()
+                .filter((internshipApplication) -> internshipApplication.isArchived())
+                .collect(Collectors.toList());
+        this.archivedInternships.setInternshipApplications(archived);
+    }
+
+    /**
+     * Replaces the contents of the unarchived internship application list with {@code internshipApplications}.
+     * {@code internshipApplications} must not contain duplicate internship applications.
+     */
+    public void setUnarchivedInternships(List<InternshipApplication> internshipApplications) {
+        List<InternshipApplication> unarchived = internshipApplications.stream()
+                .filter((internshipApplication) -> !internshipApplication.isArchived())
+                .collect(Collectors.toList());
+        this.unarchivedInternships.setInternshipApplications(unarchived);
     }
 
     //// internship-application-level operations
@@ -64,31 +136,51 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public boolean hasInternship(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);
-        return internships.contains(internshipApplication);
+        return displayedInternships.contains(internshipApplication);
     }
 
     /**
-     * Archives an internship application in the internship diary.
+     * Archives an internship application and moves it to the unarchived list in the internship diary.
      * The internship application must already exist in the internship diary.
      */
     public void archiveInternshipApplication(InternshipApplication internshipApplication) {
-        internships.archive(internshipApplication);
+        unarchivedInternships.remove(internshipApplication);
+        internshipApplication.archive();
+        archivedInternships.add(internshipApplication);
     }
 
     /**
-     * Unarchives an internship application in the internship diary.
+     * Unarchives an internship application and moves it to the unarchived list in the internship diary.
      * The internship application must already exist in the internship diary.
      */
     public void unarchiveInternshipApplication(InternshipApplication internshipApplication) {
-        internships.unarchive(internshipApplication);
+        archivedInternships.remove(internshipApplication);
+        internshipApplication.unarchive();
+        unarchivedInternships.add(internshipApplication);
     }
 
     /**
-     * Adds an internship application to the internship diary.
+     * Loads an internship application into the internship diary from storage.
+     * Internship application is added to the archived internship application list if it is archived.
+     * Otherwise, it is added to the unarchived internship application list.
+     */
+    public void loadInternshipApplication(InternshipApplication internshipApplication) {
+        if (internshipApplication.isArchived()) {
+            archivedInternships.add(internshipApplication);
+        } else {
+            unarchivedInternships.add(internshipApplication);
+        }
+    }
+
+    /**
+     * Adds an internship application to the internship diary from the user interface.
      * The internship application must not already exist in the internship diary.
      */
     public void addInternshipApplication(InternshipApplication internshipApplication) {
-        internships.add(internshipApplication);
+        if (currentView.equals(InternshipApplicationViewType.ARCHIVED)) {
+            internshipApplication.archive();
+        }
+        displayedInternships.add(internshipApplication);
     }
 
     /**
@@ -100,7 +192,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     public void setInternship(InternshipApplication target, InternshipApplication editedInternship) {
         requireNonNull(editedInternship);
 
-        internships.setInternshipApplication(target, editedInternship);
+        displayedInternships.setInternshipApplication(target, editedInternship);
     }
 
     /**
@@ -108,31 +200,40 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      * {@code key} must exist in the internship diary.
      */
     public void removeInternship(InternshipApplication key) {
-        internships.remove(key);
+        displayedInternships.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return internships.asUnmodifiableObservableList().size() + " persons";
+        return displayedInternships.asUnmodifiableObservableList().size() + " internship application(s)";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<InternshipApplication> getInternshipList() {
-        return internships.asUnmodifiableObservableList();
+    public ObservableList<InternshipApplication> getDisplayedInternshipList() {
+        return displayedInternships.asUnmodifiableObservableList();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public ObservableList<InternshipApplication> getAllInternshipList() {
+        return FXCollections.concat(archivedInternships.asUnmodifiableObservableList(),
+                unarchivedInternships.asUnmodifiableObservableList());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InternshipDiary // instanceof handles nulls
-                && internships.equals(((InternshipDiary) other).internships));
+                && archivedInternships.equals(((InternshipDiary) other).archivedInternships))
+                && unarchivedInternships.equals(((InternshipDiary) other).unarchivedInternships)
+                && currentView.equals(((InternshipDiary) other).currentView);
     }
 
     @Override
     public int hashCode() {
-        return internships.hashCode();
+        return Objects.hash(archivedInternships, unarchivedInternships, currentView);
     }
 }

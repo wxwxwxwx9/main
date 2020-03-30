@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
+    private StatisticsBarFooter statisticsBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -79,6 +80,15 @@ public class MainWindow extends UiPart<Stage> {
         statisticsWindow = new StatisticsWindow(logic.getStatistics(), logic.getFilteredInternshipApplicationList());
 
         setSplitPaneDefaultSplit(0.2);
+    }
+
+    /**
+     * Initializes the relevant UI objects to listen to model manager for property changes.
+     */
+    public void initListeners() {
+        logic.addPropertyChangeListenerForModel(internshipApplicationListPanel);
+        logic.addPropertyChangeListenerForModel(statisticsWindow);
+        logic.addPropertyChangeListenerForModel(statisticsBarFooter);
     }
 
     public Stage getPrimaryStage() {
@@ -149,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        StatisticsBarFooter statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
+        statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
                 logic.getFilteredInternshipApplicationList());
         statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
 

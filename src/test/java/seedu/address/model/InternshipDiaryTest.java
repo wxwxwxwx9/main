@@ -7,6 +7,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +31,7 @@ public class InternshipDiaryTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), internshipDiary.getInternshipList());
+        assertEquals(Collections.emptyList(), internshipDiary.getDisplayedInternshipList());
     }
 
     @Test
@@ -84,7 +86,7 @@ public class InternshipDiaryTest {
 
     @Test
     public void getInternshipList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> internshipDiary.getInternshipList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> internshipDiary.getDisplayedInternshipList().remove(0));
     }
 
     /**
@@ -94,14 +96,25 @@ public class InternshipDiaryTest {
         private final ObservableList<InternshipApplication> internshipApplications =
                 FXCollections.observableArrayList();
 
+        private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
         InternshipDiaryStub(Collection<InternshipApplication> internshipApplications) {
             this.internshipApplications.setAll(internshipApplications);
         }
 
         @Override
-        public ObservableList<InternshipApplication> getInternshipList() {
+        public ObservableList<InternshipApplication> getDisplayedInternshipList() {
             return internshipApplications;
         }
+
+        @Override
+        public ObservableList<InternshipApplication> getAllInternshipList() {
+            return internshipApplications;
+        }
+
+        public void addPropertyChangeListener(PropertyChangeListener l) {
+            changes.addPropertyChangeListener(l);
+        };
     }
 
 }

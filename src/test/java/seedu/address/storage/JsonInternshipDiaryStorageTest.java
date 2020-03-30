@@ -77,7 +77,7 @@ public class JsonInternshipDiaryStorageTest {
         assertEquals(original, new InternshipDiary(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addInternshipApplication(AMY);
+        original.loadInternshipApplication(AMY);
         original.removeInternship(GOOGLE);
         jsonInternshipDiaryStorage.saveInternshipDiary(original, filePath);
         readBack = jsonInternshipDiaryStorage.readInternshipDiary(filePath).get();

@@ -1,11 +1,13 @@
 package seedu.address.model;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
 
@@ -16,10 +18,6 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<InternshipApplication> PREDICATE_SHOW_ALL_INTERNSHIPS = unused -> true;
-    Predicate<InternshipApplication> PREDICATE_SHOW_ARCHIVED_INTERNSHIPS = (
-            InternshipApplication internshipApplication) -> internshipApplication.isArchived();
-    Predicate<InternshipApplication> PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS = (
-            InternshipApplication internshipApplication) -> !internshipApplication.isArchived();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -120,6 +118,31 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator);
+
+    /**
+     * Updates the currently used internship application(s) list with the archived internship application list(s).
+     */
+    void viewArchivedInternshipApplicationList();
+
+    /**
+     * Updates the currently used internship application(s) list with the unarchived internship application list(s).
+     */
+    void viewUnarchivedInternshipApplicationList();
+
+    /**
+     * Returns an unmodifiable view of the concatenated archived and unarchived internship applications list.
+     */
+    ObservableList<InternshipApplication> getAllInternshipApplicationList();
+
+    /**
+     * Retrieves the current view of the internship diary.
+     */
+    InternshipApplicationViewType getCurrentView();
+
+    /**
+     * Adds a property change listener for model.
+     */
+    void addPropertyChangeListener(PropertyChangeListener l);
 
     /**
      * Returns a statistics object that can compute relevant internship application statistics.
