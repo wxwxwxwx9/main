@@ -1,19 +1,19 @@
 package seedu.address.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Comparator;
 import java.util.Objects;
 
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.logic.Logic;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
  * A graphical interface for the statistics that is displayed at the footer of the application.
  */
-public class ComparatorDisplayFooter extends UiPart<Region> {
+public class ComparatorDisplayFooter extends UiPart<Region> implements PropertyChangeListener {
 
     private static final String FXML = "ComparatorDisplayFooter.fxml";
     private Comparator<InternshipApplication> currentComparator;
@@ -21,26 +21,20 @@ public class ComparatorDisplayFooter extends UiPart<Region> {
     @FXML
     private Label comparatorLabel;
 
-    public ComparatorDisplayFooter(Logic logic) {
+    public ComparatorDisplayFooter() {
         super(FXML);
-        Comparator<InternshipApplication> comparator = logic.getComparator();
         comparatorLabel.setText("Not Sorted.");
-        updateComparatorDisplay(comparator);
-        updateComparatorDisplayOnChange(logic);
+        updateComparatorDisplay(null);
     }
 
     /**
-     * Adds an event listener to update the comparatorLabel upon any changes
-     * in the given list of internship application.
-     *
-     * @param logic the Logic.
+     * Receives the latest changes in Comparator from internship diary.
+     * Updates the relevant display accordingly.
      */
-    public void updateComparatorDisplayOnChange(Logic logic) {
-        logic.getFilteredInternshipApplicationList().addListener((ListChangeListener<InternshipApplication>) c -> {
-            while (c.next()) {
-                updateComparatorDisplay(logic.getComparator());
-            }
-        });
+    @SuppressWarnings("unchecked")
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        updateComparatorDisplay((Comparator<InternshipApplication>) e.getNewValue());
     }
 
     /**

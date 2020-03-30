@@ -165,11 +165,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Comparator<InternshipApplication> getComparator() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -196,6 +191,11 @@ public class AddCommandTest {
 
         @Override
         public void addPropertyChangeListener(PropertyChangeListener l) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
     private StatisticsBarFooter statisticsBarFooter;
+    private ComparatorDisplayFooter comparatorDisplayFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -89,6 +90,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.addPropertyChangeListenerForModel(internshipApplicationListPanel);
         logic.addPropertyChangeListenerForModel(statisticsWindow);
         logic.addPropertyChangeListenerForModel(statisticsBarFooter);
+        logic.addComparatorPropertyChangeListener(comparatorDisplayFooter);
     }
 
     public Stage getPrimaryStage() {
@@ -163,7 +165,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredInternshipApplicationList());
         statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
 
-        ComparatorDisplayFooter comparatorDisplayFooter = new ComparatorDisplayFooter(logic);
+        comparatorDisplayFooter = new ComparatorDisplayFooter();
         comparatorDisplayPlaceholder.getChildren().add(comparatorDisplayFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);

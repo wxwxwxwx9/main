@@ -103,11 +103,6 @@ public interface Model {
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
-     * Returns an comparator used to sort the filtered internship applications list
-     */
-    Comparator<InternshipApplication> getComparator();
-
-    /**
      * Updates the filter of the filtered internship application list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -143,6 +138,11 @@ public interface Model {
      * Adds a property change listener for model.
      */
     void addPropertyChangeListener(PropertyChangeListener l);
+
+    /**
+     * Adds a property listener for any changes in comparator used.
+     */
+    void addComparatorPropertyChangeListener(PropertyChangeListener l);
 
     /**
      * Returns a statistics object that can compute relevant internship application statistics.
