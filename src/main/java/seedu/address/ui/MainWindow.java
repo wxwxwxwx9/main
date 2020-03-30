@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInternshipDiary;
 
 /**
@@ -81,13 +82,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Initializes the relevant UI objects to listen to internship diary for property changes.
+     * Initializes the relevant UI objects to listen to model manager for property changes.
      */
     public void initListeners() {
-        ReadOnlyInternshipDiary internshipDiary = logic.getInternshipDiary();
-        internshipDiary.addPropertyChangeListener(internshipApplicationListPanel);
-        internshipDiary.addPropertyChangeListener(statisticsWindow);
-        internshipDiary.addPropertyChangeListener(statisticsBarFooter);
+        logic.addPropertyChangeListenerForModel(internshipApplicationListPanel);
+        logic.addPropertyChangeListenerForModel(statisticsWindow);
+        logic.addPropertyChangeListenerForModel(statisticsBarFooter);
     }
 
     public Stage getPrimaryStage() {

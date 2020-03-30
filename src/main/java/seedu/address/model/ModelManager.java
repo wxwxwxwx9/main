@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -35,6 +36,8 @@ public class ModelManager implements Model, PropertyChangeListener {
     private SortedList<InternshipApplication> sortedFilteredInternshipApplications =
             new SortedList<>(filteredInternshipApplications);
 
+    private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
      */
@@ -45,6 +48,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         logger.fine("Initializing with internship diary: " + internshipDiary + " and user prefs " + userPrefs);
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
+        // model manager listens to internshipdiary for any changes to its displayedInternships
         this.internshipDiary.addPropertyChangeListener(this);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
@@ -205,6 +209,13 @@ public class ModelManager implements Model, PropertyChangeListener {
     }
 
     /**
+     * Adds a property listener for any changes in ModelManager.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
+
+    /**
      * Receives the latest changes in displayed internships from internship diary.
      * Updates the filtered and sorted internship applications accordingly.
      */
@@ -214,6 +225,8 @@ public class ModelManager implements Model, PropertyChangeListener {
         ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
         filteredInternshipApplications = new FilteredList<>(ia);
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
+        changes.firePropertyChange("displayedInternships", null,
+                getFilteredInternshipApplicationList());
     }
 
     //=========== Statistics ==================================================================================
