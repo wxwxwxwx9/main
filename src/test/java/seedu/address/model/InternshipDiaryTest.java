@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.exceptions.DuplicateInternshipApplicationException;
 import seedu.address.model.status.Status;
