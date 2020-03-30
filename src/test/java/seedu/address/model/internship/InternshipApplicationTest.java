@@ -16,7 +16,6 @@ import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InterviewBuilder;
 import seedu.address.testutil.TypicalInterviews;
