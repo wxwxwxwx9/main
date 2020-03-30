@@ -79,13 +79,13 @@ public class LogicManager implements Logic {
     };
 
     @Override
-    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
-        model.addFilteredInternshipApplicationsPropertyChangeListener(l);
+    public void addPredicatePropertyChangeListener(PropertyChangeListener l) {
+        model.addPredicatePropertyChangeListener(l);
     }
 
     @Override
-    public String getPredicateString() {
-        return model.getPredicateString();
+    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
+        model.addFilteredInternshipApplicationsPropertyChangeListener(l);
     }
 
     @Override

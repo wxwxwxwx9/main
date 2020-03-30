@@ -41,14 +41,14 @@ public interface Logic {
     void addComparatorPropertyChangeListener(PropertyChangeListener l);
 
     /**
+     * Adds a property listener for any changes in predicate used.
+     */
+    void addPredicatePropertyChangeListener(PropertyChangeListener l);
+
+    /**
      * Adds a property listener for any changes in filtered internship applications.
      */
     void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l);
-
-    /**
-     * Get the string to be displayed for predicate display.
-     */
-    String getPredicateString();
 
     /**
      * Returns the user prefs' internship diary file path.

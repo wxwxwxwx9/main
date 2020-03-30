@@ -35,7 +35,6 @@ public class ModelManager implements Model, PropertyChangeListener {
     private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
     private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
-    private String predicateString = "";
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
@@ -160,19 +159,10 @@ public class ModelManager implements Model, PropertyChangeListener {
     }
 
     @Override
-    public void setPredicateString(String predicateString) {
-        this.predicateString = predicateString;
-    }
-
-    @Override
-    public String getPredicateString() {
-        return predicateString;
-    }
-
-    @Override
     public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
         requireNonNull(predicate);
         filteredInternshipApplications.setPredicate(predicate);
+        changes.firePropertyChange("predicate", null, predicate);
     }
 
     @Override
@@ -218,16 +208,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         return internshipDiary.getCurrentView();
     }
 
-    @Override
-    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener("filteredInternshipApplications", l);
-    }
-
-    @Override
-    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener("comparator", l);
-    }
-
     /**
      * Receives the latest changes in displayed internships from internship diary.
      * Updates the filtered and sorted internship applications accordingly
@@ -244,6 +224,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         changes.firePropertyChange("displayedInternships", null,
                 getFilteredInternshipApplicationList());
         changes.firePropertyChange("comparator", null, null);
+        changes.firePropertyChange("predicate", null, null);
     }
 
     //=========== Statistics ==================================================================================
@@ -251,6 +232,23 @@ public class ModelManager implements Model, PropertyChangeListener {
     @Override
     public Statistics getStatistics() {
         return statistics;
+    }
+
+    //=========== PropertyChangeListeners ======================================================================
+
+    @Override
+    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("filteredInternshipApplications", l);
+    }
+
+    @Override
+    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("comparator", l);
+    }
+
+    @Override
+    public void addPredicatePropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("predicate", l);
     }
 
 }

@@ -103,16 +103,6 @@ public interface Model {
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
-     * Sets the string to be displayed for predicate display.
-     */
-    void setPredicateString(String predicateString);
-
-    /**
-     * Get the string to be displayed for predicate display.
-     */
-    String getPredicateString();
-
-    /**
      * Updates the filter of the filtered internship application list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
@@ -153,6 +143,11 @@ public interface Model {
      * Adds a property listener for any changes in comparator used.
      */
     void addComparatorPropertyChangeListener(PropertyChangeListener l);
+
+    /**
+     * Adds a property listener for any changes in predicate used.
+     */
+    void addPredicatePropertyChangeListener(PropertyChangeListener l);
 
     /**
      * Returns a statistics object that can compute relevant internship application statistics.

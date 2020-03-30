@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.beans.PropertyChangeListener;
@@ -64,20 +63,20 @@ public class AddCommandTest {
         AddCommand addNtuCommand = new AddCommand(ntu);
 
         // same object -> returns true
-        assertTrue(addNusCommand.equals(addNusCommand));
+        assertEquals(addNusCommand, addNusCommand);
 
         // same values -> returns true
         AddCommand addNUsCommandCopy = new AddCommand(nus);
-        assertTrue(addNusCommand.equals(addNUsCommandCopy));
+        assertEquals(addNusCommand, addNUsCommandCopy);
 
         // different types -> returns false
-        assertFalse(addNusCommand.equals(1));
+        assertNotEquals(1, addNusCommand);
 
         // null -> returns false
-        assertFalse(addNusCommand.equals(null));
+        assertNotEquals(null, addNusCommand);
 
         // different company -> returns false
-        assertFalse(addNusCommand.equals(addNtuCommand));
+        assertNotEquals(addNusCommand, addNtuCommand);
     }
 
     /**
@@ -165,16 +164,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public String getPredicateString() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPredicateString(String predicateString) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -206,6 +195,11 @@ public class AddCommandTest {
 
         @Override
         public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPredicatePropertyChangeListener(PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }
 

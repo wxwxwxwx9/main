@@ -1,52 +1,49 @@
 package seedu.address.ui;
 
-import javafx.collections.ListChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.function.Predicate;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.logic.Logic;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
  * A graphical interface for the statistics that is displayed at the footer of the application.
  */
-public class PredicateDisplayFooter extends UiPart<Region> {
+public class PredicateDisplayFooter extends UiPart<Region> implements PropertyChangeListener {
 
     private static final String FXML = "PredicateDisplayFooter.fxml";
 
     @FXML
     private Label predicateLabel;
 
-    public PredicateDisplayFooter(Logic logic) {
+    public PredicateDisplayFooter() {
         super(FXML);
-        predicateLabel.setText("Not Filtered.");
-        updatePredicateDisplayOnChange(logic);
+        updatePredicateDisplay(null);
     }
 
     /**
-     * Adds an event listener to update the predicateLabel upon any changes
-     * in the given list of internship application.
-     *
-     * @param logic the Logic.
+     * Receives the latest changes in Comparator from internship diary.
+     * Updates the relevant display accordingly.
      */
-    public void updatePredicateDisplayOnChange(Logic logic) {
-        logic.getFilteredInternshipApplicationList().addListener((ListChangeListener<InternshipApplication>) c -> {
-            while (c.next()) {
-                updatePredicateDisplay(logic.getPredicateString());
-            }
-        });
+    @SuppressWarnings("unchecked")
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        updatePredicateDisplay((Predicate<InternshipApplication>) e.getNewValue());
     }
 
     /**
      * Computes and updates the predicateLabel.
      *
-     * @param predicateStr predicate string that generates relevant display.
+     * @param predicate predicate that generates relevant display.
      */
-    public void updatePredicateDisplay(String predicateStr) {
-        if (predicateStr == null || predicateStr.equals("")) {
+    private void updatePredicateDisplay(Predicate<InternshipApplication> predicate) {
+        if (predicate == null) {
             predicateLabel.setText("Not Filtered.");
         } else {
-            predicateLabel.setText("Finding: " + predicateStr);
+            predicateLabel.setText("Finding: " + predicate.toString());
         }
     }
 
