@@ -44,6 +44,10 @@ public class StatisticsTest {
             .withCompany("Google")
             .withStatus(Status.REJECTED)
             .build();
+    private static final InternshipApplication SHOPEE = new InternshipApplicationBuilder()
+            .withCompany("Shopee")
+            .withStatus(Status.GHOSTED)
+            .build();
 
     private Statistics statistics;
     private Statistics expectedStatistics;
@@ -72,6 +76,7 @@ public class StatisticsTest {
         model.addInternshipApplication(AMAZON);
         model.addInternshipApplication(NETFLIX);
         model.addInternshipApplication(GOOGLE);
+        model.addInternshipApplication(SHOPEE);
         statistics.computeCount(model.getFilteredInternshipApplicationList());
         computeActualStatusCount();
         int actualTotalCount = 0;
@@ -101,6 +106,7 @@ public class StatisticsTest {
         model.addInternshipApplication(AMAZON);
         model.addInternshipApplication(NETFLIX);
         model.addInternshipApplication(GOOGLE);
+        model.addInternshipApplication(SHOPEE);
         statistics.computeAndUpdateStatistics(model.getFilteredInternshipApplicationList());
         for (Status status : statuses) {
             assertNotEquals(statistics.getCount(status), 0);

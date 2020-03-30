@@ -44,6 +44,8 @@ public class EditInternshipDescriptorBuilder {
         descriptor.setDate(internshipApplication.getApplicationDate());
         descriptor.setPriority(internshipApplication.getPriority());
         descriptor.setStatus(internshipApplication.getStatus());
+        descriptor.setIsGhostedOrRejected(internshipApplication.getIsGhostedOrRejected());
+        descriptor.setLastStage(internshipApplication.getLastStage());
     }
 
     /**

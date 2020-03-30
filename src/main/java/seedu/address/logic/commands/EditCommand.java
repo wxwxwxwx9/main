@@ -83,7 +83,10 @@ public class EditCommand extends Command {
 
         InternshipApplication internshipToEdit = lastShownList.get(index.getZeroBased());
         InternshipApplication editedInternship = createEditedInternship(internshipToEdit, editInternshipDescriptor);
-
+        if (editedInternship.getIsGhostedOrRejected() && (internshipToEdit.getStatus() != Status.GHOSTED)
+                && (internshipToEdit.getStatus() != Status.REJECTED)) {
+            editedInternship.setLastStage(internshipToEdit.getStatus());
+        }
         if (!internshipToEdit.isSameInternshipApplication(editedInternship)
                 && model.hasInternshipApplication(editedInternship)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERNSHIP);
@@ -109,11 +112,20 @@ public class EditCommand extends Command {
         Email updatedEmail = editInternshipDescriptor.getEmail().orElse(internshipToEdit.getEmail());
         ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
-        Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
+        Optional<Status> toBeUpdatedStatus = editInternshipDescriptor.getStatus();
+        Status updatedStatus = toBeUpdatedStatus.orElse(internshipToEdit.getStatus());
         Boolean isArchived = internshipToEdit.isArchived();
 
-        return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+        InternshipApplication updatedInternshipApplication = new InternshipApplication(updatedCompany, updatedRole,
+                updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+        if (toBeUpdatedStatus.isPresent()) {
+            if (toBeUpdatedStatus.get() == Status.GHOSTED || toBeUpdatedStatus.get() == Status.REJECTED) {
+                updatedInternshipApplication.setIsGhostedOrRejected(true);
+            } else {
+                updatedInternshipApplication.setIsGhostedOrRejected(false);
+            }
+        }
+        return updatedInternshipApplication;
     }
 
     @Override
@@ -147,6 +159,8 @@ public class EditCommand extends Command {
         private ApplicationDate date;
         private Priority priority;
         private Status status;
+        private Boolean isGhostedOrRejected;
+        private Status lastStage;
 
         public EditInternshipDescriptor() {}
 
@@ -163,6 +177,8 @@ public class EditCommand extends Command {
             setDate(toCopy.date);
             setPriority(toCopy.priority);
             setStatus(toCopy.status);
+            setIsGhostedOrRejected(toCopy.isGhostedOrRejected);
+            setLastStage(toCopy.lastStage);
         }
 
         /**
@@ -236,6 +252,18 @@ public class EditCommand extends Command {
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setLastStage(Status lastStage) {
+            this.lastStage = lastStage;
+        }
+
+        public Optional<Status> getLastStage() {
+            return Optional.ofNullable(lastStage);
+        }
+
+        public void setIsGhostedOrRejected(Boolean bool) {
+            this.isGhostedOrRejected = bool;
         }
 
         @Override

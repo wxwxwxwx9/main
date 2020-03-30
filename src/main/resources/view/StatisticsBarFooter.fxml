@@ -15,6 +15,7 @@
     <Label fx:id="interview" />
     <Label fx:id="offered" />
     <Label fx:id="rejected" />
+    <Label fx:id="ghosted" />
     <Label fx:id="total" />
   </HBox>
 </GridPane>
