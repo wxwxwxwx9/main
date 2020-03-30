@@ -54,7 +54,6 @@ public class InternshipApplicationTest {
                 .withStatus(VALID_STATUS_BOB)
                 .build();
         assertTrue(GOOGLE.isSameInternshipApplication(editedGoogle));
-
     }
 
     @Test
