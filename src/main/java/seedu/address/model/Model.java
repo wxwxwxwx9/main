@@ -135,9 +135,9 @@ public interface Model {
     InternshipApplicationViewType getCurrentView();
 
     /**
-     * Adds a property change listener for model.
+     * Adds a property listener for any changes in the filtered internship applications.
      */
-    void addPropertyChangeListener(PropertyChangeListener l);
+    void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l);
 
     /**
      * Adds a property listener for any changes in comparator used.

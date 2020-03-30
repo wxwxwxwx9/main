@@ -57,11 +57,9 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
 
     //// internship list views
 
-    /**
-     * Adds a listener for any changes in InternshipDiary.
-     */
-    public void addPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener(l);
+    @Override
+    public void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("displayedInternships", l);
     }
 
     /**

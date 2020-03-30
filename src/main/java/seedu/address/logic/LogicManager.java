@@ -79,6 +79,11 @@ public class LogicManager implements Logic {
     };
 
     @Override
+    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
+        model.addFilteredInternshipApplicationsPropertyChangeListener(l);
+    }
+
+    @Override
     public Path getInternshipDiaryFilePath() {
         return model.getInternshipDiaryFilePath();
     }
@@ -96,11 +101,6 @@ public class LogicManager implements Logic {
     @Override
     public Statistics getStatistics() {
         return model.getStatistics();
-    }
-
-    @Override
-    public void addPropertyChangeListenerForModel(PropertyChangeListener l) {
-        model.addPropertyChangeListener(l);
     }
 
 }
