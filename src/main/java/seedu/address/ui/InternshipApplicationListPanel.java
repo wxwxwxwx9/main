@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -13,7 +15,7 @@ import seedu.address.model.internship.InternshipApplication;
 /**
  * Panel containing the list of internship applications.
  */
-public class InternshipApplicationListPanel extends UiPart<Region> {
+public class InternshipApplicationListPanel extends UiPart<Region> implements PropertyChangeListener {
     private static final String FXML = "InternshipApplicationListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(InternshipApplicationListPanel.class);
 
@@ -24,6 +26,17 @@ public class InternshipApplicationListPanel extends UiPart<Region> {
         super(FXML);
         internshipApplicationListView.setItems(internshipApplicationList);
         internshipApplicationListView.setCellFactory(listView -> new InternshipApplicationListViewCell());
+    }
+
+    /**
+     * Receives the latest changes in displayed internships from internship diary.
+     * Updates the internship application list view accordingly.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
+        internshipApplicationListView.setItems(ia);
     }
 
     /**

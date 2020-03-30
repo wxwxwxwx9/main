@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
@@ -153,6 +155,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<InternshipApplication> getAllInternshipApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -164,6 +171,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewArchivedInternshipApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewUnarchivedInternshipApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public InternshipApplicationViewType getCurrentView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPropertyChangeListener(PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -142,6 +142,14 @@ public class InternshipApplication {
         return interviews.contains(interview);
     }
 
+    public void archive() {
+        this.isArchived = true;
+    }
+
+    public void unarchive() {
+        this.isArchived = false;
+    }
+
     /**
      * Returns true if all but priority and status fields are the same.
      * This defines a weaker notion of equality between two internship applications.
@@ -158,8 +166,7 @@ public class InternshipApplication {
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.getApplicationDate().equals(getApplicationDate());
     }
 
     /**
@@ -184,14 +191,13 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.getStatus().equals(getStatus());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status, isArchived);
+        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status);
     }
 
     @Override

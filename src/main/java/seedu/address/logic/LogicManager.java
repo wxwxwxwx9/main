@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -90,6 +91,11 @@ public class LogicManager implements Logic {
     @Override
     public Statistics getStatistics() {
         return model.getStatistics();
+    }
+
+    @Override
+    public void addPropertyChangeListenerForModel(PropertyChangeListener l) {
+        model.addPropertyChangeListener(l);
     }
 
 }
