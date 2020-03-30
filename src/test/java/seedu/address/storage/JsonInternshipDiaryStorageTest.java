@@ -1,12 +1,12 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalInternshipApplications.AMY;
-import static seedu.address.testutil.TypicalInternshipApplications.BOB;
-import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
-import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
+//import static seedu.address.testutil.TypicalInternshipApplications.AMY;
+//import static seedu.address.testutil.TypicalInternshipApplications.BOB;
+//import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
+//import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import java.io.IOException;
 import java.nio.file.Path;
