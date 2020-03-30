@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
-import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,8 +25,8 @@ import seedu.address.testutil.InternshipApplicationBuilder;
  */
 public class UnarchiveCommandTest {
 
-    private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
-    private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+    private Model model;
+    private ModelManager expectedModel;
 
     @BeforeEach
     public void setUp() {
@@ -122,14 +124,6 @@ public class UnarchiveCommandTest {
         // default view is unarchived so we can use assertCommandSuccess
         assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);;
     }
-
-//    @Test
-//    public void execute_invalidIndex_throwsCommandException() {
-//        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
-//        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(outOfBoundIndex);
-//
-//        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
-//    }
 
     @Test
     public void equals() {

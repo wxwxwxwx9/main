@@ -20,12 +20,13 @@ import seedu.address.model.internship.UniqueInternshipApplicationList;
  */
 public class InternshipDiary implements ReadOnlyInternshipDiary {
 
+    private UniqueInternshipApplicationList unarchivedInternships;
+    private UniqueInternshipApplicationList archivedInternships;
+
     /**
      * The internship list that is shown to the user on the interface currently.
      */
     private UniqueInternshipApplicationList displayedInternships;
-    private UniqueInternshipApplicationList unarchivedInternships;
-    private UniqueInternshipApplicationList archivedInternships;
     private InternshipApplicationViewType currentView = InternshipApplicationViewType.UNARCHIVED;
 
     private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
@@ -38,9 +39,10 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      *   among constructors.
      */
     {
-        displayedInternships = new UniqueInternshipApplicationList();
         archivedInternships = new UniqueInternshipApplicationList();
         unarchivedInternships = new UniqueInternshipApplicationList();
+        // default view is unarchivedInternships
+        displayedInternships = unarchivedInternships;
     }
 
     public InternshipDiary() {}
@@ -97,6 +99,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void resetData(ReadOnlyInternshipDiary newData) {
         requireNonNull(newData);
+        // temporary implementation to check if newData contains any duplicate internship applications as a whole
+        new UniqueInternshipApplicationList().setInternshipApplications(newData.getAllInternshipList());
         setArchivedInternships(newData.getAllInternshipList());
         setUnarchivedInternships(newData.getAllInternshipList());
         viewUnarchivedInternshipApplicationList();

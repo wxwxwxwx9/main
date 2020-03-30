@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLI
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -94,7 +93,6 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
         model.viewUnarchivedInternshipApplicationList();
-//        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
 
         InternshipApplication internshipApplicationInFilteredList =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());

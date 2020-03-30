@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.archival.InternshipApplicationViewType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -16,7 +14,7 @@ public class ArchivalCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all archived internship applications";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
         model.viewArchivedInternshipApplicationList();
         return new CommandResult(MESSAGE_SUCCESS);
