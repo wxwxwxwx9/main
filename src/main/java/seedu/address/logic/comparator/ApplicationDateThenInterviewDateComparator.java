@@ -40,4 +40,9 @@ public class ApplicationDateThenInterviewDateComparator implements Comparator<In
     public boolean equals(Object other) {
         return other instanceof ApplicationDateThenInterviewDateComparator;
     }
+
+    @Override
+    public String toString() {
+        return "Application date, then interview date";
+    }
 }

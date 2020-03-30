@@ -28,24 +28,28 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_invalidArg_throwsParseException() {
-        // includes stuff other than a single Prefix
-        assertParseFailure(parser, PREFIX_COMPANY.toString() + " random",
+        // includes more than a single Prefix
+        assertParseFailure(parser, " " + PREFIX_COMPANY.toString() + " " + PREFIX_DATE.toString(),
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsCorrectSortCommand() {
         SortCommand expectedSortCommand = new SortCommand(new CompanyComparator());
-        assertParseSuccess(parser, PREFIX_COMPANY.toString(), expectedSortCommand);
+        assertParseSuccess(parser, " " + PREFIX_COMPANY.toString(), expectedSortCommand);
 
         expectedSortCommand = new SortCommand(new ApplicationDateComparator());
-        assertParseSuccess(parser, PREFIX_DATE.toString(), expectedSortCommand);
+        assertParseSuccess(parser, " " + PREFIX_DATE.toString(), expectedSortCommand);
 
         expectedSortCommand = new SortCommand(new PriorityComparator());
-        assertParseSuccess(parser, PREFIX_PRIORITY.toString(), expectedSortCommand);
+        assertParseSuccess(parser, " " + PREFIX_PRIORITY.toString(), expectedSortCommand);
 
         expectedSortCommand = new SortCommand(new StatusComparator());
-        assertParseSuccess(parser, PREFIX_STATUS.toString(), expectedSortCommand);
+        assertParseSuccess(parser, " " + PREFIX_STATUS.toString(), expectedSortCommand);
+
+        expectedSortCommand = new SortCommand(new CompanyComparator().reversed());
+        assertParseSuccess(parser, SortCommand.REVERSE_KEYWORD + " "
+                + PREFIX_COMPANY.toString(), expectedSortCommand);
     }
 
 }

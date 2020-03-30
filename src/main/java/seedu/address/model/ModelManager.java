@@ -30,11 +30,9 @@ public class ModelManager implements Model, PropertyChangeListener {
     private final UserPrefs userPrefs;
     private final Statistics statistics;
 
-    private InternshipDiary internshipDiary = new InternshipDiary();
-    private FilteredList<InternshipApplication> filteredInternshipApplications =
-            new FilteredList<>(internshipDiary.getDisplayedInternshipList());
-    private SortedList<InternshipApplication> sortedFilteredInternshipApplications =
-            new SortedList<>(filteredInternshipApplications);
+    private InternshipDiary internshipDiary;
+    private FilteredList<InternshipApplication> filteredInternshipApplications;
+    private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
     private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
@@ -170,6 +168,7 @@ public class ModelManager implements Model, PropertyChangeListener {
     public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
         requireNonNull(comparator);
         sortedFilteredInternshipApplications.setComparator(comparator);
+        changes.firePropertyChange("comparator", null, comparator);
     }
 
     @Override
@@ -212,7 +211,12 @@ public class ModelManager implements Model, PropertyChangeListener {
      * Adds a property listener for any changes in ModelManager.
      */
     public void addPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener(l);
+        changes.addPropertyChangeListener("displayedInternships", l);
+    }
+
+    @Override
+    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("comparator", l);
     }
 
     /**
@@ -227,6 +231,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
         changes.firePropertyChange("displayedInternships", null,
                 getFilteredInternshipApplicationList());
+        changes.firePropertyChange("comparator", null, null);
     }
 
     //=========== Statistics ==================================================================================

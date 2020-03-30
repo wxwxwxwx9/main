@@ -2,19 +2,25 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.InternshipDiaryBuilder;
@@ -113,6 +119,28 @@ public class ModelManagerTest {
         InternshipApplication newUnarchivedGoogleApplication =
                 modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         assertTrue(!newUnarchivedGoogleApplication.isArchived());
+    }
+
+    @Test
+    public void addComparatorPropertyChangeListener_comparatorChanged_listenerCalled() {
+        class MockListener implements PropertyChangeListener {
+            private Comparator<InternshipApplication> comparator = null;
+            @SuppressWarnings("unchecked")
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                comparator = (Comparator<InternshipApplication>) e.getNewValue();
+            }
+        }
+
+        MockListener mockListener = new MockListener();
+        modelManager.addComparatorPropertyChangeListener(mockListener);
+        assertNull(mockListener.comparator);
+        Comparator<InternshipApplication> comparator1 = new CompanyComparator();
+        modelManager.updateFilteredInternshipApplicationList(comparator1);
+        assertSame(comparator1, mockListener.comparator);
+
+        modelManager.viewArchivedInternshipApplicationList();
+        assertNull(mockListener.comparator);
     }
 
     @Test

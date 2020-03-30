@@ -195,6 +195,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
