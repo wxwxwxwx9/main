@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -18,6 +19,9 @@ public class InternshipApplicationDetail extends UiPart<Region> {
     private InternshipApplication internshipApplication;
 
     private InterviewListPanel interviewListPanel;
+
+    @FXML
+    private SplitPane splitPanePlaceHolder;
 
     @FXML
     private StackPane interviewListPanelPlaceHolder;

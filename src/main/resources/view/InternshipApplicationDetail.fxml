@@ -9,35 +9,34 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<HBox id="detailPane" fx:id="detailPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-style="-fx-background-color: grey">
-    <GridPane HBox.hgrow="ALWAYS">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-        </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-            <padding>
-                <Insets top="5" right="5" bottom="5" left="15" />
-            </padding>
-            <Label fx:id="company" text="\$first" styleClass="cell_big_label" />
-            <Label fx:id="role" styleClass="cell_small_label" text="\$role" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-            <Label fx:id="applicationDate" styleClass="cell_small_label" text="\$applicationDate" />
-            <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-            <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
-            <Label fx:id="isArchive" styleClass="cell_small_label" text="\$isArchive" />
-            <Label fx:id="interviewPreamble" styleClass="cell_big_label" text="\$interviews" />
-            <AnchorPane minWidth="0.0" minHeight="0.0" prefWidth="80">
-                <children>
-                    <StackPane fx:id="interviewListPanelPlaceHolder" minHeight="100" prefHeight="100"
-                               prefWidth="195.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
-                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                               AnchorPane.topAnchor="0.0">
-                    </StackPane>
-                </children>
-            </AnchorPane>
-        </VBox>
-    </GridPane>
-</HBox>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+style="-fx-background-color: grey" minWidth="100" >
+    <VBox alignment="CENTER_LEFT" minHeight="105">
+        <padding>
+            <Insets top="5" right="5" bottom="5" left="15" />
+        </padding>
+        <Label fx:id="company" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="role" styleClass="cell_small_label" text="\$role" />
+        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+        <Label fx:id="applicationDate" styleClass="cell_small_label" text="\$applicationDate" />
+        <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
+        <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
+        <Label fx:id="isArchive" styleClass="cell_small_label" text="\$isArchive" />
+        <Label fx:id="interviewPreamble" styleClass="cell_big_label" text="\$interviews" />
+    </VBox>
+    <AnchorPane minWidth="100" minHeight="0.0" prefWidth="250" VBox.vgrow="ALWAYS" >
+        <padding>
+            <Insets top="5" right="5" bottom="5" left="15" />
+        </padding>
+        <children>
+            <StackPane fx:id="interviewListPanelPlaceHolder" minHeight="100" prefHeight="100"
+                       prefWidth="195.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                       AnchorPane.topAnchor="0.0">
+            </StackPane>
+        </children>
+    </AnchorPane>
+</VBox>
