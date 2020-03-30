@@ -12,9 +12,11 @@ import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InterviewBuilder;
 import seedu.address.testutil.TypicalInterviews;
@@ -136,4 +138,43 @@ public class InternshipApplicationTest {
         assertTrue(internshipApplication.getEarliestInterview(minDate).get().getInterviewDate().equals(minDate));
     }
 
+    @Test
+    public void getEarliestApplicationOrInterviewDate_applicationDateExpiredInterviewDateValid_returnsInterviewDate() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate interviewDate = currentDate.plus(2, ChronoUnit.DAYS);
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder()
+                .withApplicationDate("20 12 2019")
+                .withInterview(new InterviewBuilder().withDate(interviewDate).build())
+                .buildWithInterviews();
+        ApplicationDate earliestDate = internshipApplication.getEarliestApplicationOrInterviewDate();
+        assertTrue(earliestDate.equals(new ApplicationDate(interviewDate)));
+    }
+
+    @Test
+    public void getEarliestApplicationOrInterviewDate_onlyInterviewDatesValid_returnsEarliestInterviewDate() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate interviewDate1 = currentDate.plus(2, ChronoUnit.DAYS);
+        LocalDate interviewDate2 = currentDate.plus(5, ChronoUnit.DAYS);
+        LocalDate interviewDate3 = currentDate.plus(1, ChronoUnit.DAYS);
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder()
+                .withApplicationDate("20 12 2019")
+                .withInterview(new InterviewBuilder().withDate(interviewDate1).build())
+                .withInterview(new InterviewBuilder().withDate(interviewDate2).build())
+                .withInterview(new InterviewBuilder().withDate(interviewDate3).build())
+                .buildWithInterviews();
+        ApplicationDate earliestDate = internshipApplication.getEarliestApplicationOrInterviewDate();
+        assertTrue(earliestDate.equals(new ApplicationDate(interviewDate3)));
+    }
+
+    @Test
+    public void getEarliestApplicationOrInterviewDate_allDatesValid_returnsEarliestApplicationOrInterviewDate() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate interviewDate1 = currentDate.plus(7, ChronoUnit.DAYS);
+        InternshipApplication internshipApplication = new InternshipApplicationBuilder()
+                .withApplicationDate(new ApplicationDate(currentDate))
+                .withInterview(new InterviewBuilder().withDate(interviewDate1).build())
+                .buildWithInterviews();
+        ApplicationDate earliestDate = internshipApplication.getEarliestApplicationOrInterviewDate();
+        assertTrue(earliestDate.equals(new ApplicationDate(currentDate)));
+    }
 }

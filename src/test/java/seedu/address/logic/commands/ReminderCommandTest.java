@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 
 class ReminderCommandTest {
 
@@ -30,6 +31,7 @@ class ReminderCommandTest {
 
     @Test
     public void execute_afterReminder_showsFilteredList() {
+        expectedModel.updateFilteredInternshipApplicationList(new InterviewDateDuePredicate());
         expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateDuePredicate());
         expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         CommandResult expectedMessage = new CommandResult(MESSAGE_SUCCESS);
