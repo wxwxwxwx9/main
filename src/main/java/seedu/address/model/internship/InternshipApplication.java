@@ -142,12 +142,40 @@ public class InternshipApplication {
         return interviews.contains(interview);
     }
 
-    public void archive() {
-        this.isArchived = true;
+    /**
+     * Returns a deep, archived copy of this internship application (isArchived field is marked true).
+     * The rationale behind this is to uphold immutability.
+     */
+    public InternshipApplication archive() {
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+                true
+        );
     }
 
-    public void unarchive() {
-        this.isArchived = false;
+    /**
+     * Returns a deep, unarchived copy of this internship application (isArchived field is marked false).
+     * The rationale behind this is to uphold immutability.
+     */
+    public InternshipApplication unarchive() {
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+               false
+        );
     }
 
     /**

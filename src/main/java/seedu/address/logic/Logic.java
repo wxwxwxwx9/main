@@ -41,6 +41,11 @@ public interface Logic {
     void addComparatorPropertyChangeListener(PropertyChangeListener l);
 
     /**
+     * Adds a property listener for any changes in filtered internship applications.
+     */
+    void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l);
+
+    /**
      * Returns the user prefs' internship diary file path.
      */
     Path getInternshipDiaryFilePath();
@@ -54,11 +59,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Adds a property change listener for model.
-     */
-    void addPropertyChangeListenerForModel(PropertyChangeListener l);
 
     /**
      * Returns a statistics object that can compute relevant internship application statistics.
