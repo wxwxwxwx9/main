@@ -15,10 +15,12 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InternshipDiary;
+import seedu.address.model.ListenerPropertyType;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -189,17 +191,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPredicatePropertyChangeListener(PropertyChangeListener l) {
+        public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }
 

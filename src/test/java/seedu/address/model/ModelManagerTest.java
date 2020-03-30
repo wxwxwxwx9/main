@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
+import static seedu.address.model.ListenerPropertyType.PREDICATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
@@ -23,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
@@ -139,7 +143,7 @@ public class ModelManagerTest {
         }
 
         MockListener mockListener = new MockListener();
-        modelManager.addComparatorPropertyChangeListener(mockListener);
+        modelManager.addPropertyChangeListener(COMPARATOR, mockListener);
         assertNull(mockListener.comparator);
         Comparator<InternshipApplication> comparator1 = new CompanyComparator();
         modelManager.updateFilteredInternshipApplicationList(comparator1);
@@ -162,7 +166,7 @@ public class ModelManagerTest {
         }
 
         MockListener mockListener = new MockListener();
-        modelManager.addPredicatePropertyChangeListener(mockListener);
+        modelManager.addPropertyChangeListener(PREDICATE, mockListener);
         assertNull(mockListener.predicate);
 
         Predicate<InternshipApplication> addressPredicate =
@@ -183,7 +187,6 @@ public class ModelManagerTest {
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
-                System.out.println("here");
                 filteredInternshipApplications = (ObservableList<InternshipApplication>) e.getNewValue();
             }
         }
@@ -197,11 +200,12 @@ public class ModelManagerTest {
             new FilteredList<>(mockInternshipDiary.getDisplayedInternshipList());
 
         // add listener
-        modelManager.addFilteredInternshipApplicationsPropertyChangeListener(mockListener);
+        modelManager.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, mockListener);
 
         // create mock property change event
         PropertyChangeEvent e = new PropertyChangeEvent(
-            mockInternshipDiary, "filteredInternshipApplications", null, mockInternshipApplicationFilteredList
+            mockInternshipDiary, FILTERED_INTERNSHIP_APPLICATIONS.toString(), null,
+            mockInternshipApplicationFilteredList
         );
         modelManager.propertyChange(e);
 
