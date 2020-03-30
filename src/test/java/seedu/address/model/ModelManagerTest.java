@@ -21,13 +21,16 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
+import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InternshipDiaryBuilder;
-
 
 public class ModelManagerTest {
 
@@ -171,28 +174,39 @@ public class ModelManagerTest {
         modelManager.viewArchivedInternshipApplicationList();
         assertNull(mockListener.predicate);
     }
-
-    /*
-    in the midst of updating
+    
     @Test
     public void addFilteredInternshipApplicationsPropertyChangeListener_propertyChanged_listenerCalled() {
+        // create mock listener
         class MockListener implements PropertyChangeListener {
-            private FilteredList<InternshipApplication> filteredInternshipApplications = null;
+            private ObservableList<InternshipApplication> filteredInternshipApplications = null;
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
-                filteredInternshipApplications = (FilteredList<InternshipApplication>) e.getNewValue();
+                System.out.println("here");
+                filteredInternshipApplications = (ObservableList<InternshipApplication>) e.getNewValue();
             }
         }
         MockListener mockListener = new MockListener();
         assertNull(mockListener.filteredInternshipApplications);
 
+        // create mock diary and filtered list
+        InternshipDiary mockInternshipDiary = new InternshipDiary();
+        mockInternshipDiary.loadInternshipApplication(new InternshipApplicationBuilder().build());
+        FilteredList<InternshipApplication> mockInternshipApplicationFilteredList =
+                new FilteredList<>(mockInternshipDiary.getDisplayedInternshipList());
+
+        // add listener
         modelManager.addFilteredInternshipApplicationsPropertyChangeListener(mockListener);
-        modelManager.viewArchivedInternshipApplicationList();
+
+        // create mock property change event
+        PropertyChangeEvent e = new PropertyChangeEvent(
+                mockInternshipDiary, "filteredInternshipApplications", null, mockInternshipApplicationFilteredList
+        );
+        modelManager.propertyChange(e);
 
         assertSame(modelManager.getFilteredInternshipApplicationList(), mockListener.filteredInternshipApplications);
     }
-    */
 
     @Test
     public void getFilteredInternshipApplicationList_modifyList_throwsUnsupportedOperationException() {

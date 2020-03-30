@@ -221,7 +221,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
         filteredInternshipApplications = new FilteredList<>(ia);
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
-        changes.firePropertyChange("displayedInternships", null,
+        changes.firePropertyChange("filteredInternshipApplications", null,
                 getFilteredInternshipApplicationList());
         changes.firePropertyChange("comparator", null, null);
         changes.firePropertyChange("predicate", null, null);
