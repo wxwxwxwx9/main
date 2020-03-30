@@ -20,7 +20,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model and Archival Command) and unit tests for
  * {@code UnarchiveCommand}.
  */
 public class UnarchiveCommandTest {

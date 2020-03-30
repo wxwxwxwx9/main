@@ -143,6 +143,28 @@ public class ModelManagerTest {
         assertNull(mockListener.comparator);
     }
 
+    /*
+    in the midst of updating
+    @Test
+    public void addFilteredInternshipApplicationsPropertyChangeListener_propertyChanged_listenerCalled() {
+        class MockListener implements PropertyChangeListener {
+            private FilteredList<InternshipApplication> filteredInternshipApplications = null;
+            @SuppressWarnings("unchecked")
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                filteredInternshipApplications = (FilteredList<InternshipApplication>) e.getNewValue();
+            }
+        }
+        MockListener mockListener = new MockListener();
+        assertNull(mockListener.filteredInternshipApplications);
+
+        modelManager.addFilteredInternshipApplicationsPropertyChangeListener(mockListener);
+        modelManager.viewArchivedInternshipApplicationList();
+
+        assertSame(modelManager.getFilteredInternshipApplicationList(), mockListener.filteredInternshipApplications);
+    }
+    */
+
     @Test
     public void getFilteredInternshipApplicationList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
