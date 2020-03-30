@@ -1,10 +1,18 @@
 package seedu.address.ui;
 
+import static seedu.address.model.status.Status.APPLIED;
+import static seedu.address.model.status.Status.INTERVIEW;
+import static seedu.address.model.status.Status.OFFERED;
+import static seedu.address.model.status.Status.REJECTED;
+import static seedu.address.model.status.Status.WISHLIST;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.status.Status;
 
 /**
  * An UI component that displays information of a {@code InternshipApplication}.
@@ -42,20 +50,43 @@ public class InternshipApplicationCard extends UiPart<Region> {
     @FXML
     private Label priority;
     @FXML
-    private Label status;
+    private FlowPane status;
 
     public InternshipApplicationCard(InternshipApplication internshipApplication, int displayedIndex) {
         super(FXML);
         this.internshipApplication = internshipApplication;
         id.setText(displayedIndex + ". ");
         company.setText(internshipApplication.getCompany().fullCompany);
-        phone.setText(internshipApplication.getPhone().value);
-        address.setText(internshipApplication.getAddress().value);
-        email.setText(internshipApplication.getEmail().value);
         role.setText(internshipApplication.getRole().fullRole);
-        priority.setText(Integer.toString(internshipApplication.getPriority().fullPriority));
-        applicationDate.setText(internshipApplication.getApplicationDate().toString());
-        status.setText(internshipApplication.getStatus().toString() + internshipApplication.getLastStageMessage());
+        Label statusLabel = getStatusLabel(internshipApplication.getStatus());
+        status.getChildren().add(statusLabel);
+    }
+
+    private static Label getStatusLabel(Status status) {
+        Label statusLabel = new Label(status.toString().toLowerCase());
+        switch (status) {
+        case WISHLIST:
+            statusLabel.setStyle("-fx-background-color: DARKORCHID");
+            break;
+        case APPLIED:
+            statusLabel.setStyle("-fx-background-color: DARKSALMON");
+            break;
+        case INTERVIEW:
+            statusLabel.setStyle("-fx-background-color: #3e7b91");
+            break;
+        case OFFERED:
+            statusLabel.setStyle("-fx-background-color: GREEN");
+            break;
+        case REJECTED:
+            statusLabel.setStyle("-fx-background-color: DARKRED");
+            break;
+        case GHOSTED:
+            statusLabel.setStyle("-fx-background-color: SLATEGRAY");
+            break;
+        default:
+            break;
+        }
+        return statusLabel;
     }
 
     @Override
