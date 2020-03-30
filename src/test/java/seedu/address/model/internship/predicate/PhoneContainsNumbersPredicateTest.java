@@ -19,16 +19,16 @@ public class PhoneContainsNumbersPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("12345", "67890");
 
         PhoneContainsNumbersPredicate firstPredicate =
-                new PhoneContainsNumbersPredicate(firstPredicateKeywordList);
+            new PhoneContainsNumbersPredicate(firstPredicateKeywordList);
         PhoneContainsNumbersPredicate secondPredicate =
-                new PhoneContainsNumbersPredicate(secondPredicateKeywordList);
+            new PhoneContainsNumbersPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         PhoneContainsNumbersPredicate firstPredicateCopy =
-                new PhoneContainsNumbersPredicate(firstPredicateKeywordList);
+            new PhoneContainsNumbersPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class PhoneContainsNumbersPredicateTest {
     public void test_phoneContainsNumbers_returnsTrue() {
         // Full number
         PhoneContainsNumbersPredicate predicate =
-                new PhoneContainsNumbersPredicate(Collections.singletonList("12345"));
+            new PhoneContainsNumbersPredicate(Collections.singletonList("12345"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withPhone("12345").build()));
 
         // One number
@@ -73,11 +73,11 @@ public class PhoneContainsNumbersPredicateTest {
 
         // Keywords match company, role, email, address, priority and status, but does not match phone
         predicate = new PhoneContainsNumbersPredicate(Arrays.asList("Google", "Software", "Engineer",
-                "alice@email.com", "Main", "Street", "8", "APPLIED"));
+            "alice@email.com", "Main", "Street", "8", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
-                .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withPriority("8")
-                .withStatus("APPLIED").build()));
+            .withRole("Software Engineer").withPhone("12345")
+            .withEmail("alice@email.com").withAddress("Main Street").withPriority("8")
+            .withStatus("APPLIED").build()));
     }
 
     @Test

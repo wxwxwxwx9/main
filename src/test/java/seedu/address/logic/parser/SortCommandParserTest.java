@@ -23,14 +23,14 @@ public class SortCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidArg_throwsParseException() {
         // includes more than a single Prefix
         assertParseFailure(parser, " " + PREFIX_COMPANY.toString() + " " + PREFIX_DATE.toString(),
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class SortCommandParserTest {
 
         expectedSortCommand = new SortCommand(new CompanyComparator().reversed());
         assertParseSuccess(parser, SortCommand.REVERSE_KEYWORD + " "
-                + PREFIX_COMPANY.toString(), expectedSortCommand);
+            + PREFIX_COMPANY.toString(), expectedSortCommand);
     }
 
 }

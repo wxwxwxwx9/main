@@ -58,7 +58,7 @@ public class InternshipDiaryParserTest {
     public void parseCommand_add() throws Exception {
         InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
         AddCommand command = (AddCommand) parser
-                .parseCommand(InternshipApplicationUtil.getAddCommand(internshipApplication));
+            .parseCommand(InternshipApplicationUtil.getAddCommand(internshipApplication));
         assertEquals(new AddCommand(internshipApplication), command);
     }
 
@@ -71,7 +71,7 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
     }
 
@@ -79,10 +79,10 @@ public class InternshipDiaryParserTest {
     public void parseCommand_edit() throws Exception {
         InternshipApplication internshipApplication = new InternshipApplicationBuilder().build();
         EditCommand.EditInternshipDescriptor descriptor =
-                new EditInternshipDescriptorBuilder(internshipApplication).build();
+            new EditInternshipDescriptorBuilder(internshipApplication).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " "
-                + InternshipApplicationUtil.getEditInternshipApplicationDescriptorDetails(descriptor));
+            + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " "
+            + InternshipApplicationUtil.getEditInternshipApplicationDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, descriptor), command);
     }
 
@@ -95,18 +95,18 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("c/google", "r/engineer", "a/main", "p/12345", "e/alice", "d/01 02 2020",
-                "w/5", "s/Active");
+            "w/5", "s/Active");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(List.of(new CompanyContainsKeywordsPredicate(Arrays.asList("google")),
-                new RoleContainsKeywordsPredicate(Arrays.asList("engineer")),
-                new AddressContainsKeywordsPredicate(Arrays.asList("main")),
-                new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
-                new EmailContainsKeywordsPredicate(Arrays.asList("alice")),
-                new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01)),
-                new PriorityContainsNumbersPredicate(Arrays.asList("5")),
-                new StatusContainsKeywordsPredicate(Arrays.asList("Active"))),
-                false), command);
+            new RoleContainsKeywordsPredicate(Arrays.asList("engineer")),
+            new AddressContainsKeywordsPredicate(Arrays.asList("main")),
+            new PhoneContainsNumbersPredicate(Arrays.asList("12345")),
+            new EmailContainsKeywordsPredicate(Arrays.asList("alice")),
+            new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01)),
+            new PriorityContainsNumbersPredicate(Arrays.asList("5")),
+            new StatusContainsKeywordsPredicate(Arrays.asList("Active"))),
+            false), command);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_interview_list() throws Exception {
         InterviewListCommand command = (InterviewListCommand) parser.parseCommand(InterviewCommand.COMMAND_WORD
-                + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " list");
+            + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " list");
         assertEquals(new InterviewListCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
     }
 
@@ -132,15 +132,15 @@ public class InternshipDiaryParserTest {
     public void parseCommand_interview_add() throws Exception {
         Interview interview = new InterviewBuilder().build();
         InterviewAddCommand command = (InterviewAddCommand)
-                parser.parseCommand(InterviewUtil.getAddCommand(interview));
+            parser.parseCommand(InterviewUtil.getAddCommand(interview));
         assertEquals(new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, interview), command);
     }
 
     @Test
     public void parseCommand_interview_delete() throws Exception {
         InterviewDeleteCommand command = (InterviewDeleteCommand) parser.parseCommand(
-                InterviewCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased()
-                        + " delete " + INDEX_FIRST_INTERVIEW.getOneBased());
+            InterviewCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased()
+                + " delete " + INDEX_FIRST_INTERVIEW.getOneBased());
         assertEquals(new InterviewDeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, INDEX_FIRST_INTERVIEW), command);
     }
 
@@ -148,14 +148,14 @@ public class InternshipDiaryParserTest {
     public void parseCommand_interview_edit() throws Exception {
         Interview interview = new InterviewBuilder().build();
         InterviewEditCommand.EditInterviewDescriptor descriptor =
-                new EditInterviewDescriptorBuilder(interview).build();
+            new EditInterviewDescriptorBuilder(interview).build();
         InterviewEditCommand command = (InterviewEditCommand) parser.parseCommand(
-                InterviewCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
-                        + INDEX_FIRST_INTERVIEW.getOneBased()
-                        + " " + InterviewUtil.getEditInterviewApplicationDescriptorDetails(descriptor));
+            InterviewCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " edit "
+                + INDEX_FIRST_INTERVIEW.getOneBased()
+                + " " + InterviewUtil.getEditInterviewApplicationDescriptorDetails(descriptor));
         assertEquals(new InterviewEditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
-                INDEX_FIRST_INTERVIEW, descriptor), command);
+            INDEX_FIRST_INTERVIEW, descriptor), command);
     }
 
     @Test
@@ -167,14 +167,14 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_archive() throws Exception {
         ArchiveCommand command = (ArchiveCommand) parser.parseCommand(
-                ArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+            ArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
         assertEquals(new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
     }
 
     @Test
     public void parseCommand_unarchive() throws Exception {
         UnarchiveCommand command = (UnarchiveCommand) parser.parseCommand(
-                UnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+            UnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
         assertEquals(new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
     }
 
@@ -187,8 +187,8 @@ public class InternshipDiaryParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () ->
-                        parser.parseCommand(""));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () ->
+                parser.parseCommand(""));
     }
 
     @Test

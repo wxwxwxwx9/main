@@ -53,7 +53,7 @@ public class InternshipApplicationBuilder {
         email = new Email(DEFAULT_EMAIL);
         try {
             applicationDate = new ApplicationDate(LocalDate.parse(DEFAULT_APPLICATION_DATE,
-                    DateTimeFormatter.ofPattern("dd MM yyyy")));
+                DateTimeFormatter.ofPattern("dd MM yyyy")));
         } catch (DateTimeParseException e) {
             e.printStackTrace();
         }
@@ -151,7 +151,7 @@ public class InternshipApplicationBuilder {
     public InternshipApplicationBuilder withApplicationDate(String applicationDate) {
         try {
             this.applicationDate = new ApplicationDate(LocalDate.parse(applicationDate, DateTimeFormatter.ofPattern(
-                    "dd MM yyyy")));
+                "dd MM yyyy")));
             return this;
         } catch (DateTimeParseException e) {
             System.err.println("error in parsing date");
@@ -215,8 +215,8 @@ public class InternshipApplicationBuilder {
      */
     public InternshipApplication buildWithInterviews() {
         InternshipApplication internshipApplication =
-                new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
-        for (Interview interview: interviews) {
+            new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
+        for (Interview interview : interviews) {
             internshipApplication.addInterview(interview);
         }
         return internshipApplication;
@@ -224,6 +224,7 @@ public class InternshipApplicationBuilder {
 
     /**
      * Returns the earliest interview from today in the list of interviews of the application.
+     *
      * @param todayDate The current date today.
      * @return an Optional of LocalDate. Will return empty if there are no interviews after today's date.
      */
@@ -233,15 +234,15 @@ public class InternshipApplicationBuilder {
         }
 
         Interview earliestInterview = interviews.get(0);
-        for (Interview currentInterview: interviews) {
+        for (Interview currentInterview : interviews) {
             LocalDate earliestDate = earliestInterview.getInterviewDate();
             LocalDate currentDate = currentInterview.getInterviewDate();
             if ((currentDate.compareTo(earliestDate) <= 0 || earliestDate.compareTo(todayDate) < 0)
-                    && currentDate.compareTo(todayDate) >= 0) {
+                && currentDate.compareTo(todayDate) >= 0) {
                 earliestInterview = currentInterview;
             }
         }
         return earliestInterview.getInterviewDate().compareTo(todayDate) >= 0
-                ? Optional.of(earliestInterview) : Optional.empty();
+            ? Optional.of(earliestInterview) : Optional.empty();
     }
 }

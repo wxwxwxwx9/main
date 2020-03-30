@@ -52,28 +52,28 @@ public class AddCommandParserTest {
 
         //whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // multiple companies - last company accepted
         assertParseSuccess(parser, COMPANY_DESC_AMY + COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                        + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                        + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // Add new test cases for Role, Priority, Date, Status
     }
@@ -86,26 +86,26 @@ public class AddCommandParserTest {
         // missing phone
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withPhone("").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // missing email
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withEmail("").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                        + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // missing address
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withAddress("").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
 
         // missing priority
         expectedInternshipApplication = new InternshipApplicationBuilder(BOB).withPriority("5").build();
         assertParseSuccess(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + ROLE_DESC_BOB + DATE_DESC_BOB + STATUS_DESC_BOB,
-                new AddCommand(expectedInternshipApplication));
+                + ROLE_DESC_BOB + DATE_DESC_BOB + STATUS_DESC_BOB,
+            new AddCommand(expectedInternshipApplication));
     }
 
     @Test
@@ -114,38 +114,38 @@ public class AddCommandParserTest {
 
         // missing company prefix
         assertParseFailure(parser, VALID_COMPANY_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
+            + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
         // missing role prefix
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + VALID_ROLE_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
+            + VALID_ROLE_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
         // missing date prefix
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + VALID_DATE_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
+            + ROLE_DESC_BOB + VALID_DATE_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, expectedMessage);
 
         // missing status prefix
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + VALID_STATUS_BOB, expectedMessage);
+            + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + VALID_STATUS_BOB, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_COMPANY_BOB + VALID_ROLE_BOB + VALID_DATE_BOB + VALID_STATUS_BOB,
-                expectedMessage);
+            expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid company
         assertParseFailure(parser, INVALID_COMPANY_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Company.MESSAGE_CONSTRAINTS);
+            + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Company.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, COMPANY_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Phone.MESSAGE_CONSTRAINTS);
+            + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
+            + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
 
         // no invalid address
         // assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
@@ -153,30 +153,30 @@ public class AddCommandParserTest {
 
         // invalid role
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_ROLE_DESC + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Role.MESSAGE_CONSTRAINTS);
+            + INVALID_ROLE_DESC + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB, Role.MESSAGE_CONSTRAINTS);
 
         // invalid date
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + ROLE_DESC_BOB + INVALID_DATE_DESC + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                "Date should be in the form: DD MM YYYY");
+                + ROLE_DESC_BOB + INVALID_DATE_DESC + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            "Date should be in the form: DD MM YYYY");
 
         // invalid priority
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + ROLE_DESC_BOB + DATE_DESC_BOB + INVALID_PRIORITY_DESC + STATUS_DESC_BOB,
-                Priority.MESSAGE_CONSTRAINTS);
+                + ROLE_DESC_BOB + DATE_DESC_BOB + INVALID_PRIORITY_DESC + STATUS_DESC_BOB,
+            Priority.MESSAGE_CONSTRAINTS);
 
         // invalid status
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
+            + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_COMPANY_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + VALID_ADDRESS_BOB + INVALID_ROLE_DESC + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                Company.MESSAGE_CONSTRAINTS);
+                + VALID_ADDRESS_BOB + INVALID_ROLE_DESC + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            Company.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                + ADDRESS_DESC_BOB + ROLE_DESC_BOB + DATE_DESC_BOB + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

@@ -19,16 +19,16 @@ public class CompanyContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         CompanyContainsKeywordsPredicate firstPredicate =
-                new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
+            new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
         CompanyContainsKeywordsPredicate secondPredicate =
-                new CompanyContainsKeywordsPredicate(secondPredicateKeywordList);
+            new CompanyContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         CompanyContainsKeywordsPredicate firstPredicateCopy =
-                new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
+            new CompanyContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class CompanyContainsKeywordsPredicateTest {
     public void test_companyContainsKeywords_returnsTrue() {
         // One keyword
         CompanyContainsKeywordsPredicate predicate =
-                new CompanyContainsKeywordsPredicate(Collections.singletonList("Google"));
+            new CompanyContainsKeywordsPredicate(Collections.singletonList("Google"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withCompany("Google").build()));
 
         // Multiple keywords
@@ -73,11 +73,11 @@ public class CompanyContainsKeywordsPredicateTest {
 
         // Keywords match role, phone, email, address, priority and status, but does not match company
         predicate = new CompanyContainsKeywordsPredicate(Arrays.asList("Software", "Engineer", "12345",
-                "alice@email.com", "Main", "Street", "1", "APPLIED"));
+            "alice@email.com", "Main", "Street", "1", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
-                .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
-                .withStatus("APPLIED").build()));
+            .withRole("Software Engineer").withPhone("12345")
+            .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+            .withStatus("APPLIED").build()));
     }
 
     @Test

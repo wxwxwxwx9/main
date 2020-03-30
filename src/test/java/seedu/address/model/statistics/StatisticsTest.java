@@ -25,29 +25,29 @@ import seedu.address.testutil.InternshipApplicationBuilder;
 public class StatisticsTest {
 
     private static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder()
-            .withCompany("Facebook")
-            .withStatus(Status.WISHLIST)
-            .build();
+        .withCompany("Facebook")
+        .withStatus(Status.WISHLIST)
+        .build();
     private static final InternshipApplication APPLE = new InternshipApplicationBuilder()
-            .withCompany("Apple")
-            .withStatus(Status.APPLIED)
-            .build();
+        .withCompany("Apple")
+        .withStatus(Status.APPLIED)
+        .build();
     private static final InternshipApplication AMAZON = new InternshipApplicationBuilder()
-            .withCompany("Amazon")
-            .withStatus(Status.INTERVIEW)
-            .build();
+        .withCompany("Amazon")
+        .withStatus(Status.INTERVIEW)
+        .build();
     private static final InternshipApplication NETFLIX = new InternshipApplicationBuilder()
-            .withCompany("Netflix")
-            .withStatus(Status.OFFERED)
-            .build();
+        .withCompany("Netflix")
+        .withStatus(Status.OFFERED)
+        .build();
     private static final InternshipApplication GOOGLE = new InternshipApplicationBuilder()
-            .withCompany("Google")
-            .withStatus(Status.REJECTED)
-            .build();
+        .withCompany("Google")
+        .withStatus(Status.REJECTED)
+        .build();
     private static final InternshipApplication SHOPEE = new InternshipApplicationBuilder()
-            .withCompany("Shopee")
-            .withStatus(Status.GHOSTED)
-            .build();
+        .withCompany("Shopee")
+        .withStatus(Status.GHOSTED)
+        .build();
 
     private Statistics statistics;
     private Statistics expectedStatistics;
@@ -128,10 +128,10 @@ public class StatisticsTest {
      */
     private void computeActualStatusCount() {
         List<Status> statuses = model.getFilteredInternshipApplicationList().stream()
-                .map(ia -> {
-                    return ia.getStatus();
-                })
-                .collect(Collectors.toList());
+            .map(ia -> {
+                return ia.getStatus();
+            })
+            .collect(Collectors.toList());
         statuses.forEach((status) -> {
             int count = statusCount.get(status);
             statusCount.put(status, ++count);

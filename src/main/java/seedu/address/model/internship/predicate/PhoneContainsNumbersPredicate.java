@@ -1,5 +1,7 @@
 package seedu.address.model.internship.predicate;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -34,5 +36,13 @@ public class PhoneContainsNumbersPredicate implements Predicate<InternshipApplic
 
     public boolean isNull() {
         return numbers == null;
+    }
+
+    @Override
+    public String toString() {
+        if (isNull()) {
+            return PREFIX_PHONE.toString();
+        }
+        return PREFIX_PHONE + String.join(" ", numbers);
     }
 }

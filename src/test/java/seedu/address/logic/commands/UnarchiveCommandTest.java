@@ -63,7 +63,7 @@ public class UnarchiveCommandTest {
         }
 
         InternshipApplication archivedInternshipApplication =
-                expectedModel.getAllInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            expectedModel.getAllInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
         assertTrue(!archivedInternshipApplication.isArchived());
     }
@@ -98,7 +98,7 @@ public class UnarchiveCommandTest {
 
         // expected model
         InternshipApplication ia = expectedModel.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         expectedModel.unarchiveInternshipApplication(ia);
         expectedModel.viewUnarchivedInternshipApplicationList();
 
@@ -115,14 +115,15 @@ public class UnarchiveCommandTest {
 
         // expected model
         InternshipApplication ia = expectedModel.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         expectedModel.unarchiveInternshipApplication(ia);
 
         String expectedMessage =
-                String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, ia);
+            String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, ia);
 
         // default view is unarchived so we can use assertCommandSuccess
-        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);;
+        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
+        ;
     }
 
     @Test
