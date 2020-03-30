@@ -2,6 +2,7 @@ package seedu.address.logic.comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,5 +93,10 @@ public class StatusComparatorTest {
         Collections.addAll(sorted, google1, facebook1, google2, facebook2);
 
         assertEquals(sorted, unsorted);
+    }
+
+    @Test
+    public void toString_returnsPrefix() {
+        assertEquals(new StatusComparator().toString(), PREFIX_STATUS.getPrefix());
     }
 }
