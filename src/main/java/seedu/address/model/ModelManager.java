@@ -46,8 +46,8 @@ public class ModelManager implements Model, PropertyChangeListener {
         logger.fine("Initializing with internship diary: " + internshipDiary + " and user prefs " + userPrefs);
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
-        // model manager listens to internshipdiary for any changes to its displayedInternships
-        this.internshipDiary.addPropertyChangeListener(this);
+        // Model manager listens to any changes in displayedInternships in internshipdiary
+        this.internshipDiary.addDisplayedInternshipsPropertyChangeListener(this);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
         filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getDisplayedInternshipList());
@@ -207,11 +207,9 @@ public class ModelManager implements Model, PropertyChangeListener {
         return internshipDiary.getCurrentView();
     }
 
-    /**
-     * Adds a property listener for any changes in ModelManager.
-     */
-    public void addPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener("displayedInternships", l);
+    @Override
+    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("filteredInternshipApplications", l);
     }
 
     @Override
@@ -221,7 +219,10 @@ public class ModelManager implements Model, PropertyChangeListener {
 
     /**
      * Receives the latest changes in displayed internships from internship diary.
-     * Updates the filtered and sorted internship applications accordingly.
+     * Updates the filtered and sorted internship applications accordingly
+     * and fires property change event to its listeners.
+     *
+     * @param e event that describes the changes in the updated property.
      */
     @SuppressWarnings("unchecked")
     @Override

@@ -190,7 +190,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPropertyChangeListener(PropertyChangeListener l) {
+        public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }
 
