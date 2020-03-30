@@ -58,13 +58,19 @@ public class InternshipApplicationCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         company.setText(internshipApplication.getCompany().fullCompany);
         role.setText(internshipApplication.getRole().fullRole);
-        Label statusLabel = getStatusLabel(internshipApplication.getStatus());
+        Label statusLabel = getStatusLabel();
         status.getChildren().add(statusLabel);
     }
 
-    private static Label getStatusLabel(Status status) {
-        Label statusLabel = new Label(status.toString().toLowerCase());
-        switch (status) {
+    /**
+     * Gets the status label colored based on the status of the internship application.
+     *
+     * @return the status label colored based on the status of the internship application
+     */
+    private Label getStatusLabel() {
+        Status internshipApplicationStatus = internshipApplication.getStatus();
+        Label statusLabel = new Label(internshipApplicationStatus.toString().toLowerCase());
+        switch (internshipApplicationStatus) {
         case WISHLIST:
             statusLabel.setStyle("-fx-background-color: #cd70ff");
             break;
