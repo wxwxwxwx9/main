@@ -27,7 +27,8 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
 
-        assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model);
+        assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model,
+                INDEX_FIRST_INTERNSHIP_APPLICATION);
     }
 
     @Test
@@ -41,7 +42,8 @@ public class SelectCommandTest {
     public void execute_validIndexFilteredList_success() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-        assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model);
+        assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model,
+                INDEX_FIRST_INTERNSHIP_APPLICATION);
     }
 
     @Test

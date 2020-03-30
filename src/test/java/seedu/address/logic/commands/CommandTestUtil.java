@@ -141,6 +141,15 @@ public class CommandTestUtil {
     }
 
     /**
+     * Compares to a command that takes in an Index to display
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel, Index index) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, index);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>

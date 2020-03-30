@@ -47,7 +47,7 @@ public class EditCommandTest {
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),
                 editedInternshipApplication);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, INDEX_FIRST_INTERNSHIP_APPLICATION);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(lastInternshipApplication, editedInternshipApplication);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, indexLastInternship);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, INDEX_FIRST_INTERNSHIP_APPLICATION);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class EditCommandTest {
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),
                 editedInternshipApplication);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, INDEX_FIRST_INTERNSHIP_APPLICATION);
     }
 
     @Test
