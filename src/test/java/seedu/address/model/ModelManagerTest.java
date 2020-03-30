@@ -95,7 +95,7 @@ public class ModelManagerTest {
         modelManager.addInternshipApplication(GOOGLE);
         modelManager.archiveInternshipApplication(GOOGLE);
         InternshipApplication newArchivedGoogleApplication =
-                modelManager.getInternshipDiary().getInternshipList().get(0);
+                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
 
         assertTrue(newArchivedGoogleApplication.isArchived());
     }
@@ -105,10 +105,10 @@ public class ModelManagerTest {
         modelManager.addInternshipApplication(GOOGLE);
         modelManager.archiveInternshipApplication(GOOGLE);
         InternshipApplication newArchivedGoogleApplication =
-                modelManager.getInternshipDiary().getInternshipList().get(0);
+                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         modelManager.unarchiveInternshipApplication(newArchivedGoogleApplication);
         InternshipApplication newUnarchivedGoogleApplication =
-                modelManager.getInternshipDiary().getInternshipList().get(0);
+                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         assertTrue(!newUnarchivedGoogleApplication.isArchived());
     }
 

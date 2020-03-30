@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showInternshipApplicationAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
@@ -28,18 +29,22 @@ public class ArchivalCommandTest {
     }
 
     @Test
-    public void execute_noArchivedInternshipApplication_archivalShowsEmptyList() {
-        expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+    public void execute_archivalIsNotFiltered_showsSameArchival() {
+        model.viewArchivedInternshipApplicationList();
+        expectedModel.viewArchivedInternshipApplicationList();
         assertCommandSuccess(new ArchivalCommand(), model, ArchivalCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_archiveOneInternshipApplication_archivalShowsOneArchivedInternshipApplication() {
-        InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-        model.archiveInternshipApplication(internshipApplication);
-        expectedModel.archiveInternshipApplication(internshipApplication);
-        expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+    public void execute_archivalIsFiltered_showsEverythingInArchival() {
+        model.viewArchivedInternshipApplicationList();
+        expectedModel.viewArchivedInternshipApplicationList();
+        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
+        assertCommandSuccess(new ArchivalCommand(), model, ArchivalCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_inMainListView_showsArchivalList() {
         assertCommandSuccess(new ArchivalCommand(), model, ArchivalCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

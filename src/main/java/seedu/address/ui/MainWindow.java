@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyInternshipDiary;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
+    private StatisticsBarFooter statisticsBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -76,6 +78,16 @@ public class MainWindow extends UiPart<Stage> {
         statisticsWindow = new StatisticsWindow(logic.getStatistics(), logic.getFilteredInternshipApplicationList());
 
         setSplitPaneDefaultSplit(0.2);
+    }
+
+    /**
+     * Initializes the relevant UI objects to listen to internship diary for property changes.
+     */
+    public void initListeners() {
+        ReadOnlyInternshipDiary internshipDiary = logic.getInternshipDiary();
+        internshipDiary.addPropertyChangeListener(internshipApplicationListPanel);
+        internshipDiary.addPropertyChangeListener(statisticsWindow);
+        internshipDiary.addPropertyChangeListener(statisticsBarFooter);
     }
 
     public Stage getPrimaryStage() {
@@ -146,7 +158,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        StatisticsBarFooter statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
+        statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
                 logic.getFilteredInternshipApplicationList());
         statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
 

@@ -45,7 +45,7 @@ public class Statistics {
     /**
      * Computes and updates the count for each internship application status.
      *
-     * @param internshipApplicationList
+     * @param internshipApplicationList list of existing internship application(s).
      */
     public void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {
         List<Status> newStatuses = internshipApplicationList.stream()

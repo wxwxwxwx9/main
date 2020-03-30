@@ -51,7 +51,7 @@ public class SampleDataUtil {
     public static ReadOnlyInternshipDiary getSampleInternshipDiary() {
         InternshipDiary sampleDiary = new InternshipDiary();
         for (InternshipApplication sampleApplication : getSampleInternshipApplications()) {
-            sampleDiary.addInternshipApplication(sampleApplication);
+            sampleDiary.loadInternshipApplication(sampleApplication);
         }
         return sampleDiary;
     }
