@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
+import static seedu.address.model.ListenerPropertyType.PREDICATE;
+
 import java.util.logging.Logger;
 
 import javafx.beans.value.ChangeListener;
@@ -16,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -45,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsWindow statisticsWindow;
     private StatisticsBarFooter statisticsBarFooter;
     private ComparatorDisplayFooter comparatorDisplayFooter;
+    private PredicateDisplayFooter predicateDisplayFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -71,10 +77,13 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane statisticsPlaceholder;
+    private StackPane comparatorDisplayPlaceholder;
 
     @FXML
-    private StackPane comparatorDisplayPlaceholder;
+    private StackPane predicateDisplayPlaceholder;
+
+    @FXML
+    private StackPane statisticsPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -98,10 +107,11 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes the relevant UI objects to listen for property changes.
      */
     public void initListeners() {
-        logic.addFilteredInternshipApplicationsPropertyChangeListener(internshipApplicationListPanel);
-        logic.addFilteredInternshipApplicationsPropertyChangeListener(statisticsWindow);
-        logic.addFilteredInternshipApplicationsPropertyChangeListener(statisticsBarFooter);
-        logic.addComparatorPropertyChangeListener(comparatorDisplayFooter);
+        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, internshipApplicationListPanel);
+        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsWindow);
+        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsBarFooter);
+        logic.addPropertyChangeListener(COMPARATOR, comparatorDisplayFooter);
+        logic.addPropertyChangeListener(PREDICATE, predicateDisplayFooter);
     }
 
     public Stage getPrimaryStage() {
@@ -163,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         internshipApplicationListPanel = new InternshipApplicationListPanel(
-                logic.getFilteredInternshipApplicationList());
+            logic.getFilteredInternshipApplicationList());
         internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
 
         ListView<InternshipApplication> internshipApplicationListView = internshipApplicationListPanel
@@ -185,11 +195,14 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
-                logic.getFilteredInternshipApplicationList());
+            logic.getFilteredInternshipApplicationList());
         statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
 
         comparatorDisplayFooter = new ComparatorDisplayFooter();
         comparatorDisplayPlaceholder.getChildren().add(comparatorDisplayFooter.getRoot());
+
+        predicateDisplayFooter = new PredicateDisplayFooter();
+        predicateDisplayPlaceholder.getChildren().add(predicateDisplayFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -241,7 +254,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         statisticsWindow.hide();

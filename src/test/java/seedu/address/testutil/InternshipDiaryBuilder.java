@@ -6,8 +6,8 @@ import seedu.address.model.internship.InternshipApplication;
 /**
  * A utility class to help with building InternshipDiary objects.
  * Example usage: <br>
- *     {@code InternshipDiary diary =
- *     new InternshipDiaryBuilder().withInternshipApplication(new InternshipApplication("Google", ...)).build();}
+ * {@code InternshipDiary diary =
+ * new InternshipDiaryBuilder().withInternshipApplication(new InternshipApplication("Google", ...)).build();}
  */
 public class InternshipDiaryBuilder {
 

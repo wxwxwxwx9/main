@@ -19,16 +19,16 @@ public class AddressContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         AddressContainsKeywordsPredicate firstPredicate =
-                new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
+            new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
         AddressContainsKeywordsPredicate secondPredicate =
-                new AddressContainsKeywordsPredicate(secondPredicateKeywordList);
+            new AddressContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         AddressContainsKeywordsPredicate firstPredicateCopy =
-                new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
+            new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class AddressContainsKeywordsPredicateTest {
     public void test_addressContainsKeywords_returnsTrue() {
         // One keyword
         AddressContainsKeywordsPredicate predicate =
-                new AddressContainsKeywordsPredicate(Collections.singletonList("Clementi"));
+            new AddressContainsKeywordsPredicate(Collections.singletonList("Clementi"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withAddress("Clementi").build()));
 
         // Multiple keywords
@@ -66,20 +66,20 @@ public class AddressContainsKeywordsPredicateTest {
         // Zero keywords
         AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate
-                .test(new InternshipApplicationBuilder().withAddress("Blk 456, Den Road, #01-355").build()));
+            .test(new InternshipApplicationBuilder().withAddress("Blk 456, Den Road, #01-355").build()));
 
         // Non-matching keyword
         predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Clementi"));
         assertFalse(predicate
-                .test(new InternshipApplicationBuilder().withAddress("Blk 456, Den Road, #01-355").build()));
+            .test(new InternshipApplicationBuilder().withAddress("Blk 456, Den Road, #01-355").build()));
 
         // Keywords match company, role, phone, email, priority and status, but does not match address
         predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Google", "Software",
-                "Engineer", "12345", "alice@email.com", "1", "APPLIED"));
+            "Engineer", "12345", "alice@email.com", "1", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
-                .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
-                .withStatus("APPLIED").build()));
+            .withRole("Software Engineer").withPhone("12345")
+            .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+            .withStatus("APPLIED").build()));
     }
 
     @Test

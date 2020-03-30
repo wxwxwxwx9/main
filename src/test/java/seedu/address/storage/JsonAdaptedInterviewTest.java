@@ -30,7 +30,7 @@ public class JsonAdaptedInterviewTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedInterview interview = new JsonAdaptedInterview(INVALID_ADDRESS,
-                VALID_IS_ONLINE, VALID_DATE);
+            VALID_IS_ONLINE, VALID_DATE);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, interview::toModelType);
     }
@@ -38,7 +38,7 @@ public class JsonAdaptedInterviewTest {
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
         JsonAdaptedInterview interview = new JsonAdaptedInterview(null,
-                VALID_IS_ONLINE, VALID_DATE);
+            VALID_IS_ONLINE, VALID_DATE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, interview::toModelType);
     }
@@ -46,7 +46,7 @@ public class JsonAdaptedInterviewTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedInterview interview = new JsonAdaptedInterview(VALID_ADDRESS,
-                VALID_IS_ONLINE, INVALID_DATE);
+            VALID_IS_ONLINE, INVALID_DATE);
         String expectedMessage = ApplicationDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, interview::toModelType);
     }
@@ -54,7 +54,7 @@ public class JsonAdaptedInterviewTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedInterview interview = new JsonAdaptedInterview(VALID_ADDRESS,
-                VALID_IS_ONLINE, null);
+            VALID_IS_ONLINE, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ApplicationDate.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, interview::toModelType);
     }
@@ -62,7 +62,7 @@ public class JsonAdaptedInterviewTest {
     @Test
     public void toModelType_invalidIsOnline_throwsIllegalValueException() {
         JsonAdaptedInterview interview = new JsonAdaptedInterview(VALID_ADDRESS,
-                INVALID_IS_ONLINE, VALID_DATE);
+            INVALID_IS_ONLINE, VALID_DATE);
         String expectedMessage = BooleanUtil.INVALID_BOOLEAN;
         assertThrows(IllegalValueException.class, expectedMessage, interview::toModelType);
     }
@@ -70,7 +70,7 @@ public class JsonAdaptedInterviewTest {
     @Test
     public void toModelType_nullIsOnline_throwsIllegalValueException() {
         JsonAdaptedInterview interview = new JsonAdaptedInterview(VALID_ADDRESS,
-                null, VALID_DATE);
+            null, VALID_DATE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Boolean.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, interview::toModelType);
     }

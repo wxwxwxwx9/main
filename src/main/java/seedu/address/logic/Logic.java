@@ -4,10 +4,12 @@ import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ListenerPropertyType;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
@@ -36,14 +38,9 @@ public interface Logic {
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
-     * Adds a property listener for any changes in comparator used.
+     * Adds a property listener for any changes in {@code propertyType} used.
      */
-    void addComparatorPropertyChangeListener(PropertyChangeListener l);
-
-    /**
-     * Adds a property listener for any changes in filtered internship applications.
-     */
-    void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l);
+    void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l);
 
     /**
      * Returns the user prefs' internship diary file path.

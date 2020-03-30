@@ -37,15 +37,15 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         InternshipApplication editedInternshipApplication = new InternshipApplicationBuilder().build();
         EditInternshipDescriptor descriptor =
-                new EditInternshipDescriptorBuilder(editedInternshipApplication).build();
+            new EditInternshipDescriptorBuilder(editedInternshipApplication).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
-                editedInternshipApplication);
+            editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),
-                editedInternshipApplication);
+            editedInternshipApplication);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, editedInternshipApplication);
     }
@@ -54,20 +54,20 @@ public class EditCommandTest {
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastInternship = Index.fromOneBased(model.getFilteredInternshipApplicationList().size());
         InternshipApplication lastInternshipApplication =
-                model.getFilteredInternshipApplicationList().get(indexLastInternship.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(indexLastInternship.getZeroBased());
 
         InternshipApplicationBuilder internshipApplicationInList =
-                new InternshipApplicationBuilder(lastInternshipApplication);
+            new InternshipApplicationBuilder(lastInternshipApplication);
         InternshipApplication editedInternshipApplication = internshipApplicationInList
-                .withCompany(VALID_COMPANY_BOB).withPhone(VALID_PHONE_BOB)
-                .build();
+            .withCompany(VALID_COMPANY_BOB).withPhone(VALID_PHONE_BOB)
+            .build();
 
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+            .withPhone(VALID_PHONE_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastInternship, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
-                editedInternshipApplication);
+            editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(lastInternshipApplication, editedInternshipApplication);
@@ -79,10 +79,10 @@ public class EditCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, new EditInternshipDescriptor());
         InternshipApplication editedInternshipApplication =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
         String expectedMessage =
-                String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternshipApplication);
+            String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
 
@@ -95,19 +95,19 @@ public class EditCommandTest {
         model.viewUnarchivedInternshipApplicationList();
 
         InternshipApplication internshipApplicationInFilteredList =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         InternshipApplication editedInternshipApplication =
-                new InternshipApplicationBuilder(internshipApplicationInFilteredList)
-                        .withCompany(VALID_COMPANY_BOB).build();
+            new InternshipApplicationBuilder(internshipApplicationInFilteredList)
+                .withCompany(VALID_COMPANY_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
-                new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build());
+            new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INTERNSHIP_SUCCESS,
-                editedInternshipApplication);
+            editedInternshipApplication);
 
         Model expectedModel = new ModelManager(new InternshipDiary(model.getInternshipDiary()), new UserPrefs());
         expectedModel.setInternshipApplication(model.getFilteredInternshipApplicationList().get(0),
-                editedInternshipApplication);
+            editedInternshipApplication);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, editedInternshipApplication);
     }
@@ -115,7 +115,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         InternshipApplication firstInternshipApplication =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder(firstInternshipApplication).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_INTERNSHIP_APPLICATION, descriptor);
 
@@ -128,10 +128,10 @@ public class EditCommandTest {
 
         // edit person in filtered list into a duplicate in address book
         InternshipApplication internshipApplicationInList =
-                model.getInternshipDiary().getDisplayedInternshipList()
-                        .get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getInternshipDiary().getDisplayedInternshipList()
+                .get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
-                new EditInternshipDescriptorBuilder(internshipApplicationInList).build());
+            new EditInternshipDescriptorBuilder(internshipApplicationInList).build());
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_INTERNSHIP);
     }
 
@@ -139,7 +139,7 @@ public class EditCommandTest {
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
         EditCommand.EditInternshipDescriptor descriptor =
-                new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build();
+            new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
@@ -157,7 +157,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipDiary().getDisplayedInternshipList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build());
+            new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }

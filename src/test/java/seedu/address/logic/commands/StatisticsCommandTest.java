@@ -18,7 +18,7 @@ public class StatisticsCommandTest {
     @Test
     public void execute_statistics_success() {
         CommandResult expectedCommandResult = new CommandResult(
-                SHOWING_STATISTICS_MESSAGE, false, true, false
+            SHOWING_STATISTICS_MESSAGE, false, true, false
         );
         assertCommandSuccess(new StatisticsCommand(), model, expectedCommandResult, expectedModel);
     }

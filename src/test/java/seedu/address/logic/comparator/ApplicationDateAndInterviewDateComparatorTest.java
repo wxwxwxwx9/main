@@ -41,16 +41,16 @@ class ApplicationDateAndInterviewDateComparatorTest {
         // with same application date, comparing internship2(with earlier 'earliest interview date') and
         // internship3(with later 'earliest interview date') --> returns negative int
         Interview newInterviewForInternship2 = new Interview(true,
-                new ApplicationDate(currentDate.plus(12, ChronoUnit.DAYS)),
-                new Address("123 Stevens Road"));
+            new ApplicationDate(currentDate.plus(12, ChronoUnit.DAYS)),
+            new Address("123 Stevens Road"));
         Interview anotherInterviewForInternship2 = new Interview(true,
-                new ApplicationDate(currentDate.plus(25, ChronoUnit.DAYS)),
-                new Address("123 Stevens Road"));
+            new ApplicationDate(currentDate.plus(25, ChronoUnit.DAYS)),
+            new Address("123 Stevens Road"));
         internship2.withInterview(newInterviewForInternship2);
         internship2.withInterview(anotherInterviewForInternship2);
         Interview newInterviewForInternship3 = new Interview(true,
-                new ApplicationDate(currentDate.plus(16, ChronoUnit.DAYS)),
-                new Address("123 Stevens Road"));
+            new ApplicationDate(currentDate.plus(16, ChronoUnit.DAYS)),
+            new Address("123 Stevens Road"));
         internship3.withInterview(newInterviewForInternship3);
         Optional<Interview> earliestInterviewForInternship2 = internship2.getEarliestInterview(currentDate);
         assertTrue(earliestInterviewForInternship2.isPresent());
@@ -64,7 +64,7 @@ class ApplicationDateAndInterviewDateComparatorTest {
     @Test
     public void equals() {
         Comparator<InternshipApplication> applicationDateAndInterviewDateComparator =
-                new ApplicationDateAndInterviewDateComparator();
+            new ApplicationDateAndInterviewDateComparator();
 
         // same object -> returns true
         assertEquals(applicationDateAndInterviewDateComparator, applicationDateAndInterviewDateComparator);

@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
+import static seedu.address.model.ListenerPropertyType.PREDICATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.FACEBOOK;
@@ -15,7 +18,9 @@ import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +30,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InternshipDiaryBuilder;
@@ -105,7 +111,7 @@ public class ModelManagerTest {
         modelManager.archiveInternshipApplication(GOOGLE);
         modelManager.viewArchivedInternshipApplicationList();
         InternshipApplication newArchivedGoogleApplication =
-                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
+            modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
 
         assertTrue(newArchivedGoogleApplication.isArchived());
     }
@@ -116,11 +122,11 @@ public class ModelManagerTest {
         modelManager.archiveInternshipApplication(GOOGLE);
         modelManager.viewArchivedInternshipApplicationList();
         InternshipApplication newArchivedGoogleApplication =
-                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
+            modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         modelManager.unarchiveInternshipApplication(newArchivedGoogleApplication);
         modelManager.viewUnarchivedInternshipApplicationList();
         InternshipApplication newUnarchivedGoogleApplication =
-                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
+            modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         assertTrue(!newUnarchivedGoogleApplication.isArchived());
     }
 
@@ -128,6 +134,7 @@ public class ModelManagerTest {
     public void addComparatorPropertyChangeListener_comparatorChanged_listenerCalled() {
         class MockListener implements PropertyChangeListener {
             private Comparator<InternshipApplication> comparator = null;
+
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
@@ -136,7 +143,7 @@ public class ModelManagerTest {
         }
 
         MockListener mockListener = new MockListener();
-        modelManager.addComparatorPropertyChangeListener(mockListener);
+        modelManager.addPropertyChangeListener(COMPARATOR, mockListener);
         assertNull(mockListener.comparator);
         Comparator<InternshipApplication> comparator1 = new CompanyComparator();
         modelManager.updateFilteredInternshipApplicationList(comparator1);
@@ -147,14 +154,39 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addPredicatePropertyChangeListener_comparatorChanged_listenerCalled() {
+        class MockListener implements PropertyChangeListener {
+            private Predicate<InternshipApplication> predicate = null;
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                predicate = (Predicate<InternshipApplication>) e.getNewValue();
+            }
+        }
+
+        MockListener mockListener = new MockListener();
+        modelManager.addPropertyChangeListener(PREDICATE, mockListener);
+        assertNull(mockListener.predicate);
+
+        Predicate<InternshipApplication> addressPredicate =
+            new AddressContainsKeywordsPredicate(Collections.singletonList("first"));
+        modelManager.updateFilteredInternshipApplicationList(addressPredicate);
+        assertSame(addressPredicate, mockListener.predicate);
+
+        modelManager.viewArchivedInternshipApplicationList();
+        assertNull(mockListener.predicate);
+    }
+
+    @Test
     public void addFilteredInternshipApplicationsPropertyChangeListener_propertyChanged_listenerCalled() {
         // create mock listener
         class MockListener implements PropertyChangeListener {
             private ObservableList<InternshipApplication> filteredInternshipApplications = null;
+
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
-                System.out.println("here");
                 filteredInternshipApplications = (ObservableList<InternshipApplication>) e.getNewValue();
             }
         }
@@ -165,14 +197,15 @@ public class ModelManagerTest {
         InternshipDiary mockInternshipDiary = new InternshipDiary();
         mockInternshipDiary.loadInternshipApplication(new InternshipApplicationBuilder().build());
         FilteredList<InternshipApplication> mockInternshipApplicationFilteredList =
-                new FilteredList<>(mockInternshipDiary.getDisplayedInternshipList());
+            new FilteredList<>(mockInternshipDiary.getDisplayedInternshipList());
 
         // add listener
-        modelManager.addFilteredInternshipApplicationsPropertyChangeListener(mockListener);
+        modelManager.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, mockListener);
 
         // create mock property change event
         PropertyChangeEvent e = new PropertyChangeEvent(
-                mockInternshipDiary, "filteredInternshipApplications", null, mockInternshipApplicationFilteredList
+            mockInternshipDiary, FILTERED_INTERNSHIP_APPLICATIONS.toString(), null,
+            mockInternshipApplicationFilteredList
         );
         modelManager.propertyChange(e);
 
@@ -182,15 +215,15 @@ public class ModelManagerTest {
     @Test
     public void getFilteredInternshipApplicationList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
-                modelManager.getFilteredInternshipApplicationList().remove(0));
+            modelManager.getFilteredInternshipApplicationList().remove(0));
     }
 
     @Test
     public void equals() {
         InternshipDiary diary = new InternshipDiaryBuilder()
-                .withInternshipApplication(GOOGLE)
-                .withInternshipApplication(FACEBOOK)
-                .build();
+            .withInternshipApplication(GOOGLE)
+            .withInternshipApplication(FACEBOOK)
+            .build();
         InternshipDiary differentDiary = new InternshipDiary();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -214,7 +247,7 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = GOOGLE.getCompany().fullCompany.split("\\s+");
         modelManager.updateFilteredInternshipApplicationList(
-                new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
+            new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(diary, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

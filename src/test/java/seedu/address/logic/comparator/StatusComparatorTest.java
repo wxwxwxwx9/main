@@ -42,13 +42,13 @@ public class StatusComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withStatus(Status.WISHLIST).build();
+            .withStatus(Status.WISHLIST).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withStatus(Status.APPLIED).build();
+            .withStatus(Status.APPLIED).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withStatus(Status.WISHLIST).build();
+            .withStatus(Status.WISHLIST).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withStatus(Status.OFFERED).build();
+            .withStatus(Status.OFFERED).build();
 
         // same object
         assertEquals(0, statusComparator.compare(google, google));
@@ -77,13 +77,13 @@ public class StatusComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withStatus(Status.WISHLIST).build();
+            .withStatus(Status.WISHLIST).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withStatus(Status.INTERVIEW).build();
+            .withStatus(Status.INTERVIEW).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withStatus(Status.APPLIED).build();
+            .withStatus(Status.APPLIED).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withStatus(Status.OFFERED).build();
+            .withStatus(Status.OFFERED).build();
 
         ArrayList<InternshipApplication> unsorted = new ArrayList<>();
         Collections.addAll(unsorted, google2, google1, facebook1, facebook2);

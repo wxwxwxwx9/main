@@ -35,53 +35,54 @@ import seedu.address.model.status.Status;
 public class TypicalInternshipApplications {
 
     public static final InternshipApplication GOOGLE = new InternshipApplicationBuilder().withCompany("Google")
-            .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
-            .withPhone("94351253").withEmail("larry@google.com")
-            .withStatus(Status.APPLIED)
-            .withApplicationDate(new ApplicationDate(LocalDate.of(2020, 3, 23)))
-            .withPriority(10)
-            .build();
+        .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
+        .withPhone("94351253").withEmail("larry@google.com")
+        .withStatus(Status.APPLIED)
+        .withApplicationDate(new ApplicationDate(LocalDate.of(2020, 3, 23)))
+        .withPriority(10)
+        .build();
     public static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder().withCompany("Facebook")
-            .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
-            .withPhone("99751354").withEmail("mark@google.com")
-            .withStatus(Status.INTERVIEW)
-            .withApplicationDate(new ApplicationDate(LocalDate.of(2020, 3, 25)))
-            .withPriority(8)
-            .build();
+        .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
+        .withPhone("99751354").withEmail("mark@google.com")
+        .withStatus(Status.INTERVIEW)
+        .withApplicationDate(new ApplicationDate(LocalDate.of(2020, 3, 25)))
+        .withPriority(8)
+        .build();
 
     public static final InternshipApplication GOOGLE_WITH_INTERVIEW = new InternshipApplicationBuilder()
-            .withCompany("Google")
-            .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
-            .withPhone("94351253").withEmail("larry@google.com")
-            .withStatus(Status.APPLIED)
-            .withApplicationDate(new ApplicationDate(LocalDate.of(2019, 12, 1)))
-            .withPriority(10)
-            .withInterview(new InterviewBuilder().build())
-            .withInterview(new InterviewBuilder(NUS).build())
-            .buildWithInterviews();
+        .withCompany("Google")
+        .withRole("Software Engineer").withAddress("1600 Amphitheatre Parkway")
+        .withPhone("94351253").withEmail("larry@google.com")
+        .withStatus(Status.APPLIED)
+        .withApplicationDate(new ApplicationDate(LocalDate.of(2019, 12, 1)))
+        .withPriority(10)
+        .withInterview(new InterviewBuilder().build())
+        .withInterview(new InterviewBuilder(NUS).build())
+        .buildWithInterviews();
     public static final InternshipApplication FACEBOOK_WITH_INTERVIEW = new InternshipApplicationBuilder()
-            .withCompany("Facebook")
-            .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
-            .withPhone("99751354").withEmail("mark@google.com")
-            .withStatus(Status.REJECTED)
-            .withApplicationDate(new ApplicationDate(LocalDate.of(2009, 11, 11)))
-            .withPriority(8)
-            .withInterview(new InterviewBuilder().build()).withInterview(new InterviewBuilder(ONLINE).build())
-            .buildWithInterviews();
+        .withCompany("Facebook")
+        .withRole("Product Management").withAddress("1 Hacker Way, Menlo Park")
+        .withPhone("99751354").withEmail("mark@google.com")
+        .withStatus(Status.REJECTED)
+        .withApplicationDate(new ApplicationDate(LocalDate.of(2009, 11, 11)))
+        .withPriority(8)
+        .withInterview(new InterviewBuilder().build()).withInterview(new InterviewBuilder(ONLINE).build())
+        .buildWithInterviews();
 
     // Manually added - Internship's details found in {@code CommandTestUtil}
     public static final InternshipApplication AMY = new InternshipApplicationBuilder()
-            .withCompany(VALID_COMPANY_AMY).withPhone(VALID_PHONE_AMY).withRole(VALID_ROLE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withApplicationDate(VALID_DATE_AMY)
-            .withPriority(VALID_PRIORITY_AMY).withStatus(VALID_STATUS_AMY)
-            .build();
+        .withCompany(VALID_COMPANY_AMY).withPhone(VALID_PHONE_AMY).withRole(VALID_ROLE_AMY)
+        .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withApplicationDate(VALID_DATE_AMY)
+        .withPriority(VALID_PRIORITY_AMY).withStatus(VALID_STATUS_AMY)
+        .build();
     public static final InternshipApplication BOB = new InternshipApplicationBuilder()
-            .withCompany(VALID_COMPANY_BOB).withPhone(VALID_PHONE_BOB).withRole(VALID_ROLE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withApplicationDate(VALID_DATE_BOB)
-            .withPriority(VALID_PRIORITY_BOB).withStatus(VALID_STATUS_BOB)
-            .build();
+        .withCompany(VALID_COMPANY_BOB).withPhone(VALID_PHONE_BOB).withRole(VALID_ROLE_BOB)
+        .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withApplicationDate(VALID_DATE_BOB)
+        .withPriority(VALID_PRIORITY_BOB).withStatus(VALID_STATUS_BOB)
+        .build();
 
-    private TypicalInternshipApplications() {} // prevents instantiation
+    private TypicalInternshipApplications() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code InternshipDiary} with all the typical internship applications.
