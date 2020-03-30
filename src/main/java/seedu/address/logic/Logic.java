@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -49,6 +50,14 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Adds a property change listener for model.
+     */
+    void addPropertyChangeListenerForModel(PropertyChangeListener l);
+
+    /**
+     * Returns a statistics object that can compute relevant internship application statistics.
+     */
     Statistics getStatistics();
 
 }

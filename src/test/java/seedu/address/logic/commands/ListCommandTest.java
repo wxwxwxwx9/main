@@ -36,4 +36,11 @@ public class ListCommandTest {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    @Test
+    public void execute_inArchivalView_showsMainList() {
+        model.viewArchivedInternshipApplicationList();
+        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
 }

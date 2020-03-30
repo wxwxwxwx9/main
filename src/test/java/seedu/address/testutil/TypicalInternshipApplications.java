@@ -89,7 +89,7 @@ public class TypicalInternshipApplications {
     public static InternshipDiary getTypicalInternshipDiary() {
         InternshipDiary diary = new InternshipDiary();
         for (InternshipApplication application : getTypicalInternshipApplications()) {
-            diary.addInternshipApplication(application);
+            diary.loadInternshipApplication(application);
         }
         return diary;
     }
@@ -100,7 +100,7 @@ public class TypicalInternshipApplications {
     public static InternshipDiary getTypicalInternshipDiaryWithInterviews() {
         InternshipDiary diary = new InternshipDiary();
         for (InternshipApplication application : getTypicalInternshipApplicationsWithInterviews()) {
-            diary.addInternshipApplication(application);
+            diary.loadInternshipApplication(application);
         }
         return diary;
     }

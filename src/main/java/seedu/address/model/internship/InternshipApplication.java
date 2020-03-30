@@ -189,6 +189,14 @@ public class InternshipApplication {
         return interviews.contains(interview);
     }
 
+    public void archive() {
+        this.isArchived = true;
+    }
+
+    public void unarchive() {
+        this.isArchived = false;
+    }
+
     /**
      * Returns application date or the earliest interview date scheduled, whichever is closer to current date.
      * @return earliest date from current date.

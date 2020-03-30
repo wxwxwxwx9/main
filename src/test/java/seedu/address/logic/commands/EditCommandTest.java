@@ -92,7 +92,7 @@ public class EditCommandTest {
     @Test
     public void execute_filteredList_success() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
-        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
+        model.viewUnarchivedInternshipApplicationList();
 
         InternshipApplication internshipApplicationInFilteredList =
                 model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
@@ -128,7 +128,8 @@ public class EditCommandTest {
 
         // edit person in filtered list into a duplicate in address book
         InternshipApplication internshipApplicationInList =
-                model.getInternshipDiary().getInternshipList().get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased());
+                model.getInternshipDiary().getDisplayedInternshipList()
+                        .get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
                 new EditInternshipDescriptorBuilder(internshipApplicationInList).build());
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_INTERNSHIP);
@@ -153,7 +154,7 @@ public class EditCommandTest {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
         Index outOfBoundIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipDiary().getInternshipList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipDiary().getDisplayedInternshipList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build());
