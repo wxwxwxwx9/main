@@ -42,7 +42,7 @@ public class InterviewListCommandTest {
                 .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         assertCommandSuccess(new InterviewListCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), model,
                 String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel,
-                INDEX_FIRST_INTERNSHIP_APPLICATION);
+                internshipApplication);
     }
 
     @Test
