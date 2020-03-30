@@ -66,19 +66,19 @@ public class InternshipApplicationCard extends UiPart<Region> {
         Label statusLabel = new Label(status.toString().toLowerCase());
         switch (status) {
         case WISHLIST:
-            statusLabel.setStyle("-fx-background-color: DARKORCHID");
+            statusLabel.setStyle("-fx-background-color: #cd70ff");
             break;
         case APPLIED:
-            statusLabel.setStyle("-fx-background-color: DARKSALMON");
+            statusLabel.setStyle("-fx-background-color: #209cee");
             break;
         case INTERVIEW:
-            statusLabel.setStyle("-fx-background-color: #3e7b91");
+            statusLabel.setStyle("-fx-background-color: #22c65b");
             break;
         case OFFERED:
-            statusLabel.setStyle("-fx-background-color: GREEN");
+            statusLabel.setStyle("-fx-text-fill: black; -fx-background-color: #ffdd57");
             break;
         case REJECTED:
-            statusLabel.setStyle("-fx-background-color: DARKRED");
+            statusLabel.setStyle("-fx-background-color: #ff3860; ");
             break;
         case GHOSTED:
             statusLabel.setStyle("-fx-background-color: SLATEGRAY");
