@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.index.Index;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -20,6 +22,12 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Details of an internship application should be shown to the user based on the index provided. */
+    private final boolean showInternshipApplication;
+
+    /** Index of the internship application to display. */
+    private final Index internshipApplicationIndex;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -28,6 +36,8 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.showStatistics = showStatistics;
         this.exit = exit;
+        showInternshipApplication = false;
+        internshipApplicationIndex = null;
     }
 
     /**
@@ -36,6 +46,19 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * also instructs window to display an internship application at specified {@code internshipApplicationIndex}.
+     */
+    public CommandResult(String feedbackToUser, Index internshipApplicationIndex) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showInternshipApplication = true;
+        this.internshipApplicationIndex = requireNonNull(internshipApplicationIndex);
+        showHelp = false;
+        showStatistics = false;
+        exit = false;
     }
 
     public String getFeedbackToUser() {
@@ -52,6 +75,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowInternshipApplication() {
+        return showInternshipApplication;
+    }
+
+    public Index getInternshipApplicationIndex() {
+        return internshipApplicationIndex;
     }
 
     @Override
