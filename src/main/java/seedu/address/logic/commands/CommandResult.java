@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.internship.InternshipApplication;
 
 /**
  * Represents the result of a command execution.
@@ -26,7 +27,7 @@ public class CommandResult {
     private final boolean showInternshipApplication;
 
     /** Index of the internship application to display. */
-    private final Index internshipApplicationIndex;
+    private final InternshipApplication internshipApplicationToShow;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -37,7 +38,7 @@ public class CommandResult {
         this.showStatistics = showStatistics;
         this.exit = exit;
         showInternshipApplication = false;
-        internshipApplicationIndex = null;
+        internshipApplicationToShow = null;
     }
 
     /**
@@ -52,10 +53,10 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * also instructs window to display an internship application at specified {@code internshipApplicationIndex}.
      */
-    public CommandResult(String feedbackToUser, Index internshipApplicationIndex) {
+    public CommandResult(String feedbackToUser, InternshipApplication internshipApplicationToShow) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showInternshipApplication = true;
-        this.internshipApplicationIndex = requireNonNull(internshipApplicationIndex);
+        this.internshipApplicationToShow = requireNonNull(internshipApplicationToShow);
         showHelp = false;
         showStatistics = false;
         exit = false;
@@ -81,8 +82,8 @@ public class CommandResult {
         return showInternshipApplication;
     }
 
-    public Index getInternshipApplicationIndex() {
-        return internshipApplicationIndex;
+    public InternshipApplication getInternshipApplicationToShow() {
+        return internshipApplicationToShow;
     }
 
     @Override
@@ -101,7 +102,7 @@ public class CommandResult {
         boolean isIndexEquals = true;
 
         if (showInternshipApplication && otherCommandResult.showInternshipApplication) {
-            isIndexEquals = internshipApplicationIndex.equals(otherCommandResult.internshipApplicationIndex);
+            isIndexEquals = internshipApplicationToShow.equals(otherCommandResult.internshipApplicationToShow);
         }
 
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)

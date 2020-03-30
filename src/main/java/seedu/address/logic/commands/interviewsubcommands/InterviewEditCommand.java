@@ -61,9 +61,9 @@ public class InterviewEditCommand extends InterviewCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        InternshipApplication internshipToEdit = super.getInternshipApplication(model, internshipIndex);
+        InternshipApplication internshipToModify = super.getInternshipApplication(model, internshipIndex);
 
-        List<Interview> lastShownList = internshipToEdit.getInterviews();
+        List<Interview> lastShownList = internshipToModify.getInterviews();
 
         if (interviewIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX);
@@ -72,13 +72,13 @@ public class InterviewEditCommand extends InterviewCommand {
         Interview interviewToEdit = lastShownList.get(interviewIndex.getZeroBased());
         Interview editedInterview = createEditedInterview(interviewToEdit, editInterviewDescriptor);
 
-        if (internshipToEdit.hasInterview(editedInterview)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_INTERVIEW, internshipToEdit));
+        if (internshipToModify.hasInterview(editedInterview)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_INTERVIEW, internshipToModify));
         }
 
         lastShownList.set(interviewIndex.getZeroBased(), editedInterview);
         // todo: update display
-        return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview), internshipIndex);
+        return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview), internshipToModify);
     }
 
     /**

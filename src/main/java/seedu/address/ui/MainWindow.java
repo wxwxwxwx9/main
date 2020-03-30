@@ -253,9 +253,8 @@ public class MainWindow extends UiPart<Stage> {
      * Displays the selected internship application according to the {@code index}.
      */
     @FXML
-    private void handleShowInternshipApplication(Index index) {
-        internshipApplicationDetail = new InternshipApplicationDetail(logic
-                .getFilteredInternshipApplicationList().get(index.getZeroBased()));
+    private void handleShowInternshipApplication(InternshipApplication internshipApplication) {
+        internshipApplicationDetail = new InternshipApplicationDetail(internshipApplication);
         internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
     }
 
@@ -287,7 +286,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowInternshipApplication()) {
-                handleShowInternshipApplication(commandResult.getInternshipApplicationIndex());
+                handleShowInternshipApplication(commandResult.getInternshipApplicationToShow());
             }
 
             return commandResult;
