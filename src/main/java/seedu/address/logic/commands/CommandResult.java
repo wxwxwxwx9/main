@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
