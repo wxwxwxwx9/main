@@ -27,7 +27,7 @@ public class InternshipApplication {
     private final ArrayList<Interview> interviews;
     private Boolean isArchived;
     private Boolean isGhostedOrRejected;
-    private String lastStage;
+    private Status lastStage;
 
     /**
      * Every field must be present and not null.
@@ -45,7 +45,7 @@ public class InternshipApplication {
         this.priority = priority;
         this.isArchived = false;
         this.isGhostedOrRejected = false;
-        this.lastStage = "";
+        this.lastStage = null;
         interviews = new ArrayList<>();
     }
 
@@ -65,7 +65,7 @@ public class InternshipApplication {
         this.priority = priority;
         this.isArchived = isArchived;
         this.isGhostedOrRejected = false;
-        this.lastStage = "";
+        this.lastStage = null;
         interviews = new ArrayList<>();
     }
 
@@ -118,7 +118,7 @@ public class InternshipApplication {
      * 'isGhostedOrRejected' is true.
      * @param lastStage where the internship application failed.
      */
-    public void setLastStage(String lastStage) {
+    public void setLastStage(Status lastStage) {
         this.lastStage = lastStage;
     }
 
@@ -126,7 +126,7 @@ public class InternshipApplication {
      * Returns the last stage before the status of an internship application was updated to be ghosted/ rejected.
      * @return an enum of Status (APPLIED/ OFFERED/ INTERVIEW).
      */
-    public String getLastStage() {
+    public Status getLastStage() {
         return lastStage;
     }
 
@@ -135,8 +135,8 @@ public class InternshipApplication {
      * @return last stage failed, else an empty string
      */
     public String getLastStageMessage() {
-        if (isGhostedOrRejected && !lastStage.equals("")) {
-            return " [You failed at " + lastStage + ":(]";
+        if (isGhostedOrRejected && !lastStage.equals(null)) {
+            return " [You failed at " + lastStage.toString() + ":(]";
         } else {
             return "";
         }
@@ -233,8 +233,6 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.isArchived().equals(isArchived())
-                && internshipApplication.getIsGhostedOrRejected().equals(getIsGhostedOrRejected())
-                && internshipApplication.getLastStage().equals(getLastStage())
                 && internshipApplication.getInterviews().equals(getInterviews());
     }
 
@@ -262,8 +260,6 @@ public class InternshipApplication {
                 && internshipApplication.getPriority().equals(getPriority())
                 && internshipApplication.getStatus().equals(getStatus())
                 && internshipApplication.isArchived().equals(isArchived())
-                && internshipApplication.getIsGhostedOrRejected().equals(getIsGhostedOrRejected())
-                && internshipApplication.getLastStage().equals(getLastStage())
                 && internshipApplication.getInterviews().equals(getInterviews());
     }
 

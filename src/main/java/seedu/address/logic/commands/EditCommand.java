@@ -85,7 +85,7 @@ public class EditCommand extends Command {
         InternshipApplication editedInternship = createEditedInternship(internshipToEdit, editInternshipDescriptor);
         if (editedInternship.getIsGhostedOrRejected() && (internshipToEdit.getStatus() != Status.GHOSTED)
                 && (internshipToEdit.getStatus() != Status.REJECTED)) {
-            editedInternship.setLastStage(internshipToEdit.getStatus().toString());
+            editedInternship.setLastStage(internshipToEdit.getStatus());
         }
         if (!internshipToEdit.isSameInternshipApplication(editedInternship)
                 && model.hasInternshipApplication(editedInternship)) {
