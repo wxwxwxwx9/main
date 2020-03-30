@@ -12,13 +12,20 @@ import seedu.address.model.internship.InternshipApplication;
 public interface ReadOnlyInternshipDiary {
 
     /**
-     * Returns an unmodifiable view of the internship application list.
+     * Returns an unmodifiable view of the currently displayed internship application list.
      * This list will not contain any duplicate internship application.
      */
     ObservableList<InternshipApplication> getDisplayedInternshipList();
 
+    /**
+     * Returns an unmodifiable view of both the archived and unarchived internship application list.
+     * This list will not contain any duplicate internship application.
+     */
     ObservableList<InternshipApplication> getAllInternshipList();
 
-    void addPropertyChangeListener(PropertyChangeListener l);
+    /**
+     * Adds a property listener for any changes in displayed internships.
+     */
+    void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l);
 
 }

@@ -27,9 +27,9 @@ public class ArchivalCommandTest {
     public void setUp() {
         // create archived internship applications
         InternshipApplication firstInternshipApplicationArchived = new InternshipApplicationBuilder().build();
-        firstInternshipApplicationArchived.archive();
+        firstInternshipApplicationArchived = firstInternshipApplicationArchived.archive();
         InternshipApplication secondInternshipApplicationArchived = new InternshipApplicationBuilder().build();
-        secondInternshipApplicationArchived.archive();
+        secondInternshipApplicationArchived = secondInternshipApplicationArchived.archive();
 
         // create and load internship diaries
         InternshipDiary firstInternshipDiary = new InternshipDiary();

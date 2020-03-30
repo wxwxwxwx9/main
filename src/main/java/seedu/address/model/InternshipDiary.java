@@ -57,11 +57,9 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
 
     //// internship list views
 
-    /**
-     * Adds a listener for any changes in InternshipDiary.
-     */
-    public void addPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener(l);
+    @Override
+    public void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("displayedInternships", l);
     }
 
     /**
@@ -145,8 +143,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void archiveInternshipApplication(InternshipApplication internshipApplication) {
         unarchivedInternships.remove(internshipApplication);
-        internshipApplication.archive();
-        archivedInternships.add(internshipApplication);
+        InternshipApplication archived = internshipApplication.archive();
+        archivedInternships.add(archived);
     }
 
     /**
@@ -155,8 +153,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void unarchiveInternshipApplication(InternshipApplication internshipApplication) {
         archivedInternships.remove(internshipApplication);
-        internshipApplication.unarchive();
-        unarchivedInternships.add(internshipApplication);
+        InternshipApplication unarchived = internshipApplication.unarchive();
+        unarchivedInternships.add(unarchived);
     }
 
     /**
@@ -178,7 +176,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void addInternshipApplication(InternshipApplication internshipApplication) {
         if (currentView.equals(InternshipApplicationViewType.ARCHIVED)) {
-            internshipApplication.archive();
+            internshipApplication = internshipApplication.archive();
         }
         displayedInternships.add(internshipApplication);
     }

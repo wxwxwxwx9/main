@@ -96,12 +96,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Initializes the relevant UI objects to listen to model manager for property changes.
+     * Initializes the relevant UI objects to listen for property changes.
      */
     public void initListeners() {
-        logic.addPropertyChangeListenerForModel(internshipApplicationListPanel);
-        logic.addPropertyChangeListenerForModel(statisticsWindow);
-        logic.addPropertyChangeListenerForModel(statisticsBarFooter);
+        logic.addFilteredInternshipApplicationsPropertyChangeListener(internshipApplicationListPanel);
+        logic.addFilteredInternshipApplicationsPropertyChangeListener(statisticsWindow);
+        logic.addFilteredInternshipApplicationsPropertyChangeListener(statisticsBarFooter);
         logic.addComparatorPropertyChangeListener(comparatorDisplayFooter);
     }
 

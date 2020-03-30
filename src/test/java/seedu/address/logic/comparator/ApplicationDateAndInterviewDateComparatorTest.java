@@ -17,7 +17,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
-class ApplicationDateThenInterviewDateComparatorTest {
+class ApplicationDateAndInterviewDateComparatorTest {
 
     @Test
     public void compare() {
@@ -63,16 +63,16 @@ class ApplicationDateThenInterviewDateComparatorTest {
 
     @Test
     public void equals() {
-        Comparator<InternshipApplication> applicationDateThenInterviewDateComparator =
-                new ApplicationDateThenInterviewDateComparator();
+        Comparator<InternshipApplication> applicationDateAndInterviewDateComparator =
+                new ApplicationDateAndInterviewDateComparator();
 
         // same object -> returns true
-        assertEquals(applicationDateThenInterviewDateComparator, applicationDateThenInterviewDateComparator);
+        assertEquals(applicationDateAndInterviewDateComparator, applicationDateAndInterviewDateComparator);
 
         // different types -> returns false
-        assertNotEquals(1, applicationDateThenInterviewDateComparator);
+        assertNotEquals(1, applicationDateAndInterviewDateComparator);
 
         // null -> returns false
-        assertNotEquals(null, applicationDateThenInterviewDateComparator);
+        assertNotEquals(null, applicationDateAndInterviewDateComparator);
     }
 }
