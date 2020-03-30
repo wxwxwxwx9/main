@@ -2,6 +2,7 @@ package seedu.address.logic.comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,5 +92,10 @@ public class PriorityComparatorTest {
         Collections.addAll(sorted, google1, facebook1, google2, facebook2);
 
         assertEquals(sorted, unsorted);
+    }
+
+    @Test
+    public void toString_returnsPrefix() {
+        assertEquals(new PriorityComparator().toString(), PREFIX_PRIORITY.getPrefix());
     }
 }

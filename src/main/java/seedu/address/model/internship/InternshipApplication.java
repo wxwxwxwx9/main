@@ -143,6 +143,42 @@ public class InternshipApplication {
     }
 
     /**
+     * Returns a deep, archived copy of this internship application (isArchived field is marked true).
+     * The rationale behind this is to uphold immutability.
+     */
+    public InternshipApplication archive() {
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+                true
+        );
+    }
+
+    /**
+     * Returns a deep, unarchived copy of this internship application (isArchived field is marked false).
+     * The rationale behind this is to uphold immutability.
+     */
+    public InternshipApplication unarchive() {
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+               false
+        );
+    }
+
+    /**
      * Returns true if all but priority and status fields are the same.
      * This defines a weaker notion of equality between two internship applications.
      */
@@ -158,8 +194,7 @@ public class InternshipApplication {
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.getApplicationDate().equals(getApplicationDate());
     }
 
     /**
@@ -184,14 +219,13 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.getStatus().equals(getStatus());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status, isArchived);
+        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status);
     }
 
     @Override

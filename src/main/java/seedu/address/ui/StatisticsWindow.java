@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
@@ -22,7 +24,7 @@ import seedu.address.model.status.Status;
 /**
  * Controller for the statistics page.
  */
-public class StatisticsWindow extends UiPart<Stage> {
+public class StatisticsWindow extends UiPart<Stage> implements PropertyChangeListener {
 
     private static final Logger logger = LogsCenter.getLogger(StatisticsWindow.class);
     private static final String FXML = "StatisticsWindow.fxml";
@@ -35,6 +37,20 @@ public class StatisticsWindow extends UiPart<Stage> {
     private NumberAxis count;
     @FXML
     private PieChart internshipApplicationPie;
+
+    private Statistics statistics;
+    private ObservableList<InternshipApplication> internshipApplicationList;
+
+    /**
+     * To attach event listener to update statistics if there is any changes in the list.
+     */
+    private ListChangeListener<InternshipApplication> c = c -> {
+        while (c.next()) {
+            if (c.wasAdded() || c.wasRemoved() || c.wasUpdated() || c.wasReplaced()) {
+                updateStatistics();
+            }
+        }
+    };
 
     /**
      * Creates a new StatisticsWindow.
@@ -50,70 +66,67 @@ public class StatisticsWindow extends UiPart<Stage> {
      * Creates a new StatisticsWindow.
      *
      * @param root Stage to use as the root of the StatisticsWindow.
+     * @param statistics statistics object that generates relevant statistics.
+     * @param internshipApplicationList list of existing internship applications.
      */
     public StatisticsWindow(Stage root, Statistics statistics,
                             ObservableList<InternshipApplication> internshipApplicationList) {
         super(FXML, root);
         internshipApplicationChart.setLegendVisible(false);
-        updateStatistics(statistics, internshipApplicationList);
-        updateStatisticsOnChange(statistics, internshipApplicationList);
+        this.statistics = statistics;
+        this.internshipApplicationList = internshipApplicationList;
+        updateStatistics();
+        updateStatisticsOnChange();
+    }
+
+    /**
+     * Receives the latest changes in displayed internships from internship diary.
+     * Reattaches listener to the latest internship application list and updates the relevant statistics accordingly.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
+        this.internshipApplicationList.removeListener(c);
+        internshipApplicationList = ia;
+        updateStatistics();
+        updateStatisticsOnChange();
     }
 
     /**
      * Adds an event listener to update the statistics upon any changes in the given list of internship application.
-     *
-     * @param statistics statistics object that generates relevant statistics.
-     * @param internshipApplicationList list of existing internship application(s).
      */
-    public void updateStatisticsOnChange(Statistics statistics,
-                                         ObservableList<InternshipApplication> internshipApplicationList) {
-        internshipApplicationList.addListener((ListChangeListener<InternshipApplication>) c -> {
-            while (c.next()) {
-                if (c.wasAdded() || c.wasRemoved() || c.wasUpdated() || c.wasReplaced()) {
-                    updateStatistics(statistics, internshipApplicationList);
-                }
-            }
-        });
+    public void updateStatisticsOnChange() {
+        internshipApplicationList.addListener(c);
     }
 
     /**
-     * Computes and updates the statistics on both bar chart and pie chart.
-     *
-     * @param statistics statistics object that generates relevant statistics.
-     * @param internshipApplicationList list of existing internship application(s).
+     * Computes and retrieves the latest statistics
      */
-    public void updateStatistics(Statistics statistics,
-                                 ObservableList<InternshipApplication> internshipApplicationList) {
+    public void updateStatistics() {
         statistics.computeAndUpdateStatistics(internshipApplicationList);
-        loadBarChart(statistics);
-        loadPieChart(statistics);
+        loadBarChart();
+        loadPieChart();
     }
 
     /**
      * Clears the existing data and loads the bar chart with new data.
-     *
-     * @param statistics statistics object that generates relevant statistics.
      */
     @SuppressWarnings("unchecked")
-    public void loadBarChart(Statistics statistics) {
+    public void loadBarChart() {
         internshipApplicationChart.getData().clear();
-        ObservableList<XYChart.Data<String, Integer>> barChartData = generateBarChartData(statistics);
+        ObservableList<XYChart.Data<String, Integer>> barChartData = generateBarChartData();
         internshipApplicationChart.getData().addAll(new XYChart.Series<String, Integer>(barChartData));
     }
 
     /**
      * Clears the existing data and loads the pie chart with new data.
-     *
-     * @param statistics statistics object that generates relevant statistics.
      */
-    public void loadPieChart(Statistics statistics) {
+    public void loadPieChart() {
         internshipApplicationPie.getData().clear();
-        ObservableList<PieChart.Data> pieChartData = generatePieChartData(statistics);
+        ObservableList<PieChart.Data> pieChartData = generatePieChartData();
         internshipApplicationPie.getData().addAll(pieChartData);
         pieChartData.forEach(data -> {
-                // tooltip not working for some reason
-                // Tooltip tip = new Tooltip(String.format("%.2f", data.getPieValue()));
-                // Tooltip.install(data.getNode(), tip);
                 data.nameProperty().bind(
                     Bindings.concat(String.format("%s (%.2f%%)", data.getName(), data.getPieValue()))
                 );
@@ -123,10 +136,8 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Generates the relevant bar chart data using the generated count statistics.
-     *
-     * @param statistics statistics object that generates relevant statistics.
      */
-    public ObservableList<XYChart.Data<String, Integer>> generateBarChartData(Statistics statistics) {
+    public ObservableList<XYChart.Data<String, Integer>> generateBarChartData() {
         ObservableList<XYChart.Data<String, Integer>> xyChartData = FXCollections.observableArrayList();
         for (Status status : statistics.getStatuses()) {
             XYChart.Data<String, Integer> data = new XYChart.Data<>(status.toString(), statistics.getCount(status));
@@ -137,10 +148,8 @@ public class StatisticsWindow extends UiPart<Stage> {
 
     /**
      * Generates the relevant pie chart data using the generated percentage statistics.
-     *
-     * @param statistics statistics object that generates relevant statistics.
      */
-    public ObservableList<PieChart.Data> generatePieChartData(Statistics statistics) {
+    public ObservableList<PieChart.Data> generatePieChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for (Status status : statistics.getStatuses()) {
             PieChart.Data data = new PieChart.Data(status.toString(), statistics.getPercentage(status));

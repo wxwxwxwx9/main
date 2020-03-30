@@ -1,8 +1,8 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -74,8 +74,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Comparator<InternshipApplication> getComparator() {
-        return model.getComparator();
+    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+        model.addComparatorPropertyChangeListener(l);
+    };
+
+    @Override
+    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
+        model.addFilteredInternshipApplicationsPropertyChangeListener(l);
     }
 
     @Override

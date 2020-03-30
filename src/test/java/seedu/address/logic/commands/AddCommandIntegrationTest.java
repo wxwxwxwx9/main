@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        InternshipApplication internshipInList = model.getInternshipDiary().getInternshipList().get(0);
+        InternshipApplication internshipInList = model.getInternshipDiary().getDisplayedInternshipList().get(0);
         assertCommandFailure(new AddCommand(internshipInList), model, AddCommand.MESSAGE_DUPLICATE_INTERNSHIP);
     }
 

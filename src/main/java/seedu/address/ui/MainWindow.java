@@ -38,6 +38,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
+    private StatisticsBarFooter statisticsBarFooter;
+    private ComparatorDisplayFooter comparatorDisplayFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -82,6 +84,16 @@ public class MainWindow extends UiPart<Stage> {
         statisticsWindow = new StatisticsWindow(logic.getStatistics(), logic.getFilteredInternshipApplicationList());
 
         setSplitPaneDefaultSplit(0.2);
+    }
+
+    /**
+     * Initializes the relevant UI objects to listen for property changes.
+     */
+    public void initListeners() {
+        logic.addFilteredInternshipApplicationsPropertyChangeListener(internshipApplicationListPanel);
+        logic.addFilteredInternshipApplicationsPropertyChangeListener(statisticsWindow);
+        logic.addFilteredInternshipApplicationsPropertyChangeListener(statisticsBarFooter);
+        logic.addComparatorPropertyChangeListener(comparatorDisplayFooter);
     }
 
     public Stage getPrimaryStage() {
@@ -152,11 +164,11 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getInternshipDiaryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        StatisticsBarFooter statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
+        statisticsBarFooter = new StatisticsBarFooter(logic.getStatistics(),
                 logic.getFilteredInternshipApplicationList());
         statisticsPlaceholder.getChildren().add(statisticsBarFooter.getRoot());
 
-        ComparatorDisplayFooter comparatorDisplayFooter = new ComparatorDisplayFooter(logic);
+        comparatorDisplayFooter = new ComparatorDisplayFooter();
         comparatorDisplayPlaceholder.getChildren().add(comparatorDisplayFooter.getRoot());
 
         PredicateDisplayFooter predicateDisplayFooter = new PredicateDisplayFooter((logic));

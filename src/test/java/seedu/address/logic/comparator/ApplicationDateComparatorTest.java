@@ -2,6 +2,7 @@ package seedu.address.logic.comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -97,5 +98,10 @@ public class ApplicationDateComparatorTest {
         Collections.addAll(sorted, google1, facebook1, google2, facebook2);
 
         assertEquals(sorted, unsorted);
+    }
+
+    @Test
+    public void toString_returnsPrefix() {
+        assertEquals(new ApplicationDateComparator().toString(), PREFIX_DATE.getPrefix());
     }
 }

@@ -2,93 +2,127 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.showInternshipApplicationAtIndex;
-import static seedu.address.testutil.InternshipApplicationUtil.createArchivedInternshipApplication;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
-import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
-import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.testutil.InternshipApplicationBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model and Archival Command) and unit tests for
  * {@code UnarchiveCommand}.
  */
 public class UnarchiveCommandTest {
 
-    private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
-    private ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
+    private Model model;
+    private ModelManager expectedModel;
+
+    @BeforeEach
+    public void setUp() {
+        // create archived internship applications
+        InternshipApplication firstInternshipApplicationArchived = new InternshipApplicationBuilder().build();
+        firstInternshipApplicationArchived = firstInternshipApplicationArchived.archive();
+        InternshipApplication secondInternshipApplicationArchived = new InternshipApplicationBuilder().build();
+        secondInternshipApplicationArchived = secondInternshipApplicationArchived.archive();
+
+        // create and load internship diaries
+        InternshipDiary firstInternshipDiary = new InternshipDiary();
+        firstInternshipDiary.loadInternshipApplication(firstInternshipApplicationArchived);
+
+        InternshipDiary secondInternshipDiary = new InternshipDiary();
+        secondInternshipDiary.loadInternshipApplication(secondInternshipApplicationArchived);
+
+        // create models
+        model = new ModelManager(firstInternshipDiary, new UserPrefs());
+        expectedModel = new ModelManager(secondInternshipDiary, new UserPrefs());
+
+        // view is archived internship list
+        model.viewArchivedInternshipApplicationList();
+        expectedModel.viewArchivedInternshipApplicationList();
+    }
+
+    @Test
+    public void execute_unarchiveInternshipApplication_success() {
+
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+        try {
+            unarchiveCommand.execute(expectedModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+
+        InternshipApplication archivedInternshipApplication =
+                expectedModel.getAllInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+
+        assertTrue(!archivedInternshipApplication.isArchived());
+    }
+
+    @Test
+    public void execute_unarchiveAlreadyUnarchivedInternshipApplication_throwsException() {
+
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+        try {
+            unarchiveCommand.execute(expectedModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+
+        expectedModel.viewUnarchivedInternshipApplicationList();
+
+        assertThrows(CommandException.class, () -> unarchiveCommand.execute(expectedModel));
+    }
+
+
+    @Test
+    public void execute_unarchiveOneInternshipApplication_listViewCorrect() {
+
+        // model
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+        try {
+            unarchiveCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+        model.viewUnarchivedInternshipApplicationList();
+
+        // expected model
+        InternshipApplication ia = expectedModel.getFilteredInternshipApplicationList()
+                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        expectedModel.unarchiveInternshipApplication(ia);
+        expectedModel.viewUnarchivedInternshipApplicationList();
+
+        // can't use assertCommandSuccess because have to change view of internshipDiary after execution of command
+        // assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
+        assertEquals(model, expectedModel);
+    }
 
     @Test
     public void execute_unarchiveOneInternshipApplication_archivalViewSuccess() {
-        InternshipApplication archivedInternship = createArchivedInternshipApplication(GOOGLE);
-        model.setInternshipDiary(new InternshipDiary());
-        model.addInternshipApplication(archivedInternship);
-        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+
+        // model
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-        try {
-            unarchiveCommand.execute(model);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
-        }
-        expectedModel.setInternshipDiary(new InternshipDiary());
-        expectedModel.addInternshipApplication(GOOGLE);
-        expectedModel.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
 
-        assertEquals(model, expectedModel);
-    }
+        // expected model
+        InternshipApplication ia = expectedModel.getFilteredInternshipApplicationList()
+                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        expectedModel.unarchiveInternshipApplication(ia);
 
-    @Test
-    public void execute_unarchiveOneInternshipApplication_listViewSuccess() {
-        model.setInternshipDiary(new InternshipDiary());
-        model.addInternshipApplication(GOOGLE);
-        model.archiveInternshipApplication(GOOGLE);
-        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
-        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-        try {
-            unarchiveCommand.execute(model);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
-        }
-        model.updateFilteredInternshipApplicationList(Model.PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
+        String expectedMessage =
+                String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, ia);
 
-        expectedModel.setInternshipDiary(new InternshipDiary());
-        expectedModel.addInternshipApplication(GOOGLE);
-
-        assertEquals(model, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
-        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(outOfBoundIndex);
-
-        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
-
-        Index outOfBoundIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipDiary().getInternshipList().size());
-
-        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(outOfBoundIndex);
-
-        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
+        // default view is unarchived so we can use assertCommandSuccess
+        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);;
     }
 
     @Test

@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
-import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -35,8 +35,15 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of internship applications */
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
-    /** Returns comparator being used for the internship list */
-    Comparator<InternshipApplication> getComparator();
+    /**
+     * Adds a property listener for any changes in comparator used.
+     */
+    void addComparatorPropertyChangeListener(PropertyChangeListener l);
+
+    /**
+     * Adds a property listener for any changes in filtered internship applications.
+     */
+    void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l);
 
     /**
      * Get the string to be displayed for predicate display.
@@ -58,6 +65,9 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Returns a statistics object that can compute relevant internship application statistics.
+     */
     Statistics getStatistics();
 
 }
