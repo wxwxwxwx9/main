@@ -15,13 +15,16 @@ import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.InternshipDiaryBuilder;
 
@@ -125,6 +128,7 @@ public class ModelManagerTest {
     public void addComparatorPropertyChangeListener_comparatorChanged_listenerCalled() {
         class MockListener implements PropertyChangeListener {
             private Comparator<InternshipApplication> comparator = null;
+
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
@@ -141,6 +145,31 @@ public class ModelManagerTest {
 
         modelManager.viewArchivedInternshipApplicationList();
         assertNull(mockListener.comparator);
+    }
+
+    @Test
+    public void addPredicatePropertyChangeListener_comparatorChanged_listenerCalled() {
+        class MockListener implements PropertyChangeListener {
+            private Predicate<InternshipApplication> predicate = null;
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                predicate = (Predicate<InternshipApplication>) e.getNewValue();
+            }
+        }
+
+        MockListener mockListener = new MockListener();
+        modelManager.addPredicatePropertyChangeListener(mockListener);
+        assertNull(mockListener.predicate);
+
+        Predicate<InternshipApplication> addressPredicate =
+                new AddressContainsKeywordsPredicate(Collections.singletonList("first"));
+        modelManager.updateFilteredInternshipApplicationList(addressPredicate);
+        assertSame(addressPredicate, mockListener.predicate);
+
+        modelManager.viewArchivedInternshipApplicationList();
+        assertNull(mockListener.predicate);
     }
 
     /*
