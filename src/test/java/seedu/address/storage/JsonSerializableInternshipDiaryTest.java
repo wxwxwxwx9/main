@@ -24,7 +24,6 @@ public class JsonSerializableInternshipDiaryTest {
     private static final Path DUPLICATE_INTERNSHIP_FILE =
             TEST_DATA_FOLDER.resolve("duplicateInternshipInternshipDiary.json");
 
-    /**
     @Test
     public void toModelType_typicalInternshipsFile_success() throws Exception {
         JsonSerializableInternshipDiary dataFromFile = JsonUtil.readJsonFile(TYPICAL_INTERNSHIPS_FILE,
@@ -32,7 +31,7 @@ public class JsonSerializableInternshipDiaryTest {
         InternshipDiary internshipDiaryFromFile = dataFromFile.toModelType();
         InternshipDiary typicalInternshipsInternshipDiary = TypicalInternshipApplications.getTypicalInternshipDiary();
         assertEquals(internshipDiaryFromFile, typicalInternshipsInternshipDiary);
-    }**/
+    }
 
     @Test
     public void toModelType_invalidInternshipFile_throwsIllegalValueException() throws Exception {
