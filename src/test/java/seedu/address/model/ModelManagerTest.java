@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.comparator.CompanyComparator;
-import seedu.address.model.internship.Company;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.InternshipDiaryBuilder;
@@ -125,7 +124,7 @@ public class ModelManagerTest {
     @Test
     public void addComparatorPropertyChangeListener_comparatorChanged_listenerCalled() {
         class MockListener implements PropertyChangeListener {
-            public Comparator<InternshipApplication> comparator = null;
+            private Comparator<InternshipApplication> comparator = null;
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
