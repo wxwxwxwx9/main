@@ -36,6 +36,11 @@ public interface Logic {
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
+     * Adds a property listener for any changes in comparator used.
+     */
+    void addComparatorPropertyChangeListener(PropertyChangeListener l);
+
+    /**
      * Returns the user prefs' internship diary file path.
      */
     Path getInternshipDiaryFilePath();

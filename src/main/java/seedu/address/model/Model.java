@@ -140,6 +140,11 @@ public interface Model {
     void addPropertyChangeListener(PropertyChangeListener l);
 
     /**
+     * Adds a property listener for any changes in comparator used.
+     */
+    void addComparatorPropertyChangeListener(PropertyChangeListener l);
+
+    /**
      * Returns a statistics object that can compute relevant internship application statistics.
      */
     Statistics getStatistics();

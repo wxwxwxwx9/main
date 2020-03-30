@@ -74,6 +74,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+        model.addComparatorPropertyChangeListener(l);
+    };
+
+    @Override
     public Path getInternshipDiaryFilePath() {
         return model.getInternshipDiaryFilePath();
     }
