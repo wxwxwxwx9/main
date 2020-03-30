@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-//import seedu.address.model.InternshipDiary;
-//import seedu.address.testutil.TypicalInternshipApplications;
+import seedu.address.model.InternshipDiary;
+import seedu.address.testutil.TypicalInternshipApplications;
 
 public class JsonSerializableInternshipDiaryTest {
 
@@ -24,7 +24,7 @@ public class JsonSerializableInternshipDiaryTest {
     private static final Path DUPLICATE_INTERNSHIP_FILE =
             TEST_DATA_FOLDER.resolve("duplicateInternshipInternshipDiary.json");
 
-    /**
+
     @Test
     public void toModelType_typicalInternshipsFile_success() throws Exception {
         JsonSerializableInternshipDiary dataFromFile = JsonUtil.readJsonFile(TYPICAL_INTERNSHIPS_FILE,
@@ -32,7 +32,7 @@ public class JsonSerializableInternshipDiaryTest {
         InternshipDiary internshipDiaryFromFile = dataFromFile.toModelType();
         InternshipDiary typicalInternshipsInternshipDiary = TypicalInternshipApplications.getTypicalInternshipDiary();
         assertEquals(internshipDiaryFromFile, typicalInternshipsInternshipDiary);
-    }**/
+    }
 
     @Test
     public void toModelType_invalidInternshipFile_throwsIllegalValueException() throws Exception {
