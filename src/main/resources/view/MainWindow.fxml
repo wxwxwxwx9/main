@@ -91,6 +91,8 @@
                     </items>
                 </SplitPane>
 
+                <StackPane fx:id="comparatorDisplayPlaceholder" VBox.vgrow="NEVER"/>
+
                 <StackPane fx:id="statisticsPlaceholder" VBox.vgrow="NEVER"/>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>

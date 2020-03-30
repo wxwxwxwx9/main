@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -35,6 +36,11 @@ public interface Logic {
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**
+     * Adds a property listener for any changes in comparator used.
+     */
+    void addComparatorPropertyChangeListener(PropertyChangeListener l);
+
+    /**
      * Returns the user prefs' internship diary file path.
      */
     Path getInternshipDiaryFilePath();
@@ -49,6 +55,14 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Adds a property change listener for model.
+     */
+    void addPropertyChangeListenerForModel(PropertyChangeListener l);
+
+    /**
+     * Returns a statistics object that can compute relevant internship application statistics.
+     */
     Statistics getStatistics();
 
 }

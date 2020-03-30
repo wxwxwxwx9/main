@@ -3,6 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -13,24 +16,25 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
 
 /**
  * Represents the in-memory model of the internship diary data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, PropertyChangeListener {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
     private final Statistics statistics;
 
-    private InternshipDiary internshipDiary = new InternshipDiary();
-    private FilteredList<InternshipApplication> filteredInternshipApplications =
-            new FilteredList<>(internshipDiary.getInternshipList());
-    private SortedList<InternshipApplication> sortedFilteredInternshipApplications =
-            new SortedList<>(filteredInternshipApplications);
+    private InternshipDiary internshipDiary;
+    private FilteredList<InternshipApplication> filteredInternshipApplications;
+    private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
+
+    private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
     /**
      * Initializes a ModelManager with the given internshipDiary and userPrefs.
@@ -42,11 +46,11 @@ public class ModelManager implements Model {
         logger.fine("Initializing with internship diary: " + internshipDiary + " and user prefs " + userPrefs);
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
+        // model manager listens to internshipdiary for any changes to its displayedInternships
+        this.internshipDiary.addPropertyChangeListener(this);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
-        filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getInternshipList());
-        // Set default view to show UNARCHIVED internships
-        updateFilteredInternshipApplicationList(PREDICATE_SHOW_NOT_ARCHIVED_INTERNSHIPS);
+        filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getDisplayedInternshipList());
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
     }
 
@@ -134,10 +138,19 @@ public class ModelManager implements Model {
         internshipDiary.setInternship(target, editedInternship);
     }
 
-    //=========== Filtered Internship Application List Accessors =============================================
+    //=========== Internship Application List Accessors =============================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code InternshipApplication}
+     * Returns an unmodifiable view of the concatenated archived and unarchived list of {@code InternshipApplication}
+     * backed by the internal list of {@code versionedInternshipDiary}
+     */
+    @Override
+    public ObservableList<InternshipApplication> getAllInternshipApplicationList() {
+        return internshipDiary.getAllInternshipList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the current list of {@code InternshipApplication}
      * backed by the internal list of {@code versionedInternshipDiary}
      */
     @Override
@@ -155,6 +168,7 @@ public class ModelManager implements Model {
     public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
         requireNonNull(comparator);
         sortedFilteredInternshipApplications.setComparator(comparator);
+        changes.firePropertyChange("comparator", null, comparator);
     }
 
     @Override
@@ -174,6 +188,50 @@ public class ModelManager implements Model {
         return internshipDiary.equals(other.internshipDiary)
                 && userPrefs.equals(other.userPrefs)
                 && filteredInternshipApplications.equals(other.filteredInternshipApplications);
+    }
+
+    //=========== Archival view ==================================================================================
+
+    @Override
+    public void viewArchivedInternshipApplicationList() {
+        internshipDiary.viewArchivedInternshipApplicationList();
+    }
+
+    @Override
+    public void viewUnarchivedInternshipApplicationList() {
+        internshipDiary.viewUnarchivedInternshipApplicationList();
+    }
+
+    @Override
+    public InternshipApplicationViewType getCurrentView() {
+        return internshipDiary.getCurrentView();
+    }
+
+    /**
+     * Adds a property listener for any changes in ModelManager.
+     */
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("displayedInternships", l);
+    }
+
+    @Override
+    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener("comparator", l);
+    }
+
+    /**
+     * Receives the latest changes in displayed internships from internship diary.
+     * Updates the filtered and sorted internship applications accordingly.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
+        filteredInternshipApplications = new FilteredList<>(ia);
+        sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
+        changes.firePropertyChange("displayedInternships", null,
+                getFilteredInternshipApplicationList());
+        changes.firePropertyChange("comparator", null, null);
     }
 
     //=========== Statistics ==================================================================================
