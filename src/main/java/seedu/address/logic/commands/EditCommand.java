@@ -159,6 +159,8 @@ public class EditCommand extends Command {
         private ApplicationDate date;
         private Priority priority;
         private Status status;
+        private Boolean isGhostedOrRejected;
+        private Status lastStage;
 
         public EditInternshipDescriptor() {}
 
@@ -175,6 +177,8 @@ public class EditCommand extends Command {
             setDate(toCopy.date);
             setPriority(toCopy.priority);
             setStatus(toCopy.status);
+            setIsGhostedOrRejected(toCopy.isGhostedOrRejected);
+            setLastStage(toCopy.lastStage);
         }
 
         /**
@@ -248,6 +252,18 @@ public class EditCommand extends Command {
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setLastStage(Status lastStage) {
+            this.lastStage = lastStage;
+        }
+
+        public Optional<Status> getLastStage() {
+            return Optional.ofNullable(lastStage);
+        }
+
+        public void setIsGhostedOrRejected(Boolean bool) {
+            this.isGhostedOrRejected = bool;
         }
 
         @Override

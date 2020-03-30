@@ -30,6 +30,8 @@ public class InternshipApplicationBuilder {
     public static final String DEFAULT_APPLICATION_DATE = "12 03 2020";
     public static final Integer DEFAULT_PRIORITY = 10;
     public static final Status DEFAULT_STATUS = Status.APPLIED;
+    public static final Boolean DEFAULT_IS_GHOSTED_OR_REJECTED = false;
+    public static final Status DEFAULT_LAST_STAGE = null;
 
     private Company company;
     private Role role;
@@ -39,6 +41,8 @@ public class InternshipApplicationBuilder {
     private ApplicationDate applicationDate;
     private Priority priority;
     private Status status;
+    private Boolean isGhostedOrRejected;
+    private Status lastStage;
     private ArrayList<Interview> interviews;
 
     public InternshipApplicationBuilder() {
@@ -55,6 +59,8 @@ public class InternshipApplicationBuilder {
         }
         priority = new Priority(DEFAULT_PRIORITY);
         status = DEFAULT_STATUS;
+        isGhostedOrRejected = DEFAULT_IS_GHOSTED_OR_REJECTED;
+        lastStage = DEFAULT_LAST_STAGE;
         //default interviews is nil
         interviews = new ArrayList<>();
     }
@@ -71,6 +77,8 @@ public class InternshipApplicationBuilder {
         applicationDate = toCopy.getApplicationDate();
         priority = toCopy.getPriority();
         status = toCopy.getStatus();
+        isGhostedOrRejected = toCopy.getIsGhostedOrRejected();
+        lastStage = toCopy.getLastStage();
         interviews = toCopy.getInterviews();
     }
 
@@ -171,6 +179,14 @@ public class InternshipApplicationBuilder {
      */
     public InternshipApplicationBuilder withStatus(String status) {
         return withStatus(Status.valueOf(status));
+    }
+
+    /**
+     * Sets the {@code lastStage} of the {@code InternshipApplication} that we are building.
+     */
+    public InternshipApplicationBuilder withLastStage(Status lastStage) {
+        this.lastStage = lastStage;
+        return this;
     }
 
     /**
