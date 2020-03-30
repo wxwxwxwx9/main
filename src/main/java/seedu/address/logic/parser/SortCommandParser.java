@@ -44,7 +44,6 @@ public class SortCommandParser implements Parser<SortCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
-        Prefix[] prefixes = acceptedPrefixes;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
         Comparator<InternshipApplication> comparator = argMultimapToComparator(argMultimap);
         if (argMultimap.getPreamble().equals(SortCommand.REVERSE_KEYWORD)) {
@@ -63,12 +62,11 @@ public class SortCommandParser implements Parser<SortCommand> {
         List<Prefix> prefixFound = Arrays.stream(acceptedPrefixes)
             .filter(p -> argMultimap.getValue(p).isPresent())
             .collect(Collectors.toList());
-        
+
         if (prefixFound.size() != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-        Comparator<InternshipApplication> comparator = comparatorMap.get(prefixFound.get(0));
-        return comparator;
+        return comparatorMap.get(prefixFound.get(0));
     }
 
 }
