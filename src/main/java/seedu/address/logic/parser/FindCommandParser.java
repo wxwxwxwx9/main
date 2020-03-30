@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -33,64 +32,68 @@ import seedu.address.model.internship.predicate.StatusContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    /**
-     * Function which takes in keywords and outputs predicates of the keyword.
-     */
-    @FunctionalInterface
-    private interface PredicateFunction {
-        Predicate<InternshipApplication> apply(List<String> t) throws ParseException;
-    }
-
-    private static final Map<Prefix, PredicateFunction> predicateMap;
-    private static final Prefix[] acceptedPrefixes;
-
-    static {
-        predicateMap = Map.of(
-                PREFIX_COMPANY, CompanyContainsKeywordsPredicate::new,
-                PREFIX_ROLE, RoleContainsKeywordsPredicate::new,
-                PREFIX_ADDRESS, AddressContainsKeywordsPredicate::new,
-                PREFIX_PHONE, PhoneContainsNumbersPredicate::new,
-                PREFIX_EMAIL, EmailContainsKeywordsPredicate::new,
-                PREFIX_DATE, ApplicationDateIsDatePredicate::new,
-                PREFIX_PRIORITY, PriorityContainsNumbersPredicate::new,
-                PREFIX_STATUS, StatusContainsKeywordsPredicate::new
-        );
-        acceptedPrefixes = new Prefix[]{PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS, PREFIX_PHONE,
-            PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS};
-    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
-     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, acceptedPrefixes);
+                ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS);
 
-        if (!areAnyPrefixesPresent(argMultimap, acceptedPrefixes) && argMultimap.getPreamble().isEmpty()) {
+        if (!areAnyPrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS)
+                && argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         List<Predicate<InternshipApplication>> predicates = new ArrayList<>();
         if (!argMultimap.getPreamble().isEmpty()) {
-            List<String> preamble = Arrays.asList(argMultimap.getPreamble().split("\\s+"));
-            for (Prefix prefix : acceptedPrefixes) {
-                if (prefix.equals(PREFIX_DATE)) {
-                    continue;
-                }
-                predicates.add(predicateMap.get(prefix).apply(preamble));
-            }
+            String[] preamble = argMultimap.getPreamble().split("\\s+");
+            predicates.add(new CompanyContainsKeywordsPredicate(Arrays.asList(preamble)));
+            predicates.add(new RoleContainsKeywordsPredicate(Arrays.asList(preamble)));
+            predicates.add(new AddressContainsKeywordsPredicate(Arrays.asList(preamble)));
+            predicates.add(new PhoneContainsNumbersPredicate(Arrays.asList(preamble)));
+            predicates.add(new EmailContainsKeywordsPredicate(Arrays.asList(preamble)));
+            predicates.add(new PriorityContainsNumbersPredicate(Arrays.asList(preamble)));
+            predicates.add(new StatusContainsKeywordsPredicate(Arrays.asList(preamble)));
             return new FindCommand(predicates, true);
         }
 
-        for (Prefix prefix : acceptedPrefixes) {
-            if (argMultimap.getValue(prefix).isEmpty()) {
-                continue;
-            }
-            String[] keywords = argMultimap.getValue(prefix).get().split("\\s+");
-            predicates.add(predicateMap.get(prefix).apply(Arrays.asList(keywords)));
+        if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
+            String[] companyKeywords = argMultimap.getValue(PREFIX_COMPANY).get().split("\\s+");
+            predicates.add(new CompanyContainsKeywordsPredicate(Arrays.asList(companyKeywords)));
+        }
+        if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
+            String[] roleKeywords = argMultimap.getValue(PREFIX_ROLE).get().split("\\s+");
+            predicates.add(new RoleContainsKeywordsPredicate(Arrays.asList(roleKeywords)));
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            String[] addressKeywords = argMultimap.getValue(PREFIX_ADDRESS).get().split("\\s+");
+            predicates.add(new AddressContainsKeywordsPredicate(Arrays.asList(addressKeywords)));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            String[] phoneNumbers = argMultimap.getValue(PREFIX_PHONE).get().split("\\s+");
+            predicates.add(new PhoneContainsNumbersPredicate(Arrays.asList(phoneNumbers)));
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            String[] emailKeywords = argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+");
+            predicates.add(new EmailContainsKeywordsPredicate(Arrays.asList(emailKeywords)));
+        }
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            String date = argMultimap.getValue(PREFIX_DATE).get();
+            predicates.add(new ApplicationDateIsDatePredicate(ParserUtil.parseApplicationDate(date)
+                    .fullApplicationDate));
+        }
+        if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
+            String[] priorityNumbers = argMultimap.getValue(PREFIX_PRIORITY).get().split("\\s+");
+            predicates.add(new PriorityContainsNumbersPredicate(Arrays.asList(priorityNumbers)));
+        }
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            String[] statusKeywords = argMultimap.getValue(PREFIX_STATUS).get().split("\\s+");
+            predicates.add(new StatusContainsKeywordsPredicate(Arrays.asList(statusKeywords)));
         }
         return new FindCommand(predicates, false);
     }
