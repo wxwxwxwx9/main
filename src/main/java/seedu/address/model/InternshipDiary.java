@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.UniqueInternshipApplicationList;
@@ -20,32 +21,19 @@ import seedu.address.model.internship.UniqueInternshipApplicationList;
  */
 public class InternshipDiary implements ReadOnlyInternshipDiary {
 
-    private UniqueInternshipApplicationList unarchivedInternships;
-    private UniqueInternshipApplicationList archivedInternships;
+    private UniqueInternshipApplicationList unarchivedInternships = new UniqueInternshipApplicationList();
+    private UniqueInternshipApplicationList archivedInternships = new UniqueInternshipApplicationList();
 
     /**
      * The internship list that is shown to the user on the interface currently.
      */
-    private UniqueInternshipApplicationList displayedInternships;
+    private UniqueInternshipApplicationList displayedInternships = unarchivedInternships;
     private InternshipApplicationViewType currentView = InternshipApplicationViewType.UNARCHIVED;
 
     private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        archivedInternships = new UniqueInternshipApplicationList();
-        unarchivedInternships = new UniqueInternshipApplicationList();
-        // default view is unarchivedInternships
-        displayedInternships = unarchivedInternships;
+    public InternshipDiary() {
     }
-
-    public InternshipDiary() {}
 
     /**
      * Creates an InternshipDiary using the InternshipApplications in the {@code toBeCopied}
@@ -110,8 +98,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void setArchivedInternships(List<InternshipApplication> internshipApplications) {
         List<InternshipApplication> archived = internshipApplications.stream()
-                .filter((internshipApplication) -> internshipApplication.isArchived())
-                .collect(Collectors.toList());
+            .filter((internshipApplication) -> internshipApplication.isArchived())
+            .collect(Collectors.toList());
         this.archivedInternships.setInternshipApplications(archived);
     }
 
@@ -121,8 +109,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void setUnarchivedInternships(List<InternshipApplication> internshipApplications) {
         List<InternshipApplication> unarchived = internshipApplications.stream()
-                .filter((internshipApplication) -> !internshipApplication.isArchived())
-                .collect(Collectors.toList());
+            .filter((internshipApplication) -> !internshipApplication.isArchived())
+            .collect(Collectors.toList());
         this.unarchivedInternships.setInternshipApplications(unarchived);
     }
 
@@ -218,16 +206,16 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     @Override
     public ObservableList<InternshipApplication> getAllInternshipList() {
         return FXCollections.concat(archivedInternships.asUnmodifiableObservableList(),
-                unarchivedInternships.asUnmodifiableObservableList());
+            unarchivedInternships.asUnmodifiableObservableList());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InternshipDiary // instanceof handles nulls
-                && archivedInternships.equals(((InternshipDiary) other).archivedInternships))
-                && unarchivedInternships.equals(((InternshipDiary) other).unarchivedInternships)
-                && currentView.equals(((InternshipDiary) other).currentView);
+            || (other instanceof InternshipDiary // instanceof handles nulls
+            && archivedInternships.equals(((InternshipDiary) other).archivedInternships))
+            && unarchivedInternships.equals(((InternshipDiary) other).unarchivedInternships)
+            && currentView.equals(((InternshipDiary) other).currentView);
     }
 
     @Override
