@@ -114,7 +114,7 @@ public class InternshipApplication {
     }
 
     /**
-     * Stores the last stage of where the internship application failed (ghosted/ rejected) only when
+     * Stores the last stage of where the internship application failed (applied/ interview/ offered) only when
      * 'isGhostedOrRejected' is true.
      * @param lastStage where the internship application failed.
      */
@@ -131,11 +131,11 @@ public class InternshipApplication {
     }
 
     /**
-     * Checks for whether current status is GHOSTED/ REJECTED and returns the last stage failed.
+     * Returns the last stage failed.
      * @return last stage failed, else an empty string
      */
     public String getLastStageMessage() {
-        if (isGhostedOrRejected && !lastStage.equals(null)) {
+        if (isGhostedOrRejected && lastStage != null) {
             return " [You failed at " + lastStage.toString() + ":(]";
         } else {
             return "";
