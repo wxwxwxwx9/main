@@ -97,10 +97,19 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
+
+        boolean isIndexEquals = true;
+
+        if (showInternshipApplication && otherCommandResult.showInternshipApplication) {
+            isIndexEquals = internshipApplicationIndex.equals(otherCommandResult.internshipApplicationIndex);
+        }
+
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && showStatistics == otherCommandResult.showStatistics
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && isIndexEquals
+                && showInternshipApplication == otherCommandResult.showInternshipApplication;
     }
 
     @Override
