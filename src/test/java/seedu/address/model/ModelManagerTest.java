@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.model.internship.InternshipApplication;
@@ -108,7 +107,7 @@ public class ModelManagerTest {
         modelManager.archiveInternshipApplication(GOOGLE);
         modelManager.viewArchivedInternshipApplicationList();
         InternshipApplication newArchivedGoogleApplication =
-                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
+            modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
 
         assertTrue(newArchivedGoogleApplication.isArchived());
     }
@@ -119,11 +118,11 @@ public class ModelManagerTest {
         modelManager.archiveInternshipApplication(GOOGLE);
         modelManager.viewArchivedInternshipApplicationList();
         InternshipApplication newArchivedGoogleApplication =
-                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
+            modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         modelManager.unarchiveInternshipApplication(newArchivedGoogleApplication);
         modelManager.viewUnarchivedInternshipApplicationList();
         InternshipApplication newUnarchivedGoogleApplication =
-                modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
+            modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
         assertTrue(!newUnarchivedGoogleApplication.isArchived());
     }
 
@@ -167,19 +166,20 @@ public class ModelManagerTest {
         assertNull(mockListener.predicate);
 
         Predicate<InternshipApplication> addressPredicate =
-                new AddressContainsKeywordsPredicate(Collections.singletonList("first"));
+            new AddressContainsKeywordsPredicate(Collections.singletonList("first"));
         modelManager.updateFilteredInternshipApplicationList(addressPredicate);
         assertSame(addressPredicate, mockListener.predicate);
 
         modelManager.viewArchivedInternshipApplicationList();
         assertNull(mockListener.predicate);
     }
-    
+
     @Test
     public void addFilteredInternshipApplicationsPropertyChangeListener_propertyChanged_listenerCalled() {
         // create mock listener
         class MockListener implements PropertyChangeListener {
             private ObservableList<InternshipApplication> filteredInternshipApplications = null;
+
             @SuppressWarnings("unchecked")
             @Override
             public void propertyChange(PropertyChangeEvent e) {
@@ -194,14 +194,14 @@ public class ModelManagerTest {
         InternshipDiary mockInternshipDiary = new InternshipDiary();
         mockInternshipDiary.loadInternshipApplication(new InternshipApplicationBuilder().build());
         FilteredList<InternshipApplication> mockInternshipApplicationFilteredList =
-                new FilteredList<>(mockInternshipDiary.getDisplayedInternshipList());
+            new FilteredList<>(mockInternshipDiary.getDisplayedInternshipList());
 
         // add listener
         modelManager.addFilteredInternshipApplicationsPropertyChangeListener(mockListener);
 
         // create mock property change event
         PropertyChangeEvent e = new PropertyChangeEvent(
-                mockInternshipDiary, "filteredInternshipApplications", null, mockInternshipApplicationFilteredList
+            mockInternshipDiary, "filteredInternshipApplications", null, mockInternshipApplicationFilteredList
         );
         modelManager.propertyChange(e);
 
@@ -211,15 +211,15 @@ public class ModelManagerTest {
     @Test
     public void getFilteredInternshipApplicationList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
-                modelManager.getFilteredInternshipApplicationList().remove(0));
+            modelManager.getFilteredInternshipApplicationList().remove(0));
     }
 
     @Test
     public void equals() {
         InternshipDiary diary = new InternshipDiaryBuilder()
-                .withInternshipApplication(GOOGLE)
-                .withInternshipApplication(FACEBOOK)
-                .build();
+            .withInternshipApplication(GOOGLE)
+            .withInternshipApplication(FACEBOOK)
+            .build();
         InternshipDiary differentDiary = new InternshipDiary();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -243,7 +243,7 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         String[] keywords = GOOGLE.getCompany().fullCompany.split("\\s+");
         modelManager.updateFilteredInternshipApplicationList(
-                new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
+            new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(diary, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

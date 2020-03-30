@@ -24,7 +24,6 @@ import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
 
-
 public class InternshipDiaryTest {
 
     private final InternshipDiary internshipDiary = new InternshipDiary();
@@ -50,8 +49,8 @@ public class InternshipDiaryTest {
     public void resetData_withDuplicateInternship_throwsDuplicateInternshipException() {
         // Two internship applications with the same identity fields
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
-                .withAddress("1600 Amphitheatre Parkway")
-                .build();
+            .withAddress("1600 Amphitheatre Parkway")
+            .build();
         List<InternshipApplication> newInternshipApplications = Arrays.asList(GOOGLE, editedGoogle);
         InternshipDiaryStub newData = new InternshipDiaryStub(newInternshipApplications);
 
@@ -78,9 +77,9 @@ public class InternshipDiaryTest {
     public void hasInternship_internshipApplicationWithSameIdentityFieldsInInternshipDiary_returnsTrue() {
         internshipDiary.addInternshipApplication(GOOGLE);
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
-                .withPriority(1)
-                .withStatus(Status.APPLIED)
-                .build();
+            .withPriority(1)
+            .withStatus(Status.APPLIED)
+            .build();
         assertTrue(internshipDiary.hasInternship(editedGoogle));
     }
 
@@ -94,7 +93,7 @@ public class InternshipDiaryTest {
      */
     private static class InternshipDiaryStub implements ReadOnlyInternshipDiary {
         private final ObservableList<InternshipApplication> internshipApplications =
-                FXCollections.observableArrayList();
+            FXCollections.observableArrayList();
 
         private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
@@ -115,7 +114,7 @@ public class InternshipDiaryTest {
         @Override
         public void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l) {
             changes.addPropertyChangeListener(l);
-        };
+        }
     }
 
 }

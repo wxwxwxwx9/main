@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
@@ -31,10 +30,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
-
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_INTERNSHIP_APPLICATION;
@@ -55,7 +52,7 @@ import seedu.address.testutil.EditInternshipDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -97,10 +94,10 @@ public class EditCommandParserTest {
 
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
         assertParseFailure(parser, "1" + INVALID_PRIORITY_DESC,
-                Priority.MESSAGE_CONSTRAINTS); // invalid priority
+            Priority.MESSAGE_CONSTRAINTS); // invalid priority
         assertParseFailure(parser, "1" + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS); // invalid status
         assertParseFailure(parser, "1" + INVALID_DATE_DESC,
-                "Date should be in the form: DD MM YYYY"); // invalid date
+            "Date should be in the form: DD MM YYYY"); // invalid date
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
@@ -111,20 +108,20 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_COMPANY_DESC + INVALID_EMAIL_DESC
-                        + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Company.MESSAGE_CONSTRAINTS);
+                + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+            Company.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + ROLE_DESC_AMY + PRIORITY_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + COMPANY_DESC_AMY + DATE_DESC_AMY + STATUS_DESC_BOB;
+            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + COMPANY_DESC_AMY + DATE_DESC_AMY + STATUS_DESC_BOB;
 
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withRole(VALID_ROLE_AMY).withPriority(VALID_PRIORITY_AMY).withStatus(VALID_STATUS_BOB)
-                .withApplicationDate(VALID_DATE_AMY).build();
+            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withRole(VALID_ROLE_AMY).withPriority(VALID_PRIORITY_AMY).withStatus(VALID_STATUS_BOB)
+            .withApplicationDate(VALID_DATE_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -136,7 +133,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditCommand.EditInternshipDescriptor descriptor =
-                new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).build();
+            new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -148,7 +145,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + COMPANY_DESC_AMY;
         EditInternshipDescriptor descriptor =
-                new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY).build();
+            new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -177,11 +174,11 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_INTERNSHIP_APPLICATION;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-                + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-                + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB;
+            + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
+            + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB;
 
         EditCommand.EditInternshipDescriptor descriptor =
-                new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+            new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -199,9 +196,9 @@ public class EditCommandParserTest {
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
-                + PHONE_DESC_BOB;
+            + PHONE_DESC_BOB;
         descriptor = new EditInternshipDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
+            .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

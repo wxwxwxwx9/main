@@ -41,13 +41,13 @@ public class PriorityComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withPriority(1).build();
+            .withPriority(1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withPriority(3).build();
+            .withPriority(3).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withPriority(1).build();
+            .withPriority(1).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withPriority(5).build();
+            .withPriority(5).build();
 
         // same object
         assertEquals(0, priorityComparator.compare(google, google));
@@ -76,13 +76,13 @@ public class PriorityComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withPriority(1).build();
+            .withPriority(1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withPriority(3).build();
+            .withPriority(3).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withPriority(2).build();
+            .withPriority(2).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withPriority(4).build();
+            .withPriority(4).build();
 
         ArrayList<InternshipApplication> unsorted = new ArrayList<>();
         Collections.addAll(unsorted, google2, google1, facebook1, facebook2);

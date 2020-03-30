@@ -29,11 +29,11 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         InternshipApplication internshipApplicationToDelete =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS, internshipApplicationToDelete);
+            String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS, internshipApplicationToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
         expectedModel.deleteInternshipApplication(internshipApplicationToDelete);
@@ -54,11 +54,11 @@ public class DeleteCommandTest {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         InternshipApplication internshipApplicationToDelete =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS,
-                internshipApplicationToDelete);
+            internshipApplicationToDelete);
 
         Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
         expectedModel.deleteInternshipApplication(internshipApplicationToDelete);

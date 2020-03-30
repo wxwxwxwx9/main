@@ -25,25 +25,25 @@ public class CustomToStringPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         AddressContainsKeywordsPredicate firstPredicate =
-                new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
+            new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
         AddressContainsKeywordsPredicate secondPredicate =
-                new AddressContainsKeywordsPredicate(secondPredicateKeywordList);
+            new AddressContainsKeywordsPredicate(secondPredicateKeywordList);
 
         CustomToStringPredicate<InternshipApplication> firstPredicateWrap =
-                new CustomToStringPredicate<>(firstPredicate, str1);
+            new CustomToStringPredicate<>(firstPredicate, str1);
 
         CustomToStringPredicate<InternshipApplication> secondPredicateWrap =
-                new CustomToStringPredicate<>(secondPredicate, str1);
+            new CustomToStringPredicate<>(secondPredicate, str1);
 
         CustomToStringPredicate<InternshipApplication> thirdPredicateWrap =
-                new CustomToStringPredicate<>(firstPredicate, str2);
+            new CustomToStringPredicate<>(firstPredicate, str2);
 
         // same object -> returns true
         assertEquals(firstPredicateWrap, firstPredicateWrap);
 
         // same values -> returns true
         CustomToStringPredicate<InternshipApplication> firstPredicateWrapCopy =
-                new CustomToStringPredicate<>(new AddressContainsKeywordsPredicate(firstPredicateKeywordList), str1);
+            new CustomToStringPredicate<>(new AddressContainsKeywordsPredicate(firstPredicateKeywordList), str1);
         assertEquals(firstPredicateWrap, firstPredicateWrapCopy);
 
         // different types -> returns false
@@ -71,7 +71,7 @@ public class CustomToStringPredicateTest {
         }
 
         CustomToStringPredicate<Object> customToStringPredicate =
-                new CustomToStringPredicate<>(new MockPredicate(), someString);
+            new CustomToStringPredicate<>(new MockPredicate(), someString);
 
         assertTrue(customToStringPredicate.test(someObject));
         assertFalse(customToStringPredicate.test(someString));

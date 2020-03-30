@@ -41,7 +41,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validInternshipApplication).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validInternshipApplication),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validInternshipApplication), modelStub.internshipsAdded);
     }
 
@@ -52,7 +52,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithInternshipApplication(validInternshipApplication);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
+            AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
     }
 
     @Test
