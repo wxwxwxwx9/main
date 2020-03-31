@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Internship Diary" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/internship_app.jpg" />
     </icons>
@@ -68,14 +68,12 @@
                 </SplitPane>
                 <HBox>
                     <children>
-
+                        <StackPane fx:id="viewDisplayPlaceholder" minWidth="-Infinity" style="-fx-border-width: 0px 1px 0px 0px; -fx-border-color: white;" />
                         <StackPane fx:id="comparatorDisplayPlaceholder" minWidth="-Infinity" style="-fx-border-width: 0px 1px 0px 0px; -fx-border-color: white;" />
                         <StackPane fx:id="predicateDisplayPlaceholder" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-
                 <StackPane fx:id="statisticsPlaceholder" VBox.vgrow="NEVER" />
-
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
             </VBox>
         </Scene>

@@ -3,8 +3,10 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIPS;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
+import static seedu.address.model.ListenerPropertyType.VIEW_TYPE;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -51,7 +53,7 @@ public class ModelManager implements Model, PropertyChangeListener {
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
         // Model manager listens to any changes in displayedInternships in internshipDiary
-        this.internshipDiary.addDisplayedInternshipsPropertyChangeListener(this);
+        this.internshipDiary.addPropertyChangeListener(DISPLAYED_INTERNSHIPS, this);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
         filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getDisplayedInternshipList());
@@ -228,6 +230,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         firePropertyChange(FILTERED_INTERNSHIP_APPLICATIONS, getFilteredInternshipApplicationList());
         firePropertyChange(COMPARATOR, null);
         firePropertyChange(PREDICATE, null);
+        firePropertyChange(VIEW_TYPE, getCurrentView());
     }
 
     //=========== Statistics ==================================================================================

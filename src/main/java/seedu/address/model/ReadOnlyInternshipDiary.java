@@ -24,8 +24,8 @@ public interface ReadOnlyInternshipDiary {
     ObservableList<InternshipApplication> getAllInternshipList();
 
     /**
-     * Adds a property listener for any changes in displayed internships.
+     * Adds a property listener for any changes in {@code propertyType} used.
      */
-    void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l);
+    void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l);
 
 }
