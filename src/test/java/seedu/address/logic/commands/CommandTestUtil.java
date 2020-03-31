@@ -16,6 +16,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -174,6 +175,41 @@ public class CommandTestUtil {
             new CompanyContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredInternshipApplicationList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the internship application at the given
+     * {@code targetIndices} in the
+     * {@code model}'s internship diary.
+     */
+    public static void showInternshipApplicationAtIndices(Model model, Set<Index> targetIndices) {
+        // check that all indices are valid
+        for (Index targetIndex : targetIndices) {
+            assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
+        }
+
+        List<InternshipApplication> internshipApplications = new ArrayList<>();
+
+        // get all internship applications and place them in list
+        for (Index targetIndex : targetIndices) {
+            InternshipApplication internshipApplication =
+                model.getFilteredInternshipApplicationList().get(targetIndex.getZeroBased());
+            internshipApplications.add(internshipApplication);
+        }
+
+        List<String> keywords = new ArrayList<>();
+
+        // extract all company name keywords from internship applications
+        for (InternshipApplication internshipApplication : internshipApplications) {
+            final String[] splitName = internshipApplication.getCompany().fullCompany.split("\\s+");
+            for (String name : splitName) {
+                keywords.add(name);
+            }
+        }
+
+        // filter internship applications list based on the company name keywords
+        model.updateFilteredInternshipApplicationList(new CompanyContainsKeywordsPredicate(keywords));
+
     }
 
 }
