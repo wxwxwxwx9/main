@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -50,7 +49,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_INTERNSHIP_FAILURE = "Was not able to delete the internship!";
 
     private final Optional<Index> targetIndex;
-    private final Optional<Set<Index>> targetIndices;
+    private final Optional<List<Index>> targetIndices;
     private final Optional<Predicate<InternshipApplication>> targetPredicate;
     private final CommandExecutionType executionType;
 
@@ -61,7 +60,7 @@ public class DeleteCommand extends Command {
         this.executionType = executionType;
     }
 
-    public DeleteCommand(Set<Index> indices, CommandExecutionType executionType) {
+    public DeleteCommand(List<Index> indices, CommandExecutionType executionType) {
         this.targetIndex = Optional.empty();
         this.targetIndices = Optional.of(indices);
         this.targetPredicate = Optional.empty();
@@ -124,7 +123,7 @@ public class DeleteCommand extends Command {
     public CommandResult executeByIndices(Model model) throws CommandException {
         requireNonNull(model);
 
-        Set<Index> indices = this.targetIndices.get();
+        List<Index> indices = this.targetIndices.get();
         List<InternshipApplication> lastShownList = model.getFilteredInternshipApplicationList();
 
         // throw exception if any of the listed indices are out of range
@@ -164,6 +163,7 @@ public class DeleteCommand extends Command {
         for (InternshipApplication internshipApplication : model.getFilteredInternshipApplicationList()) {
             copy.add(internshipApplication);
         }
+
         List<InternshipApplication> internshipsToDelete =
             copy.stream().filter(targetPredicate.get()).collect(Collectors.toList());
 

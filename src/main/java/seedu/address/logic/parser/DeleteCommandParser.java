@@ -1,8 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.PrefixUtil.areAnyPrefixesPresent;
@@ -10,7 +15,6 @@ import static seedu.address.logic.parser.PrefixUtil.areAnyPrefixesPresent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.commandexecutiontype.CommandExecutionType;
@@ -40,14 +44,18 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     /**
      * Prefixes that are accepted as executed as fields in DeleteCommand.
      */
-    private static final Prefix[] acceptedPrefixes = {PREFIX_COMPANY, PREFIX_DATE, PREFIX_ROLE, PREFIX_STATUS};
+    private static final Prefix[] acceptedPrefixes = { PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS };
+
+    private static final Prefix[] allPrefixes = {
+        PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS, PREFIX_ADDRESS, PREFIX_DATE, PREFIX_EMAIL,
+        PREFIX_PHONE, PREFIX_PRIORITY, PREFIX_IS_ONLINE
+    };
 
     /**
      * Prefixes and their mapping to its appropriate predicates.
      */
     private static final Map<Prefix, PredicateFunction> predicateMap = Map.of(
         PREFIX_COMPANY, CompanyContainsKeywordsPredicate::new,
-        PREFIX_DATE, CompanyContainsKeywordsPredicate::new,
         PREFIX_ROLE, RoleContainsKeywordsPredicate::new,
         PREFIX_STATUS, StatusContainsKeywordsPredicate::new
     );
@@ -61,7 +69,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
         CommandExecutionType executionType = getExecutionType(args, argMultimap);
 
         switch (executionType) {
@@ -70,7 +78,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         case BY_INDICES:
             return deleteByIndices(args);
         case BY_FIELD:
-            return deleteByField(argMultimap);
+            return deleteByField(args, argMultimap);
         default:
             // this should never happen
             assert false;
@@ -85,7 +93,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @return the appropriate command execution type.
      */
     public CommandExecutionType getExecutionType(String args, ArgumentMultimap argMultimap) {
-        return areAnyPrefixesPresent(argMultimap, acceptedPrefixes)
+        return areAnyPrefixesPresent(argMultimap, allPrefixes)
             ? CommandExecutionType.BY_FIELD
             : args.contains(INDICES_DELIMITER)
                 ? CommandExecutionType.BY_INDICES
@@ -118,7 +126,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand deleteByIndices(String args) throws ParseException {
         try {
-            Set<Index> indicesList = ParserUtil.parseIndices(args, INDICES_DELIMITER);
+            List<Index> indicesList = ParserUtil.parseIndices(args, INDICES_DELIMITER);
             return new DeleteCommand(indicesList, CommandExecutionType.BY_INDICES);
         } catch (ParseException pe) {
             throw new ParseException(
@@ -133,9 +141,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @param argMultimap the argument multimap to retrieve the appropriate field.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    public DeleteCommand deleteByField(ArgumentMultimap argMultimap) throws ParseException {
-        boolean onlyOneField = (argMultimap.getSize() - 1) == 1;
-        if (!onlyOneField) {
+    public DeleteCommand deleteByField(String args, ArgumentMultimap argMultimap) throws ParseException {
+        argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
+        boolean hasOnlyOneField = (argMultimap.getSize() - 1) == 1;
+        boolean hasAcceptedPrefixesPresent = areAnyPrefixesPresent(argMultimap, acceptedPrefixes);
+        if (!hasOnlyOneField || !hasAcceptedPrefixesPresent) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE_BY_FIELD));
         }
