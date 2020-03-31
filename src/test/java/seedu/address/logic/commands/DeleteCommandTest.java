@@ -158,9 +158,11 @@ public class DeleteCommandTest {
         showInternshipApplicationAtIndices(model, INDEX_SET_FIRST_INTERNSHIP_APPLICATION);
 
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
-        INDEX_SET_FIRST_INTERNSHIP_APPLICATION.add(outOfBoundIndex);
+        List<Index> mockIndexes = new ArrayList<>(INDEX_SET_FIRST_INTERNSHIP_APPLICATION);
+        mockIndexes.add(outOfBoundIndex);
+
         DeleteCommand deleteCommand =
-            new DeleteCommand(INDEX_SET_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDICES);
+            new DeleteCommand(mockIndexes, CommandExecutionType.BY_INDICES);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
