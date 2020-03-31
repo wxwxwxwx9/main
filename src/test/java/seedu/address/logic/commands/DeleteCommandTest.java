@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInt
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.commandexecutiontype.CommandExecutionType;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,10 +28,11 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_byIndexValidIndexUnfilteredList_success() {
         InternshipApplication internshipApplicationToDelete =
-            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        DeleteCommand deleteCommand =
+                new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
 
         String expectedMessage =
             String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS, internshipApplicationToDelete);
@@ -42,20 +44,21 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_byIndexInvalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, CommandExecutionType.BY_INDEX);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_byIndexValidIndexFilteredList_success() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         InternshipApplication internshipApplicationToDelete =
-            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
+                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+        DeleteCommand deleteCommand =
+                new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS,
             internshipApplicationToDelete);
@@ -68,38 +71,41 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    public void execute_byIndexInvalidIndexFilteredList_throwsCommandException() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         Index outOfBoundIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipDiary().getDisplayedInternshipList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex, CommandExecutionType.BY_INDEX);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_INTERNSHIP_APPLICATION);
+        DeleteCommand deleteFirstCommandByIndex =
+                new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
+        DeleteCommand deleteSecondCommandByIndex =
+                new DeleteCommand(INDEX_SECOND_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertTrue(deleteFirstCommandByIndex.equals(deleteFirstCommandByIndex));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        DeleteCommand deleteFirstCommandCopy =
+                new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
+        assertTrue(deleteFirstCommandByIndex.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(deleteFirstCommandByIndex.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(deleteFirstCommandByIndex.equals(null));
 
         // different internship application index -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertFalse(deleteFirstCommandByIndex.equals(deleteSecondCommandByIndex));
     }
 
     /**
