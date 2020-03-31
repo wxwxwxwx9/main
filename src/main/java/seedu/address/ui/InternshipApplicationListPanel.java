@@ -19,6 +19,8 @@ import seedu.address.model.status.Status;
  */
 public class InternshipApplicationListPanel extends UiPart<Region> implements PropertyChangeListener {
     private static final String FXML = "InternshipApplicationListPanel.fxml";
+    private static final String UPCOMING_BACKGROUND_COLOR = "-fx-background-color: #0d914f";
+    private static final String GHOSTED_BACKGROUND_COLOR = "-fx-background-color: CRIMSON";
     private final Logger logger = LogsCenter.getLogger(InternshipApplicationListPanel.class);
 
     @FXML
@@ -61,9 +63,9 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
                 if (internshipApplication.isArchived()) {
                     setStyle(originalStyle);
                 } else if (new ApplicationDateDuePredicate().test(internshipApplication)) {
-                    setStyle("-fx-background-color: #0d914f");
+                    setStyle(UPCOMING_BACKGROUND_COLOR);
                 } else if (internshipApplication.getStatus().equals(Status.GHOSTED)) {
-                    setStyle("-fx-background-color: CRIMSON");
+                    setStyle(GHOSTED_BACKGROUND_COLOR);
                 } else {
                     setStyle(originalStyle);
                 }

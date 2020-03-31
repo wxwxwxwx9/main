@@ -20,6 +20,12 @@ import seedu.address.model.status.Status;
 public class InternshipApplicationCard extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationListCard.fxml";
+    private static final String WISHLIST_COLOR = "-fx-background-color: #cd70ff";
+    private static final String APPLIED_COLOR = "-fx-background-color: #209cee";
+    private static final String INTERVIEW_COLOR = "-fx-background-color: #22c65b";
+    private static final String OFFERED_COLOR = "-fx-text-fill: black; -fx-background-color: #ffdd57";
+    private static final String REJECTED_COLOR = "-fx-background-color: #ff3860" ;
+    private static final String GHOSTED_COLOR = "-fx-background-color: SLATEGRAY";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -72,22 +78,22 @@ public class InternshipApplicationCard extends UiPart<Region> {
         Label statusLabel = new Label(internshipApplicationStatus.toString().toLowerCase());
         switch (internshipApplicationStatus) {
         case WISHLIST:
-            statusLabel.setStyle("-fx-background-color: #cd70ff");
+            statusLabel.setStyle(WISHLIST_COLOR);
             break;
         case APPLIED:
-            statusLabel.setStyle("-fx-background-color: #209cee");
+            statusLabel.setStyle(APPLIED_COLOR);
             break;
         case INTERVIEW:
-            statusLabel.setStyle("-fx-background-color: #22c65b");
+            statusLabel.setStyle(INTERVIEW_COLOR);
             break;
         case OFFERED:
-            statusLabel.setStyle("-fx-text-fill: black; -fx-background-color: #ffdd57");
+            statusLabel.setStyle(OFFERED_COLOR);
             break;
         case REJECTED:
-            statusLabel.setStyle("-fx-background-color: #ff3860; ");
+            statusLabel.setStyle(REJECTED_COLOR);
             break;
         case GHOSTED:
-            statusLabel.setStyle("-fx-background-color: SLATEGRAY");
+            statusLabel.setStyle(GHOSTED_COLOR);
             break;
         default:
             break;
