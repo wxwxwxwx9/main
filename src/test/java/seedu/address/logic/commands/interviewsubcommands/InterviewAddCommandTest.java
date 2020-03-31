@@ -33,21 +33,21 @@ public class InterviewAddCommandTest {
     @Test
     public void constructor_nullInterview_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, null));
+            new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, null));
     }
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new InterviewAddCommand(null, new InterviewBuilder().build()));
+            new InterviewAddCommand(null, new InterviewBuilder().build()));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
         InterviewAddCommand command = new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
-                new InterviewBuilder().build());
+            new InterviewBuilder().build());
         assertThrows(NullPointerException.class, () ->
-                command.execute(null));
+            command.execute(null));
     }
 
     @Test
@@ -57,20 +57,20 @@ public class InterviewAddCommandTest {
         CommandResult result = command.execute(model);
         assertEquals(String.format(InterviewAddCommand.MESSAGE_SUCCESS, interview), result.getFeedbackToUser());
         InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         assertTrue(internshipApplication.hasInterview(interview));
     }
 
     @Test
     public void execute_duplicateInterview_throwsCommandException() {
         InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         Interview interview = internshipApplication
-                .getInterview(INDEX_FIRST_INTERVIEW.getZeroBased());
+            .getInterview(INDEX_FIRST_INTERVIEW.getZeroBased());
         InterviewAddCommand command = new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, interview);
         assertThrows(CommandException.class,
-                String.format(InterviewAddCommand.MESSAGE_DUPLICATE_INTERVIEW, internshipApplication), () ->
-                        command.execute(model));
+            String.format(InterviewAddCommand.MESSAGE_DUPLICATE_INTERVIEW, internshipApplication), () ->
+                command.execute(model));
     }
 
     @Test

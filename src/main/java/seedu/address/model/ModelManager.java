@@ -2,6 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
+import static seedu.address.model.ListenerPropertyType.PREDICATE;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,6 +17,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.archival.InternshipApplicationViewType;
@@ -46,7 +50,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         logger.fine("Initializing with internship diary: " + internshipDiary + " and user prefs " + userPrefs);
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
-        // Model manager listens to any changes in displayedInternships in internshipdiary
+        // Model manager listens to any changes in displayedInternships in internshipDiary
         this.internshipDiary.addDisplayedInternshipsPropertyChangeListener(this);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
@@ -162,13 +166,14 @@ public class ModelManager implements Model, PropertyChangeListener {
     public void updateFilteredInternshipApplicationList(Predicate<InternshipApplication> predicate) {
         requireNonNull(predicate);
         filteredInternshipApplications.setPredicate(predicate);
+        firePropertyChange(PREDICATE, predicate);
     }
 
     @Override
     public void updateFilteredInternshipApplicationList(Comparator<InternshipApplication> comparator) {
         requireNonNull(comparator);
         sortedFilteredInternshipApplications.setComparator(comparator);
-        changes.firePropertyChange("comparator", null, comparator);
+        firePropertyChange(COMPARATOR, comparator);
     }
 
     @Override
@@ -186,8 +191,8 @@ public class ModelManager implements Model, PropertyChangeListener {
         // state check
         ModelManager other = (ModelManager) obj;
         return internshipDiary.equals(other.internshipDiary)
-                && userPrefs.equals(other.userPrefs)
-                && filteredInternshipApplications.equals(other.filteredInternshipApplications);
+            && userPrefs.equals(other.userPrefs)
+            && filteredInternshipApplications.equals(other.filteredInternshipApplications);
     }
 
     //=========== Archival view ==================================================================================
@@ -207,16 +212,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         return internshipDiary.getCurrentView();
     }
 
-    @Override
-    public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener("filteredInternshipApplications", l);
-    }
-
-    @Override
-    public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener("comparator", l);
-    }
-
     /**
      * Receives the latest changes in displayed internships from internship diary.
      * Updates the filtered and sorted internship applications accordingly
@@ -230,9 +225,9 @@ public class ModelManager implements Model, PropertyChangeListener {
         ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
         filteredInternshipApplications = new FilteredList<>(ia);
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
-        changes.firePropertyChange("filteredInternshipApplications", null,
-                getFilteredInternshipApplicationList());
-        changes.firePropertyChange("comparator", null, null);
+        firePropertyChange(FILTERED_INTERNSHIP_APPLICATIONS, getFilteredInternshipApplicationList());
+        firePropertyChange(COMPARATOR, null);
+        firePropertyChange(PREDICATE, null);
     }
 
     //=========== Statistics ==================================================================================
@@ -240,6 +235,17 @@ public class ModelManager implements Model, PropertyChangeListener {
     @Override
     public Statistics getStatistics() {
         return statistics;
+    }
+
+    //=========== PropertyChangeListeners ======================================================================
+
+    @Override
+    public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
+        changes.addPropertyChangeListener(propertyType.toString(), l);
+    }
+
+    private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {
+        changes.firePropertyChange(propertyType.toString(), null, newValue);
     }
 
 }

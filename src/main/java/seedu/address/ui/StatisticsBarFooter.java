@@ -30,6 +30,8 @@ public class StatisticsBarFooter extends UiPart<Region> implements PropertyChang
     @FXML
     private Label rejected;
     @FXML
+    private Label ghosted;
+    @FXML
     private Label total;
 
     private Statistics statistics;
@@ -85,27 +87,31 @@ public class StatisticsBarFooter extends UiPart<Region> implements PropertyChang
         int interviewCount = statistics.getCount(Status.INTERVIEW);
         int offeredCount = statistics.getCount(Status.OFFERED);
         int rejectedCount = statistics.getCount(Status.REJECTED);
+        int ghostedCount = statistics.getCount(Status.GHOSTED);
         int totalCount = statistics.getTotalCount();
-        bindStatistics(wishlistCount, appliedCount, interviewCount, offeredCount, rejectedCount, totalCount);
+        bindStatistics(wishlistCount, appliedCount, interviewCount, offeredCount, rejectedCount, ghostedCount,
+                totalCount);
     }
 
     /**
      * Binds the statistics to the user interface.
      *
-     * @param wishlistCount
-     * @param appliedCount
-     * @param interviewCount
-     * @param offeredCount
-     * @param rejectedCount
-     * @param totalCount
+     * @param wishlistCount number of internship application(s) in wishlist
+     * @param appliedCount number of internship application(s) that has/ have been applied for
+     * @param interviewCount number of internship application(s) that has/ have been scheduled for interview
+     * @param offeredCount number of internship application(s) that has/ have been offered
+     * @param rejectedCount number of internship application(s) that has/ have been rejected
+     * @param ghostedCount number of internship application(s) that has/ have been ghosted
+     * @param totalCount total number of internship applications in InternshipDiary
      */
     public void bindStatistics(int wishlistCount, int appliedCount, int interviewCount,
-                               int offeredCount, int rejectedCount, int totalCount) {
+                               int offeredCount, int rejectedCount, int ghostedCount, int totalCount) {
         wishlist.setText(String.format("%s: %d", Status.WISHLIST, wishlistCount));
         applied.setText(String.format("%s: %d", Status.APPLIED, appliedCount));
         interview.setText(String.format("%s: %d", Status.INTERVIEW, interviewCount));
         offered.setText(String.format("%s: %d", Status.OFFERED, offeredCount));
         rejected.setText(String.format("%s: %d", Status.REJECTED, rejectedCount));
+        ghosted.setText(String.format("%s: %d", Status.GHOSTED, ghostedCount));
         total.setText(String.format("%s: %d", Statistics.TOTAL, totalCount));
     }
 

@@ -35,7 +35,7 @@ public class DeleteCommandTest {
                 new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
 
         String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS, internshipApplicationToDelete);
+            String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS, internshipApplicationToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
         expectedModel.deleteInternshipApplication(internshipApplicationToDelete);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
                 new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_INTERNSHIP_SUCCESS,
-                internshipApplicationToDelete);
+            internshipApplicationToDelete);
 
         Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
         expectedModel.deleteInternshipApplication(internshipApplicationToDelete);

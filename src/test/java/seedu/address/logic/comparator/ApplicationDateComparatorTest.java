@@ -47,13 +47,13 @@ public class ApplicationDateComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date1).build();
+            .withApplicationDate(date1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date2).build();
+            .withApplicationDate(date2).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date1).build();
+            .withApplicationDate(date1).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date4).build();
+            .withApplicationDate(date4).build();
 
         // same object
         assertEquals(0, applicationDateComparator.compare(google, google));
@@ -82,13 +82,13 @@ public class ApplicationDateComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date1).build();
+            .withApplicationDate(date1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date3).build();
+            .withApplicationDate(date3).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date2).build();
+            .withApplicationDate(date2).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date3).build();
+            .withApplicationDate(date3).build();
 
         ArrayList<InternshipApplication> unsorted = new ArrayList<>();
         Collections.addAll(unsorted, google2, google1, facebook1, facebook2);

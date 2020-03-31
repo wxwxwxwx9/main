@@ -1,8 +1,13 @@
 package seedu.address.model.internship.predicate;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
@@ -13,6 +18,11 @@ public class ApplicationDateIsDatePredicate implements Predicate<InternshipAppli
 
     public ApplicationDateIsDatePredicate(LocalDate date) {
         this.date = date;
+    }
+
+    public ApplicationDateIsDatePredicate(List<String> dateArr) throws ParseException {
+        String dateStr = String.join(" ", dateArr);
+        this.date = ParserUtil.parseApplicationDate(dateStr).fullApplicationDate;
     }
 
     @Override
@@ -33,5 +43,13 @@ public class ApplicationDateIsDatePredicate implements Predicate<InternshipAppli
 
     public boolean isNull() {
         return date == null;
+    }
+
+    @Override
+    public String toString() {
+        if (isNull()) {
+            return PREFIX_DATE.toString();
+        }
+        return PREFIX_DATE.toString() + date.toString();
     }
 }

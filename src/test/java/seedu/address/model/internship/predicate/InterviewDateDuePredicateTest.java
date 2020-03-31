@@ -36,7 +36,7 @@ class InterviewDateDuePredicateTest {
         InternshipApplicationBuilder internshipApplicationTestCurrent = new InternshipApplicationBuilder();
         LocalDate currentDate = LocalDate.now();
         Interview newInterviewTestCurrent = new Interview(true, new ApplicationDate(currentDate),
-                new Address("123 Stevens Road"));
+            new Address("123 Stevens Road"));
         internshipApplicationTestCurrent.withInterview(newInterviewTestCurrent);
         assertTrue(predicate.test(internshipApplicationTestCurrent.buildWithInterviews()));
 
@@ -44,7 +44,7 @@ class InterviewDateDuePredicateTest {
         InternshipApplicationBuilder internshipApplicationTestWithin = new InternshipApplicationBuilder();
         LocalDate laterDate = LocalDate.now().plus(4, ChronoUnit.DAYS);
         Interview newInterviewTestWithin = new Interview(true, new ApplicationDate(laterDate),
-                new Address("123 Stevens Road"));
+            new Address("123 Stevens Road"));
         internshipApplicationTestWithin.withInterview(newInterviewTestWithin);
         assertTrue(predicate.test(internshipApplicationTestWithin.buildWithInterviews()));
     }
@@ -57,7 +57,7 @@ class InterviewDateDuePredicateTest {
         InternshipApplicationBuilder internshipApplicationTestPast = new InternshipApplicationBuilder();
         LocalDate pastDate = LocalDate.now().minus(4, ChronoUnit.DAYS);
         Interview newInterviewTestPast = new Interview(true, new ApplicationDate(pastDate),
-                new Address("123 Stevens Road"));
+            new Address("123 Stevens Road"));
         internshipApplicationTestPast.withInterview(newInterviewTestPast);
         assertFalse(predicate.test(internshipApplicationTestPast.buildWithInterviews()));
     }
@@ -70,7 +70,7 @@ class InterviewDateDuePredicateTest {
         InternshipApplicationBuilder internshipApplicationTestMore = new InternshipApplicationBuilder();
         LocalDate laterDate = LocalDate.now().plus(10, ChronoUnit.DAYS);
         Interview newInterviewTestMore = new Interview(true, new ApplicationDate(laterDate),
-                new Address("123 Stevens Road"));
+            new Address("123 Stevens Road"));
         internshipApplicationTestMore.withInterview(newInterviewTestMore);
         assertFalse(predicate.test(internshipApplicationTestMore.buildWithInterviews()));
     }

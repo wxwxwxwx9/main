@@ -15,18 +15,18 @@ public class ClearCommandConfirmationParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(
-                ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD) instanceof ClearCommand);
+            ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(
-                ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD + " ") instanceof ClearCommand);
+            ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD + " ") instanceof ClearCommand);
         assertTrue(parser.parseCommand(
-                ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD.toUpperCase()) instanceof ClearCommand);
+            ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD.toUpperCase()) instanceof ClearCommand);
     }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, ClearCommandConfirmationParser.CANCEL_CLEAR_COMMAND, () ->
-                parser.parseCommand(ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD + " 3"));
+            parser.parseCommand(ClearCommandConfirmationParser.CONFIRMATION_COMMAND_WORD + " 3"));
         assertThrows(ParseException.class, ClearCommandConfirmationParser.CANCEL_CLEAR_COMMAND, () ->
-                parser.parseCommand(" "));
+            parser.parseCommand(" "));
     }
 }

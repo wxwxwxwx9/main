@@ -40,7 +40,7 @@ public class InternshipApplicationUtil {
         sb.append(PREFIX_PHONE + internshipApplication.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + internshipApplication.getEmail().value + " ");
         sb.append(PREFIX_DATE + dateFormat
-                .format(internshipApplication.getApplicationDate().fullApplicationDate) + " ");
+            .format(internshipApplication.getApplicationDate().fullApplicationDate) + " ");
         sb.append(PREFIX_PRIORITY + internshipApplication.getPriority().toString() + " ");
         sb.append(PREFIX_STATUS + internshipApplication.getStatus().name() + " ");
         return sb.toString();
@@ -50,7 +50,7 @@ public class InternshipApplicationUtil {
      * Returns the part of command string for the given {@code EditInternshipDescriptor}'s details.
      */
     public static String getEditInternshipApplicationDescriptorDetails(
-            EditCommand.EditInternshipDescriptor descriptor) {
+        EditCommand.EditInternshipDescriptor descriptor) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MM YYYY");
         StringBuilder sb = new StringBuilder();
         descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY).append(company.fullCompany).append(" "));
@@ -59,9 +59,9 @@ public class InternshipApplicationUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.fullRole).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE)
-                .append(dateFormat.format(date.fullApplicationDate)).append(" "));
+            .append(dateFormat.format(date.fullApplicationDate)).append(" "));
         descriptor.getPriority()
-                .ifPresent(priority -> sb.append(PREFIX_PRIORITY).append(priority.toString()).append(" "));
+            .ifPresent(priority -> sb.append(PREFIX_PRIORITY).append(priority.toString()).append(" "));
         descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.name()).append(" "));
 
         return sb.toString();
@@ -71,17 +71,17 @@ public class InternshipApplicationUtil {
      * Modifies an internship application to be archived.
      */
     public static InternshipApplication createArchivedInternshipApplication(
-            InternshipApplication internshipApplication) {
+        InternshipApplication internshipApplication) {
         InternshipApplication archivedInternship = new InternshipApplication(
-                internshipApplication.getCompany(),
-                internshipApplication.getRole(),
-                internshipApplication.getAddress(),
-                internshipApplication.getPhone(),
-                internshipApplication.getEmail(),
-                internshipApplication.getApplicationDate(),
-                internshipApplication.getPriority(),
-                internshipApplication.getStatus(),
-                true
+            internshipApplication.getCompany(),
+            internshipApplication.getRole(),
+            internshipApplication.getAddress(),
+            internshipApplication.getPhone(),
+            internshipApplication.getEmail(),
+            internshipApplication.getApplicationDate(),
+            internshipApplication.getPriority(),
+            internshipApplication.getStatus(),
+            true
         );
         assertTrue(archivedInternship.isArchived());
         return archivedInternship;
@@ -91,17 +91,17 @@ public class InternshipApplicationUtil {
      * Modifies an internship application to be unarchived.
      */
     public static InternshipApplication createUnarchivedInternshipApplication(
-            InternshipApplication internshipApplication) {
+        InternshipApplication internshipApplication) {
         InternshipApplication archivedInternship = new InternshipApplication(
-                internshipApplication.getCompany(),
-                internshipApplication.getRole(),
-                internshipApplication.getAddress(),
-                internshipApplication.getPhone(),
-                internshipApplication.getEmail(),
-                internshipApplication.getApplicationDate(),
-                internshipApplication.getPriority(),
-                internshipApplication.getStatus(),
-                false
+            internshipApplication.getCompany(),
+            internshipApplication.getRole(),
+            internshipApplication.getAddress(),
+            internshipApplication.getPhone(),
+            internshipApplication.getEmail(),
+            internshipApplication.getApplicationDate(),
+            internshipApplication.getPriority(),
+            internshipApplication.getStatus(),
+            false
         );
         assertTrue(archivedInternship.isArchived());
         return archivedInternship;

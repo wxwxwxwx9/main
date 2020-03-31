@@ -19,16 +19,16 @@ public class RoleContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         RoleContainsKeywordsPredicate firstPredicate =
-                new RoleContainsKeywordsPredicate(firstPredicateKeywordList);
+            new RoleContainsKeywordsPredicate(firstPredicateKeywordList);
         RoleContainsKeywordsPredicate secondPredicate =
-                new RoleContainsKeywordsPredicate(secondPredicateKeywordList);
+            new RoleContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         RoleContainsKeywordsPredicate firstPredicateCopy =
-                new RoleContainsKeywordsPredicate(firstPredicateKeywordList);
+            new RoleContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class RoleContainsKeywordsPredicateTest {
     public void test_roleContainsKeywords_returnsTrue() {
         // One keyword
         RoleContainsKeywordsPredicate predicate =
-                new RoleContainsKeywordsPredicate(Collections.singletonList("Cleaner"));
+            new RoleContainsKeywordsPredicate(Collections.singletonList("Cleaner"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withRole("Cleaner").build()));
 
         // Multiple keywords
@@ -73,11 +73,11 @@ public class RoleContainsKeywordsPredicateTest {
 
         // Keywords match company, phone, email, address, priority and status, but does not match role
         predicate = new RoleContainsKeywordsPredicate(Arrays.asList("Google", "12345", "alice@email.com", "Main",
-                "Street", "1", "APPLIED"));
+            "Street", "1", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
-                .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
-                .withStatus("APPLIED").build()));
+            .withRole("Software Engineer").withPhone("12345")
+            .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+            .withStatus("APPLIED").build()));
     }
 
     @Test

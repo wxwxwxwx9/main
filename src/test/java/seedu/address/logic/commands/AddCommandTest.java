@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.beans.PropertyChangeListener;
@@ -16,10 +15,12 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.archival.InternshipApplicationViewType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InternshipDiary;
+import seedu.address.model.ListenerPropertyType;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -42,7 +43,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validInternshipApplication).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validInternshipApplication),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validInternshipApplication), modelStub.internshipsAdded);
     }
 
@@ -53,7 +54,7 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithInternshipApplication(validInternshipApplication);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
+            AddCommand.MESSAGE_DUPLICATE_INTERNSHIP, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -64,20 +65,20 @@ public class AddCommandTest {
         AddCommand addNtuCommand = new AddCommand(ntu);
 
         // same object -> returns true
-        assertTrue(addNusCommand.equals(addNusCommand));
+        assertEquals(addNusCommand, addNusCommand);
 
         // same values -> returns true
         AddCommand addNUsCommandCopy = new AddCommand(nus);
-        assertTrue(addNusCommand.equals(addNUsCommandCopy));
+        assertEquals(addNusCommand, addNUsCommandCopy);
 
         // different types -> returns false
-        assertFalse(addNusCommand.equals(1));
+        assertNotEquals(1, addNusCommand);
 
         // null -> returns false
-        assertFalse(addNusCommand.equals(null));
+        assertNotEquals(null, addNusCommand);
 
         // different company -> returns false
-        assertFalse(addNusCommand.equals(addNtuCommand));
+        assertNotEquals(addNusCommand, addNtuCommand);
     }
 
     /**
@@ -190,12 +191,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addFilteredInternshipApplicationsPropertyChangeListener(PropertyChangeListener l) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addComparatorPropertyChangeListener(PropertyChangeListener l) {
+        public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }
 

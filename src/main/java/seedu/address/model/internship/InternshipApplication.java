@@ -26,6 +26,8 @@ public class InternshipApplication {
     private final Status status;
     private final ArrayList<Interview> interviews;
     private Boolean isArchived;
+    private Boolean isGhostedOrRejected;
+    private Status lastStage;
 
     /**
      * Every field must be present and not null.
@@ -42,6 +44,8 @@ public class InternshipApplication {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.isArchived = false;
+        this.isGhostedOrRejected = false;
+        this.lastStage = null;
         interviews = new ArrayList<>();
     }
 
@@ -60,6 +64,8 @@ public class InternshipApplication {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.isArchived = isArchived;
+        this.isGhostedOrRejected = false;
+        this.lastStage = null;
         interviews = new ArrayList<>();
     }
 
@@ -93,6 +99,47 @@ public class InternshipApplication {
 
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Sets variable 'isGhostedOrRejected' to true to keep track of whether the last stage before the internship
+     * application failed (ghosted/ rejected) needs to be stored.
+     */
+    public void setIsGhostedOrRejected(Boolean bool) {
+        this.isGhostedOrRejected = bool;
+    }
+
+    public Boolean getIsGhostedOrRejected() {
+        return isGhostedOrRejected;
+    }
+
+    /**
+     * Stores the last stage of where the internship application failed (applied/ interview/ offered) only when
+     * 'isGhostedOrRejected' is true.
+     * @param lastStage where the internship application failed.
+     */
+    public void setLastStage(Status lastStage) {
+        this.lastStage = lastStage;
+    }
+
+    /**
+     * Returns the last stage before the status of an internship application was updated to be ghosted/ rejected.
+     * @return an enum of Status (APPLIED/ OFFERED/ INTERVIEW).
+     */
+    public Status getLastStage() {
+        return lastStage;
+    }
+
+    /**
+     * Returns the last stage failed.
+     * @return last stage failed, else an empty string
+     */
+    public String getLastStageMessage() {
+        if (isGhostedOrRejected && lastStage != null) {
+            return " [You failed at " + lastStage.toString() + ":(]";
+        } else {
+            return "";
+        }
     }
 
     public Boolean isArchived() {
@@ -179,6 +226,24 @@ public class InternshipApplication {
     }
 
     /**
+     * Returns application date or the earliest interview date scheduled, whichever is closer to current date.
+     * @return earliest date from current date.
+     */
+    public ApplicationDate getEarliestApplicationOrInterviewDate() {
+        LocalDate currentDate = LocalDate.now();
+        Optional<Interview> earliestInterview = getEarliestInterview(currentDate);
+        if (applicationDate.fullApplicationDate.compareTo(currentDate) < 0) { // application date before current date
+            return earliestInterview.get().getDate();
+        }
+        if (earliestInterview.isPresent()) { // there are interviews after current date
+            ApplicationDate earliestInterviewDate = earliestInterview.get().getDate();
+            return applicationDate.compareTo(earliestInterviewDate) >= 0 ? earliestInterviewDate : applicationDate;
+        } else { // there are no interviews after current date
+            return applicationDate;
+        }
+    }
+
+    /**
      * Returns true if all but priority and status fields are the same.
      * This defines a weaker notion of equality between two internship applications.
      */
@@ -194,7 +259,9 @@ public class InternshipApplication {
                 && internshipApplication.getAddress().equals(getAddress())
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate());
+                && internshipApplication.getApplicationDate().equals(getApplicationDate())
+                && internshipApplication.isArchived().equals(isArchived())
+                && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     /**
@@ -219,13 +286,15 @@ public class InternshipApplication {
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus());
+                && internshipApplication.getStatus().equals(getStatus())
+                && internshipApplication.isArchived().equals(isArchived())
+                && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status);
+        return Objects.hash(company, role, address, phone, email, applicationDate, priority, status, isArchived);
     }
 
     @Override
@@ -246,6 +315,7 @@ public class InternshipApplication {
                 .append(getPriority())
                 .append(" Status: ")
                 .append(getStatus())
+                .append(getLastStageMessage())
                 .append(" Archived: ")
                 .append(isArchived());
         return builder.toString();
