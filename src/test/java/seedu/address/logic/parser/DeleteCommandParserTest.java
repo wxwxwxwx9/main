@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SET_FIRST_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_LIST_FIRST_INTERNSHIP_APPLICATION;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,41 +21,52 @@ import seedu.address.testutil.PredicateUtil;
  */
 public class DeleteCommandParserTest {
 
+    private static final String VALID_FIELD_COMPANY = "c/";
+    private static final String INVALID_FIELD_DATE = "d/";
+
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
     public void parse_byIndexValidIndex_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1",
+        String validIndexInput = "1";
+        assertParseSuccess(parser, validIndexInput,
             new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX));
     }
 
     @Test
     public void parse_byIndexInvalidIndex_throwsParseException() {
-        assertParseFailure(parser, "a",
+        String invalidIndexInput = "a";
+        assertParseFailure(parser, invalidIndexInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE_BY_INDICES));
     }
 
     @Test
     public void parse_byIndicesValidIndices_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1, 2",
-            new DeleteCommand(INDEX_SET_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDICES));
+        String validIndicesInput = "1, 2";
+        assertParseSuccess(parser, validIndicesInput,
+            new DeleteCommand(INDEX_LIST_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDICES));
     }
 
     @Test
     public void parse_byIndicesInvalidIndices_throwsParseException() {
-        assertParseFailure(parser, "1, a, 3",
+        String invalidIndicesInput = "1, a, 3";
+        assertParseFailure(parser, invalidIndicesInput,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE_BY_INDICES));
     }
 
     @Test
     public void parse_byFieldValidField_returnsDeleteCommand() {
-        assertParseSuccess(parser, "delete c/google",
-            new DeleteCommand(PredicateUtil.prepareCompanyPredicate("google"), CommandExecutionType.BY_FIELD));
+        String company = "google";
+        String validCommand = String.format("%s %s%s", DeleteCommand.COMMAND_WORD, VALID_FIELD_COMPANY, company);
+        assertParseSuccess(parser, validCommand,
+            new DeleteCommand(PredicateUtil.prepareCompanyPredicate(company), CommandExecutionType.BY_FIELD));
     }
 
     @Test
     public void parse_byFieldInvalidField_throwsParseException() {
-        assertParseFailure(parser, "delete d/20 12 2020",
+        String date = "20 12 2020";
+        String invalidCommand = String.format("%s %s%s", DeleteCommand.COMMAND_WORD, INVALID_FIELD_DATE, date);
+        assertParseFailure(parser, invalidCommand,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE_BY_FIELD));
     }
 

@@ -6,5 +6,5 @@ package seedu.address.commons.core.commandexecutiontype;
  * or it may want to cherry-pick items to execute on.
  */
 public enum CommandExecutionType {
-    BY_FIELD, BY_INDEX, BY_INDICES;
+     BY_INDEX, BY_INDICES, BY_FIELD,;
 }

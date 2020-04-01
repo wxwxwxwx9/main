@@ -37,7 +37,7 @@ public class ModelManager implements Model, PropertyChangeListener {
     private final Statistics statistics;
 
     private InternshipDiary internshipDiary;
-    
+
     private FilteredList<InternshipApplication> filteredInternshipApplications;
     private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
@@ -221,19 +221,27 @@ public class ModelManager implements Model, PropertyChangeListener {
      *
      * @param e event that describes the changes in the updated property.
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void propertyChange(PropertyChangeEvent e) {
         refreshFilteredInternshipApplications(e.getNewValue());
         fireAllPropertyChanges();
     }
 
+    /**
+     * Updates the current filtered internship applicaations with the refreshed displayed internship applications.
+     *
+     * @param newInternshipApplications the new list to replace the current filtered internship applications.
+     */
+    @SuppressWarnings("unchecked")
     private void refreshFilteredInternshipApplications(Object newInternshipApplications) {
         ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) newInternshipApplications;
         filteredInternshipApplications = new FilteredList<>(ia);
         sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
     }
 
+    /**
+     * Fires all the relevant property changes to the listeners.
+     */
     private void fireAllPropertyChanges() {
         firePropertyChange(FILTERED_INTERNSHIP_APPLICATIONS, getFilteredInternshipApplicationList());
         firePropertyChange(COMPARATOR, null);
