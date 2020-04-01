@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -43,5 +44,27 @@ public class PrefixPredicateUtil {
         PREFIX_EMAIL, EmailContainsKeywordsPredicate::new,
         PREFIX_PHONE, PhoneContainsNumbersPredicate::new
     );
+
+    /**
+     * Retrieves the value of the prefix from argument multimap
+     * and packages it into a predicate for internship application.
+     *
+     * @param argMultimap argument multimap to extract the prefix for predicate creation.
+     * @returns predicate to filter internship application list.
+     * @throws ParseException if the user input does not conform the expected format.
+     */
+    public static Predicate<InternshipApplication> getFieldPredicate(ArgumentMultimap argMultimap,
+        Prefix[] acceptedPrefixes) throws ParseException {
+        Predicate<InternshipApplication> predicate = null;
+        for (Prefix prefix : acceptedPrefixes) {
+            if (argMultimap.getValue(prefix).isPresent()) {
+                String input = argMultimap.getValue(prefix).get();
+                String[] keywords = input.split("\\s+");
+                predicate = PREDICATE_MAP.get(prefix).apply(Arrays.asList(keywords));
+                break;
+            }
+        }
+        return predicate;
+    }
 
 }

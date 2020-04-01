@@ -5,10 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.ALL_PREFIXES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.PrefixPredicateUtil.PREDICATE_MAP;
+import static seedu.address.logic.parser.PrefixPredicateUtil.getFieldPredicate;
 import static seedu.address.logic.parser.PrefixUtil.areAnyPrefixesPresent;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -46,7 +45,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         case BY_INDICES:
             return deleteByIndices(args);
         case BY_FIELD:
-            return deleteByField(args, argMultimap);
+            return deleteByField(args);
         default:
             // this should never happen
             assert false;
@@ -108,41 +107,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * that is to be executed by accepted fields/prefixes and returns a DeleteCommand object for execution.
      *
-     * @param argMultimap the argument multimap to retrieve the appropriate field.
      * @throws ParseException if the user input does not conform to the expected format.
      */
-    public DeleteCommand deleteByField(String args, ArgumentMultimap argMultimap) throws ParseException {
-        argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
+    public DeleteCommand deleteByField(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
         boolean hasOnlyOneField = (argMultimap.getSize() - 1) == 1;
         boolean hasAcceptedPrefixesPresent = areAnyPrefixesPresent(argMultimap, acceptedPrefixes);
-        if (!hasOnlyOneField || !hasAcceptedPrefixesPresent) {
+        boolean isValidField = hasOnlyOneField & hasAcceptedPrefixesPresent;
+        if (!isValidField) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE_BY_FIELD));
         }
-        Predicate<InternshipApplication> predicate = getFieldPredicate(argMultimap);
+        Predicate<InternshipApplication> predicate = getFieldPredicate(argMultimap, acceptedPrefixes);
 
         return new DeleteCommand(predicate, CommandExecutionType.BY_FIELD);
-    }
-
-    /**
-     * Retrieves the value of the prefix from argument multimap
-     * and packages it into a predicate for internship application.
-     *
-     * @param argMultimap argument multimap to extract the prefix for predicate creation.
-     * @returns predicate to filter internship application list.
-     * @throws ParseException if the user input does not conform the expected format.
-     */
-    public Predicate<InternshipApplication> getFieldPredicate(ArgumentMultimap argMultimap) throws ParseException {
-        Predicate<InternshipApplication> predicate = null;
-        for (Prefix prefix : acceptedPrefixes) {
-            if (argMultimap.getValue(prefix).isPresent()) {
-                String input = argMultimap.getValue(prefix).get();
-                String[] keywords = input.split("\\s+");
-                predicate = PREDICATE_MAP.get(prefix).apply(Arrays.asList(keywords));
-                break;
-            }
-        }
-        return predicate;
     }
 
 }
