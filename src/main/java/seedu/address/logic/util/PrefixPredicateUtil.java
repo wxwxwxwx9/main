@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.util;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.AddressContainsKeywordsPredicate;

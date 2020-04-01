@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.ALL_PREFIXES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.PrefixPredicateUtil.getFieldPredicate;
-import static seedu.address.logic.parser.PrefixUtil.areAnyPrefixesPresent;
+import static seedu.address.logic.util.PrefixPredicateUtil.getFieldPredicate;
+import static seedu.address.logic.util.PrefixUtil.areAnyPrefixesPresent;
 
 import java.util.List;
 import java.util.function.Predicate;

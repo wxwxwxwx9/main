@@ -114,8 +114,8 @@ public class DeleteCommand extends Command {
     /**
      * Executes the command by multiple indexes.
      * It places all the internship applications indicated by the indices in a new list
-     * and then runs through the list to delete internship applications from the underlying internship applications list
-     * in the internship diary.
+     * and then runs through the list to delete internship applications from the
+     * underlying internship applications list in the internship diary.
      *
      * @param model model for execution of command.
      * @throws CommandException if the indices are out of range.

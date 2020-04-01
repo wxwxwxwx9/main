@@ -31,8 +31,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
 
     private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-    public InternshipDiary() {
-    }
+    public InternshipDiary() {}
 
     /**
      * Creates an InternshipDiary using the InternshipApplications in the {@code toBeCopied}
@@ -42,9 +41,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
         resetData(toBeCopied);
     }
 
-    //// internship list views
-
-    // property change listeners
+    //// property change listeners
 
     @Override
     public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
@@ -54,6 +51,8 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {
         changes.firePropertyChange(propertyType.toString(), null, newValue);
     }
+
+    //// internship list views
 
     /**
      * Sets the displayed internship application(s) list with archived internship application(s) list.
@@ -90,7 +89,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void resetData(ReadOnlyInternshipDiary newData) {
         requireNonNull(newData);
-        // temporary implementation to check if newData contains any duplicate internship applications as a whole
+        // check if newData contains any duplicate internship applications as a whole
         new UniqueInternshipApplicationList().setInternshipApplications(newData.getAllInternshipList());
         setArchivedInternships(newData.getAllInternshipList());
         setUnarchivedInternships(newData.getAllInternshipList());

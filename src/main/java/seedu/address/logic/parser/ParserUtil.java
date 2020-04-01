@@ -58,6 +58,7 @@ public class ParserUtil {
         for (int i = 0; i < indices.length; i++) {
             indices[i] = indices[i].trim();
         }
+        // remove duplicates
         Set<String> set = new HashSet<>(Arrays.asList(indices));
         List<Index> indicesList = new ArrayList<>();
         for (String oneBasedIndex : set) {
