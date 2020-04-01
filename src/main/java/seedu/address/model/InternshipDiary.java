@@ -93,7 +93,6 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
         new UniqueInternshipApplicationList().setInternshipApplications(newData.getAllInternshipList());
         setArchivedInternships(newData.getAllInternshipList());
         setUnarchivedInternships(newData.getAllInternshipList());
-        viewUnarchivedInternshipApplicationList();
     }
 
     /**
