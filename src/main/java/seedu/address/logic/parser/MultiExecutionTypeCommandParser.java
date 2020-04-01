@@ -13,16 +13,14 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.commandexecutiontype.CommandExecutionType;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.MultiExecutionTypeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object.
  */
-public class DeleteCommandParser implements Parser<DeleteCommand> {
-
-    private static final String INDICES_DELIMITER = ",";
+public class MultiExecutionTypeCommandParser {
 
     /** Prefixes that are accepted for execution as fields in DeleteCommand. */
     private static final Prefix[] acceptedPrefixes = { PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS };
@@ -34,39 +32,24 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @return the appropriate DeleteCommand based the the execution type.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    public DeleteCommand parse(String args) throws ParseException {
+    public MultiExecutionTypeCommand parse(String args, String commandWord) throws ParseException {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, ALL_PREFIXES);
-        CommandExecutionType executionType = getExecutionType(args, argMultimap);
+        CommandExecutionType executionType = CommandExecutionType.getExecutionType(args, argMultimap);
 
         switch (executionType) {
         case BY_INDEX:
-            return deleteByIndex(args);
+            return commandByIndex(args, commandWord);
         case BY_INDICES:
-            return deleteByIndices(args);
+            return commandByIndices(args, commandWord);
         case BY_FIELD:
-            return deleteByField(args);
+            return commandByField(args, commandWord);
         default:
             // this should never happen
             assert false;
-            return deleteByIndex(args);
+            return commandByIndex(args, commandWord);
         }
 
-    }
-
-    /**
-     * Retrieves the appropriate command execution type based on the argument.
-     *
-     * @return the appropriate command execution type.
-     */
-    public CommandExecutionType getExecutionType(String args, ArgumentMultimap argMultimap) {
-        boolean hasPrefixes = areAnyPrefixesPresent(argMultimap, ALL_PREFIXES);
-        boolean hasDelimiter = args.contains(INDICES_DELIMITER);
-        return hasPrefixes
-            ? CommandExecutionType.BY_FIELD
-            : hasDelimiter
-                ? CommandExecutionType.BY_INDICES
-                : CommandExecutionType.BY_INDEX;
     }
 
     /**
@@ -76,13 +59,14 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @param args the argument to be parsed into an Index object.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    public DeleteCommand deleteByIndex(String args) throws ParseException {
+    public MultiExecutionTypeCommand commandByIndex(String args, String commandWord) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            return new DeleteCommand(index, CommandExecutionType.BY_INDEX);
+            return new MultiExecutionTypeCommand(index, CommandExecutionType.BY_INDEX, commandWord);
         } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE_BY_INDICES), pe);
+            String exceptionMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MultiExecutionTypeCommand.MESSAGE_USAGE_BY_INDEX.apply(commandWord));
+            throw new ParseException(exceptionMessage, pe);
         }
     }
 
@@ -93,13 +77,14 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @param args the argument to be parsed into an a set of Index object.
      * @throws ParseException if the user input does not conform to the expected format.
      */
-    public DeleteCommand deleteByIndices(String args) throws ParseException {
+    public MultiExecutionTypeCommand commandByIndices(String args, String commandWord) throws ParseException {
         try {
-            List<Index> indicesList = ParserUtil.parseIndices(args, INDICES_DELIMITER);
-            return new DeleteCommand(indicesList, CommandExecutionType.BY_INDICES);
+            List<Index> indicesList = ParserUtil.parseIndices(args, CommandExecutionType.INDICES_DELIMITER);
+            return new MultiExecutionTypeCommand(indicesList, CommandExecutionType.BY_INDICES, commandWord);
         } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE_BY_INDICES), pe);
+            String exceptionMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MultiExecutionTypeCommand.MESSAGE_USAGE_BY_INDICES.apply(commandWord));
+            throw new ParseException(exceptionMessage, pe);
         }
     }
 
@@ -109,18 +94,19 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      *
      * @throws ParseException if the user input does not conform to the expected format.
      */
-    public DeleteCommand deleteByField(String args) throws ParseException {
+    public MultiExecutionTypeCommand commandByField(String args, String commandWord) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
         boolean hasOnlyOneField = (argMultimap.getSize() - 1) == 1;
         boolean hasAcceptedPrefixesPresent = areAnyPrefixesPresent(argMultimap, acceptedPrefixes);
         boolean isValidField = hasOnlyOneField & hasAcceptedPrefixesPresent;
         if (!isValidField) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteCommand.MESSAGE_USAGE_BY_FIELD));
+            String exceptionMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MultiExecutionTypeCommand.MESSAGE_USAGE_BY_FIELD.apply(commandWord));
+            throw new ParseException(exceptionMessage);
         }
         Predicate<InternshipApplication> predicate = getFieldPredicate(argMultimap, acceptedPrefixes);
 
-        return new DeleteCommand(predicate, CommandExecutionType.BY_FIELD);
+        return new MultiExecutionTypeCommand(predicate, CommandExecutionType.BY_FIELD, commandWord);
     }
 
 }

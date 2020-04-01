@@ -57,7 +57,7 @@ public class InternshipDiaryParser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new MultiExecutionTypeCommandParser().parse(arguments, DeleteCommand.COMMAND_WORD);
 
         case InitClearCommand.COMMAND_WORD:
             return new InitClearCommand();
@@ -84,10 +84,10 @@ public class InternshipDiaryParser {
             return new StatisticsCommand();
 
         case ArchiveCommand.COMMAND_WORD:
-            return new ArchiveCommandParser().parse(arguments);
+            return new MultiExecutionTypeCommandParser().parse(arguments, ArchiveCommand.COMMAND_WORD);
 
         case UnarchiveCommand.COMMAND_WORD:
-            return new UnarchiveCommandParser().parse(arguments);
+            return new MultiExecutionTypeCommandParser().parse(arguments, UnarchiveCommand.COMMAND_WORD);
 
         case ArchivalCommand.COMMAND_WORD:
             return new ArchivalCommand();
