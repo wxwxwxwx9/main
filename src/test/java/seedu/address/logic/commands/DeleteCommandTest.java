@@ -33,9 +33,10 @@ import seedu.address.model.internship.InternshipApplication;
  */
 public class DeleteCommandTest {
 
+    private static final String GOOGLE = "google";
+    private static final String FACEBOOK = "facebook";
+
     private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
-    private final String GOOGLE = "google";
-    private final String FACEBOOK = "facebook";
 
     @Test
     public void execute_byIndexValidIndexUnfilteredList_success() {
