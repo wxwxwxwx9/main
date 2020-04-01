@@ -3,8 +3,10 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIPS;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
+import static seedu.address.model.ListenerPropertyType.VIEW_TYPE;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -35,6 +37,7 @@ public class ModelManager implements Model, PropertyChangeListener {
     private final Statistics statistics;
 
     private InternshipDiary internshipDiary;
+
     private FilteredList<InternshipApplication> filteredInternshipApplications;
     private SortedList<InternshipApplication> sortedFilteredInternshipApplications;
 
@@ -51,7 +54,7 @@ public class ModelManager implements Model, PropertyChangeListener {
 
         this.internshipDiary = new InternshipDiary(internshipDiary);
         // Model manager listens to any changes in displayedInternships in internshipDiary
-        this.internshipDiary.addDisplayedInternshipsPropertyChangeListener(this);
+        this.internshipDiary.addPropertyChangeListener(DISPLAYED_INTERNSHIPS, this);
         this.userPrefs = new UserPrefs(userPrefs);
         this.statistics = new Statistics();
         filteredInternshipApplications = new FilteredList<>(this.internshipDiary.getDisplayedInternshipList());
@@ -100,19 +103,23 @@ public class ModelManager implements Model, PropertyChangeListener {
     //=========== InternshipDiary ============================================================================
 
     @Override
-    public void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary) {
-        this.internshipDiary.resetData(internshipDiary);
-    }
-
-    @Override
     public ReadOnlyInternshipDiary getInternshipDiary() {
         return internshipDiary;
     }
 
     @Override
-    public boolean hasInternshipApplication(InternshipApplication internshipApplication) {
-        requireNonNull(internshipApplication);
-        return internshipDiary.hasInternship(internshipApplication);
+    public void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary) {
+        this.internshipDiary.resetData(internshipDiary);
+    }
+
+    @Override
+    public void addInternshipApplication(InternshipApplication internshipApplication) {
+        internshipDiary.addInternshipApplication(internshipApplication);
+    }
+
+    @Override
+    public void deleteInternshipApplication(InternshipApplication target) {
+        internshipDiary.removeInternship(target);
     }
 
     @Override
@@ -126,13 +133,9 @@ public class ModelManager implements Model, PropertyChangeListener {
     }
 
     @Override
-    public void deleteInternshipApplication(InternshipApplication target) {
-        internshipDiary.removeInternship(target);
-    }
-
-    @Override
-    public void addInternshipApplication(InternshipApplication internshipApplication) {
-        internshipDiary.addInternshipApplication(internshipApplication);
+    public boolean hasInternshipApplication(InternshipApplication internshipApplication) {
+        requireNonNull(internshipApplication);
+        return internshipDiary.hasInternship(internshipApplication);
     }
 
     @Override
@@ -176,25 +179,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         firePropertyChange(COMPARATOR, comparator);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return internshipDiary.equals(other.internshipDiary)
-            && userPrefs.equals(other.userPrefs)
-            && filteredInternshipApplications.equals(other.filteredInternshipApplications);
-    }
-
     //=========== Archival view ==================================================================================
 
     @Override
@@ -212,24 +196,6 @@ public class ModelManager implements Model, PropertyChangeListener {
         return internshipDiary.getCurrentView();
     }
 
-    /**
-     * Receives the latest changes in displayed internships from internship diary.
-     * Updates the filtered and sorted internship applications accordingly
-     * and fires property change event to its listeners.
-     *
-     * @param e event that describes the changes in the updated property.
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public void propertyChange(PropertyChangeEvent e) {
-        ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) e.getNewValue();
-        filteredInternshipApplications = new FilteredList<>(ia);
-        sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
-        firePropertyChange(FILTERED_INTERNSHIP_APPLICATIONS, getFilteredInternshipApplicationList());
-        firePropertyChange(COMPARATOR, null);
-        firePropertyChange(PREDICATE, null);
-    }
-
     //=========== Statistics ==================================================================================
 
     @Override
@@ -237,7 +203,7 @@ public class ModelManager implements Model, PropertyChangeListener {
         return statistics;
     }
 
-    //=========== PropertyChangeListeners ======================================================================
+    //=========== PropertyChanges ======================================================================
 
     @Override
     public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
@@ -246,6 +212,60 @@ public class ModelManager implements Model, PropertyChangeListener {
 
     private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {
         changes.firePropertyChange(propertyType.toString(), null, newValue);
+    }
+
+    /**
+     * Receives the latest changes in displayed internships from internship diary.
+     * Updates the filtered and sorted internship applications accordingly
+     * and fires property change event to its listeners.
+     *
+     * @param e event that describes the changes in the updated property.
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        refreshFilteredInternshipApplications(e.getNewValue());
+        fireAllPropertyChanges();
+    }
+
+    /**
+     * Updates the current filtered internship applicaations with the refreshed displayed internship applications.
+     *
+     * @param newInternshipApplications the new list to replace the current filtered internship applications.
+     */
+    @SuppressWarnings("unchecked")
+    private void refreshFilteredInternshipApplications(Object newInternshipApplications) {
+        ObservableList<InternshipApplication> ia = (ObservableList<InternshipApplication>) newInternshipApplications;
+        filteredInternshipApplications = new FilteredList<>(ia);
+        sortedFilteredInternshipApplications = new SortedList<>(filteredInternshipApplications);
+    }
+
+    /**
+     * Fires all the relevant property changes to the listeners.
+     */
+    private void fireAllPropertyChanges() {
+        firePropertyChange(FILTERED_INTERNSHIP_APPLICATIONS, getFilteredInternshipApplicationList());
+        firePropertyChange(COMPARATOR, null);
+        firePropertyChange(PREDICATE, null);
+        firePropertyChange(VIEW_TYPE, getCurrentView());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return internshipDiary.equals(other.internshipDiary)
+            && userPrefs.equals(other.userPrefs)
+            && filteredInternshipApplications.equals(other.filteredInternshipApplications);
     }
 
 }

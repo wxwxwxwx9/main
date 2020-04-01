@@ -6,7 +6,9 @@ package seedu.address.model;
 public enum ListenerPropertyType {
     COMPARATOR("comparator"),
     PREDICATE("predicate"),
-    FILTERED_INTERNSHIP_APPLICATIONS("filteredInternshipApplications");
+    FILTERED_INTERNSHIP_APPLICATIONS("filteredInternshipApplications"),
+    DISPLAYED_INTERNSHIPS("displayedInternships"),
+    VIEW_TYPE("currentView");
 
     private String propertyName;
 

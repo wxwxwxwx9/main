@@ -141,4 +141,5 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
         }
         return true;
     }
+
 }

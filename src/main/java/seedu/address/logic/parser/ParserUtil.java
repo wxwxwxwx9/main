@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -46,27 +48,28 @@ public class ParserUtil {
     }
 
     /**
-     * Parses array of {@code oneBasedIndex} into a set of of {@code Index} and returns it.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code args} into a list of {@code Index} and returns it.
+     * Leading and trailing whitespaces for each index will be trimmed.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Set<Index> parseIndices(String args, String delimiter) throws ParseException {
+    public static List<Index> parseIndices(String args, String delimiter) throws ParseException {
         String[] indices = args.split(delimiter);
         for (int i = 0; i < indices.length; i++) {
             indices[i] = indices[i].trim();
         }
+        // remove duplicates
         Set<String> set = new HashSet<>(Arrays.asList(indices));
-        Set<Index> indicesSet = new HashSet<>();
+        List<Index> indicesList = new ArrayList<>();
         for (String oneBasedIndex : set) {
             String trimmedIndex = oneBasedIndex.trim();
             if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
                 throw new ParseException(MESSAGE_INVALID_INDEX);
             }
             Index index = Index.fromOneBased(Integer.parseInt(trimmedIndex));
-            indicesSet.add(index);
+            indicesList.add(index);
         }
-        return indicesSet;
+        return indicesList;
     }
 
     /**

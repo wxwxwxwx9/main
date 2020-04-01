@@ -1,6 +1,9 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.util;
 
 import java.util.stream.Stream;
+
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.Prefix;
 
 /**
  * Contains utility methods used for prefixes in the various *Parser classes.

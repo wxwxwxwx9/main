@@ -5,10 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.PredicateUtil.prepareAddressPredicate;
+import static seedu.address.testutil.PredicateUtil.prepareCompanyPredicate;
+import static seedu.address.testutil.PredicateUtil.prepareEmailPredicate;
+import static seedu.address.testutil.PredicateUtil.preparePhonePredicate;
+import static seedu.address.testutil.PredicateUtil.preparePriorityPredicate;
+import static seedu.address.testutil.PredicateUtil.prepareRolePredicate;
+import static seedu.address.testutil.PredicateUtil.prepareStatusPredicate;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
@@ -183,55 +189,6 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(List.of(ePredicate), false);
         expectedModel.updateFilteredInternshipApplicationList(ePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code CompanyContainsKeywordsPredicate}.
-     */
-    private CompanyContainsKeywordsPredicate prepareCompanyPredicate(String userInput) {
-        return new CompanyContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code RoleContainsKeywordsPredicate}.
-     */
-    private RoleContainsKeywordsPredicate prepareRolePredicate(String userInput) {
-        return new RoleContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code AddressContainsKeywordsPredicate}.
-     */
-    private AddressContainsKeywordsPredicate prepareAddressPredicate(String userInput) {
-        return new AddressContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code PhoneContainsNumbersPredicate}.
-     */
-    private PhoneContainsNumbersPredicate preparePhonePredicate(String userInput) {
-        return new PhoneContainsNumbersPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code EmailContainsKeywordsPredicate}.
-     */
-    private EmailContainsKeywordsPredicate prepareEmailPredicate(String userInput) {
-        return new EmailContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code PriorityContainsNumbersPredicate}.
-     */
-    private PriorityContainsNumbersPredicate preparePriorityPredicate(String userInput) {
-        return new PriorityContainsNumbersPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code StatusContainsKeywordsPredicate}.
-     */
-    private StatusContainsKeywordsPredicate prepareStatusPredicate(String userInput) {
-        return new StatusContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 
 }

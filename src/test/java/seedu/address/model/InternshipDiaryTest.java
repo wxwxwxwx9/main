@@ -113,7 +113,7 @@ public class InternshipDiaryTest {
         }
 
         @Override
-        public void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l) {
+        public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
             changes.addPropertyChangeListener(l);
         }
     }
