@@ -48,8 +48,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses array of {@code oneBasedIndex} into a set of of {@code Index} and returns it.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code args} into a list of {@code Index} and returns it.
+     * Leading and trailing whitespaces for each index will be trimmed.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
