@@ -1,13 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.ALL_PREFIXES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IS_ONLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.PrefixUtil.areAnyPrefixesPresent;
@@ -33,27 +28,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
     private static final String INDICES_DELIMITER = ",";
 
-    /**
-     * To execute a predicate lazily.
-     */
+    /** To execute a predicate lazily. */
     @FunctionalInterface
     private interface PredicateFunction {
         Predicate<InternshipApplication> apply(List<String> t) throws ParseException;
     }
 
-    /**
-     * Prefixes that are accepted as executed as fields in DeleteCommand.
-     */
+    /** Prefixes that are accepted for execution as fields in DeleteCommand. */
     private static final Prefix[] acceptedPrefixes = { PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS };
 
-    private static final Prefix[] allPrefixes = {
-        PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS, PREFIX_ADDRESS, PREFIX_DATE, PREFIX_EMAIL,
-        PREFIX_PHONE, PREFIX_PRIORITY, PREFIX_IS_ONLINE
-    };
-
-    /**
-     * Prefixes and their mapping to its appropriate predicates.
-     */
+    /** Prefixes and their mapping to its appropriate predicates. */
     private static final Map<Prefix, PredicateFunction> predicateMap = Map.of(
         PREFIX_COMPANY, CompanyContainsKeywordsPredicate::new,
         PREFIX_ROLE, RoleContainsKeywordsPredicate::new,
@@ -69,7 +53,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, ALL_PREFIXES);
         CommandExecutionType executionType = getExecutionType(args, argMultimap);
 
         switch (executionType) {
@@ -93,7 +77,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @return the appropriate command execution type.
      */
     public CommandExecutionType getExecutionType(String args, ArgumentMultimap argMultimap) {
-        return areAnyPrefixesPresent(argMultimap, allPrefixes)
+        return areAnyPrefixesPresent(argMultimap, ALL_PREFIXES)
             ? CommandExecutionType.BY_FIELD
             : args.contains(INDICES_DELIMITER)
                 ? CommandExecutionType.BY_INDICES

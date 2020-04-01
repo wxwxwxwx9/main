@@ -25,9 +25,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     private UniqueInternshipApplicationList unarchivedInternships = new UniqueInternshipApplicationList();
     private UniqueInternshipApplicationList archivedInternships = new UniqueInternshipApplicationList();
 
-    /**
-     * The internship list that is shown to the user on the interface currently.
-     */
+    /** The internship list that is shown to the user on the interface currently. */
     private UniqueInternshipApplicationList displayedInternships = unarchivedInternships;
     private InternshipApplicationViewType currentView = InternshipApplicationViewType.UNARCHIVED;
 

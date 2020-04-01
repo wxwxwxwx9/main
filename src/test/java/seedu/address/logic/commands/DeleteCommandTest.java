@@ -34,6 +34,8 @@ import seedu.address.model.internship.InternshipApplication;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
+    private final String GOOGLE = "google";
+    private final String FACEBOOK = "facebook";
 
     @Test
     public void execute_byIndexValidIndexUnfilteredList_success() {
@@ -170,7 +172,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_byFieldValidFieldUnfilteredList_success() {
         // company field predicate
-        Predicate<InternshipApplication> validCompanyField = prepareCompanyPredicate("google");
+        Predicate<InternshipApplication> validCompanyField = prepareCompanyPredicate(GOOGLE);
 
         // create expected model and filter and get the appropriate internship applications to delete
         ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
@@ -201,7 +203,7 @@ public class DeleteCommandTest {
         showInternshipApplicationAtIndices(model, INDEX_SET_FIRST_INTERNSHIP_APPLICATION);
 
         // company field predicate
-        Predicate<InternshipApplication> validCompanyField = prepareCompanyPredicate("google");
+        Predicate<InternshipApplication> validCompanyField = prepareCompanyPredicate(GOOGLE);
 
         // create expected model and filter and get the appropriate internship applications to delete
         ModelManager expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
@@ -282,16 +284,16 @@ public class DeleteCommandTest {
 
         // BY FIELD
         DeleteCommand deleteFirstCommandByField =
-            new DeleteCommand(prepareCompanyPredicate("google"), CommandExecutionType.BY_FIELD);
+            new DeleteCommand(prepareCompanyPredicate(GOOGLE), CommandExecutionType.BY_FIELD);
         DeleteCommand deleteSecondCommandByField =
-            new DeleteCommand(prepareCompanyPredicate("facebook"), CommandExecutionType.BY_FIELD);
+            new DeleteCommand(prepareCompanyPredicate(FACEBOOK), CommandExecutionType.BY_FIELD);
 
         // same object -> returns true
         assertTrue(deleteFirstCommandByField.equals(deleteFirstCommandByField));
 
         // same values -> returns true
         DeleteCommand deleteFirstCommandByFieldCopy =
-            new DeleteCommand(prepareCompanyPredicate("google"), CommandExecutionType.BY_FIELD);
+            new DeleteCommand(prepareCompanyPredicate(GOOGLE), CommandExecutionType.BY_FIELD);
         assertTrue(deleteFirstCommandByField.equals(deleteFirstCommandByFieldCopy));
 
         // different types -> returns false
