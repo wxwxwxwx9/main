@@ -1,5 +1,6 @@
 package seedu.address.model.internship;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
@@ -178,6 +179,7 @@ public class InternshipApplication {
     }
 
     public void setInterviews(ArrayList<Interview> interviews) {
+        requireNonNull(interviews);
         this.interviews.addAll(interviews);
     }
 
