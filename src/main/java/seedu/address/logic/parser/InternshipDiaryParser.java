@@ -19,6 +19,7 @@ import seedu.address.logic.commands.InitClearCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReminderCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
@@ -94,7 +95,8 @@ public class InternshipDiaryParser {
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommand();
-
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
