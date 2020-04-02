@@ -135,7 +135,7 @@ public class InternshipApplication {
      * @return last stage failed, else an empty string
      */
     public String getLastStageMessage() {
-        if (isGhostedOrRejected && lastStage != null) {
+        if (status == Status.GHOSTED || status == Status.REJECTED) {
             return " [You failed at " + lastStage.toString() + ":(]";
         } else {
             return "";

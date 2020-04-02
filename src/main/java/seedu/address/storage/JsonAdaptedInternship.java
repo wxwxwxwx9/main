@@ -39,7 +39,7 @@ class JsonAdaptedInternship {
     private final String status;
     private final List<JsonAdaptedInterview> interviews = new ArrayList<>();
     private final String isArchived;
-
+    private final String lastStage;
 
     /**
      * Constructs a {@code JsonAdaptedInternship} with the given internship application details.
@@ -50,7 +50,7 @@ class JsonAdaptedInternship {
             @JsonProperty("email") String email, @JsonProperty("applicationDate") String applicationDate,
             @JsonProperty("priority") String priority, @JsonProperty("status") String status,
             @JsonProperty("interviews") List<JsonAdaptedInterview> interviews,
-            @JsonProperty("isArchived") String isArchived) {
+            @JsonProperty("isArchived") String isArchived, @JsonProperty("lastStage") String lastStage) {
         this.company = company;
         this.role = role;
         this.address = address;
@@ -61,6 +61,7 @@ class JsonAdaptedInternship {
         this.status = status;
         this.interviews.addAll(interviews);
         this.isArchived = isArchived;
+        this.lastStage = lastStage;
     }
 
     /**
@@ -78,6 +79,7 @@ class JsonAdaptedInternship {
         interviews.addAll(source.getInterviews()
                 .stream().map(JsonAdaptedInterview::new).collect(Collectors.toList()));
         isArchived = source.isArchived().toString();
+        lastStage = source.getLastStage().toString();
     }
 
     /**
@@ -164,6 +166,8 @@ class JsonAdaptedInternship {
 
         InternshipApplication internshipApplication = new InternshipApplication(modelCompany, modelRole, modelAddress,
                 modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
+        final Status modelLastStage = Status.valueOf(lastStage);
+        internshipApplication.setLastStage(modelLastStage);
 
         for (JsonAdaptedInterview jsonAdaptedInterview: interviews) {
             Interview interview = jsonAdaptedInterview.toModelType();
