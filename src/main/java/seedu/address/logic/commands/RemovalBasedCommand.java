@@ -107,7 +107,7 @@ public class RemovalBasedCommand extends Command {
         default:
             // this should never happen
             assert false;
-            return new CommandResult(MESSAGE_COMMAND_UNEXPECTED_FAILURE);
+            throw new RuntimeException("unreachable");
         }
 
     }
@@ -195,7 +195,7 @@ public class RemovalBasedCommand extends Command {
         default:
             // this should never happen
             assert false;
-            return (Index index) -> new DeleteCommand(index);
+            throw new RuntimeException("unreachable");
         }
     }
 
@@ -259,8 +259,6 @@ public class RemovalBasedCommand extends Command {
             .filter(targetPredicate.get()).collect(Collectors.toList());
         return internshipsToExecuteOn;
     }
-
-
 
     /**
      * Converts the given internship applications to their corresponding indices in the

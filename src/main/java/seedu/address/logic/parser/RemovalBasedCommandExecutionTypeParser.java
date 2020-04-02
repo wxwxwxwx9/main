@@ -57,7 +57,7 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
         default:
             // this should never happen
             assert false;
-            return commandByIndex(args);
+            throw new RuntimeException("unreachable");
         }
 
     }
