@@ -1,9 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.ArrayList;
@@ -44,18 +41,16 @@ public class RemovalBasedCommand extends Command {
             + "the specified field keywords (case-insensitive).\n"
             + "There must be only one specified field. \n"
             + "Parameters: "
-            + "[KEYWORDS] "
-            + "[" + PREFIX_COMPANY + "COMPANY] "
-            + "[" + PREFIX_DATE + "COMPANY] "
-            + "[" + PREFIX_ROLE + "ROLE] "
+            // + "[" + PREFIX_COMPANY + "COMPANY] "
+            // + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_STATUS + "STATUS] "
-            + "Example: " + commandWord + " c/google";
+            + "Example: " + commandWord + " s/google";
 
     public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_SUCCESS = (commandWord) ->
-        commandWord.toUpperCase() + " SUCCESS:\n%1$s";
+        commandWord.toUpperCase() + "D:\n%1$s";
 
     public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_FAILURE = (commandWord) ->
-        commandWord.toLowerCase() + " FAILED:\n%1$s";
+        commandWord.toLowerCase() + "D:\n%1$s";
 
     public static final String MESSAGE_COMMAND_UNEXPECTED_FAILURE = "Something went wrong!";
 

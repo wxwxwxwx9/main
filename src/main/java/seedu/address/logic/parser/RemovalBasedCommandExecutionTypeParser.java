@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.ALL_PREFIXES;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.util.PrefixPredicateUtil.getFieldPredicate;
 import static seedu.address.logic.util.PrefixUtil.areAnyPrefixesPresent;
@@ -25,7 +23,7 @@ import seedu.address.model.internship.InternshipApplication;
 public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBasedCommand> {
 
     /** Prefixes that are accepted for execution by field in RemovalBasedCommand. */
-    private static final Prefix[] acceptedPrefixes = { PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS };
+    private static final Prefix[] acceptedPrefixes = { PREFIX_STATUS };
 
     /** Holds the specific command string that will be used to create the command. */
     private final String commandWord;

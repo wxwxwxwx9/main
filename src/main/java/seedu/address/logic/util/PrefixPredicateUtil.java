@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.Prefix;
@@ -24,6 +25,7 @@ import seedu.address.model.internship.predicate.PhoneContainsNumbersPredicate;
 import seedu.address.model.internship.predicate.PriorityContainsNumbersPredicate;
 import seedu.address.model.internship.predicate.RoleContainsKeywordsPredicate;
 import seedu.address.model.internship.predicate.StatusContainsKeywordsPredicate;
+import seedu.address.model.status.Status;
 
 /**
  * Contains utility methods used for prefixes in the various *Parser classes.
@@ -50,6 +52,7 @@ public class PrefixPredicateUtil {
     /**
      * Retrieves the value of the prefix from argument multimap
      * and packages it into a predicate for internship application.
+     * Checks if the user input is a valid status.
      *
      * @param argMultimap argument multimap to extract the prefix for predicate creation.
      * @returns predicate to filter internship application list.
@@ -57,16 +60,34 @@ public class PrefixPredicateUtil {
      */
     public static Predicate<InternshipApplication> getFieldPredicate(ArgumentMultimap argMultimap,
         Prefix[] acceptedPrefixes) throws ParseException {
-        Predicate<InternshipApplication> predicate = null;
+        List<String> keywords = null;
+        Prefix selectedPrefix = null;
         for (Prefix prefix : acceptedPrefixes) {
             if (argMultimap.getValue(prefix).isPresent()) {
                 String input = argMultimap.getValue(prefix).get();
-                String[] keywords = input.split("\\s+");
-                predicate = PREDICATE_MAP.get(prefix).apply(Arrays.asList(keywords));
+                selectedPrefix = prefix;
+                keywords = Arrays.asList(input.split("\\s+"));
                 break;
             }
         }
+        checkForValidStatuses(keywords);
+        Predicate<InternshipApplication> predicate = PREDICATE_MAP.get(selectedPrefix).apply(keywords);
         return predicate;
+    }
+
+    /**
+     * Checks if any of the user keywords contain valid statuses.
+     *
+     * @param keywords to check for valid statuses.
+     * @throws ParseException if the user input does not conform the expected format.
+     */
+    private static void checkForValidStatuses(List<String> keywords) throws ParseException {
+        keywords = keywords.stream()
+            .filter(keyword -> Status.isValidStatus(keyword))
+            .collect(Collectors.toList());
+        if (keywords.isEmpty()) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
     }
 
 }
