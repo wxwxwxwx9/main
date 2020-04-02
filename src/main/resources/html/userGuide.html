@@ -30,31 +30,38 @@
                 <li><a href="#Features">3. Features</a>
                     <ul class="sectlevel2">
                         <li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-                        <li><a href="#adding-an-internship-company-code-add-code">3.2. Adding an internship company:
-                            <code>add</code></a></li>
-                        <li><a href="#listing-all-internship-companies-code-list-code">3.3. Listing all internship
-                            companies : <code>list</code></a></li>
-                        <li><a href="#editing-an-internship-company-code-edit-code">3.4. Editing an internship company :
-                            <code>edit</code></a></li>
-                        <li><a href="#locating-an-internship-company-by-name-code-find-code">3.5. Locating an internship
-                            company by name: <code>find</code></a></li>
-                        <li><a href="#searching-internship-companies-by-tag-code-search-code">3.6. Searching internship
-                            companies by Tag : <code>search</code></a></li>
-                        <li><a href="#listing-contacts-of-all-internship-companies-code-contacts-code">3.7. Listing
-                            contacts of all internship companies : <code>contacts</code></a></li>
-                        <li><a href="#deleting-an-internship-company-code-delete-code">3.8. Deleting an internship
-                            company : <code>delete</code></a></li>
-                        <li><a href="#clearing-all-entries-code-clear-code">3.9. Clearing all entries :
-                            <code>clear</code></a></li>
-                        <li><a href="#getting-deadline-reminders-code-reminder-code">3.10. Getting deadline reminders :
+                        <li><a href="#viewing-unarchived-internship-applications-code-list-code">3.2. Viewing unarchived
+                            internship applications : <code>list</code></a></li>
+                        <li><a href="#viewing-archived-internship-applications-code-archival-code">3.3. Viewing archived
+                            internship applications: <code>archival</code></a></li>
+                        <li><a href="#selecting-an-internship-application-to-display-code-select-code">3.4. Selecting an
+                            internship application to display: <code>select</code></a></li>
+                        <li><a href="#adding-an-internship-application-code-add-code">3.5. Adding an internship
+                            application: <code>add</code></a></li>
+                        <li><a href="#deleting-an-internship-application-code-delete-code">3.6. Deleting an internship
+                            application : <code>delete</code></a></li>
+                        <li><a href="#archiving-your-internship-applications-code-archive-code">3.7. Archiving your
+                            internship applications: <code>archive</code></a></li>
+                        <li><a href="#unarchiving-your-internship-applications-code-unarchive-code">3.8. Unarchiving
+                            your internship applications: <code>unarchive</code></a></li>
+                        <li><a href="#editing-an-internship-application-code-edit-code">3.9. Editing an internship
+                            application : <code>edit</code></a></li>
+                        <li><a href="#locating-an-internship-application-by-fields-code-find-code">3.10. Locating an
+                            internship application by fields: <code>find</code></a></li>
+                        <li><a href="#sorting-internship-companies-by-field-code-sort-code">3.11. Sorting internship
+                            companies by field : <code>sort</code></a></li>
+                        <li><a href="#modifying-an-interview-in-an-internship-application-code-interview-code">3.12.
+                            Modifying an interview in an internship application : <code>interview</code></a></li>
+                        <li><a href="#getting-deadline-reminders-code-reminder-code">3.13. Getting deadline reminders :
                             <code>reminder</code></a></li>
-                        <li><a href="#rating-internship-companies-code-rate-code">3.11. Rating internship companies :
-                            <code>rate</code></a></li>
-                        <li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a>
+                        <li><a href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries :
+                            <code>clear</code></a></li>
+                        <li><a href="#getting-statistics-about-internship-applications-code-stats-code">3.15. Getting
+                            statistics about internship applications: <code>stats</code></a></li>
+                        <li><a href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a>
                         </li>
-                        <li><a href="#saving-the-data">3.13. Saving the data</a></li>
-                        <li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming
-                            in v2.0]</code></a></li>
+                        <li><a href="#viewing-command-history">3.17. Viewing command history</a></li>
+                        <li><a href="#saving-the-data">3.18. Saving the data</a></li>
                     </ul>
                 </li>
                 <li><a href="#faq">4. FAQ</a></li>
@@ -66,13 +73,12 @@
         <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
         <div class="sectionbody">
             <div class="paragraph">
-                <p>Internship Diary is an application to assist students in managing their internship applications. The
-                    Internship Diary
-                    will be able to help you in tracking, tagging and reviewing all your internship applications.
-                    Additionally, Internship
-                    Diary is optimized for those who prefer to work with a Command Line Interface (CLI), while still
-                    having the benefits
-                    of a Graphical User Interface (GUI).</p>
+                <p>Internship Diary is a desktop application that assists university students in managing their
+                    internship applications.
+                    With the Internship Diary, you can leave behind your troubling times trying to to organize, track,
+                    and review all your past and upcoming internship applications.
+                    The application is designed and optimized for users who can type quickly, and provides an elegant
+                    design which is easy on the eyes.</p>
             </div>
         </div>
     </div>
@@ -85,8 +91,7 @@
                         <p>Ensure you have Java <code>11</code> or above installed in your Computer.</p>
                     </li>
                     <li>
-                        <p>Download the latest <code>internshipdiary.jar</code> code at
-                            "https://github.com/AY1920S2-CS2103T-F10-2/main/releases"</a>.</p>
+                        <p>Download the latest <code>internshipdiary.jar</code>.</p>
                     </li>
                     <li>
                         <p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
@@ -125,11 +130,11 @@
                             <li>
                                 <p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g.
                                     in <code>add n/COMPANY_NAME</code>, <code>COMPANY_NAME</code> is a
-                                    parameter which can be used as <code>add n/Google</code>.</p>
+                                    parameter which can be used as <code>add c/Google</code>.</p>
                             </li>
                             <li>
-                                <p>Items in square brackets are optional e.g <code>n/COMPANY_NAME [t/TAG]</code> can be
-                                    used as <code>n/Google t/good</code> or as <code>n/Google</code>.</p>
+                                <p>Items in square brackets are optional e.g <code>c/COMPANY_NAME [w/PRIORITY]</code>
+                                    can be used as <code>c/Google w/5</code> or as <code>c/Google</code>.</p>
                             </li>
                             <li>
                                 <p>Items with <code>…</code>​ after them can be used multiple times including zero times
@@ -137,8 +142,8 @@
                                     (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
                             </li>
                             <li>
-                                <p>Parameters can be in any order e.g. if the command specifies <code>s/NEW
-                                    p/POSITION</code>, <code>p/COMPANY_NAME</code> is also
+                                <p>Parameters can be in any order e.g. if the command specifies <code>s/STATUS
+                                    r/ROLE</code>, <code>r/designer s/applied</code> is also
                                     acceptable.</p>
                             </li>
                         </ul>
@@ -153,12 +158,36 @@
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="adding-an-internship-company-code-add-code"><a class="link"
-                                                                       href="#adding-an-internship-company-code-add-code">3.2.
-                    Adding an internship company: <code>add</code></a></h3>
+                <h3 id="viewing-unarchived-internship-applications-code-list-code"><a class="link"
+                                                                                      href="#viewing-unarchived-internship-applications-code-list-code">3.2.
+                    Viewing unarchived internship applications : <code>list</code></a></h3>
                 <div class="paragraph">
-                    <p>Adds a company to the internship diary<br>
-                        Format: <code>add n/COMPANY_NAME s/STATUS p/POSITION [t/TAG]…​</code></p>
+                    <p>Displays internship applications in your unarchived list.</p>
+                </div>
+                <div class="paragraph">
+                    <p>This is also known as your "Main" list.<br></p>
+                </div>
+                <div class="paragraph">
+                    <p>Format: <code>list</code></p>
+                </div>
+            </div>
+            <div class="sect2">
+                <h3 id="viewing-archived-internship-applications-code-archival-code"><a class="link"
+                                                                                        href="#viewing-archived-internship-applications-code-archival-code">3.3.
+                    Viewing archived internship applications: <code>archival</code></a></h3>
+                <div class="paragraph">
+                    <p>Displays internship applications in your archived list.<br></p>
+                </div>
+                <div class="paragraph">
+                    <p>Format: <code>archival</code></p>
+                </div>
+            </div>
+            <div class="sect2">
+                <h3 id="selecting-an-internship-application-to-display-code-select-code"><a class="link"
+                                                                                            href="#selecting-an-internship-application-to-display-code-select-code">3.4.
+                    Selecting an internship application to display: <code>select</code></a></h3>
+                <div class="paragraph">
+                    <p>Selects an internship application to display on the right panel of the internship diary.<br></p>
                 </div>
                 <div class="admonitionblock tip">
                     <table>
@@ -167,10 +196,14 @@
                                 <i class="fa icon-tip" title="Tip"></i>
                             </td>
                             <td class="content">
-                                A company can have any number of tags (including 0)
+                                Alternatively, you could use your mouse and click on a specific internship application
+                                in the left panel of the internship diary
                             </td>
                         </tr>
                     </table>
+                </div>
+                <div class="paragraph">
+                    <p>Format: <code>select INDEX</code></p>
                 </div>
                 <div class="paragraph">
                     <p>Examples:</p>
@@ -178,54 +211,80 @@
                 <div class="ulist">
                     <ul>
                         <li>
-                            <p><code>add n/Google s/new p/Software Engineer</code></p>
-                        </li>
-                        <li>
-                            <p><code>add n/Microsoft s/new p/Software Engineer</code></p>
+                            <p><code>select 1</code></p>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="listing-all-internship-companies-code-list-code"><a class="link"
-                                                                            href="#listing-all-internship-companies-code-list-code">3.3.
-                    Listing all internship companies : <code>list</code></a></h3>
+                <h3 id="adding-an-internship-application-code-add-code"><a class="link"
+                                                                           href="#adding-an-internship-application-code-add-code">3.5.
+                    Adding an internship application: <code>add</code></a></h3>
                 <div class="paragraph">
-                    <p>Shows a list of all internship companies that you have applied to. Sorted by alphabetical
-                        order.<br>
-                        Format: <code>list</code></p>
+                    <p>Adds an internship application to the internship diary<br>
+                        Format: <code>add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS]
+                            [w/PRIORITY]</code></p>
+                </div>
+                <div class="paragraph">
+                    <p>Examples:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>add c/Microsoft r/software engineer d/01 01 2020 s/rejected</code></p>
+                        </li>
+                        <li>
+                            <p><code>add c/Google r/Software Engineer d/20 02 2020 s/applied p/91234567
+                                e/google@google.com a/123 Orchard Road</code></p>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="editing-an-internship-company-code-edit-code"><a class="link"
-                                                                         href="#editing-an-internship-company-code-edit-code">3.4.
-                    Editing an internship company : <code>edit</code></a></h3>
+                <h3 id="deleting-an-internship-application-code-delete-code"><a class="link"
+                                                                                href="#deleting-an-internship-application-code-delete-code">3.6.
+                    Deleting an internship application : <code>delete</code></a></h3>
                 <div class="paragraph">
-                    <p>Edits an internship company in the internship diary.<br>
-                        Format: <code>edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]…​</code></p>
+                    <p>Deletes the specified internship application from the current list.<br></p>
+                </div>
+                <div class="paragraph">
+                    <p>Formats:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>delete INDEX</code></p>
+                        </li>
+                        <li>
+                            <p><code>delete INDEX, [INDEX], [INDEX], &#8230;&#8203;</code></p>
+                        </li>
+                        <li>
+                            <p><code>delete s/STATUS</code></p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="sidebarblock">
                     <div class="content">
                         <div class="ulist">
                             <ul>
                                 <li>
-                                    <p>Edits the internship company at the specified <code>INDEX</code>. The index
-                                        refers to the index number shown in the displayed list. The index <strong>must
-                                            be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+                                    <p>Deletes the application at the specified <code>INDEX</code>.</p>
                                 </li>
                                 <li>
-                                    <p>At least one of the optional fields must be provided.</p>
+                                    <p>The index refers to the index number shown in the displayed internship
+                                        application.</p>
                                 </li>
                                 <li>
-                                    <p>Existing values will be updated to the input values.</p>
+                                    <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
                                 </li>
                                 <li>
-                                    <p>When editing tags, the existing tags of the person will be removed i.e adding of
-                                        tags is not cumulative.</p>
+                                    <p>The index can be entered in any order.</p>
                                 </li>
                                 <li>
-                                    <p>You can remove all internship companies' tags by typing <code>t/</code> without
-                                        specifying any tags after it.</p>
+                                    <p>The status has to be a valid one.</p>
+                                </li>
+                                <li>
+                                    <p>The command will work on both the main and archival list.</p>
                                 </li>
                             </ul>
                         </div>
@@ -237,20 +296,224 @@
                 <div class="ulist">
                     <ul>
                         <li>
-                            <p><code>edit 1 s/new p/Product Management</code><br>
-                                Edits the status and position of the internship company to be <code>new</code> and
+                            <p><code>list</code><br>
+                                <code>delete 2</code><br>
+                                Deletes the 2nd internship application in the main list.</p>
+                        </li>
+                        <li>
+                            <p><code>archival</code><br>
+                                <code>delete s/applied</code><br>
+                                Deletes all the internship applications with the <code>applied</code> status in the
+                                archival list.</p>
+                        </li>
+                        <li>
+                            <p><code>find Google</code><br>
+                                <code>delete 2, 1, 3</code><br>
+                                Deletes the 1st, 2nd, and 3rd internship application in the results of the
+                                <code>find</code> command.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sect2">
+                <h3 id="archiving-your-internship-applications-code-archive-code"><a class="link"
+                                                                                     href="#archiving-your-internship-applications-code-archive-code">3.7.
+                    Archiving your internship applications: <code>archive</code></a></h3>
+                <div class="paragraph">
+                    <p>Moves your internship applications from the main list to the archival list.<br></p>
+                </div>
+                <div class="paragraph">
+                    <p>Formats:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>archive INDEX</code></p>
+                        </li>
+                        <li>
+                            <p><code>archive INDEX, [INDEX], [INDEX], &#8230;&#8203;</code></p>
+                        </li>
+                        <li>
+                            <p><code>archive s/STATUS</code></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebarblock">
+                    <div class="content">
+                        <div class="ulist">
+                            <ul>
+                                <li>
+                                    <p>Archives the application at the specified <code>INDEX</code>.</p>
+                                </li>
+                                <li>
+                                    <p>The index refers to the index number shown in the displayed internship
+                                        application.</p>
+                                </li>
+                                <li>
+                                    <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+                                </li>
+                                <li>
+                                    <p>The index can be entered in any order.</p>
+                                </li>
+                                <li>
+                                    <p>The status has to be a valid one.</p>
+                                </li>
+                                <li>
+                                    <p>The command will only work on the main list.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="paragraph">
+                    <p>Examples:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>list</code><br>
+                                <code>archive 3</code><br>
+                                Archives the 3rd internship application in the main list.</p>
+                        </li>
+                        <li>
+                            <p><code>find Google</code><br>
+                                <code>archive 2, 1, 3</code><br>
+                                Archives the 1st, 2nd, and 3rd internship application in the results of the
+                                <code>find</code> command.</p>
+                        </li>
+                        <li>
+                            <p><code>find Van</code><br>
+                                <code>archive s/rejected</code><br>
+                                Archives all the internship applications with the <code>rejected</code> status in the
+                                results of the <code>find</code> command.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sect2">
+                <h3 id="unarchiving-your-internship-applications-code-unarchive-code"><a class="link"
+                                                                                         href="#unarchiving-your-internship-applications-code-unarchive-code">3.8.
+                    Unarchiving your internship applications: <code>unarchive</code></a></h3>
+                <div class="paragraph">
+                    <p>Moves your internship applications from the archival list to the main list.<br></p>
+                </div>
+                <div class="paragraph">
+                    <p>Formats:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>unarchive INDEX</code></p>
+                        </li>
+                        <li>
+                            <p><code>unarchive INDEX, [INDEX], [INDEX], &#8230;&#8203;</code></p>
+                        </li>
+                        <li>
+                            <p><code>unarchive s/STATUS</code></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebarblock">
+                    <div class="content">
+                        <div class="ulist">
+                            <ul>
+                                <li>
+                                    <p>Unarchives the application at the specified <code>INDEX</code>.</p>
+                                </li>
+                                <li>
+                                    <p>The index refers to the index number shown in the displayed internship
+                                        application.</p>
+                                </li>
+                                <li>
+                                    <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+                                </li>
+                                <li>
+                                    <p>The index can be entered in any order.</p>
+                                </li>
+                                <li>
+                                    <p>The status has to be a valid one.</p>
+                                </li>
+                                <li>
+                                    <p>The command will only work on the archival list.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="paragraph">
+                    <p>Examples:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>archival</code><br>
+                                <code>unarchive 2</code><br>
+                                Unarchives the 2nd internship application in the archival list.</p>
+                        </li>
+                        <li>
+                            <p><code>find IBM</code><br>
+                                <code>unarchive 2, 1, 3</code><br>
+                                Unarchives the 1st, 2nd, and 3rd internship application in the results of the
+                                <code>find</code> command.</p>
+                        </li>
+                        <li>
+                            <p><code>find Van</code><br>
+                                <code>unarchive s/interview</code><br>
+                                Unarchives all the internship applications with the <code>interview</code> status in the
+                                results of the <code>find</code> command.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sect2">
+                <h3 id="editing-an-internship-application-code-edit-code"><a class="link"
+                                                                             href="#editing-an-internship-application-code-edit-code">3.9.
+                    Editing an internship application : <code>edit</code></a></h3>
+                <div class="paragraph">
+                    <p>Edits an internship application in the internship diary.<br>
+                        Format: <code>edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL]
+                            [a/ADDRESS] [w/PRIORITY]​</code></p>
+                </div>
+                <div class="sidebarblock">
+                    <div class="content">
+                        <div class="ulist">
+                            <ul>
+                                <li>
+                                    <p>Edits the internship application at the specified <code>INDEX</code>. The index
+                                        refers to the index number shown in the displayed list. The index <strong>must
+                                            be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+                                </li>
+                                <li>
+                                    <p>At least one of the optional fields must be provided.</p>
+                                </li>
+                                <li>
+                                    <p>Existing values will be updated to the input values.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="paragraph">
+                    <p>Examples:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p><code>edit 1 s/new r/Product Management</code><br>
+                                Edits the status and role of the internship application to be <code>applied</code> and
                                 <code>Product Management</code> respectively.</p>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="locating-an-internship-company-by-name-code-find-code"><a class="link"
-                                                                                  href="#locating-an-internship-company-by-name-code-find-code">3.5.
-                    Locating an internship company by name: <code>find</code></a></h3>
+                <h3 id="locating-an-internship-application-by-fields-code-find-code"><a class="link"
+                                                                                        href="#locating-an-internship-application-by-fields-code-find-code">3.10.
+                    Locating an internship application by fields: <code>find</code></a></h3>
                 <div class="paragraph">
-                    <p>Find companies whose names contain any of the given keywords.<br>
-                        Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+                    <p>Find internship application whose specified fields contain the given keywords.<br>
+                        Format: <code>find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE]
+                            [w/PRIORITY] [s/STATUS]</code></p>
                 </div>
                 <div class="sidebarblock">
                     <div class="content">
@@ -265,16 +528,23 @@
                                         match <code>Singapore AI</code></p>
                                 </li>
                                 <li>
-                                    <p>Only the name is searched.</p>
+                                    <p>Partial words will be matched e.g. <code>find a/Singapore</code> will match
+                                        internship application with address field named
+                                        <code>Singapores</code></p>
                                 </li>
                                 <li>
-                                    <p>Only full words will be matched e.g. <code>Singapore</code> will not match <code>Singapores</code>
-                                    </p>
+                                    <p>If <code>[KEYWORDS]</code> is provided, find will look for match in any field
+                                        based on <code>KEYWORDS</code>, regardless of whether other
+                                        fields are specified</p>
                                 </li>
                                 <li>
-                                    <p>Companies matching at least one keyword will be returned (i.e. <code>OR</code>
-                                        search). e.g. <code>AI</code> will return <code>AI Singapore</code>, <code>AI
-                                            Malaysia</code></p>
+                                    <p>When fields are specified, only applications where all specified field match are
+                                        returned (i.e. <code>AND</code> search). e
+                                        .g.
+                                        <code>find c/google r/software engineer</code> will return
+                                        application with company being <code>Google</code> and role being <code>Software
+                                            Engineer</code> but not company that is <code>Facebook</code> and
+                                        role being <code>Software Engineer</code></p>
                                 </li>
                             </ul>
                         </div>
@@ -287,25 +557,39 @@
                     <ul>
                         <li>
                             <p><code>find Google</code><br>
-                                Returns <code>Google</code> and <code>Google Deepmind</code></p>
+                                Returns internship applications with company <code>Google</code> and <code>Google
+                                    Deepmind</code> or with email <code>alice@google.com</code></p>
+                        </li>
+                        <li>
+                            <p><code>find c/Google s/applied</code><br>
+                                Returns internship applications with company <code>Google</code> and status <code>APPLIED</code>
+                            </p>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="searching-internship-companies-by-tag-code-search-code"><a class="link"
-                                                                                   href="#searching-internship-companies-by-tag-code-search-code">3.6.
-                    Searching internship companies by Tag : <code>search</code></a></h3>
+                <h3 id="sorting-internship-companies-by-field-code-sort-code"><a class="link"
+                                                                                 href="#sorting-internship-companies-by-field-code-sort-code">3.11.
+                    Sorting internship companies by field : <code>sort</code></a></h3>
                 <div class="paragraph">
-                    <p>Search for internship companies based on their tag.<br>
-                        Format: <code>search t/TAG</code></p>
+                    <p>Sort displayed internship companies based on a given FIELD.<br>
+                        Type <code>reverse</code> before <code>FIELD</code> to sort in the reverse order.<br>
+                        Format: <code>sort [reverse] FIELD</code>.</p>
+                </div>
+                <div class="paragraph">
+                    <p>Available values for <code>FIELD</code>:<br>
+                        <code>c/</code>: Sorts by company name.<br>
+                        <code>d/</code>: Sorts by application date.<br>
+                        <code>w/</code>: Sorts by priority level.<br>
+                        <code>s/</code>: Sorts by status.</p>
                 </div>
                 <div class="sidebarblock">
                     <div class="content">
                         <div class="ulist">
                             <ul>
                                 <li>
-                                    <p>Search for the companies​ that has a tag corresponding to TAG</p>
+                                    <p>Sort displayed internship companies based on a given FIELD</p>
                                 </li>
                             </ul>
                         </div>
@@ -317,45 +601,93 @@
                 <div class="ulist">
                     <ul>
                         <li>
-                            <p><code>search NEW</code><br>
-                                Returns companies that are tagged as New.</p>
+                            <p><code>Sort c/</code><br>
+                                Returns a list of currently displayed companies sorted by company name.</p>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="listing-contacts-of-all-internship-companies-code-contacts-code"><a class="link"
-                                                                                            href="#listing-contacts-of-all-internship-companies-code-contacts-code">3.7.
-                    Listing contacts of all internship companies : <code>contacts</code></a></h3>
+                <h3 id="modifying-an-interview-in-an-internship-application-code-interview-code"><a class="link"
+                                                                                                    href="#modifying-an-interview-in-an-internship-application-code-interview-code">3.12.
+                    Modifying an interview in an internship application : <code>interview</code></a></h3>
                 <div class="paragraph">
-                    <p>List all the contacts from all internship companies.<br>
-                        Format: <code>contacts</code></p>
+                    <p>Add, list, edit or delete interviews within an internship application<br></p>
                 </div>
-            </div>
-            <div class="sect2">
-                <h3 id="deleting-an-internship-company-code-delete-code"><a class="link"
-                                                                            href="#deleting-an-internship-company-code-delete-code">3.8.
-                    Deleting an internship company : <code>delete</code></a></h3>
+                <div class="admonitionblock tip">
+                    <table>
+                        <tr>
+                            <td class="icon">
+                                <i class="fa icon-tip" title="Tip"></i>
+                            </td>
+                            <td class="content">
+                                An interview must contain a date and a boolean that represents whether an interview is
+                                conducted online or not.<br>
+                                If the interview is not conducted online, an additional address field must be provided.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="paragraph">
-                    <p>Deletes the specified internship company from the diary.<br>
-                        Format: <code>delete INDEX</code></p>
+                    <p>Format:</p>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p>Overview<br>
+                                <code>interview INTERNSHIP_INDEX COMMAND_WORD [INTERVIEW_INDEX] [a/ADDRESS] [d/DATE]
+                                    [o/IS_ONLINE]</code></p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="sidebarblock">
                     <div class="content">
                         <div class="ulist">
                             <ul>
                                 <li>
-                                    <p>Deletes the company at the specified <code>INDEX</code>.</p>
+                                    <p>A <code>COMMAND_WORD</code> can be: <code>add list edit delete</code><br>
+                                        The command will behave identically to their internship application counterparts
+                                    </p>
                                 </li>
                                 <li>
-                                    <p>The index refers to the index number shown in the displayed company list.</p>
-                                </li>
-                                <li>
-                                    <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+                                    <p>The <code>INTERNSHIP_INDEX</code> corresponds to the index of the internship in
+                                        the displayed internship list.
+                                        Whereas the <code>INTERVIEW_INDEX</code> corresponds to the index of the
+                                        interview in the interview list.<br>
+                                        Both indexes must be positive integer 1, 2, 3, &#8230;&#8203;</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                </div>
+                <div class="ulist">
+                    <ul>
+                        <li>
+                            <p>Specific format of each <code>COMMAND_WORD</code>:</p>
+                            <div class="ulist">
+                                <ul>
+                                    <li>
+                                        <p>Add interview<br>
+                                            <code>interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]</code>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>List interview<br>
+                                            <code>interview INTERNSHIP_INDEX list</code></p>
+                                    </li>
+                                    <li>
+                                        <p>Edit interview<br>
+                                            <code>interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE]
+                                                [o/IS_ONLINE]</code></p>
+                                    </li>
+                                    <li>
+                                        <p>Delete interview<br>
+                                            <code>interview INTERNSHIP_INDEX delete INTERVIEW_INDEX</code></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
                 <div class="paragraph">
                     <p>Examples:</p>
@@ -364,20 +696,47 @@
                     <ul>
                         <li>
                             <p><code>list</code><br>
-                                <code>delete 2</code><br>
-                                Deletes the 2nd internship company in the list.</p>
+                                <code>interview 2 list</code><br>
+                                Lists all interviews in the 2nd internship application in the list</p>
                         </li>
                         <li>
-                            <p><code>find Google</code><br>
-                                <code>delete 1</code><br>
-                                Deletes the 1st internship company in the results of the <code>find</code> command.</p>
+                            <p><code>list</code><br>
+                                <code>interview 1 add o/false d/05 02 2020 a/123 Kent Ridge Road</code><br>
+                                Adds an interview to the 1st internship application in the list.</p>
+                        </li>
+                        <li>
+                            <p><code>list</code><br>
+                                <code>interview 2 list</code><br>
+                                <code>interview 2 edit 1 d/05 01 2020</code><br>
+                                Edits the date of the 1st interview in the 2nd internship application in the list to
+                                <code>05 01 2020</code>.</p>
+                        </li>
+                        <li>
+                            <p><code>list</code><br>
+                                <code>interview 1 list</code><br>
+                                <code>interview 1 delete 1</code><br>
+                                Deletes the 1st interview in the 1st internship application in the list.</p>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="sect2">
+                <h3 id="getting-deadline-reminders-code-reminder-code"><a class="link"
+                                                                          href="#getting-deadline-reminders-code-reminder-code">3.13.
+                    Getting deadline reminders : <code>reminder</code></a></h3>
+                <div class="paragraph">
+                    <p>Shows you all internship application(s) that need to be submitted or have interviews scheduled in
+                        7 days.<br>
+                        The internship applications will be displayed in terms of urgency, with the application with the
+                        earliest application
+                        date or interview date, shown at the top.
+                        <br>
+                        Format: <code>reminder</code></p>
+                </div>
+            </div>
+            <div class="sect2">
                 <h3 id="clearing-all-entries-code-clear-code"><a class="link"
-                                                                 href="#clearing-all-entries-code-clear-code">3.9.
+                                                                 href="#clearing-all-entries-code-clear-code">3.14.
                     Clearing all entries : <code>clear</code></a></h3>
                 <div class="paragraph">
                     <p>Clears all entries from the Internship Diary.<br>
@@ -385,63 +744,66 @@
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="getting-deadline-reminders-code-reminder-code"><a class="link"
-                                                                          href="#getting-deadline-reminders-code-reminder-code">3.10.
-                    Getting deadline reminders : <code>reminder</code></a></h3>
+                <h3 id="getting-statistics-about-internship-applications-code-stats-code"><a class="link"
+                                                                                             href="#getting-statistics-about-internship-applications-code-stats-code">3.15.
+                    Getting statistics about internship applications: <code>stats</code></a></h3>
                 <div class="paragraph">
-                    <p>Lists all deadlines/appointments from the Internship Diary in the next 7 days.<br>
-                        Format: <code>reminder</code></p>
+                    <p>Displays the current statistics regarding your internship application on the current list.<br>
+                    </p>
                 </div>
-            </div>
-            <div class="sect2">
-                <h3 id="rating-internship-companies-code-rate-code"><a class="link"
-                                                                       href="#rating-internship-companies-code-rate-code">3.11.
-                    Rating internship companies : <code>rate</code></a></h3>
                 <div class="paragraph">
-                    <p>Rates the specified internship company from the diary.<br>
-                        Format: <code>rate INDEX RATING</code></p>
+                    <p>It will open a new window that contains a bar chart and a pie chart.</p>
+                </div>
+                <div class="paragraph">
+                    <p>Format: <code>stats</code></p>
                 </div>
                 <div class="sidebarblock">
                     <div class="content">
                         <div class="ulist">
                             <ul>
                                 <li>
-                                    <p>Rates the company at the specified INDEX with score RATING.</p>
+                                    <p>The bar chart showcases:</p>
+                                    <div class="ulist">
+                                        <ul>
+                                            <li>
+                                                <p>the amount of internship application(s) under each status (wishlist,
+                                                    applied, interview, offered, rejected, ghosted)</p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li>
-                                    <p>The index refers to the index number shown in the displayed company list.</p>
+                                    <p>The pie chart showcases:</p>
+                                    <div class="ulist">
+                                        <ul>
+                                            <li>
+                                                <p>the percentage of internship application(s) under a status (wishlist,
+                                                    applied, interview, offered, rejected, ghosted)</p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li>
-                                    <p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;​</p>
-                                </li>
-                                <li>
-                                    <p>The rating must be a positive integer between 1 to 10 inclusive.</p>
+                                    <p>The statistics window will dynamically update the statistics as you refine the
+                                        view of your list of internship applications</p>
+                                    <div class="ulist">
+                                        <ul>
+                                            <li>
+                                                <p>this includes any command that modifies your view (e.g.
+                                                    <code>add</code>, <code>delete</code>, <code>archive</code>, <code>unarchive</code>,
+                                                    <code>find</code>, <code>edit</code>, list`, <code>archival</code>)
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="paragraph">
-                    <p>Examples:</p>
-                </div>
-                <div class="ulist">
-                    <ul>
-                        <li>
-                            <p><code>list</code><br>
-                                <code>rate 2 10</code><br>
-                                Rates the 2nd internship company in the list with a score of 10.</p>
-                        </li>
-                        <li>
-                            <p><code>find Google</code><br>
-                                <code>rate 1 7</code><br>
-                                Rates the 1st internship company in the results of the find command with a score of 7.
-                            </p>
-                        </li>
-                    </ul>
-                </div>
             </div>
             <div class="sect2">
-                <h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.12.
+                <h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.16.
                     Exiting the program : <code>exit</code></a></h3>
                 <div class="paragraph">
                     <p>Exits the program.<br>
@@ -449,18 +811,18 @@
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
+                <h3 id="viewing-command-history"><a class="link" href="#viewing-command-history">3.17. Viewing command
+                    history</a></h3>
                 <div class="paragraph">
-                    <p>Internship Diary is saved in the hard disk automatically after any command that changes the data.<br>
-                        There is no need to save manually.</p>
+                    <p>Use the <code>up</code> and <code>down</code> arrow keys while the command box is being focused
+                        to scroll through your command history.</p>
                 </div>
             </div>
             <div class="sect2">
-                <h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link"
-                                                                           href="#encrypting-data-files-code-coming-in-v2-0-code">3.14.
-                    Encrypting data files <code>[coming in v2.0]</code></a></h3>
+                <h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.18. Saving the data</a></h3>
                 <div class="paragraph">
-                    <p><em>{explain how the user can enable/disable data encryption}</em></p>
+                    <p>Internship Diary is saved in the hard disk automatically after any command that changes the data.<br>
+                        There is no need to save manually.</p>
                 </div>
             </div>
         </div>
@@ -484,27 +846,33 @@
                         <p><strong>Help</strong> : <code>help</code></p>
                     </li>
                     <li>
-                        <p><strong>Add</strong> <code>add n/COMPANY_NAME s/STATUS p/POSITION
-                            [t/TAG]&#8230;&#8203;​</code><br>
-                            e.g. <code>add n/Google s/new p/Software Engineer</code></p>
+                        <p><strong>Add</strong> <code>add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL]
+                            [a/ADDRESS] [w/PRIORITY]​</code><br>
+                            e.g. <code>add c/Google r/Software engineer s/wishlist d/10 10 2010</code></p>
                     </li>
                     <li>
                         <p><strong>List</strong> : <code>list</code></p>
                     </li>
                     <li>
-                        <p><strong>Edit</strong> : <code>edit INDEX [n/COMPANY_NAME] [s/STATUS] [p/POSITION] [t/TAG]&#8230;&#8203;</code><br>
-                            e.g. <code>edit 2 n/Google s/Shortlisted p/Product Management</code></p>
+                        <p><strong>Select</strong> : <code>select INDEX</code></p>
                     </li>
                     <li>
-                        <p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-                            e.g. <code>find James Jake</code></p>
+                        <p><strong>Edit</strong> : <code>edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE]
+                            [e/EMAIL] [a/ADDRESS] [w/PRIORITY]</code><br>
+                            e.g. <code>edit 2 c/Google s/applied</code></p>
+                    </li>
+                    <li>
+                        <p><strong>Find</strong> : <code>find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE]
+                            [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]</code><br>
+                            e.g. <code>find c/google r/engineer</code></p>
                     </li>
                     <li>
                         <p><strong>Search</strong> : <code>search t/TAG</code><br>
                             e.g. <code>search t/Product Management</code></p>
                     </li>
                     <li>
-                        <p><strong>Contacts</strong> : <code>contacts</code></p>
+                        <p><strong>sort</strong> : <code>sort FIELD</code><br>
+                            e.g. <code>sort c/</code></p>
                     </li>
                     <li>
                         <p><strong>Delete</strong> : <code>delete INDEX</code><br>
@@ -517,8 +885,32 @@
                         <p><strong>Reminder</strong> : <code>reminder</code></p>
                     </li>
                     <li>
-                        <p><strong>Rate</strong> : <code>rate INDEX RATING</code><br>
-                            e.g. <code>rate 2 5</code></p>
+                        <p><strong>Interview</strong> :</p>
+                        <div class="ulist">
+                            <ul>
+                                <li>
+                                    <p>Add:
+                                        <code>interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]</code><br>
+                                        e.g. <code>interview 1 add d/20 12 2020 o/true</code></p>
+                                </li>
+                                <li>
+                                    <p>List:
+                                        <code>interview INTERNSHIP_INDEX list</code><br>
+                                        e.g. <code>interview 1 list</code></p>
+                                </li>
+                                <li>
+                                    <p>Edit:
+                                        <code>interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE]
+                                            [o/IS_ONLINE]</code><br>
+                                        e.g. <code>interview 1 edit 1 d/10 10 2020</code></p>
+                                </li>
+                                <li>
+                                    <p>Delete:
+                                        <code>interview INTERNSHIP_INDEX delete INTERVIEW_INDEX</code><br>
+                                        e.g. <code>interview 1 delete 1</code></p>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <p><strong>Exit</strong> : <code>exit</code></p>
@@ -530,7 +922,7 @@
 </div>
 <div id="footer">
     <div class="container">
-        <div id="footer-text">Last updated 2020-03-19 01:49:35 UTC</div>
+        <div id="footer-text">Last updated 2020-04-02 14:33:05 UTC</div>
     </div>
 </div>
 </body>
