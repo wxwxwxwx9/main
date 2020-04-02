@@ -15,12 +15,12 @@ import seedu.address.model.status.Status;
 public class InternshipApplicationCard extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationListCard.fxml";
-    private static final String WISHLIST_COLOR = "-fx-background-color: #cd70ff";
-    private static final String APPLIED_COLOR = "-fx-background-color: #209cee";
-    private static final String INTERVIEW_COLOR = "-fx-background-color: #22c65b";
-    private static final String OFFERED_COLOR = "-fx-text-fill: black; -fx-background-color: #ffdd57";
-    private static final String REJECTED_COLOR = "-fx-background-color: #ff3860";
-    private static final String GHOSTED_COLOR = "-fx-background-color: SLATEGRAY";
+    private static final String WISHLIST_COLOR = "-fx-background-color: #cd70ff;";
+    private static final String APPLIED_COLOR = "-fx-background-color: #209cee;";
+    private static final String INTERVIEW_COLOR = "-fx-background-color: #22c65b;";
+    private static final String OFFERED_COLOR = "-fx-text-fill: black; -fx-background-color: #ffdd57;";
+    private static final String REJECTED_COLOR = "-fx-background-color: #ff3860;";
+    private static final String GHOSTED_COLOR = "-fx-background-color: #cdcdcd;";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
