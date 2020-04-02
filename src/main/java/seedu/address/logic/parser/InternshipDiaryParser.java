@@ -19,6 +19,7 @@ import seedu.address.logic.commands.InitClearCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReminderCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
@@ -57,7 +58,7 @@ public class InternshipDiaryParser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new RemovalBasedCommandExecutionTypeParser(DeleteCommand.COMMAND_WORD).parse(arguments);
 
         case InitClearCommand.COMMAND_WORD:
             return new InitClearCommand();
@@ -84,17 +85,18 @@ public class InternshipDiaryParser {
             return new StatisticsCommand();
 
         case ArchiveCommand.COMMAND_WORD:
-            return new ArchiveCommandParser().parse(arguments);
+            return new RemovalBasedCommandExecutionTypeParser(ArchiveCommand.COMMAND_WORD).parse(arguments);
 
         case UnarchiveCommand.COMMAND_WORD:
-            return new UnarchiveCommandParser().parse(arguments);
+            return new RemovalBasedCommandExecutionTypeParser(UnarchiveCommand.COMMAND_WORD).parse(arguments);
 
         case ArchivalCommand.COMMAND_WORD:
             return new ArchivalCommand();
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommand();
-
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

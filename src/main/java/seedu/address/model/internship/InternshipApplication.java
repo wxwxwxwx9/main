@@ -25,7 +25,7 @@ public class InternshipApplication {
     private final Priority priority;
     private final Status status;
     private final ArrayList<Interview> interviews;
-    private Boolean isArchived;
+    private final Boolean isArchived;
     private Boolean isGhostedOrRejected;
     private final Status lastStage;
 

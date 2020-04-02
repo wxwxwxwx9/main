@@ -12,12 +12,16 @@ import javafx.scene.layout.Region;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.status.Status;
 
 /**
  * Panel containing the list of internship applications.
  */
 public class InternshipApplicationListPanel extends UiPart<Region> implements PropertyChangeListener {
     private static final String FXML = "InternshipApplicationListPanel.fxml";
+    private static final String UPCOMING_BACKGROUND_COLOR = "-fx-background-color: #0d914f";
+    private static final String GHOSTED_BACKGROUND_COLOR = "-fx-background-color: CRIMSON";
     private final Logger logger = LogsCenter.getLogger(InternshipApplicationListPanel.class);
 
     @FXML
@@ -27,6 +31,10 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
         super(FXML);
         internshipApplicationListView.setItems(internshipApplicationList);
         internshipApplicationListView.setCellFactory(listView -> new InternshipApplicationListViewCell());
+    }
+
+    public ListView<InternshipApplication> getInternshipApplicationListView() {
+        return internshipApplicationListView;
     }
 
     /**
@@ -45,6 +53,8 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
      * {@code InternshipApplicationCard}.
      */
     class InternshipApplicationListViewCell extends ListCell<InternshipApplication> {
+        private String originalStyle = getStyle();
+
         @Override
         protected void updateItem(InternshipApplication internshipApplication, boolean empty) {
             super.updateItem(internshipApplication, empty);
@@ -52,8 +62,18 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
             if (empty || internshipApplication == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle(originalStyle);
             } else {
                 setGraphic(new InternshipApplicationCard(internshipApplication, getIndex() + 1).getRoot());
+                if (internshipApplication.isArchived()) {
+                    setStyle(originalStyle);
+                } else if (new ApplicationDateDuePredicate().test(internshipApplication)) {
+                    setStyle(UPCOMING_BACKGROUND_COLOR);
+                } else if (internshipApplication.getStatus().equals(Status.GHOSTED)) {
+                    setStyle(GHOSTED_BACKGROUND_COLOR);
+                } else {
+                    setStyle(originalStyle);
+                }
             }
         }
     }
