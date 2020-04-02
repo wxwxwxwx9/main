@@ -119,7 +119,8 @@ public class EditCommand extends Command {
         List<Interview> interviews = internshipToEdit.getInterviews();
 
         InternshipApplication updatedInternshipApplication = new InternshipApplication(updatedCompany, updatedRole,
-                updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived, interviews);
+                updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority,
+                updatedStatus, isArchived, interviews);
         if (toBeUpdatedStatus.isPresent()) {
             if (toBeUpdatedStatus.get() == Status.GHOSTED || toBeUpdatedStatus.get() == Status.REJECTED) {
                 updatedInternshipApplication.setIsGhostedOrRejected(true);
