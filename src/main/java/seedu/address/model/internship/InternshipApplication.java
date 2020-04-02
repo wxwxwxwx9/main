@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class InternshipApplication {
     private final ApplicationDate applicationDate;
     private final Priority priority;
     private final Status status;
-    private final ArrayList<Interview> interviews;
+    private final List<Interview> interviews;
     private final Boolean isArchived;
     private Boolean isGhostedOrRejected;
     private final Status lastStage;
@@ -54,7 +55,8 @@ public class InternshipApplication {
      * Overloaded constructor to set isArchived field (probably not needed).
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-             ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived) {
+             ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
+             List<Interview> interviews) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -67,14 +69,15 @@ public class InternshipApplication {
         this.isArchived = isArchived;
         this.isGhostedOrRejected = false;
         this.lastStage = status;
-        interviews = new ArrayList<>();
+        this.interviews = interviews;
     }
 
     /**
      * Overloaded constructor to set lastStage field.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-                                 ApplicationDate applicationDate, Priority priority, Status status, Status lastStage) {
+             ApplicationDate applicationDate, Priority priority, Status status,
+             Status lastStage, List<Interview> interviews) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -87,7 +90,7 @@ public class InternshipApplication {
         this.isArchived = false;
         this.isGhostedOrRejected = false;
         this.lastStage = lastStage;
-        interviews = new ArrayList<>();
+        this.interviews = interviews;
     }
 
     public Company getCompany() {
@@ -141,10 +144,8 @@ public class InternshipApplication {
      * @return InternshipApplication with lastStage specified.
      */
     public InternshipApplication setLastStage(Status lastStage) {
-        InternshipApplication internshipApplication = new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
-                lastStage);
-        internshipApplication.setInterviews(this.getInterviews());
-        return internshipApplication;
+        return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
+                lastStage, interviews);
     }
 
     /**
@@ -202,12 +203,12 @@ public class InternshipApplication {
         return interviews.get(index);
     }
 
-    public void setInterviews(ArrayList<Interview> interviews) {
+    public void setInterviews(List<Interview> interviews) {
         requireNonNull(interviews);
         this.interviews.addAll(interviews);
     }
 
-    public ArrayList<Interview> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
@@ -220,7 +221,7 @@ public class InternshipApplication {
      * The rationale behind this is to uphold immutability.
      */
     public InternshipApplication archive() {
-        InternshipApplication internshipApplication = new InternshipApplication(this.company,
+        return new InternshipApplication(this.company,
                 this.role,
                 this.address,
                 this.phone,
@@ -228,9 +229,8 @@ public class InternshipApplication {
                 this.applicationDate,
                 this.priority,
                 this.status,
-                true);
-        internshipApplication.setInterviews(this.getInterviews());
-        return internshipApplication;
+                true,
+                this.interviews);
     }
 
     /**
@@ -238,7 +238,7 @@ public class InternshipApplication {
      * The rationale behind this is to uphold immutability.
      */
     public InternshipApplication unarchive() {
-        InternshipApplication internshipApplication = new InternshipApplication(this.company,
+        return new InternshipApplication(this.company,
                 this.role,
                 this.address,
                 this.phone,
@@ -246,10 +246,8 @@ public class InternshipApplication {
                 this.applicationDate,
                 this.priority,
                 this.status,
-                false);
-        internshipApplication.setInterviews(this.getInterviews());
-        return internshipApplication;
-        );
+                false,
+                this.interviews);
     }
 
     /**

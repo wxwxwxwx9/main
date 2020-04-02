@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.model.internship.Address;
@@ -43,7 +44,7 @@ public class InternshipApplicationBuilder {
     private Status status;
     private Boolean isGhostedOrRejected;
     private Status lastStage;
-    private ArrayList<Interview> interviews;
+    private List<Interview> interviews;
 
     public InternshipApplicationBuilder() {
         company = new Company(DEFAULT_COMPANY);
@@ -209,7 +210,7 @@ public class InternshipApplicationBuilder {
      *
      * @return list of interviews
      */
-    public ArrayList<Interview> getInterview() {
+    public List<Interview> getInterview() {
         return interviews;
     }
 

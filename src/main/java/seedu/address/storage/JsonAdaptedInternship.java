@@ -165,7 +165,7 @@ class JsonAdaptedInternship {
         final Boolean modelIsArchived = Boolean.valueOf(isArchived);
 
         InternshipApplication internshipApplication = new InternshipApplication(modelCompany, modelRole, modelAddress,
-                modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
+                modelPhone, modelEmail, modelDate, modelPriority, modelStatus);
         final Status modelLastStage = Status.valueOf(lastStage);
         internshipApplication = internshipApplication.setLastStage(modelLastStage);
 
@@ -175,6 +175,10 @@ class JsonAdaptedInternship {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INTERVIEW);
             }
             internshipApplication.addInterview(interview);
+        }
+
+        if (modelIsArchived) {
+            internshipApplication.archive();
         }
 
         return internshipApplication;
