@@ -25,7 +25,7 @@ public class ApplicationDateAndInterviewDateComparator implements Comparator<Int
 
     @Override
     public String toString() {
-        return "Not Sorted";
+        return "Earliest application/ interview date";
     }
 
     @Override
