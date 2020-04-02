@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -115,6 +117,7 @@ public class EditCommand extends Command {
         Optional<Status> toBeUpdatedStatus = editInternshipDescriptor.getStatus();
         Status updatedStatus = toBeUpdatedStatus.orElse(internshipToEdit.getStatus());
         Boolean isArchived = internshipToEdit.isArchived();
+        ArrayList<Interview> interviews = internshipToEdit.getInterviews();
 
         InternshipApplication updatedInternshipApplication = new InternshipApplication(updatedCompany, updatedRole,
                 updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
@@ -125,6 +128,7 @@ public class EditCommand extends Command {
                 updatedInternshipApplication.setIsGhostedOrRejected(false);
             }
         }
+        updatedInternshipApplication.setInterviews(interviews);
         return updatedInternshipApplication;
     }
 
