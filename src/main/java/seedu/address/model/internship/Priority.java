@@ -11,7 +11,7 @@ public class Priority implements Comparable<Priority> {
     public static final int HIGHEST_PRIORITY = 10;
     public static final int LOWEST_PRIORITY = 0;
     public static final String MESSAGE_CONSTRAINTS =
-            "Priority should only contain a number, and it should not be blank";
+        "Priority should only contain a number, and it should not be blank";
 
     public final int fullPriority;
 
@@ -64,8 +64,8 @@ public class Priority implements Comparable<Priority> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Priority // instanceof handles nulls
-                && fullPriority == ((Priority) other).fullPriority); // state check
+            || (other instanceof Priority // instanceof handles nulls
+            && fullPriority == ((Priority) other).fullPriority); // state check
     }
 
     @Override

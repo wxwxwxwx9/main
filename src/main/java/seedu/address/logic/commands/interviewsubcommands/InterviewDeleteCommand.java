@@ -19,9 +19,9 @@ import seedu.address.model.internship.interview.Interview;
 public class InterviewDeleteCommand extends InterviewCommand {
     public static final String MESSAGE_SUCCESS = "Deleted Interview: %1$s";
     public static final String MESSAGE_USAGE = "Deletes an Interview from an Internship Application "
-            + "by using an index of the internship application, followed by an index of interview to be deleted.\n"
-            + "Parameters: INDEX(index of internship application) delete INDEX (index of interview to be deleted). "
-            + "Example: " + COMMAND_WORD + " 1 delete 1";
+        + "by using an index of the internship application, followed by an index of interview to be deleted.\n"
+        + "Parameters: INDEX(index of internship application) delete INDEX (index of interview to be deleted). "
+        + "Example: " + COMMAND_WORD + " 1 delete 1";
 
     private Index internshipIndex;
     private Index interviewIndex;
@@ -50,8 +50,8 @@ public class InterviewDeleteCommand extends InterviewCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof InterviewDeleteCommand
-                && interviewIndex.equals(((InterviewDeleteCommand) other).interviewIndex)
-                && internshipIndex.equals(((InterviewDeleteCommand) other).internshipIndex));
+            || (other instanceof InterviewDeleteCommand
+            && interviewIndex.equals(((InterviewDeleteCommand) other).interviewIndex)
+            && internshipIndex.equals(((InterviewDeleteCommand) other).internshipIndex));
     }
 }

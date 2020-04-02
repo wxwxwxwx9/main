@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.beans.PropertyChangeListener;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.internship.InternshipApplication;
 
 

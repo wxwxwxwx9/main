@@ -25,26 +25,26 @@ import seedu.address.model.internship.InternshipApplication;
 public class RemovalBasedCommand extends Command {
 
     public static final Function<String, String> MESSAGE_USAGE_BY_INDEX = (commandWord) -> commandWord
-            + "s the internship application.\n"
-            + "Identified by the index number used in the displayed internship list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + commandWord + " 1\n";
+        + "s the internship application.\n"
+        + "Identified by the index number used in the displayed internship list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + commandWord + " 1\n";
 
     public static final Function<String, String> MESSAGE_USAGE_BY_INDICES = (commandWord) -> commandWord
-            + "s the internship application "
-            + "identified by the index number used in the displayed internship list.\n"
-            + "Parameters: INDICES (must have more than 1 positive integer with comma as separator)\n"
-            + "Example: " + commandWord + " 3, 1 ,5";
+        + "s the internship application "
+        + "identified by the index number used in the displayed internship list.\n"
+        + "Parameters: INDICES (must have more than 1 positive integer with comma as separator)\n"
+        + "Example: " + commandWord + " 3, 1 ,5";
 
     public static final Function<String, String> MESSAGE_USAGE_BY_FIELD = (commandWord) -> commandWord
-            + "s all internship applications whose fields contain all of "
-            + "the specified field keywords (case-insensitive).\n"
-            + "There must be only one specified field. \n"
-            + "Parameters: "
-            // + "[" + PREFIX_COMPANY + "COMPANY] "
-            // + "[" + PREFIX_ROLE + "ROLE] "
-            + "[" + PREFIX_STATUS + "STATUS] "
-            + "Example: " + commandWord + " s/google";
+        + "s all internship applications whose fields contain all of "
+        + "the specified field keywords (case-insensitive).\n"
+        + "There must be only one specified field. \n"
+        + "Parameters: "
+        // + "[" + PREFIX_COMPANY + "COMPANY] "
+        // + "[" + PREFIX_ROLE + "ROLE] "
+        + "[" + PREFIX_STATUS + "STATUS] "
+        + "Example: " + commandWord + " s/google";
 
     public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_SUCCESS = (commandWord) ->
         commandWord.toUpperCase() + "D:\n%1$s";

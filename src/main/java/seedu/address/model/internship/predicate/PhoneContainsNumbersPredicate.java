@@ -24,14 +24,14 @@ public class PhoneContainsNumbersPredicate implements Predicate<InternshipApplic
         }
 
         return numbers.stream()
-                .anyMatch(number -> internshipApplication.getPhone().value.toLowerCase().contains(number));
+            .anyMatch(number -> internshipApplication.getPhone().value.toLowerCase().contains(number));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PhoneContainsNumbersPredicate // instanceof handles nulls
-                && numbers.equals(((PhoneContainsNumbersPredicate) other).numbers)); // state check
+            || (other instanceof PhoneContainsNumbersPredicate // instanceof handles nulls
+            && numbers.equals(((PhoneContainsNumbersPredicate) other).numbers)); // state check
     }
 
     public boolean isNull() {

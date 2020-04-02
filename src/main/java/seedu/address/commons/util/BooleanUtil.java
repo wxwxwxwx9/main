@@ -9,6 +9,7 @@ public class BooleanUtil {
 
     /**
      * Returns true if the {@code str} is a valid boolean.
+     *
      * @param str
      */
     public static boolean isValidBoolean(String str) {

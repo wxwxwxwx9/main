@@ -17,10 +17,10 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": displays the details of the internship application selected based on "
-            + "the index number in the displayed internship application list.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "\nExample: " + COMMAND_WORD + " 1 ";
+        + ": displays the details of the internship application selected based on "
+        + "the index number in the displayed internship application list.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "\nExample: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_SELECT_SUCCESS = "Internship Application Displayed!";
 
@@ -47,7 +47,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SelectCommand // instanceof handles nulls
-                && index.equals(((SelectCommand) other).index)); // state check
+            || (other instanceof SelectCommand // instanceof handles nulls
+            && index.equals(((SelectCommand) other).index)); // state check
     }
 }

@@ -37,26 +37,26 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the details of the internship application identified "
-            + "by the index number used in the displayed internship application list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_COMPANY + "COMPANY] "
-            + "[" + PREFIX_ROLE + "ROLE] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_DATE + "APPLICATION DATE] "
-            + "[" + PREFIX_PRIORITY + "PRIORITY] "
-            + "[" + PREFIX_STATUS + "STATUS] "
-            + "\nExample: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+        + ": Edits the details of the internship application identified "
+        + "by the index number used in the displayed internship application list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_COMPANY + "COMPANY] "
+        + "[" + PREFIX_ROLE + "ROLE] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_DATE + "APPLICATION DATE] "
+        + "[" + PREFIX_PRIORITY + "PRIORITY] "
+        + "[" + PREFIX_STATUS + "STATUS] "
+        + "\nExample: " + COMMAND_WORD + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_INTERNSHIP_SUCCESS = "Edited Internship Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INTERNSHIP =
-            "This internship application already exists in the internship diary.";
+        "This internship application already exists in the internship diary.";
 
     private final Index index;
     private final EditInternshipDescriptor editInternshipDescriptor;
@@ -85,11 +85,11 @@ public class EditCommand extends Command {
         InternshipApplication internshipToEdit = lastShownList.get(index.getZeroBased());
         InternshipApplication editedInternship = createEditedInternship(internshipToEdit, editInternshipDescriptor);
         if (editedInternship.getIsGhostedOrRejected() && (internshipToEdit.getStatus() != Status.GHOSTED)
-                && (internshipToEdit.getStatus() != Status.REJECTED)) {
+            && (internshipToEdit.getStatus() != Status.REJECTED)) {
             editedInternship.setLastStage(internshipToEdit.getStatus());
         }
         if (!internshipToEdit.isSameInternshipApplication(editedInternship)
-                && model.hasInternshipApplication(editedInternship)) {
+            && model.hasInternshipApplication(editedInternship)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERNSHIP);
         }
 
@@ -103,7 +103,7 @@ public class EditCommand extends Command {
      * edited with {@code editInternshipDescriptor}.
      */
     private static InternshipApplication createEditedInternship(InternshipApplication internshipToEdit,
-                                                                EditInternshipDescriptor editInternshipDescriptor) {
+        EditInternshipDescriptor editInternshipDescriptor) {
         assert internshipToEdit != null;
 
         Company updatedCompany = editInternshipDescriptor.getCompany().orElse(internshipToEdit.getCompany());
@@ -119,8 +119,8 @@ public class EditCommand extends Command {
         List<Interview> interviews = internshipToEdit.getInterviews();
 
         InternshipApplication updatedInternshipApplication = new InternshipApplication(updatedCompany, updatedRole,
-                updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority,
-                updatedStatus, isArchived, interviews);
+            updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority,
+            updatedStatus, isArchived, interviews);
         if (toBeUpdatedStatus.isPresent()) {
             if (toBeUpdatedStatus.get() == Status.GHOSTED || toBeUpdatedStatus.get() == Status.REJECTED) {
                 updatedInternshipApplication.setIsGhostedOrRejected(true);
@@ -151,7 +151,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editInternshipDescriptor.equals(e.editInternshipDescriptor);
+            && editInternshipDescriptor.equals(e.editInternshipDescriptor);
     }
 
     /**
@@ -170,7 +170,8 @@ public class EditCommand extends Command {
         private Boolean isGhostedOrRejected;
         private Status lastStage;
 
-        public EditInternshipDescriptor() {}
+        public EditInternshipDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -194,7 +195,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
-                    company, role, address, phone, email, date, priority, status
+                company, role, address, phone, email, date, priority, status
             );
         }
 
@@ -290,13 +291,13 @@ public class EditCommand extends Command {
             EditInternshipDescriptor e = (EditInternshipDescriptor) other;
 
             return getCompany().equals(e.getCompany())
-                    && getRole().equals(e.getRole())
-                    && getAddress().equals(e.getAddress())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getDate().equals(e.getDate())
-                    && getPriority().equals(e.getPriority())
-                    && getStatus().equals(e.getStatus());
+                && getRole().equals(e.getRole())
+                && getAddress().equals(e.getAddress())
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getDate().equals(e.getDate())
+                && getPriority().equals(e.getPriority())
+                && getStatus().equals(e.getStatus());
         }
     }
 }

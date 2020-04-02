@@ -25,19 +25,19 @@ import seedu.address.model.internship.interview.Interview;
  */
 public class InterviewEditCommand extends InterviewCommand {
     public static final String MESSAGE_USAGE = "Edits an Interview from an Internship Application "
-            + "by using an index of the internship application, followed by an index of interview to be edited.\n"
-            + "Parameters: INDEX(index of internship application) edit INDEX (index of interview to be edited) "
-            + "[" + PREFIX_IS_ONLINE + "is it an online interview (true/false)] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS (optional if online interview] "
-            + "Example: " + COMMAND_WORD + " 1 edit "
-            + PREFIX_IS_ONLINE + "false "
-            + PREFIX_ADDRESS + "123 road "
-            + PREFIX_DATE + "01 02 2020 ";
+        + "by using an index of the internship application, followed by an index of interview to be edited.\n"
+        + "Parameters: INDEX(index of internship application) edit INDEX (index of interview to be edited) "
+        + "[" + PREFIX_IS_ONLINE + "is it an online interview (true/false)] "
+        + "[" + PREFIX_DATE + "DATE] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS (optional if online interview] "
+        + "Example: " + COMMAND_WORD + " 1 edit "
+        + PREFIX_IS_ONLINE + "false "
+        + PREFIX_ADDRESS + "123 road "
+        + PREFIX_DATE + "01 02 2020 ";
     public static final String MESSAGE_EDIT_INTERVIEW_SUCCESS = "Edited Interview: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INTERVIEW =
-            "This interview already exists in the following internship application: %1$s.";
+        "This interview already exists in the following internship application: %1$s.";
 
     private final Index internshipIndex;
     private final Index interviewIndex;
@@ -49,7 +49,7 @@ public class InterviewEditCommand extends InterviewCommand {
      * @param editInterviewDescriptor details to edit the interview with.
      */
     public InterviewEditCommand(Index internshipIndex,
-                                Index interviewIndex, EditInterviewDescriptor editInterviewDescriptor) {
+        Index interviewIndex, EditInterviewDescriptor editInterviewDescriptor) {
         requireNonNull(internshipIndex);
         requireNonNull(interviewIndex);
         requireNonNull(editInterviewDescriptor);
@@ -58,6 +58,7 @@ public class InterviewEditCommand extends InterviewCommand {
         this.interviewIndex = interviewIndex;
         this.editInterviewDescriptor = editInterviewDescriptor;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -86,12 +87,12 @@ public class InterviewEditCommand extends InterviewCommand {
      * edited with {@code editInternshipDescriptor}.
      */
     private static Interview createEditedInterview(Interview interviewToEdit,
-                                                   EditInterviewDescriptor editInterviewDescriptor) {
+        EditInterviewDescriptor editInterviewDescriptor) {
         assert interviewToEdit != null;
 
         Address updatedAddress = editInterviewDescriptor.getAddress().orElse(interviewToEdit.getInterviewAddress());
         ApplicationDate updatedDate = editInterviewDescriptor.getInterviewDate()
-                .orElse(interviewToEdit.getDate());
+            .orElse(interviewToEdit.getDate());
         boolean updatedIsOnline = editInterviewDescriptor.getIsOnline().orElse(interviewToEdit.isOnline);
 
         return new Interview(updatedIsOnline, updatedDate, updatedAddress);
@@ -113,8 +114,8 @@ public class InterviewEditCommand extends InterviewCommand {
         // state check
         InterviewEditCommand e = (InterviewEditCommand) other;
         return interviewIndex.equals(e.interviewIndex)
-                && internshipIndex.equals(e.internshipIndex)
-                && editInterviewDescriptor.equals(e.editInterviewDescriptor);
+            && internshipIndex.equals(e.internshipIndex)
+            && editInterviewDescriptor.equals(e.editInterviewDescriptor);
     }
 
     /**
@@ -126,7 +127,8 @@ public class InterviewEditCommand extends InterviewCommand {
         private Address address;
         private ApplicationDate date;
 
-        public EditInterviewDescriptor() {}
+        public EditInterviewDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -184,8 +186,8 @@ public class InterviewEditCommand extends InterviewCommand {
             EditInterviewDescriptor e = (EditInterviewDescriptor) other;
 
             return getAddress().equals(e.getAddress())
-                    && getInterviewDate().equals(e.getInterviewDate())
-                    && getIsOnline().equals(e.getIsOnline());
+                && getInterviewDate().equals(e.getInterviewDate())
+                && getIsOnline().equals(e.getIsOnline());
         }
     }
 }

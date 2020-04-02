@@ -24,15 +24,15 @@ public class AddressContainsKeywordsPredicate implements Predicate<InternshipApp
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> internshipApplication.getAddress().value.toLowerCase()
-                        .contains(keyword.toLowerCase()));
+            .anyMatch(keyword -> internshipApplication.getAddress().value.toLowerCase()
+                .contains(keyword.toLowerCase()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((AddressContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof AddressContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((AddressContainsKeywordsPredicate) other).keywords)); // state check
     }
 
     public boolean isNull() {

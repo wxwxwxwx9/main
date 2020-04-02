@@ -24,15 +24,15 @@ public class PriorityContainsNumbersPredicate implements Predicate<InternshipApp
         }
 
         return numbers.stream()
-                .anyMatch(number -> Integer.toString(internshipApplication.getPriority().fullPriority)
-                        .toLowerCase().equals(number));
+            .anyMatch(number -> Integer.toString(internshipApplication.getPriority().fullPriority)
+                .toLowerCase().equals(number));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PriorityContainsNumbersPredicate // instanceof handles nulls
-                && numbers.equals(((PriorityContainsNumbersPredicate) other).numbers)); // state check
+            || (other instanceof PriorityContainsNumbersPredicate // instanceof handles nulls
+            && numbers.equals(((PriorityContainsNumbersPredicate) other).numbers)); // state check
     }
 
     public boolean isNull() {
