@@ -27,6 +27,7 @@ public class EnteredCommandsHistory {
 
     /**
      * Adds string to history.
+     *
      * @param command The string to be stored in the history.
      */
     public void add(String command) {
@@ -39,6 +40,7 @@ public class EnteredCommandsHistory {
 
     /**
      * Returns the size of the command history.
+     *
      * @return the size of the command history.
      */
     public int size() {
@@ -54,6 +56,7 @@ public class EnteredCommandsHistory {
 
     /**
      * Returns a command earlier in history.
+     *
      * @return the string stored earlier in history.
      */
     public String iterateNext() {
@@ -68,6 +71,7 @@ public class EnteredCommandsHistory {
 
     /**
      * Returns a command later in history.
+     *
      * @return the string stored later in history.
      */
     public String iteratePrevious() {

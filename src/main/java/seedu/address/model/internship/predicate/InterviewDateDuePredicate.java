@@ -22,7 +22,7 @@ public class InterviewDateDuePredicate implements Predicate<InternshipApplicatio
     public boolean test(InternshipApplication internshipApplication) {
         boolean hasAtLeastOneInterviewDue = false;
         List<Interview> interviews = internshipApplication.getInterviews();
-        for (Interview interview: interviews) {
+        for (Interview interview : interviews) {
             LocalDate interviewDate = interview.getInterviewDate();
             // count days between every interview in the internship application and current date
             Period duration = Period.between(currentDate, interviewDate);
@@ -37,7 +37,7 @@ public class InterviewDateDuePredicate implements Predicate<InternshipApplicatio
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InterviewDateDuePredicate // instanceof handles nulls
-                && currentDate.equals(((InterviewDateDuePredicate) other).currentDate)); // state check
+            || (other instanceof InterviewDateDuePredicate // instanceof handles nulls
+            && currentDate.equals(((InterviewDateDuePredicate) other).currentDate)); // state check
     }
 }

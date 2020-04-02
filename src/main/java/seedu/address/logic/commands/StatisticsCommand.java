@@ -10,7 +10,7 @@ public class StatisticsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows internship application statistics.\n"
-            + "Example: " + COMMAND_WORD;
+        + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_STATISTICS_MESSAGE = "Opened statistics window.";
 

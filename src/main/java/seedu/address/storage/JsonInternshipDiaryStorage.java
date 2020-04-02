@@ -46,7 +46,7 @@ public class JsonInternshipDiaryStorage implements InternshipDiaryStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableInternshipDiary> jsonInternshipDiary = JsonUtil.readJsonFile(
-                filePath, JsonSerializableInternshipDiary.class);
+            filePath, JsonSerializableInternshipDiary.class);
         if (jsonInternshipDiary.isEmpty()) {
             return Optional.empty();
         }

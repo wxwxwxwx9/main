@@ -22,9 +22,9 @@ public class CustomToStringPredicate<T> implements Predicate<T> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof CustomToStringPredicate // instanceof handles nulls
-                && internalPredicate.equals(((CustomToStringPredicate<?>) other).internalPredicate)
-                && internalString.equals(((CustomToStringPredicate<?>) other).internalString);
+            || other instanceof CustomToStringPredicate // instanceof handles nulls
+            && internalPredicate.equals(((CustomToStringPredicate<?>) other).internalPredicate)
+            && internalString.equals(((CustomToStringPredicate<?>) other).internalString);
     }
 
     @Override

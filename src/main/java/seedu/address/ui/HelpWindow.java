@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.media.MediaException;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -49,20 +50,20 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Shows the help window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
+     *
+     * @throws IllegalStateException <ul>
+     * <li>
+     * if this method is called on a thread other than the JavaFX Application Thread.
+     * </li>
+     * <li>
+     * if this method is called during animation or layout processing.
+     * </li>
+     * <li>
+     * if this method is called on the primary stage.
+     * </li>
+     * <li>
+     * if {@code dialogStage} is already showing.
+     * </li>
      * </ul>
      */
     public void show() {

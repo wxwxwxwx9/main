@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Role {
     public static final String MESSAGE_CONSTRAINTS =
-            "Roles should only contain alphanumeric characters and spaces, and it should not be blank";
+        "Roles should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the role must not be a whitespace,
@@ -46,8 +46,8 @@ public class Role {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Role // instanceof handles nulls
-                && fullRole.equals(((Role) other).fullRole)); // state check
+            || (other instanceof Role // instanceof handles nulls
+            && fullRole.equals(((Role) other).fullRole)); // state check
     }
 
     @Override
