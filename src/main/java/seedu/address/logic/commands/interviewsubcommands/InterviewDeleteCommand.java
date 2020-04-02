@@ -2,7 +2,7 @@ package seedu.address.logic.commands.interviewsubcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -36,7 +36,7 @@ public class InterviewDeleteCommand extends InterviewCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         InternshipApplication internshipToModify = super.getInternshipApplication(model, internshipIndex);
-        ArrayList<Interview> interviews = internshipToModify.getInterviews();
+        List<Interview> interviews = internshipToModify.getInterviews();
 
         if (interviewIndex.getZeroBased() >= interviews.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERVIEW_DISPLAYED_INDEX);
