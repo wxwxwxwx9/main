@@ -70,7 +70,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
      */
     private InterviewCommand parseAdd(Index index, ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_IS_ONLINE, PREFIX_DATE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewAddCommand.MESSAGE_USAGE));
         }
 
         boolean isOnline = Boolean.parseBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get());
@@ -82,7 +82,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         Interview interview = new Interview(isOnline, date);
         // if not an online interview but address prefix is missing.
         if (!isOnline && !arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewAddCommand.MESSAGE_USAGE));
         }
         if (!isOnline) {
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());

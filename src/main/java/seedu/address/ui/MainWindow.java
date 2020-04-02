@@ -10,12 +10,15 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -25,6 +28,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.internship.InternshipApplication;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private InternshipApplicationListPanel internshipApplicationListPanel;
     private ResultDisplay resultDisplay;
+    private InternshipApplicationDetail internshipApplicationDetail;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
     private StatisticsBarFooter statisticsBarFooter;
@@ -56,13 +61,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private SplitPane splitPanePlaceholder;
+    private SplitPane resultAndInternshipSplitPanePlaceholder;
+
+    @FXML
+    private SplitPane listAndDetailsSplitPanePlaceholder;
 
     @FXML
     private StackPane internshipApplicationListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane internshipApplicationDetailPlaceholder;
 
     @FXML
     private StackPane comparatorDisplayPlaceholder;
@@ -121,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    splitPanePlaceholder.setDividerPositions(split);
+                    resultAndInternshipSplitPanePlaceholder.setDividerPositions(split);
                     observable.removeListener(this);
                 }
             }
@@ -170,6 +181,18 @@ public class MainWindow extends UiPart<Stage> {
         internshipApplicationListPanel = new InternshipApplicationListPanel(
             logic.getFilteredInternshipApplicationList());
         internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
+
+        ListView<InternshipApplication> internshipApplicationListView = internshipApplicationListPanel
+                .getInternshipApplicationListView();
+        // Show internship application details on click
+        internshipApplicationListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                internshipApplicationDetail = new InternshipApplicationDetail(internshipApplicationListView
+                        .getSelectionModel().getSelectedItem());
+                internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
+            }
+        });
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -247,6 +270,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Displays the selected internship application according to the {@code index}.
+     */
+    @FXML
+    private void handleShowInternshipApplication(InternshipApplication internshipApplication) {
+        internshipApplicationDetail = new InternshipApplicationDetail(internshipApplication);
+        internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
+    }
+
     public InternshipApplicationListPanel getInternshipApplicationListPanel() {
         return internshipApplicationListPanel;
     }
@@ -272,6 +304,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowInternshipApplication()) {
+                handleShowInternshipApplication(commandResult.getInternshipApplicationToShow());
             }
 
             return commandResult;
