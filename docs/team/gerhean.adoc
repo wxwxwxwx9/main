@@ -9,13 +9,16 @@
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major enhancement*: added *the ability to sort internship applications*.
+** What it does: Sorts internship applications by field.
+** Justification: This feature improves the product significantly as users can better manage their internship application list.
 
-* *Minor enhancement*:
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added display of what the current list is sorted or filtered by.
 
 * *Code contributed*:
 
@@ -23,18 +26,31 @@ My Internship Diary is a desktop address book desktop internship tracking applic
 
 ** Project management:
 
+** Enhancements to existing features:
+*** Added confirmation prompt for clear command.
+*** Prettified the help window.
+
 ** Documentation:
 
 ** Community:
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1])
 
 ** Tools:
 **** Set up Travis CI and Coveralls
 
 == Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
 
 == Contributions to the Developer Guide
 
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 
-
-
+include::../DeveloperGuide.adoc[tag=sort]
