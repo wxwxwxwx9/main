@@ -49,6 +49,8 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_BOB = "1";
     public static final String VALID_STATUS_AMY = "WISHLIST";
     public static final String VALID_STATUS_BOB = "APPLIED";
+    public static final String VALID_LAST_STAGE_AMY = "WISHLIST";
+    public static final String VALID_LAST_STAGE_BOB = "APPLIED";
 
     public static final String VALID_ADDRESS_NUS = "123 Kent Ridge Road";
     public static final String VALID_ADDRESS_ONLINE = Interview.ADDRESS_NOT_APPLICABLE;
@@ -184,8 +186,7 @@ public class CommandTestUtil {
     public static void showInternshipApplicationAtIndices(Model model, List<Index> targetIndices) {
         // check that all indices are valid
         for (Index targetIndex : targetIndices) {
-            System.out.println(targetIndex.getZeroBased());
-            // assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
+            assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
         }
 
         List<InternshipApplication> internshipApplications = new ArrayList<>();

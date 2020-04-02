@@ -79,6 +79,8 @@ class JsonAdaptedInternship {
         interviews.addAll(source.getInterviews()
                 .stream().map(JsonAdaptedInterview::new).collect(Collectors.toList()));
         isArchived = source.isArchived().toString();
+        System.out.println(company);
+        System.out.println(source.getLastStage());
         lastStage = source.getLastStage().toString();
     }
 
@@ -167,6 +169,7 @@ class JsonAdaptedInternship {
         InternshipApplication internshipApplication = new InternshipApplication(modelCompany, modelRole, modelAddress,
                 modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
         final Status modelLastStage = Status.valueOf(lastStage);
+        System.err.println(modelLastStage.toString());
         internshipApplication.setLastStage(modelLastStage);
 
         for (JsonAdaptedInterview jsonAdaptedInterview: interviews) {

@@ -10,7 +10,8 @@
     "priority": "10",
     "status": "APPLIED",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "WISHLIST"
   }, {
     "company": "Facebook",
     "role": "Product Management",
@@ -21,6 +22,7 @@
     "priority": "8",
     "status": "INTERVIEW",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "APPLIED"
   } ]
 }
