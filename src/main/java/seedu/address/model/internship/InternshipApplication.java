@@ -218,8 +218,7 @@ public class InternshipApplication {
      * The rationale behind this is to uphold immutability.
      */
     public InternshipApplication archive() {
-        return new InternshipApplication(
-                this.company,
+        InternshipApplication internshipApplication = new InternshipApplication(this.company,
                 this.role,
                 this.address,
                 this.phone,
@@ -227,8 +226,9 @@ public class InternshipApplication {
                 this.applicationDate,
                 this.priority,
                 this.status,
-                true
-        );
+                true);
+        internshipApplication.setInterviews(this.getInterviews());
+        return internshipApplication;
     }
 
     /**
