@@ -115,7 +115,7 @@ Returns internship applications with company `Google` and status `APPLIED`
 === Sorting internship companies by field : `sort`
 
 Sort displayed internship companies based on a given FIELD. +
-Type `reverse` before `FIELD` to sort in the reverse order.
+Type `reverse` before `FIELD` to sort in the reverse order. +
 Format: `sort [reverse] FIELD`.
 
 Available values for `FIELD`: +
@@ -235,6 +235,10 @@ Deletes the 1st interview in the 1st internship application in the list.
 
 Exits the program. +
 Format: `exit`
+
+=== Viewing command history
+
+Use the `up` and `down` arrow keys while the command box is being focused to scroll through your command history.
 
 === Saving the data
 
