@@ -32,7 +32,6 @@ public class CommandParserTestUtil {
             parser.parse(userInput);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
-            System.out.println(expectedMessage);
             assertEquals(expectedMessage, pe.getMessage());
         }
     }
