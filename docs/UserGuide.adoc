@@ -23,6 +23,7 @@ With the Internship Diary, you can leave behind your troubling times trying to t
 The application is designed and optimized for users who can type quickly, and provides an elegant design which is easy on the eyes.
 
 == Quick Start
+Here are the steps to get you started on using Internship Diary:
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `internshipdiary.jar` link:{repoURL}/releases[here].
@@ -303,6 +304,7 @@ Deletes the 1st interview in the 1st internship application in the list.
 === Getting deadline reminders : `reminder`
 
 Shows you all internship application(s) that need to be submitted or have interviews scheduled in 7 days. +
+
 The internship applications will be displayed in terms of urgency, with the application with the earliest application
 date or interview date, shown at the top.
  +
