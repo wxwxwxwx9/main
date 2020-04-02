@@ -88,7 +88,7 @@ public class InterviewCommandParserTest {
 
     @Test
     public void parse_addCompulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewAddCommand.MESSAGE_USAGE);
         //missing isOnline
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
             + ADDRESS_DESC_NUS + DATE_DESC_NUS, expectedMessage);
