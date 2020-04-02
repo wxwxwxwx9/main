@@ -33,6 +33,10 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
         internshipApplicationListView.setCellFactory(listView -> new InternshipApplicationListViewCell());
     }
 
+    public ListView<InternshipApplication> getInternshipApplicationListView() {
+        return internshipApplicationListView;
+    }
+
     /**
      * Receives the latest changes in displayed internships from internship diary.
      * Updates the internship application list view accordingly.

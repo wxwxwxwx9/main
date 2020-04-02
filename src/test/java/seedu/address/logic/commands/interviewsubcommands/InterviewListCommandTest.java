@@ -23,7 +23,6 @@ public class InterviewListCommandTest {
     private Model model;
     private Model expectedModel;
 
-
     @BeforeEach
     public void setUp() {
         model = new ModelManager(TypicalInternshipApplications
@@ -42,7 +41,8 @@ public class InterviewListCommandTest {
         InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
             .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         assertCommandSuccess(new InterviewListCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), model,
-            String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel);
+                String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel,
+                internshipApplication);
     }
 
     @Test
