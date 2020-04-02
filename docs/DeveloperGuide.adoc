@@ -18,7 +18,8 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-(to be inserted)
+This developer guide is for software developers or designers who want to understand the system design and implementation
+of InternshipDiary.
 
 == Setting up
 
@@ -239,12 +240,60 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::sort[]
+=== Sort command
 
-_{Explain here how the data encryption feature will be implemented}_
+The find command allows the user to sort the currently visible list of internship applications. The following sequence
+diagram will illustrate the process of invocation for the command:
 
-// end::dataencryption[]
+image::SortSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the sort command.
+
+==== Implementation
+The find command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the
+arguments for the command.
+
+To facilitate the sort command, several comparator classes implementing `Comparator<InternshipApplication>` are used:
+
+* `ApplicationDateComparator` -- Comparator to compare internship applications by their `ApplicationDate` field
+in chronological order.
+* `CompanyComparator` -- Comparator to compare internship applications by their `Company` field
+in lexicographical order.
+* `PriorityComparator` -- Comparator to compare internship applications by their `Priority` field
+in ascending order.
+* `StatusComparator` -- Comparator to compare internship applications by their `Status` field
+by the order which they are declared in the Status Enum class.
+
+The `SortCommandParser` looks for a acceptable prefix in the command, and passes the corresponding comparator to `SortCommand`.
+If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
+
+==== Reverse sort
+
+This version of the command is invoked when the user enters the command with `reverse` as the
+preamble text in the parameter, e.g. `sort reverse c/`. After retrieving the correct `comparator` to use,
+the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
+This would reverse the order in which the currently visible list of internship applications is sorted in.
+
+==== Design Considerations
+
+===== Aspect: How to sort by multiple fields
+* **Alternative 1 (current choice)**: Accept only one field to sort by when using SortCommand.
+This works as the list uses stable sort.
+** Pros: More streamlined, less complex. +
+`EnteredCommandsHistory` allows the user to get the sort command template back
+in just one press of the up arrow key so there is little hassle. +
+Users do not have to remember the order to place the arguments to get the sort they want.
+** Cons: Feels a little restrictive.
+
+* **Alternative 2**: Allow multiple fields to sort by.
+** Pros: Two less key presses.
+** Cons: Code becomes much more complex. +
+Users has to remember the order to place the arguments to get the sort they want. +
+Users are highly unlikely to use this feature, as sorting one field by one feels more natural. +
+Harder to implement reverse sorting.
+
+// end::sort[]
 
 // tag::interview[]
 === Interview and Interview Commands
@@ -478,6 +527,57 @@ and creating a HashMap with those status as the key and respective count as the 
 ** Pros: Straightforward and very easy to understand for future developers.
 ** Cons: Very inextensible.
 
+//tag::reminder[]
+=== Reminder Command
+
+The reminder command displays to users a list of internship applications which need to be submitted or have interviews
+scheduled in 7 days.
+
+The following sequence diagram shows how the command is executed:
+
+.Sequence Diagram of `ReminderCommand`
+image::ReminderSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the reminder command.
+
+==== Implementation
+The reminder command is implemented in the class `ReminderCommand` and instantiates two predicates
+`ApplicationDateDuePredicate` and `InterviewDateDuePredicate` with every call of the command.
+
+The two predicates classes implementing `Predicate<InternshipApplication>` are used as per follows:
+
+* `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application
+has a date of the current date or within 7 days of the current date.
+
+* `InterviewDateDuePredicate` -- Predicate to check whether there is at least one interview in the `ArrayList<Interview>
+interviews` of an internship application that has a date of the current date or within 7 days from the current date.
+
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also used
+to sort internship applications in terms of which application is more urgent. It compares internship applications
+by their `ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
+applications, in order of either date being closer to current date. If two internship applications have the same date
+in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
+interviews` of the applications in order of which interview comes first.
+
+==== Design considerations
+
+====== Aspect: The order to display the internship applications
+* **Alternative 1 (current choice)**: Display the internship applications in the order of either their `ApplicationDate`
+or `interviewDate` of the earliest interview scheduled in `ArrayList<Interview> interviews` is closer to current date.
+
+** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless
+of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
+** Cons: Longer code.
+
+* **Alternative 2**: Display the internship applications in the order of which application's `ApplicationDate` is closer
+to current date.
+
+** Pros: Cleaner code.
+** Cons: Has the assumption that an internship application with a earlier `ApplicationDate` will have an interview
+scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`. User might miss out
+on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in
+to check `interviewDate`.
+//end::reminder[]
 
 === Logging
 
