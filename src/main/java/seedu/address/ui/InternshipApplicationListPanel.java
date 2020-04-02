@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 import seedu.address.model.status.Status;
 
 /**
@@ -65,9 +67,11 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
                 setStyle(originalStyle);
             } else {
                 setGraphic(new InternshipApplicationCard(internshipApplication, getIndex() + 1).getRoot());
+                Predicate<InternshipApplication> upcomingPredicate = new ApplicationDateDuePredicate()
+                        .or(new InterviewDateDuePredicate());
                 if (internshipApplication.isArchived()) {
                     setStyle(originalStyle);
-                } else if (new ApplicationDateDuePredicate().test(internshipApplication)) {
+                } else if (upcomingPredicate.test(internshipApplication)) {
                     setStyle(UPCOMING_BACKGROUND_COLOR);
                 } else if (internshipApplication.getStatus().equals(Status.GHOSTED)) {
                     setStyle(GHOSTED_BACKGROUND_COLOR);
