@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.status.Status;
@@ -90,7 +91,7 @@ public class StatisticsBarFooter extends UiPart<Region> implements PropertyChang
         int ghostedCount = statistics.getCount(Status.GHOSTED);
         int totalCount = statistics.getTotalCount();
         bindStatistics(wishlistCount, appliedCount, interviewCount, offeredCount, rejectedCount, ghostedCount,
-                totalCount);
+            totalCount);
     }
 
     /**
@@ -105,7 +106,7 @@ public class StatisticsBarFooter extends UiPart<Region> implements PropertyChang
      * @param totalCount total number of internship applications in InternshipDiary
      */
     public void bindStatistics(int wishlistCount, int appliedCount, int interviewCount,
-                               int offeredCount, int rejectedCount, int ghostedCount, int totalCount) {
+        int offeredCount, int rejectedCount, int ghostedCount, int totalCount) {
         wishlist.setText(String.format("%s: %d", Status.WISHLIST, wishlistCount));
         applied.setText(String.format("%s: %d", Status.APPLIED, appliedCount));
         interview.setText(String.format("%s: %d", Status.INTERVIEW, interviewCount));

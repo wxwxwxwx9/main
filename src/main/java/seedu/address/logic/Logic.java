@@ -20,6 +20,7 @@ import seedu.address.model.statistics.Statistics;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
@@ -34,7 +35,9 @@ public interface Logic {
      */
     ReadOnlyInternshipDiary getInternshipDiary();
 
-    /** Returns an unmodifiable view of the filtered list of internship applications */
+    /**
+     * Returns an unmodifiable view of the filtered list of internship applications
+     */
     ObservableList<InternshipApplication> getFilteredInternshipApplicationList();
 
     /**

@@ -46,11 +46,11 @@ class JsonAdaptedInternship {
      */
     @JsonCreator
     public JsonAdaptedInternship(@JsonProperty("company") String company, @JsonProperty("role") String role,
-            @JsonProperty("address") String address, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("applicationDate") String applicationDate,
-            @JsonProperty("priority") String priority, @JsonProperty("status") String status,
-            @JsonProperty("interviews") List<JsonAdaptedInterview> interviews,
-            @JsonProperty("isArchived") String isArchived, @JsonProperty("lastStage") String lastStage) {
+        @JsonProperty("address") String address, @JsonProperty("phone") String phone,
+        @JsonProperty("email") String email, @JsonProperty("applicationDate") String applicationDate,
+        @JsonProperty("priority") String priority, @JsonProperty("status") String status,
+        @JsonProperty("interviews") List<JsonAdaptedInterview> interviews,
+        @JsonProperty("isArchived") String isArchived, @JsonProperty("lastStage") String lastStage) {
         this.company = company;
         this.role = role;
         this.address = address;
@@ -77,7 +77,7 @@ class JsonAdaptedInternship {
         priority = Integer.toString(source.getPriority().fullPriority);
         status = source.getStatus().name();
         interviews.addAll(source.getInterviews()
-                .stream().map(JsonAdaptedInterview::new).collect(Collectors.toList()));
+            .stream().map(JsonAdaptedInterview::new).collect(Collectors.toList()));
         isArchived = source.isArchived().toString();
         lastStage = source.getLastStage().toString();
     }
@@ -132,7 +132,7 @@ class JsonAdaptedInternship {
         ApplicationDate modelDate;
         if (applicationDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ApplicationDate.class.getSimpleName()));
+                ApplicationDate.class.getSimpleName()));
         }
         if (!ApplicationDate.isValidApplicationDate(applicationDate)) {
             throw new IllegalValueException(ApplicationDate.MESSAGE_CONSTRAINTS);
@@ -141,7 +141,7 @@ class JsonAdaptedInternship {
 
         if (priority == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, Priority.class.getSimpleName()));
         }
         if (!Priority.isValidPriority(priority)) {
             throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
@@ -165,16 +165,20 @@ class JsonAdaptedInternship {
         final Boolean modelIsArchived = Boolean.valueOf(isArchived);
 
         InternshipApplication internshipApplication = new InternshipApplication(modelCompany, modelRole, modelAddress,
-                modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
+            modelPhone, modelEmail, modelDate, modelPriority, modelStatus);
         final Status modelLastStage = Status.valueOf(lastStage);
         internshipApplication = internshipApplication.setLastStage(modelLastStage);
 
-        for (JsonAdaptedInterview jsonAdaptedInterview: interviews) {
+        for (JsonAdaptedInterview jsonAdaptedInterview : interviews) {
             Interview interview = jsonAdaptedInterview.toModelType();
             if (internshipApplication.hasInterview(interview)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INTERVIEW);
             }
             internshipApplication.addInterview(interview);
+        }
+
+        if (modelIsArchived) {
+            internshipApplication.archive();
         }
 
         return internshipApplication;

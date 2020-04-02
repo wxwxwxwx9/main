@@ -22,10 +22,14 @@ import seedu.address.model.internship.InternshipApplication;
  */
 public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBasedCommand> {
 
-    /** Prefixes that are accepted for execution by field in RemovalBasedCommand. */
-    private static final Prefix[] acceptedPrefixes = { PREFIX_STATUS };
+    /**
+     * Prefixes that are accepted for execution by field in RemovalBasedCommand.
+     */
+    private static final Prefix[] acceptedPrefixes = {PREFIX_STATUS};
 
-    /** Holds the specific command string that will be used to create the command. */
+    /**
+     * Holds the specific command string that will be used to create the command.
+     */
     private final String commandWord;
 
     public RemovalBasedCommandExecutionTypeParser(String commandWord) {

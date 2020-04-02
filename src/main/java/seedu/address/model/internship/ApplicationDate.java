@@ -15,7 +15,7 @@ import seedu.address.commons.util.DateTimeUtil;
  */
 public class ApplicationDate implements Comparable<ApplicationDate> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should be in the form: DD MM YYYY";
+        "Date should be in the form: DD MM YYYY";
 
     // Default Pattern
     public static final String DATE_PATTERN = "dd MM yyyy";
@@ -73,8 +73,8 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ApplicationDate // instanceof handles nulls
-                && fullApplicationDate.equals(((ApplicationDate) other).fullApplicationDate)); // state check
+            || (other instanceof ApplicationDate // instanceof handles nulls
+            && fullApplicationDate.equals(((ApplicationDate) other).fullApplicationDate)); // state check
     }
 
     @Override

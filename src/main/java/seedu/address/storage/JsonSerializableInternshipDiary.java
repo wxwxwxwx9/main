@@ -38,7 +38,7 @@ class JsonSerializableInternshipDiary {
      */
     public JsonSerializableInternshipDiary(ReadOnlyInternshipDiary source) {
         internships.addAll(source.getAllInternshipList().stream()
-                .map(JsonAdaptedInternship::new).collect(Collectors.toList()));
+            .map(JsonAdaptedInternship::new).collect(Collectors.toList()));
     }
 
     /**

@@ -1,16 +1,11 @@
 package seedu.address.ui;
 
-import static seedu.address.model.status.Status.APPLIED;
-import static seedu.address.model.status.Status.INTERVIEW;
-import static seedu.address.model.status.Status.OFFERED;
-import static seedu.address.model.status.Status.REJECTED;
-import static seedu.address.model.status.Status.WISHLIST;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 
@@ -116,6 +111,6 @@ public class InternshipApplicationCard extends UiPart<Region> {
         // state check
         InternshipApplicationCard card = (InternshipApplicationCard) other;
         return id.getText().equals(card.id.getText())
-                && internshipApplication.equals(card.internshipApplication);
+            && internshipApplication.equals(card.internshipApplication);
     }
 }

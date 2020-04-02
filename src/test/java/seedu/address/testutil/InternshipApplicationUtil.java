@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -81,7 +82,7 @@ public class InternshipApplicationUtil {
             internshipApplication.getApplicationDate(),
             internshipApplication.getPriority(),
             internshipApplication.getStatus(),
-            true
+            true, new ArrayList<>()
         );
         assertTrue(archivedInternship.isArchived());
         return archivedInternship;
@@ -101,7 +102,7 @@ public class InternshipApplicationUtil {
             internshipApplication.getApplicationDate(),
             internshipApplication.getPriority(),
             internshipApplication.getStatus(),
-            false
+            false, new ArrayList<>()
         );
         assertTrue(archivedInternship.isArchived());
         return archivedInternship;

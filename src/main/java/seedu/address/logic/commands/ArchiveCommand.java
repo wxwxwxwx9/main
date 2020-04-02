@@ -18,10 +18,10 @@ public class ArchiveCommand extends Command {
     public static final String COMMAND_WORD = "archive";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Archives the internship application "
-            + "identified by the index number used in the displayed internship list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+        + ": Archives the internship application "
+        + "identified by the index number used in the displayed internship list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS = "Archived Internship Application: %1$s";
     public static final String MESSAGE_ALREADY_ARCHIVED = "Internship Application already archived!";
@@ -57,7 +57,7 @@ public class ArchiveCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ArchiveCommand // instanceof handles nulls
-                && targetIndex.equals(((ArchiveCommand) other).targetIndex)); // state check
+            || (other instanceof ArchiveCommand // instanceof handles nulls
+            && targetIndex.equals(((ArchiveCommand) other).targetIndex)); // state check
     }
 }

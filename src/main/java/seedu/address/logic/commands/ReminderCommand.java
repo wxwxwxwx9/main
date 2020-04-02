@@ -10,6 +10,7 @@ import seedu.address.logic.comparator.ApplicationDateAndInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.CustomToStringPredicate;
 import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 
 /**
@@ -20,7 +21,7 @@ public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows applications that have are due or have interview"
-            + "dates in 7 days.\n" + "Example: " + COMMAND_WORD;
+        + "dates in 7 days.\n" + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed applications are due or have interviews in 7 days.";
 
@@ -33,7 +34,9 @@ public class ReminderCommand extends Command {
         predicates.add(appDatePredicate);
         predicates.add(interviewDatePredicate);
         Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> false, Predicate::or);
-        model.updateFilteredInternshipApplicationList(predicate);
+        Predicate<InternshipApplication> customPredicate = new CustomToStringPredicate<>(predicate,
+                "Reminder");
+        model.updateFilteredInternshipApplicationList(customPredicate);
         model.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -41,7 +44,7 @@ public class ReminderCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReminderCommand); // instanceof handles nulls
+            || (other instanceof ReminderCommand); // instanceof handles nulls
     }
 
 }

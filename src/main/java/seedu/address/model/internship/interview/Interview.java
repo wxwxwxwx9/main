@@ -70,8 +70,8 @@ public class Interview {
 
         Interview interview = (Interview) other;
         return interview.getInterviewDate().equals(getInterviewDate())
-                && interview.getInterviewAddress().equals(getInterviewAddress())
-                && interview.isOnline == isOnline;
+            && interview.getInterviewAddress().equals(getInterviewAddress())
+            && interview.isOnline == isOnline;
     }
 
     @Override
@@ -79,12 +79,12 @@ public class Interview {
         final StringBuilder builder = new StringBuilder();
         if (isOnline) {
             builder.append("Online Interview on: ")
-                    .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)));
+                .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)));
         } else {
             builder.append("Interview on: ")
-                    .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)))
-                    .append(" at: ")
-                    .append(getInterviewAddress());
+                .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)))
+                .append(" at: ")
+                .append(getInterviewAddress());
         }
         return builder.toString();
     }
