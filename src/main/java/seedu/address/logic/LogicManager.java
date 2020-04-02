@@ -1,10 +1,12 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -12,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.InternshipDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ListenerPropertyType;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.internship.InternshipApplication;
@@ -70,6 +73,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
         return model.getFilteredInternshipApplicationList();
+    }
+
+    @Override
+    public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
+        model.addPropertyChangeListener(propertyType, l);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class EditInterviewDescriptorTest {
     public void equals() {
         // same values -> returns true
         InterviewEditCommand.EditInterviewDescriptor descriptorWithSameValues =
-                new InterviewEditCommand.EditInterviewDescriptor(DESC_NUS);
+            new InterviewEditCommand.EditInterviewDescriptor(DESC_NUS);
         assertTrue(DESC_NUS.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,7 +35,7 @@ public class EditInterviewDescriptorTest {
 
         // different address -> returns false
         InterviewEditCommand.EditInterviewDescriptor editedNus =
-                new EditInterviewDescriptorBuilder(DESC_NUS).withAddress(VALID_ADDRESS_ONLINE).build();
+            new EditInterviewDescriptorBuilder(DESC_NUS).withAddress(VALID_ADDRESS_ONLINE).build();
         assertFalse(DESC_NUS.equals(editedNus));
 
         //different date -> returns false

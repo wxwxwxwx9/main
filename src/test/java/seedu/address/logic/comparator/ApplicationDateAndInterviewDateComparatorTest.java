@@ -17,7 +17,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InternshipApplicationBuilder;
 
-class ApplicationDateThenInterviewDateComparatorTest {
+class ApplicationDateAndInterviewDateComparatorTest {
 
     @Test
     public void compare() {
@@ -41,16 +41,16 @@ class ApplicationDateThenInterviewDateComparatorTest {
         // with same application date, comparing internship2(with earlier 'earliest interview date') and
         // internship3(with later 'earliest interview date') --> returns negative int
         Interview newInterviewForInternship2 = new Interview(true,
-                new ApplicationDate(currentDate.plus(12, ChronoUnit.DAYS)),
-                new Address("123 Stevens Road"));
+            new ApplicationDate(currentDate.plus(12, ChronoUnit.DAYS)),
+            new Address("123 Stevens Road"));
         Interview anotherInterviewForInternship2 = new Interview(true,
-                new ApplicationDate(currentDate.plus(25, ChronoUnit.DAYS)),
-                new Address("123 Stevens Road"));
+            new ApplicationDate(currentDate.plus(25, ChronoUnit.DAYS)),
+            new Address("123 Stevens Road"));
         internship2.withInterview(newInterviewForInternship2);
         internship2.withInterview(anotherInterviewForInternship2);
         Interview newInterviewForInternship3 = new Interview(true,
-                new ApplicationDate(currentDate.plus(16, ChronoUnit.DAYS)),
-                new Address("123 Stevens Road"));
+            new ApplicationDate(currentDate.plus(16, ChronoUnit.DAYS)),
+            new Address("123 Stevens Road"));
         internship3.withInterview(newInterviewForInternship3);
         Optional<Interview> earliestInterviewForInternship2 = internship2.getEarliestInterview(currentDate);
         assertTrue(earliestInterviewForInternship2.isPresent());
@@ -63,16 +63,16 @@ class ApplicationDateThenInterviewDateComparatorTest {
 
     @Test
     public void equals() {
-        Comparator<InternshipApplication> applicationDateThenInterviewDateComparator =
-                new ApplicationDateThenInterviewDateComparator();
+        Comparator<InternshipApplication> applicationDateAndInterviewDateComparator =
+            new ApplicationDateAndInterviewDateComparator();
 
         // same object -> returns true
-        assertEquals(applicationDateThenInterviewDateComparator, applicationDateThenInterviewDateComparator);
+        assertEquals(applicationDateAndInterviewDateComparator, applicationDateAndInterviewDateComparator);
 
         // different types -> returns false
-        assertNotEquals(1, applicationDateThenInterviewDateComparator);
+        assertNotEquals(1, applicationDateAndInterviewDateComparator);
 
         // null -> returns false
-        assertNotEquals(null, applicationDateThenInterviewDateComparator);
+        assertNotEquals(null, applicationDateAndInterviewDateComparator);
     }
 }

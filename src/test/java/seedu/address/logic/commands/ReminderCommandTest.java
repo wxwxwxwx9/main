@@ -9,11 +9,12 @@ import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInt
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.comparator.ApplicationDateThenInterviewDateComparator;
+import seedu.address.logic.comparator.ApplicationDateAndInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 
 class ReminderCommandTest {
 
@@ -29,13 +30,11 @@ class ReminderCommandTest {
 
     @Test
     public void execute_afterReminder_showsFilteredList() {
+        expectedModel.updateFilteredInternshipApplicationList(new InterviewDateDuePredicate());
         expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateDuePredicate());
-        expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateThenInterviewDateComparator());
+        expectedModel.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         CommandResult expectedMessage = new CommandResult(MESSAGE_SUCCESS);
         assertEquals(expectedMessage, new ReminderCommand().execute(model));
-        System.err.println(model.getFilteredInternshipApplicationList());
-        System.err.println(expectedModel.getFilteredInternshipApplicationList());
-        System.err.println(model.equals(expectedModel));
         assertCommandSuccess(new ReminderCommand(), model, expectedMessage, expectedModel);
     }
 

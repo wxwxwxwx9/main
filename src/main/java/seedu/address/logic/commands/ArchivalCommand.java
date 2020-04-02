@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_INTERNSHIPS;
 
 import seedu.address.model.Model;
 
 /**
- * Lists all internship applications from the archival to the user.
+ * Lists all archived internship application(s) from the internship diary to the user.
  */
 public class ArchivalCommand extends Command {
 
@@ -17,7 +16,7 @@ public class ArchivalCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ARCHIVED_INTERNSHIPS);
+        model.viewArchivedInternshipApplicationList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

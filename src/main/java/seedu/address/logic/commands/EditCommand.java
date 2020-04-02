@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.Phone;
 import seedu.address.model.internship.Priority;
 import seedu.address.model.internship.Role;
+import seedu.address.model.internship.interview.Interview;
 import seedu.address.model.status.Status;
 
 /**
@@ -83,7 +85,10 @@ public class EditCommand extends Command {
 
         InternshipApplication internshipToEdit = lastShownList.get(index.getZeroBased());
         InternshipApplication editedInternship = createEditedInternship(internshipToEdit, editInternshipDescriptor);
-
+        if (editedInternship.getIsGhostedOrRejected() && (internshipToEdit.getStatus() != Status.GHOSTED)
+                && (internshipToEdit.getStatus() != Status.REJECTED)) {
+            editedInternship.setLastStage(internshipToEdit.getStatus());
+        }
         if (!internshipToEdit.isSameInternshipApplication(editedInternship)
                 && model.hasInternshipApplication(editedInternship)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTERNSHIP);
@@ -91,7 +96,7 @@ public class EditCommand extends Command {
 
         model.setInternshipApplication(internshipToEdit, editedInternship);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship));
+        return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship), editedInternship);
     }
 
     /**
@@ -109,11 +114,28 @@ public class EditCommand extends Command {
         Email updatedEmail = editInternshipDescriptor.getEmail().orElse(internshipToEdit.getEmail());
         ApplicationDate updatedDate = editInternshipDescriptor.getDate().orElse(internshipToEdit.getApplicationDate());
         Priority updatedPriority = editInternshipDescriptor.getPriority().orElse(internshipToEdit.getPriority());
-        Status updatedStatus = editInternshipDescriptor.getStatus().orElse(internshipToEdit.getStatus());
+        Optional<Status> toBeUpdatedStatus = editInternshipDescriptor.getStatus();
+        Status updatedStatus = toBeUpdatedStatus.orElse(internshipToEdit.getStatus());
         Boolean isArchived = internshipToEdit.isArchived();
+        ArrayList<Interview> interviews = internshipToEdit.getInterviews();
 
-        return new InternshipApplication(updatedCompany, updatedRole, updatedAddress, updatedPhone,
-                updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+        InternshipApplication updatedInternshipApplication = new InternshipApplication(updatedCompany, updatedRole,
+                updatedAddress, updatedPhone, updatedEmail, updatedDate, updatedPriority, updatedStatus, isArchived);
+        if (toBeUpdatedStatus.isPresent()) {
+            if (toBeUpdatedStatus.get() == Status.GHOSTED || toBeUpdatedStatus.get() == Status.REJECTED) {
+                updatedInternshipApplication.setIsGhostedOrRejected(true);
+            } else {
+                updatedInternshipApplication.setIsGhostedOrRejected(false);
+            }
+        }
+        if (internshipToEdit.getStatus() == Status.GHOSTED || internshipToEdit.getStatus() == Status.REJECTED) {
+            updatedInternshipApplication = updatedInternshipApplication.setLastStage(internshipToEdit.getLastStage());
+        } else {
+            updatedInternshipApplication = updatedInternshipApplication.setLastStage(internshipToEdit.getStatus());
+        }
+
+        updatedInternshipApplication.setInterviews(interviews);
+        return updatedInternshipApplication;
     }
 
     @Override
@@ -147,6 +169,8 @@ public class EditCommand extends Command {
         private ApplicationDate date;
         private Priority priority;
         private Status status;
+        private Boolean isGhostedOrRejected;
+        private Status lastStage;
 
         public EditInternshipDescriptor() {}
 
@@ -163,6 +187,8 @@ public class EditCommand extends Command {
             setDate(toCopy.date);
             setPriority(toCopy.priority);
             setStatus(toCopy.status);
+            setIsGhostedOrRejected(toCopy.isGhostedOrRejected);
+            setLastStage(toCopy.lastStage);
         }
 
         /**
@@ -236,6 +262,18 @@ public class EditCommand extends Command {
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setLastStage(Status lastStage) {
+            this.lastStage = lastStage;
+        }
+
+        public Optional<Status> getLastStage() {
+            return Optional.ofNullable(lastStage);
+        }
+
+        public void setIsGhostedOrRejected(Boolean bool) {
+            this.isGhostedOrRejected = bool;
         }
 
         @Override

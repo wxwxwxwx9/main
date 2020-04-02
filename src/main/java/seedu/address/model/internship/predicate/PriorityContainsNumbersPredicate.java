@@ -1,5 +1,7 @@
 package seedu.address.model.internship.predicate;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -35,5 +37,13 @@ public class PriorityContainsNumbersPredicate implements Predicate<InternshipApp
 
     public boolean isNull() {
         return numbers == null;
+    }
+
+    @Override
+    public String toString() {
+        if (isNull()) {
+            return PREFIX_PRIORITY.toString();
+        }
+        return PREFIX_PRIORITY + String.join(" ", numbers);
     }
 }

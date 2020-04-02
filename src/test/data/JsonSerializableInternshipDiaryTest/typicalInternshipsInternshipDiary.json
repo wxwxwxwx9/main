@@ -10,7 +10,8 @@
     "priority": "10",
     "status": "APPLIED",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "WISHLIST"
   }, {
     "company": "Facebook",
     "role": "Product Management",
@@ -19,8 +20,9 @@
     "email": "mark@google.com",
     "applicationDate": "25 03 2020",
     "priority": "8",
-    "status": "REJECTED",
+    "status": "INTERVIEW",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "APPLIED"
   } ]
 }

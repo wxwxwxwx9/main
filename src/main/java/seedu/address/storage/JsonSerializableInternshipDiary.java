@@ -37,7 +37,7 @@ class JsonSerializableInternshipDiary {
      * @param source future changes to this will not affect the created {@code JsonSerializableInternshipDiary}.
      */
     public JsonSerializableInternshipDiary(ReadOnlyInternshipDiary source) {
-        internships.addAll(source.getInternshipList().stream()
+        internships.addAll(source.getAllInternshipList().stream()
                 .map(JsonAdaptedInternship::new).collect(Collectors.toList()));
     }
 
@@ -53,7 +53,7 @@ class JsonSerializableInternshipDiary {
             if (internshipDiary.hasInternship(internship)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INTERNSHIP);
             }
-            internshipDiary.addInternshipApplication(internship);
+            internshipDiary.loadInternshipApplication(internship);
         }
         return internshipDiary;
     }

@@ -1,5 +1,7 @@
 package seedu.address.model.internship.predicate;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -35,5 +37,13 @@ public class EmailContainsKeywordsPredicate implements Predicate<InternshipAppli
 
     public boolean isNull() {
         return keywords == null;
+    }
+
+    @Override
+    public String toString() {
+        if (isNull()) {
+            return PREFIX_EMAIL.toString();
+        }
+        return PREFIX_EMAIL + String.join(" ", keywords);
     }
 }

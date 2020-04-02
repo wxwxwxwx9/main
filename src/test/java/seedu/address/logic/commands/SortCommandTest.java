@@ -29,10 +29,10 @@ public class SortCommandTest {
     private Model expectedModel = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
 
     private List<Comparator<InternshipApplication>> comparators = Arrays.asList(
-            new CompanyComparator(),
-            new ApplicationDateComparator(),
-            new PriorityComparator(),
-            new StatusComparator()
+        new CompanyComparator(),
+        new ApplicationDateComparator(),
+        new PriorityComparator(),
+        new StatusComparator()
     );
 
     @Test

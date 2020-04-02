@@ -1,5 +1,6 @@
 package seedu.address.model.internship;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
@@ -25,7 +26,9 @@ public class InternshipApplication {
     private final Priority priority;
     private final Status status;
     private final ArrayList<Interview> interviews;
-    private Boolean isArchived;
+    private final Boolean isArchived;
+    private Boolean isGhostedOrRejected;
+    private final Status lastStage;
 
     /**
      * Every field must be present and not null.
@@ -42,6 +45,8 @@ public class InternshipApplication {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.isArchived = false;
+        this.isGhostedOrRejected = false;
+        this.lastStage = status;
         interviews = new ArrayList<>();
     }
 
@@ -60,6 +65,28 @@ public class InternshipApplication {
         this.applicationDate = applicationDate;
         this.priority = priority;
         this.isArchived = isArchived;
+        this.isGhostedOrRejected = false;
+        this.lastStage = status;
+        interviews = new ArrayList<>();
+    }
+
+    /**
+     * Overloaded constructor to set lastStage field.
+     */
+    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
+                                 ApplicationDate applicationDate, Priority priority, Status status, Status lastStage) {
+        requireAllNonNull(company, phone, email, address, status);
+        this.company = company;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.applicationDate = applicationDate;
+        this.priority = priority;
+        this.isArchived = false;
+        this.isGhostedOrRejected = false;
+        this.lastStage = lastStage;
         interviews = new ArrayList<>();
     }
 
@@ -93,6 +120,49 @@ public class InternshipApplication {
 
     public Status getStatus() {
         return status;
+    }
+
+    /**
+     * Sets variable 'isGhostedOrRejected' to true to keep track of whether the last stage before the internship
+     * application failed (ghosted/ rejected) needs to be stored.
+     */
+    public void setIsGhostedOrRejected(Boolean bool) {
+        this.isGhostedOrRejected = bool;
+    }
+
+    public Boolean getIsGhostedOrRejected() {
+        return isGhostedOrRejected;
+    }
+
+    /**
+     * Returns an InternshipApplication updated with last stage.
+     *
+     * @param lastStage where the application failed (APPLIED/ INTERVIEW/ OFFERED).
+     * @return InternshipApplication with lastStage specified.
+     */
+    public InternshipApplication setLastStage(Status lastStage) {
+        return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
+                lastStage);
+    }
+
+    /**
+     * Returns the last stage before the status of an internship application was updated to be ghosted/ rejected.
+     * @return an enum of Status (APPLIED/ OFFERED/ INTERVIEW).
+     */
+    public Status getLastStage() {
+        return lastStage;
+    }
+
+    /**
+     * Returns the last stage failed.
+     * @return message of the last stage failed, else an empty string.
+     */
+    public String getLastStageMessage() {
+        if (status == Status.GHOSTED || status == Status.REJECTED) {
+            return " [You failed at " + lastStage.toString() + ":(]";
+        } else {
+            return "";
+        }
     }
 
     public Boolean isArchived() {
@@ -131,6 +201,7 @@ public class InternshipApplication {
     }
 
     public void setInterviews(ArrayList<Interview> interviews) {
+        requireNonNull(interviews);
         this.interviews.addAll(interviews);
     }
 
@@ -140,6 +211,60 @@ public class InternshipApplication {
 
     public boolean hasInterview(Interview interview) {
         return interviews.contains(interview);
+    }
+
+    /**
+     * Returns a deep, archived copy of this internship application (isArchived field is marked true).
+     * The rationale behind this is to uphold immutability.
+     */
+    public InternshipApplication archive() {
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+                true
+        );
+    }
+
+    /**
+     * Returns a deep, unarchived copy of this internship application (isArchived field is marked false).
+     * The rationale behind this is to uphold immutability.
+     */
+    public InternshipApplication unarchive() {
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+               false
+        );
+    }
+
+    /**
+     * Returns application date or the earliest interview date scheduled, whichever is closer to current date.
+     * @return earliest date from current date.
+     */
+    public ApplicationDate getEarliestApplicationOrInterviewDate() {
+        LocalDate currentDate = LocalDate.now();
+        Optional<Interview> earliestInterview = getEarliestInterview(currentDate);
+        if (applicationDate.fullApplicationDate.compareTo(currentDate) < 0) { // application date before current date
+            return earliestInterview.get().getDate();
+        }
+        if (earliestInterview.isPresent()) { // there are interviews after current date
+            ApplicationDate earliestInterviewDate = earliestInterview.get().getDate();
+            return applicationDate.compareTo(earliestInterviewDate) >= 0 ? earliestInterviewDate : applicationDate;
+        } else { // there are no interviews after current date
+            return applicationDate;
+        }
     }
 
     /**
@@ -159,7 +284,8 @@ public class InternshipApplication {
                 && internshipApplication.getPhone().equals(getPhone())
                 && internshipApplication.getEmail().equals(getEmail())
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.isArchived().equals(isArchived())
+                && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     /**
@@ -185,7 +311,8 @@ public class InternshipApplication {
                 && internshipApplication.getApplicationDate().equals(getApplicationDate())
                 && internshipApplication.getPriority().equals(getPriority())
                 && internshipApplication.getStatus().equals(getStatus())
-                && internshipApplication.isArchived().equals(isArchived());
+                && internshipApplication.isArchived().equals(isArchived())
+                && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     @Override
@@ -212,6 +339,7 @@ public class InternshipApplication {
                 .append(getPriority())
                 .append(" Status: ")
                 .append(getStatus())
+                .append(getLastStageMessage())
                 .append(" Archived: ")
                 .append(isArchived());
         return builder.toString();

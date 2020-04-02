@@ -23,31 +23,31 @@ public class InterviewListCommandTest {
     private Model model;
     private Model expectedModel;
 
-
     @BeforeEach
     public void setUp() {
         model = new ModelManager(TypicalInternshipApplications
-                .getTypicalInternshipDiaryWithInterviews(), new UserPrefs());
+            .getTypicalInternshipDiaryWithInterviews(), new UserPrefs());
         expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
     }
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new InterviewListCommand(null));
+            new InterviewListCommand(null));
     }
 
     @Test
     public void execute_validIndex_success() {
         InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         assertCommandSuccess(new InterviewListCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), model,
-                String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel);
+                String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel,
+                internshipApplication);
     }
 
     @Test
     public void execute_invalidIndex_failure() {
         assertCommandFailure(new InterviewListCommand(Index.fromZeroBased(10000)),
-                model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
+            model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
 }

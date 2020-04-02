@@ -210,7 +210,7 @@ public class ParserUtilTest {
     @Test
     public void parseInterviewPreamble_validValueWithoutWhiteSpace_returnsStringArray() throws Exception {
         String preamble = VALID_INTERVIEW_PREAMBLE;
-        String[] expectedArray = new String[] {"1", "add"};
+        String[] expectedArray = new String[]{"1", "add"};
         String[] resultArray = ParserUtil.parseInterviewPreamble(preamble);
         assertEquals(expectedArray[0], resultArray[0]);
         assertEquals(expectedArray[1], resultArray[1]);
@@ -219,7 +219,7 @@ public class ParserUtilTest {
     @Test
     public void parseInterviewPreamble_validValueWithWhiteSpace_returnsStringArray() throws Exception {
         String preamble = WHITESPACE + VALID_INTERVIEW_PREAMBLE + WHITESPACE;
-        String[] expectedArray = new String[] {"1", "add"};
+        String[] expectedArray = new String[]{"1", "add"};
         String[] resultArray = ParserUtil.parseInterviewPreamble(preamble);
         assertEquals(expectedArray[0], resultArray[0]);
         assertEquals(expectedArray[1], resultArray[1]);
@@ -228,13 +228,13 @@ public class ParserUtilTest {
     @Test
     public void parseInterviewPreamble_invalidValueWithInsufficientStrings_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil
-                .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_1String));
+            .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_1String));
     }
 
     @Test
     public void parseInterviewPreamble_invalidValueWithExcessStrings_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil
-                .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_4Strings));
+            .parseInterviewPreamble(INVALID_INTERVIEW_PREAMBLE_4Strings));
     }
 
     @Test

@@ -2,10 +2,12 @@ package seedu.address.logic.comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +35,9 @@ public class ApplicationDateComparatorTest {
 
         // same kind of object -> returns true
         assertEquals(applicationDateComparator1, applicationDateComparator2);
+
+        // Reverse is the same -> return true
+        assertEquals(applicationDateComparator1.reversed(), applicationDateComparator2.reversed());
     }
 
     @Test
@@ -42,13 +47,13 @@ public class ApplicationDateComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date1).build();
+            .withApplicationDate(date1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date2).build();
+            .withApplicationDate(date2).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date1).build();
+            .withApplicationDate(date1).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date4).build();
+            .withApplicationDate(date4).build();
 
         // same object
         assertEquals(0, applicationDateComparator.compare(google, google));
@@ -63,6 +68,11 @@ public class ApplicationDateComparatorTest {
         // everything is different
         assertTrue(applicationDateComparator.compare(google1, facebook2) < 0);
         assertTrue(applicationDateComparator.compare(facebook2, google2) > 0);
+
+        // everything reversed is different
+        Comparator<InternshipApplication> reversed = applicationDateComparator.reversed();
+        assertTrue(reversed.compare(google1, facebook2) > 0);
+        assertTrue(reversed.compare(facebook2, google2) < 0);
     }
 
     @Test
@@ -72,13 +82,13 @@ public class ApplicationDateComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date1).build();
+            .withApplicationDate(date1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withApplicationDate(date3).build();
+            .withApplicationDate(date3).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date2).build();
+            .withApplicationDate(date2).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withApplicationDate(date3).build();
+            .withApplicationDate(date3).build();
 
         ArrayList<InternshipApplication> unsorted = new ArrayList<>();
         Collections.addAll(unsorted, google2, google1, facebook1, facebook2);
@@ -88,5 +98,10 @@ public class ApplicationDateComparatorTest {
         Collections.addAll(sorted, google1, facebook1, google2, facebook2);
 
         assertEquals(sorted, unsorted);
+    }
+
+    @Test
+    public void toString_returnsPrefix() {
+        assertEquals(new ApplicationDateComparator().toString(), PREFIX_DATE.getPrefix());
     }
 }

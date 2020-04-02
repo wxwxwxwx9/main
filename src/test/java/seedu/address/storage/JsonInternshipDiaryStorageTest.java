@@ -21,7 +21,7 @@ import seedu.address.model.ReadOnlyInternshipDiary;
 
 public class JsonInternshipDiaryStorageTest {
     private static final Path TEST_DATA_FOLDER =
-            Paths.get("src", "test", "data", "JsonInternshipDiaryStorageTest");
+        Paths.get("src", "test", "data", "JsonInternshipDiaryStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -33,13 +33,13 @@ public class JsonInternshipDiaryStorageTest {
 
     private java.util.Optional<ReadOnlyInternshipDiary> readInternshipDiary(String filePath) throws Exception {
         return new JsonInternshipDiaryStorage(Paths.get(filePath))
-                .readInternshipDiary(addToTestDataPathIfNotNull(filePath));
+            .readInternshipDiary(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -50,19 +50,19 @@ public class JsonInternshipDiaryStorageTest {
     @Test
     public void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () ->
-                    readInternshipDiary("notJsonFormatInternshipDiary.json"));
+            readInternshipDiary("notJsonFormatInternshipDiary.json"));
     }
 
     @Test
     public void readInternshipDiary_invalidInternshipInternshipDiary_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-                    readInternshipDiary("invalidInternshipInternshipDiary.json"));
+            readInternshipDiary("invalidInternshipInternshipDiary.json"));
     }
 
     @Test
     public void readInternshipDiary_invalidAndValidInternshipInternshipDiary_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
-                        readInternshipDiary("invalidAndValidInternshipInternshipDiary.json"));
+            readInternshipDiary("invalidAndValidInternshipInternshipDiary.json"));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class JsonInternshipDiaryStorageTest {
         assertEquals(original, new InternshipDiary(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addInternshipApplication(AMY);
+        original.loadInternshipApplication(AMY);
         original.removeInternship(GOOGLE);
         jsonInternshipDiaryStorage.saveInternshipDiary(original, filePath);
         readBack = jsonInternshipDiaryStorage.readInternshipDiary(filePath).get();
@@ -102,7 +102,7 @@ public class JsonInternshipDiaryStorageTest {
     private void saveInternshipDiary(ReadOnlyInternshipDiary addressBook, String filePath) {
         try {
             new JsonInternshipDiaryStorage(Paths.get(filePath))
-                    .saveInternshipDiary(addressBook, addToTestDataPathIfNotNull(filePath));
+                .saveInternshipDiary(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

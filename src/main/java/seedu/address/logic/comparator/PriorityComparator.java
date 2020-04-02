@@ -1,5 +1,7 @@
 package seedu.address.logic.comparator;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+
 import java.util.Comparator;
 
 import seedu.address.model.internship.InternshipApplication;
@@ -15,7 +17,17 @@ public class PriorityComparator implements Comparator<InternshipApplication> {
     }
 
     @Override
+    public Comparator<InternshipApplication> reversed() {
+        return new ReversedComparator(this);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other instanceof PriorityComparator; // All PriorityComparator are the same.
+    }
+
+    @Override
+    public String toString() {
+        return PREFIX_PRIORITY.getPrefix();
     }
 }

@@ -18,10 +18,9 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Internship Diary is an application to assist students in managing their internship applications. The Internship Diary
-will be able to help you in tracking, tagging and reviewing all your internship applications. Additionally, Internship
-Diary is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits
-of a Graphical User Interface (GUI).
+Internship Diary is a desktop application that assists university students in managing their internship applications.
+With the Internship Diary, you can leave behind your troubling times trying to to organize, track, and review all your past and upcoming internship applications.
+The application is designed and optimized for users who can type quickly, and provides an elegant design which is easy on the eyes.
 
 == Quick Start
 
@@ -55,6 +54,33 @@ acceptable.
 
 Format: `help`
 
+=== Viewing unarchived internship applications : `list`
+
+Displays internship applications in your unarchived list.
+
+This is also known as your "Main" list. +
+
+Format: `list`
+
+=== Viewing archived internship applications: `archival`
+
+Displays internship applications in your archived list. +
+
+Format: `archival`
+
+=== Selecting an internship application to display: `select`
+
+Selects an internship application to display on the right panel of the internship diary. +
+[TIP]
+Alternatively, you could use your mouse and click on a specific internship application
+in the left panel of the internship diary
+
+Format: `select INDEX`
+
+Examples:
+
+* `select 1`
+
 === Adding an internship application: `add`
 
 Adds an internship application to the internship diary +
@@ -65,10 +91,104 @@ Examples:
 * `add c/Microsoft r/software engineer d/01 01 2020 s/rejected`
 * `add c/Google r/Software Engineer d/20 02 2020 s/applied p/91234567 e/google@google.com a/123 Orchard Road`
 
-=== Listing all internship applications : `list`
+=== Deleting an internship application : `delete`
 
-Shows a list of all internship applications that you have applied to. +
-Format: `list`
+Deletes the specified internship application from the current list. +
+
+Formats:
+
+* `delete INDEX`
+* `delete INDEX, [INDEX], [INDEX], ...`
+* `delete s/STATUS`
+
+****
+* Deletes the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed internship application.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The index can be entered in any order.
+* The status has to be a valid one.
+* The command will work on both the main and archival list.
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd internship application in the main list.
+
+* `archival` +
+`delete s/applied` +
+Deletes all the internship applications with the `applied` status in the archival list.
+
+* `find Google` +
+`delete 2, 1, 3` +
+Deletes the 1st, 2nd, and 3rd internship application in the results of the `find` command.
+
+=== Archiving your internship applications: `archive`
+
+Moves your internship applications from the main list to the archival list. +
+
+Formats:
+
+* `archive INDEX`
+* `archive INDEX, [INDEX], [INDEX], ...`
+* `archive s/STATUS`
+
+****
+* Archives the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed internship application.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The index can be entered in any order.
+* The status has to be a valid one.
+* The command will only work on the main list.
+****
+
+Examples:
+
+* `list` +
+`archive 3` +
+Archives the 3rd internship application in the main list.
+
+* `find Google` +
+`archive 2, 1, 3` +
+Archives the 1st, 2nd, and 3rd internship application in the results of the `find` command.
+
+* `find Van` +
+`archive s/rejected` +
+Archives all the internship applications with the `rejected` status in the results of the `find` command.
+
+=== Unarchiving your internship applications: `unarchive`
+
+Moves your internship applications from the archival list to the main list. +
+
+Formats:
+
+* `unarchive INDEX`
+* `unarchive INDEX, [INDEX], [INDEX], ...`
+* `unarchive s/STATUS`
+
+****
+* Unarchives the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed internship application.
+* The index *must be a positive integer* 1, 2, 3, ...
+* The index can be entered in any order.
+* The status has to be a valid one.
+* The command will only work on the archival list.
+****
+
+Examples:
+
+* `archival` +
+`unarchive 2` +
+Unarchives the 2nd internship application in the archival list.
+
+* `find IBM` +
+`unarchive 2, 1, 3` +
+Unarchives the 1st, 2nd, and 3rd internship application in the results of the `find` command.
+
+* `find Van` +
+`unarchive s/interview` +
+Unarchives all the internship applications with the `interview` status in the results of the `find` command.
 
 === Editing an internship application : `edit`
 
@@ -115,13 +235,14 @@ Returns internship applications with company `Google` and status `APPLIED`
 === Sorting internship companies by field : `sort`
 
 Sort displayed internship companies based on a given FIELD. +
-Format: `sort FIELD`.
+Type `reverse` before `FIELD` to sort in the reverse order.
+Format: `sort [reverse] FIELD`.
 
 Available values for `FIELD`: +
 `c/`: Sorts by company name. +
 `d/`: Sorts by application date. +
 `w/`: Sorts by priority level. +
-`s/`: Sorts by Status.
+`s/`: Sorts by status.
 
 ****
 * Sort displayed internship companies based on a given FIELD
@@ -131,57 +252,6 @@ Examples:
 
 * `Sort c/` +
 Returns a list of currently displayed companies sorted by company name.
-
-=== Deleting an internship application : `delete`
-
-Deletes the specified internship application from the diary. +
-Format: `delete INDEX`
-
-****
-* Deletes the application at the specified `INDEX`.
-* The index refers to the index number shown in the displayed internship application.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd internship application in the list.
-* `find Google` +
-`delete 1` +
-Deletes the 1st internship application in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the Internship Diary. +
-Format: `clear`
-
-=== Getting deadline reminders : `reminder`
-
-Lists all deadlines/appointments from the Internship Diary in the next 7 days. +
-Format: `reminder`
-
-=== Getting statistics about internship applications: `stats`
-
-Displays the current statistics regarding your internship application +
-Format: `stats`
-
-=== Archiving your internship applications: `archive`
-
-Stores your internship applications into the archival. +
-Format: `archive INDEX`
-
-=== Unarchiving your internship applications: `unarchive`
-
-Moves your internship application from archival to main list. +
-Format: `unarchive INDEX`
-
-=== View your internship applications archival: `archival`
-
-Switches the view from main list to archival list. +
-Format: `archival`
 
 === Modifying an interview in an internship application : `interview`
 
@@ -230,6 +300,37 @@ Edits the date of the 1st interview in the 2nd internship application in the lis
 `interview 1 delete 1` +
 Deletes the 1st interview in the 1st internship application in the list.
 
+=== Getting deadline reminders : `reminder`
+
+Shows you all internship application(s) that need to be submitted or have interviews scheduled in 7 days. +
+The internship applications will be displayed in terms of urgency, with the application with the earliest application
+date or interview date, shown at the top.
+ +
+Format: `reminder`
+// end::delete[]
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the Internship Diary. +
+Format: `clear`
+
+=== Getting statistics about internship applications: `stats`
+
+Displays the current statistics regarding your internship application on the current list. +
+
+It will open a new window that contains a bar chart and a pie chart.
+
+Format: `stats`
+
+****
+* The bar chart showcases:
+** the amount of internship application(s) under each status (wishlist, applied, interview, offered, rejected, ghosted)
+* The pie chart showcases:
+** the percentage of internship application(s) under a status (wishlist, applied, interview, offered, rejected, ghosted)
+* The statistics window will dynamically update the statistics as you refine the view of your list of internship applications
+** this includes any command that modifies your view (e.g. `add`, `delete`, `archive`, `unarchive`, `find`, `edit`, list`, `archival`)
+****
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -239,7 +340,6 @@ Format: `exit`
 
 Internship Diary is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
 
 == FAQ
 
@@ -252,6 +352,7 @@ There is no need to save manually.
 * *Add* `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​` +
 e.g. `add c/Google r/Software engineer s/wishlist d/10 10 2010`
 * *List* : `list`
+* *Select* : `select INDEX`
 * *Edit* : `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]` +
 e.g. `edit 2 c/Google s/applied`
 * *Find* : `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]` +

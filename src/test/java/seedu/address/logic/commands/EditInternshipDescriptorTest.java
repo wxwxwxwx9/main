@@ -23,7 +23,7 @@ public class EditInternshipDescriptorTest {
     public void equals() {
         // same values -> returns true
         EditCommand.EditInternshipDescriptor descriptorWithSameValues =
-                new EditCommand.EditInternshipDescriptor(DESC_AMY);
+            new EditCommand.EditInternshipDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -40,7 +40,7 @@ public class EditInternshipDescriptorTest {
 
         // different company -> returns false
         EditCommand.EditInternshipDescriptor editedAmy =
-                new EditInternshipDescriptorBuilder(DESC_AMY).withCompany(VALID_COMPANY_BOB).build();
+            new EditInternshipDescriptorBuilder(DESC_AMY).withCompany(VALID_COMPANY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false

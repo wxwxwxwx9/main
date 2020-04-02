@@ -19,16 +19,16 @@ public class PriorityContainsNumbersPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("2", "8");
 
         PriorityContainsNumbersPredicate firstPredicate =
-                new PriorityContainsNumbersPredicate(firstPredicateKeywordList);
+            new PriorityContainsNumbersPredicate(firstPredicateKeywordList);
         PriorityContainsNumbersPredicate secondPredicate =
-                new PriorityContainsNumbersPredicate(secondPredicateKeywordList);
+            new PriorityContainsNumbersPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         PriorityContainsNumbersPredicate firstPredicateCopy =
-                new PriorityContainsNumbersPredicate(firstPredicateKeywordList);
+            new PriorityContainsNumbersPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class PriorityContainsNumbersPredicateTest {
     public void test_priorityContainsNumbers_returnsTrue() {
         // Full number
         PriorityContainsNumbersPredicate predicate =
-                new PriorityContainsNumbersPredicate(Collections.singletonList("10"));
+            new PriorityContainsNumbersPredicate(Collections.singletonList("10"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withPriority("10").build()));
 
         // One number
@@ -69,11 +69,11 @@ public class PriorityContainsNumbersPredicateTest {
 
         // Keywords match company, role, phone, email, address and status but does not match priority
         predicate = new PriorityContainsNumbersPredicate(Arrays.asList("Google", "Software", "Engineer",
-                "12345", "alice@email.com", "Main", "Street", "APPLIED"));
+            "12345", "alice@email.com", "Main", "Street", "APPLIED"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
-                .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
-                .withStatus("APPLIED").build()));
+            .withRole("Software Engineer").withPhone("12345")
+            .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+            .withStatus("APPLIED").build()));
     }
 
     @Test

@@ -19,16 +19,16 @@ public class StatusContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         StatusContainsKeywordsPredicate firstPredicate =
-                new StatusContainsKeywordsPredicate(firstPredicateKeywordList);
+            new StatusContainsKeywordsPredicate(firstPredicateKeywordList);
         StatusContainsKeywordsPredicate secondPredicate =
-                new StatusContainsKeywordsPredicate(secondPredicateKeywordList);
+            new StatusContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         StatusContainsKeywordsPredicate firstPredicateCopy =
-                new StatusContainsKeywordsPredicate(firstPredicateKeywordList);
+            new StatusContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class StatusContainsKeywordsPredicateTest {
     public void test_statusContainsKeywords_returnsTrue() {
         // Full status
         StatusContainsKeywordsPredicate predicate =
-                new StatusContainsKeywordsPredicate(Collections.singletonList("APPLIED"));
+            new StatusContainsKeywordsPredicate(Collections.singletonList("APPLIED"));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withStatus("APPLIED").build()));
 
         // One keyword
@@ -73,11 +73,11 @@ public class StatusContainsKeywordsPredicateTest {
 
         // Keywords match company, role, phone, email, address and priority, but does not match status
         predicate = new StatusContainsKeywordsPredicate(Arrays.asList("Google", "Software", "Engineer", "12345",
-                "alice@email.com", "Main", "Street", "1"));
+            "alice@email.com", "Main", "Street", "1"));
         assertFalse(predicate.test(new InternshipApplicationBuilder().withCompany("Google")
-                .withRole("Software Engineer").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
-                .withStatus("APPLIED").build()));
+            .withRole("Software Engineer").withPhone("12345")
+            .withEmail("alice@email.com").withAddress("Main Street").withPriority("1")
+            .withStatus("APPLIED").build()));
     }
 
     @Test

@@ -2,9 +2,11 @@ package seedu.address.logic.comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +29,9 @@ public class PriorityComparatorTest {
 
         // same kind of object -> returns true
         assertEquals(priorityComparator1, priorityComparator2);
+
+        // Reverse is the same -> return true
+        assertEquals(priorityComparator1.reversed(), priorityComparator2.reversed());
     }
 
     @Test
@@ -36,13 +41,13 @@ public class PriorityComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withPriority(1).build();
+            .withPriority(1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withPriority(3).build();
+            .withPriority(3).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withPriority(1).build();
+            .withPriority(1).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withPriority(5).build();
+            .withPriority(5).build();
 
         // same object
         assertEquals(0, priorityComparator.compare(google, google));
@@ -57,6 +62,11 @@ public class PriorityComparatorTest {
         // everything is different
         assertTrue(priorityComparator.compare(google1, facebook2) < 0);
         assertTrue(priorityComparator.compare(facebook2, google2) > 0);
+
+        // everything reversed is different
+        Comparator<InternshipApplication> reversed = priorityComparator.reversed();
+        assertTrue(reversed.compare(google1, facebook2) > 0);
+        assertTrue(reversed.compare(facebook2, google2) < 0);
     }
 
     @Test
@@ -66,13 +76,13 @@ public class PriorityComparatorTest {
         InternshipApplication facebook = TypicalInternshipApplications.FACEBOOK;
 
         InternshipApplication google1 = new InternshipApplicationBuilder(google)
-                .withPriority(1).build();
+            .withPriority(1).build();
         InternshipApplication google2 = new InternshipApplicationBuilder(google)
-                .withPriority(3).build();
+            .withPriority(3).build();
         InternshipApplication facebook1 = new InternshipApplicationBuilder(facebook)
-                .withPriority(2).build();
+            .withPriority(2).build();
         InternshipApplication facebook2 = new InternshipApplicationBuilder(facebook)
-                .withPriority(4).build();
+            .withPriority(4).build();
 
         ArrayList<InternshipApplication> unsorted = new ArrayList<>();
         Collections.addAll(unsorted, google2, google1, facebook1, facebook2);
@@ -82,5 +92,10 @@ public class PriorityComparatorTest {
         Collections.addAll(sorted, google1, facebook1, google2, facebook2);
 
         assertEquals(sorted, unsorted);
+    }
+
+    @Test
+    public void toString_returnsPrefix() {
+        assertEquals(new PriorityComparator().toString(), PREFIX_PRIORITY.getPrefix());
     }
 }
