@@ -45,6 +45,13 @@ public class Index {
         return new Index(oneBasedIndex - 1);
     }
 
+    public Index getDecrementIndex() {
+        if ((zeroBasedIndex - 1) < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        return fromZeroBased(zeroBasedIndex - 1);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.interviewcode.InterviewCode;
@@ -26,11 +29,12 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_PREAMBLE =
-            "Index followed by Command Code of add, edit, or delete is expected";
+        "Index followed by Command Code of add, edit, or delete is expected";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -39,6 +43,31 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code args} into a list of {@code Index} and returns it.
+     * Leading and trailing whitespaces for each index will be trimmed.
+     * The list of index will also be sorted and not contain duplicates.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndices(String args, String delimiter) throws ParseException {
+        String[] indices = args.split(delimiter);
+        List<Integer> integers = new ArrayList<>();
+        for (String oneBasedIndex : indices) {
+            oneBasedIndex = oneBasedIndex.trim();
+            if (!StringUtil.isNonZeroUnsignedInteger(oneBasedIndex)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            integers.add(Integer.parseInt(oneBasedIndex));
+        }
+        List<Index> indicesList = integers.stream()
+            .distinct()
+            .sorted()
+            .map(oneBasedIndex -> Index.fromOneBased(oneBasedIndex))
+            .collect(Collectors.toList());
+        return indicesList;
     }
 
     /**

@@ -9,6 +9,7 @@
     "priority": "1",
     "status": "APPLIED",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "WISHLIST"
   } ]
 }

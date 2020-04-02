@@ -11,19 +11,11 @@ import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
- * Deletes an internship application identified using it's displayed index from the internship diary.
+ * Deletes an internship application identified using its displayed index from the internship diary.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the internship application "
-            + "identified by the index number used in the displayed internship list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
-    public static final String MESSAGE_DELETE_INTERNSHIP_SUCCESS = "Deleted Internship Application: %1$s";
 
     private final Index targetIndex;
 
@@ -41,14 +33,20 @@ public class DeleteCommand extends Command {
         }
 
         InternshipApplication internshipToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         model.deleteInternshipApplication(internshipToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_INTERNSHIP_SUCCESS, internshipToDelete));
+
+        String feedback = internshipToDelete.toString();
+
+        return new CommandResult(feedback);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+            || (other instanceof DeleteCommand // instanceof handles nulls
+            && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+
     }
+
 }

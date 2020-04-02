@@ -1,10 +1,12 @@
 package seedu.address.logic;
 
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -12,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.InternshipDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ListenerPropertyType;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInternshipDiary;
 import seedu.address.model.internship.InternshipApplication;
@@ -29,6 +32,8 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final InternshipDiaryParser internshipDiaryParser;
 
+    private InternshipDiaryParser nextParser;
+
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
@@ -39,9 +44,17 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
-        Command command = internshipDiaryParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        InternshipDiaryParser nextParser = this.nextParser;
+        this.nextParser = null;
+
+        Command command;
+        if (nextParser == null) {
+            command = internshipDiaryParser.parseCommand(commandText);
+        } else {
+            command = nextParser.parseCommand(commandText);
+        }
+        CommandResult commandResult = command.execute(model);
+        this.nextParser = command.getNextInternshipDiaryParser();
 
         try {
             storage.saveInternshipDiary(model.getInternshipDiary());
@@ -60,6 +73,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<InternshipApplication> getFilteredInternshipApplicationList() {
         return model.getFilteredInternshipApplicationList();
+    }
+
+    @Override
+    public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
+        model.addPropertyChangeListener(propertyType, l);
     }
 
     @Override

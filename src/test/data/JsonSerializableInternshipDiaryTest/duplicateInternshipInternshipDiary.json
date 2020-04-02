@@ -9,7 +9,8 @@
     "priority": "1",
     "status": "APPLIED",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "WISHLIST"
   }, {
     "company": "Alice Inc",
     "role": "Fun officer",
@@ -20,6 +21,7 @@
     "priority": "2",
     "status": "REJECTED",
     "interviews": [],
-    "isArchived": "false"
+    "isArchived": "false",
+    "lastStage": "APPLIED"
   } ]
 }

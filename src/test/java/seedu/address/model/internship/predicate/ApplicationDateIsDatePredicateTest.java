@@ -17,16 +17,16 @@ public class ApplicationDateIsDatePredicateTest {
         LocalDate secondPredicateDate = LocalDate.of(2021, 03, 02);
 
         ApplicationDateIsDatePredicate firstPredicate =
-                new ApplicationDateIsDatePredicate(firstPredicateDate);
+            new ApplicationDateIsDatePredicate(firstPredicateDate);
         ApplicationDateIsDatePredicate secondPredicate =
-                new ApplicationDateIsDatePredicate(secondPredicateDate);
+            new ApplicationDateIsDatePredicate(secondPredicateDate);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         ApplicationDateIsDatePredicate firstPredicateCopy =
-                new ApplicationDateIsDatePredicate(firstPredicateDate);
+            new ApplicationDateIsDatePredicate(firstPredicateDate);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -42,7 +42,7 @@ public class ApplicationDateIsDatePredicateTest {
     @Test
     public void test_applicationDateContainsNumbers_returnsTrue() {
         ApplicationDateIsDatePredicate predicate =
-                new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01));
+            new ApplicationDateIsDatePredicate(LocalDate.of(2020, 02, 01));
         assertTrue(predicate.test(new InternshipApplicationBuilder().withApplicationDate("01 02 2020").build()));
     }
 
@@ -55,7 +55,7 @@ public class ApplicationDateIsDatePredicateTest {
 
     @Test
     public void isNull_nullDate_returnsTrue() {
-        ApplicationDateIsDatePredicate predicate = new ApplicationDateIsDatePredicate(null);
+        ApplicationDateIsDatePredicate predicate = new ApplicationDateIsDatePredicate((LocalDate) null);
         assertTrue(predicate.isNull());
     }
 

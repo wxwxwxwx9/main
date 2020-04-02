@@ -9,20 +9,20 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchivalCommand;
 import seedu.address.logic.commands.ArchiveCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InitClearCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReminderCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,10 +58,10 @@ public class InternshipDiaryParser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new RemovalBasedCommandExecutionTypeParser(DeleteCommand.COMMAND_WORD).parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case InitClearCommand.COMMAND_WORD:
+            return new InitClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -85,17 +85,18 @@ public class InternshipDiaryParser {
             return new StatisticsCommand();
 
         case ArchiveCommand.COMMAND_WORD:
-            return new ArchiveCommandParser().parse(arguments);
+            return new RemovalBasedCommandExecutionTypeParser(ArchiveCommand.COMMAND_WORD).parse(arguments);
 
         case UnarchiveCommand.COMMAND_WORD:
-            return new UnarchiveCommandParser().parse(arguments);
+            return new RemovalBasedCommandExecutionTypeParser(UnarchiveCommand.COMMAND_WORD).parse(arguments);
 
         case ArchivalCommand.COMMAND_WORD:
             return new ArchivalCommand();
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommand();
-
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

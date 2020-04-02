@@ -3,9 +3,12 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ClearCommandConfirmationParseException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -17,6 +20,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+
+    private EnteredCommandsHistory commandsHistory = new EnteredCommandsHistory();
 
     @FXML
     private TextField commandTextField;
@@ -34,10 +39,35 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            String text = commandTextField.getText();
+            commandExecutor.execute(text);
+            commandsHistory.add(text);
+            commandsHistory.resetIterator();
+            commandTextField.setText("");
+        } catch (ClearCommandConfirmationParseException e) {
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        }
+    }
+
+    /**
+     * Handles any keyPressed pressed event.
+     */
+    @FXML
+    private void handleKeyPressed(KeyEvent ke) {
+        if (ke.getCode() == KeyCode.UP) {
+            String text = commandsHistory.iterateNext();
+            if (text != null) {
+                commandTextField.setText(text);
+            }
+        } else if (ke.getCode() == KeyCode.DOWN) {
+            String text = commandsHistory.iteratePrevious();
+            if (text != null) {
+                commandTextField.setText(text);
+            }
+        } else if (ke.getCode() != KeyCode.LEFT && ke.getCode() != KeyCode.RIGHT) {
+            commandsHistory.resetIterator();
         }
     }
 

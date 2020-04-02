@@ -12,10 +12,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.internship.predicate.CustomToStringPredicate;
 
 /**
  * Finds and lists all internship applications in internship diary
@@ -59,6 +61,7 @@ public class FindCommand extends Command {
         } else {
             predicate = predicates.stream().reduce(x -> true, Predicate::and);
         }
+        predicate = new CustomToStringPredicate<>(predicate, this.toString());
         model.updateFilteredInternshipApplicationList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW,
@@ -67,9 +70,16 @@ public class FindCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
                 && predicates.equals(((FindCommand) other).predicates)
                 && isPreamble == ((FindCommand) other).isPreamble); // state check
+    }
+
+    @Override
+    public String toString() {
+        String delimiter = isPreamble ? " OR " : " AND ";
+        return predicates.stream().map(Object::toString).collect(Collectors.joining(delimiter));
     }
 }

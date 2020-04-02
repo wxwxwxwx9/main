@@ -24,7 +24,7 @@ public class ArchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS = "Archived Internship Application: %1$s";
-    public static final String MESSAGE_ALREADY_ARCHIVED = "Internship Application already archived";
+    public static final String MESSAGE_ALREADY_ARCHIVED = "Internship Application already archived!";
 
     private final Index targetIndex;
 
@@ -49,7 +49,9 @@ public class ArchiveCommand extends Command {
 
         model.archiveInternshipApplication(internshipToArchive);
 
-        return new CommandResult(String.format(MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, internshipToArchive));
+        String feedback = internshipToArchive.toString();
+
+        return new CommandResult(feedback);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package seedu.address.model.internship.predicate;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -35,5 +37,13 @@ public class RoleContainsKeywordsPredicate implements Predicate<InternshipApplic
 
     public boolean isNull() {
         return keywords == null;
+    }
+
+    @Override
+    public String toString() {
+        if (isNull()) {
+            return PREFIX_ROLE.toString();
+        }
+        return PREFIX_ROLE + String.join(" ", keywords);
     }
 }

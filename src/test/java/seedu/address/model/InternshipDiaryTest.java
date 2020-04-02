@@ -7,6 +7,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalInternshipApplications.GOOGLE;
 import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,11 +18,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.exceptions.DuplicateInternshipApplicationException;
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
-
 
 
 public class InternshipDiaryTest {
@@ -29,7 +31,7 @@ public class InternshipDiaryTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), internshipDiary.getInternshipList());
+        assertEquals(Collections.emptyList(), internshipDiary.getDisplayedInternshipList());
     }
 
     @Test
@@ -48,8 +50,8 @@ public class InternshipDiaryTest {
     public void resetData_withDuplicateInternship_throwsDuplicateInternshipException() {
         // Two internship applications with the same identity fields
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
-                .withAddress("1600 Amphitheatre Parkway")
-                .build();
+            .withAddress("1600 Amphitheatre Parkway")
+            .build();
         List<InternshipApplication> newInternshipApplications = Arrays.asList(GOOGLE, editedGoogle);
         InternshipDiaryStub newData = new InternshipDiaryStub(newInternshipApplications);
 
@@ -76,15 +78,15 @@ public class InternshipDiaryTest {
     public void hasInternship_internshipApplicationWithSameIdentityFieldsInInternshipDiary_returnsTrue() {
         internshipDiary.addInternshipApplication(GOOGLE);
         InternshipApplication editedGoogle = new InternshipApplicationBuilder(GOOGLE)
-                .withPriority(1)
-                .withStatus(Status.APPLIED)
-                .build();
+            .withPriority(1)
+            .withStatus(Status.APPLIED)
+            .build();
         assertTrue(internshipDiary.hasInternship(editedGoogle));
     }
 
     @Test
     public void getInternshipList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> internshipDiary.getInternshipList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> internshipDiary.getDisplayedInternshipList().remove(0));
     }
 
     /**
@@ -92,15 +94,27 @@ public class InternshipDiaryTest {
      */
     private static class InternshipDiaryStub implements ReadOnlyInternshipDiary {
         private final ObservableList<InternshipApplication> internshipApplications =
-                FXCollections.observableArrayList();
+            FXCollections.observableArrayList();
+
+        private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
         InternshipDiaryStub(Collection<InternshipApplication> internshipApplications) {
             this.internshipApplications.setAll(internshipApplications);
         }
 
         @Override
-        public ObservableList<InternshipApplication> getInternshipList() {
+        public ObservableList<InternshipApplication> getDisplayedInternshipList() {
             return internshipApplications;
+        }
+
+        @Override
+        public ObservableList<InternshipApplication> getAllInternshipList() {
+            return internshipApplications;
+        }
+
+        @Override
+        public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
+            changes.addPropertyChangeListener(l);
         }
     }
 

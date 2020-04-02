@@ -49,6 +49,8 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_BOB = "1";
     public static final String VALID_STATUS_AMY = "WISHLIST";
     public static final String VALID_STATUS_BOB = "APPLIED";
+    public static final String VALID_LAST_STAGE_AMY = "WISHLIST";
+    public static final String VALID_LAST_STAGE_BOB = "APPLIED";
 
     public static final String VALID_ADDRESS_NUS = "123 Kent Ridge Road";
     public static final String VALID_ADDRESS_ONLINE = Interview.ADDRESS_NOT_APPLICABLE;
@@ -101,17 +103,17 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
-                .withRole(VALID_ROLE_AMY).withApplicationDate(VALID_DATE_AMY).withPriority(VALID_PRIORITY_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withStatus(VALID_STATUS_AMY).build();
+            .withRole(VALID_ROLE_AMY).withApplicationDate(VALID_DATE_AMY).withPriority(VALID_PRIORITY_AMY)
+            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withStatus(VALID_STATUS_AMY).build();
         DESC_BOB = new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
-                .withRole(VALID_ROLE_BOB).withApplicationDate(VALID_DATE_BOB).withPriority(VALID_PRIORITY_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withStatus(VALID_STATUS_BOB).build();
+            .withRole(VALID_ROLE_BOB).withApplicationDate(VALID_DATE_BOB).withPriority(VALID_PRIORITY_BOB)
+            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withStatus(VALID_STATUS_BOB).build();
         DESC_NUS = new EditInterviewDescriptorBuilder().withAddress(VALID_ADDRESS_NUS)
-                .withInterviewDate(VALID_DATE_NUS).withIsOnline(VALID_IS_ONLINE_NUS).build();
+            .withInterviewDate(VALID_DATE_NUS).withIsOnline(VALID_IS_ONLINE_NUS).build();
         DESC_ONLINE = new EditInterviewDescriptorBuilder().withAddress(VALID_ADDRESS_ONLINE)
-                .withInterviewDate(VALID_DATE_ONLINE).withIsOnline(VALID_IS_ONLINE_ONLINE).build();
+            .withInterviewDate(VALID_DATE_ONLINE).withIsOnline(VALID_IS_ONLINE_ONLINE).build();
     }
 
     /**
@@ -120,7 +122,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+        Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -135,8 +137,15 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+        Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /** Compares to a command that takes in an internship application to display. */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+        Model expectedModel, InternshipApplication internshipApplication) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, internshipApplication);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -145,19 +154,20 @@ public class CommandTestUtil {
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the internship diary, filtered internship application list and selected internship application in
-     *   {@code actualModel} remain unchanged
+     * {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         InternshipDiary expectedInternshipDiary = new InternshipDiary(actualModel.getInternshipDiary());
         List<InternshipApplication> expectedFilteredList =
-                new ArrayList<>(actualModel.getFilteredInternshipApplicationList());
+            new ArrayList<>(actualModel.getFilteredInternshipApplicationList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedInternshipDiary, actualModel.getInternshipDiary());
         assertEquals(expectedFilteredList, actualModel.getFilteredInternshipApplicationList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the internship application at the given
      * {@code targetIndex} in the
@@ -167,12 +177,47 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
 
         InternshipApplication internshipApplication =
-                model.getFilteredInternshipApplicationList().get(targetIndex.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(targetIndex.getZeroBased());
         final String[] splitName = internshipApplication.getCompany().fullCompany.split("\\s+");
         model.updateFilteredInternshipApplicationList(
-                new CompanyContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+            new CompanyContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredInternshipApplicationList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the internship application at the given
+     * {@code targetIndices} in the
+     * {@code model}'s internship diary.
+     */
+    public static void showInternshipApplicationAtIndices(Model model, List<Index> targetIndices) {
+        // check that all indices are valid
+        for (Index targetIndex : targetIndices) {
+            assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
+        }
+
+        List<InternshipApplication> internshipApplications = new ArrayList<>();
+
+        // get all internship applications and place them in list
+        for (Index targetIndex : targetIndices) {
+            InternshipApplication internshipApplication =
+                model.getFilteredInternshipApplicationList().get(targetIndex.getZeroBased());
+            internshipApplications.add(internshipApplication);
+        }
+
+        List<String> keywords = new ArrayList<>();
+
+        // extract all company name keywords from internship applications
+        for (InternshipApplication internshipApplication : internshipApplications) {
+            final String[] splitName = internshipApplication.getCompany().fullCompany.split("\\s+");
+            for (String name : splitName) {
+                keywords.add(name);
+            }
+        }
+
+        // filter internship applications list based on the company name keywords
+        model.updateFilteredInternshipApplicationList(new CompanyContainsKeywordsPredicate(keywords));
+
     }
 
 }
