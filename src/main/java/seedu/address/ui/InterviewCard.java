@@ -31,12 +31,12 @@ public class InterviewCard extends UiPart<Region> {
         super(FXML);
         this.interview = interview;
         String title = "Interview : ";
-        date.setText("InterviewDate: " + interview.getDate().toString());
+        date.setText("Interview Date: " + interview.getDate().toString());
         if (interview.isOnline) {
             this.title.setText(index + ". ONLINE " + title);
         } else {
             this.title.setText(index + ". OFFLINE " + title);
         }
-        address.setText("InterviewAddress: " + interview.getInterviewAddress().value);
+        address.setText("Interview Address: " + interview.getInterviewAddress().value);
     }
 }
