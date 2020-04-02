@@ -42,7 +42,7 @@ public class SampleDataUtil {
             new InternshipApplication(new Company("DSTA"), new Role("Software Engineer"),
                 new Address("Blk 47 Tampines Street 20, #17-35"), new Phone("92492021"),
                 new Email("dsta.recruit@example.com"), new ApplicationDate(LocalDate.now().minusDays(DAYS_TO_MINUS)),
-                    new Priority(2), Status.REJECTED, false),
+                    new Priority(2), Status.REJECTED, Status.APPLIED),
             new InternshipApplication(new Company("Singtel"), new Role("Software Engineer"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"), new Phone("92624417"),
                 new Email("singtel.recruit@example.com"), new ApplicationDate(LocalDate.now().minusDays(DAYS_TO_MINUS)),
