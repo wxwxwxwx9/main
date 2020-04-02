@@ -302,7 +302,10 @@ Deletes the 1st interview in the 1st internship application in the list.
 
 === Getting deadline reminders : `reminder`
 
-Lists all deadlines/appointments from the Internship Diary in the next 7 days. +
+Shows you all internship application(s) that need to be submitted or have interviews scheduled in 7 days. +
+The internship applications will be displayed in terms of urgency, with the application with the earliest application
+date or interview date, shown at the top.
+ +
 Format: `reminder`
 // end::delete[]
 
