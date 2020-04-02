@@ -183,13 +183,13 @@ public class MainWindow extends UiPart<Stage> {
         internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
 
         ListView<InternshipApplication> internshipApplicationListView = internshipApplicationListPanel
-                .getInternshipApplicationListView();
+            .getInternshipApplicationListView();
         // Show internship application details on click
         internshipApplicationListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 internshipApplicationDetail = new InternshipApplicationDetail(internshipApplicationListView
-                        .getSelectionModel().getSelectedItem());
+                    .getSelectionModel().getSelectedItem());
                 internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
             }
         });

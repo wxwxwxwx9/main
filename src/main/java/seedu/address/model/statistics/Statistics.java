@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.status.Status;
 
@@ -49,10 +50,10 @@ public class Statistics {
      */
     public void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {
         List<Status> newStatuses = internshipApplicationList.stream()
-                .map(ia -> {
-                    return ia.getStatus();
-                })
-                .collect(Collectors.toList());
+            .map(ia -> {
+                return ia.getStatus();
+            })
+            .collect(Collectors.toList());
         newStatuses.forEach((status) -> {
             int count = statusCount.get(status);
             statusCount.put(status, ++count);

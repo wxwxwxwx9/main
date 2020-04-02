@@ -17,6 +17,6 @@ public enum InterviewCode {
     public static boolean isValidCode(String code) {
         String upperCaseCode = code.toUpperCase();
         return upperCaseCode.equals("ADD") || upperCaseCode.equals("EDIT")
-                || upperCaseCode.equals("DELETE") || upperCaseCode.equals("LIST");
+            || upperCaseCode.equals("DELETE") || upperCaseCode.equals("LIST");
     }
 }

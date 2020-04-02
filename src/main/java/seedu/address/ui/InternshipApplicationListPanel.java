@@ -68,7 +68,7 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
             } else {
                 setGraphic(new InternshipApplicationCard(internshipApplication, getIndex() + 1).getRoot());
                 Predicate<InternshipApplication> upcomingPredicate = new ApplicationDateDuePredicate()
-                        .or(new InterviewDateDuePredicate());
+                    .or(new InterviewDateDuePredicate());
                 if (internshipApplication.isArchived()) {
                     setStyle(originalStyle);
                 } else if (upcomingPredicate.test(internshipApplication)) {

@@ -27,8 +27,8 @@ public class ApplicationDateDuePredicate implements Predicate<InternshipApplicat
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ApplicationDateDuePredicate // instanceof handles nulls
-                && currentDate.equals(((ApplicationDateDuePredicate) other).currentDate)); // state check
+            || (other instanceof ApplicationDateDuePredicate // instanceof handles nulls
+            && currentDate.equals(((ApplicationDateDuePredicate) other).currentDate)); // state check
     }
 }
 

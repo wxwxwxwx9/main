@@ -7,6 +7,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+
 import seedu.address.model.internship.InternshipApplication;
 
 /**
@@ -72,23 +73,23 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         super(FXML);
         company.setText(internshipApplication.getCompany().fullCompany);
         phone.setText(
-                "Phone:" + PHONE_WHITESPACE + internshipApplication.getPhone().value);
+            "Phone:" + PHONE_WHITESPACE + internshipApplication.getPhone().value);
         address.setText(
-                "Address:" + ADDRESS_WHITESPACE + internshipApplication.getAddress().value);
+            "Address:" + ADDRESS_WHITESPACE + internshipApplication.getAddress().value);
         email.setText(
-                "Email:" + EMAIL_WHITESPACE + internshipApplication.getEmail().value);
+            "Email:" + EMAIL_WHITESPACE + internshipApplication.getEmail().value);
         role.setText(
-                "Role:" + ROLE_WHITESPACE + internshipApplication.getRole().fullRole);
+            "Role:" + ROLE_WHITESPACE + internshipApplication.getRole().fullRole);
         priority.setText(
-                "Priority:" + PRIORITY_WHITESPACE + internshipApplication.getPriority().fullPriority);
+            "Priority:" + PRIORITY_WHITESPACE + internshipApplication.getPriority().fullPriority);
         applicationDate.setText(
-                "Application Date:" + DATE_WHITESPACE + internshipApplication.getApplicationDate().printDate());
+            "Application Date:" + DATE_WHITESPACE + internshipApplication.getApplicationDate().printDate());
         status.setText(
-                "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString()
-                        + internshipApplication.getLastStageMessage());
+            "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString()
+                + internshipApplication.getLastStageMessage());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(
-                FXCollections.observableArrayList(internshipApplication.getInterviews()));
+            FXCollections.observableArrayList(internshipApplication.getInterviews()));
         interviewListPanelPlaceHolder.getChildren().add(interviewListPanel.getRoot());
     }
 }

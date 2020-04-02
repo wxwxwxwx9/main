@@ -14,6 +14,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ArchiveCommand
      * and returns a ArchiveCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ArchiveCommand parse(String args) throws ParseException {
@@ -22,7 +23,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
             return new ArchiveCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCommand.MESSAGE_USAGE), pe);
         }
     }
 

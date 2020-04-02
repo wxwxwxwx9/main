@@ -13,19 +13,29 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** Statistics should be shown to the user. */
+    /**
+     * Statistics should be shown to the user.
+     */
     private final boolean showStatistics;
 
-    /** The application should exit. */
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
-    /** Details of an internship application should be shown to the user based on the index provided. */
+    /**
+     * Details of an internship application should be shown to the user based on the index provided.
+     */
     private final boolean showInternshipApplication;
 
-    /** Index of the internship application to display. */
+    /**
+     * Index of the internship application to display.
+     */
     private final InternshipApplication internshipApplicationToShow;
 
     /**
@@ -105,11 +115,11 @@ public class CommandResult {
         }
 
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && showStatistics == otherCommandResult.showStatistics
-                && exit == otherCommandResult.exit
-                && isIndexEquals
-                && showInternshipApplication == otherCommandResult.showInternshipApplication;
+            && showHelp == otherCommandResult.showHelp
+            && showStatistics == otherCommandResult.showStatistics
+            && exit == otherCommandResult.exit
+            && isIndexEquals
+            && showInternshipApplication == otherCommandResult.showInternshipApplication;
     }
 
     @Override

@@ -59,7 +59,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyInternshipDiary> readInternshipDiary(Path filePath)
-            throws DataConversionException, IOException {
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return internshipDiaryStorage.readInternshipDiary(filePath);
     }
