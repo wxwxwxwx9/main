@@ -19,6 +19,8 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
 
     // Default Pattern
     public static final String DATE_PATTERN = "dd MM yyyy";
+    // To print pattern
+    public static final String DATE_PATTERN_TO_PRINT = "dd MMM yyyy";
 
     public final LocalDate fullApplicationDate;
 
@@ -54,6 +56,13 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    /**
+     * Prints the date in the print format provided.
+     */
+    public String printDate() {
+          return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN_TO_PRINT));
     }
 
     @Override

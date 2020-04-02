@@ -70,7 +70,7 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         email.setText("Email: " + internshipApplication.getEmail().value);
         role.setText("Role: " + internshipApplication.getRole().fullRole);
         priority.setText("Priority: " + internshipApplication.getPriority().fullPriority);
-        applicationDate.setText("Application Date: " + internshipApplication.getApplicationDate().toString());
+        applicationDate.setText("Application Date: " + internshipApplication.getApplicationDate().printDate());
         status.setText("Status: " + internshipApplication.getStatus().toString());
         isArchive.setText("Archived: " + internshipApplication.isArchived().toString());
         interviewPreamble.setText("Interviews: ");
