@@ -70,6 +70,19 @@ Examples:
 Shows a list of all internship applications that you have applied to. +
 Format: `list`
 
+=== Selecting an internship application to display: `select`
+
+Selects an internship application to display on the right panel of the internship diary. +
+[TIP]
+Alternatively, you could use your mouse and click on a specific internship application
+in the left panel of the internship diary
+
+Format: `select INDEX`
+
+Examples:
+
+* `select 1`
+
 === Editing an internship application : `edit`
 
 Edits an internship application in the internship diary. +
@@ -252,6 +265,7 @@ There is no need to save manually.
 * *Add* `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​` +
 e.g. `add c/Google r/Software engineer s/wishlist d/10 10 2010`
 * *List* : `list`
+* *Select* : `select INDEX`
 * *Edit* : `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]` +
 e.g. `edit 2 c/Google s/applied`
 * *Find* : `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]` +
