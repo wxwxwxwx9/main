@@ -46,7 +46,7 @@ public class InternshipApplication {
         this.priority = priority;
         this.isArchived = false;
         this.isGhostedOrRejected = false;
-        this.lastStage = null;
+        this.lastStage = status;
         interviews = new ArrayList<>();
     }
 
@@ -66,7 +66,7 @@ public class InternshipApplication {
         this.priority = priority;
         this.isArchived = isArchived;
         this.isGhostedOrRejected = false;
-        this.lastStage = null;
+        this.lastStage = status;
         interviews = new ArrayList<>();
     }
 
