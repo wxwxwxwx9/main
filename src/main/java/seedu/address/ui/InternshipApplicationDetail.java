@@ -84,7 +84,8 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         applicationDate.setText(
                 "Application Date:" + DATE_WHITESPACE + internshipApplication.getApplicationDate().printDate());
         status.setText(
-                "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString());
+                "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString()
+                        + internshipApplication.getLastStageMessage());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(
                 FXCollections.observableArrayList(internshipApplication.getInterviews()));

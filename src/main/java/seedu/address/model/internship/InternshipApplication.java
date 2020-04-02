@@ -28,7 +28,7 @@ public class InternshipApplication {
     private final ArrayList<Interview> interviews;
     private final Boolean isArchived;
     private Boolean isGhostedOrRejected;
-    private Status lastStage;
+    private final Status lastStage;
 
     /**
      * Every field must be present and not null.
@@ -67,6 +67,26 @@ public class InternshipApplication {
         this.isArchived = isArchived;
         this.isGhostedOrRejected = false;
         this.lastStage = null;
+        interviews = new ArrayList<>();
+    }
+
+    /**
+     * Overloaded constructor to set lastStage field.
+     */
+    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
+                                 ApplicationDate applicationDate, Priority priority, Status status, Status lastStage) {
+        requireAllNonNull(company, phone, email, address, status);
+        this.company = company;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.applicationDate = applicationDate;
+        this.priority = priority;
+        this.isArchived = false;
+        this.isGhostedOrRejected = false;
+        this.lastStage = lastStage;
         interviews = new ArrayList<>();
     }
 
@@ -115,12 +135,14 @@ public class InternshipApplication {
     }
 
     /**
-     * Stores the last stage of where the internship application failed (applied/ interview/ offered) only when
-     * 'isGhostedOrRejected' is true.
-     * @param lastStage where the internship application failed.
+     * Returns an InternshipApplication updated with last stage.
+     *
+     * @param lastStage where the application failed (APPLIED/ INTERVIEW/ OFFERED).
+     * @return InternshipApplication with lastStage specified.
      */
-    public void setLastStage(Status lastStage) {
-        this.lastStage = lastStage;
+    public InternshipApplication setLastStage(Status lastStage) {
+        return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
+                lastStage);
     }
 
     /**
@@ -133,10 +155,10 @@ public class InternshipApplication {
 
     /**
      * Returns the last stage failed.
-     * @return last stage failed, else an empty string
+     * @return message of the last stage failed, else an empty string.
      */
     public String getLastStageMessage() {
-        if (isGhostedOrRejected && lastStage != null) {
+        if (status == Status.GHOSTED || status == Status.REJECTED) {
             return " [You failed at " + lastStage.toString() + ":(]";
         } else {
             return "";
