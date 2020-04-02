@@ -190,6 +190,13 @@ public class InternshipApplicationBuilder {
     }
 
     /**
+     * Overloaded withStatus method to set lastStage from String.
+     */
+    public InternshipApplicationBuilder withLastStage(String lastStage) {
+        return withLastStage(Status.valueOf(lastStage));
+    }
+
+    /**
      * Adds an Interview object into the array list of interviews.
      */
     public InternshipApplicationBuilder withInterview(Interview interview) {
@@ -206,8 +213,16 @@ public class InternshipApplicationBuilder {
         return interviews;
     }
 
+    /**
+     * Builds an internship application with specified fields.
+     *
+     * @return InternshipApplication built.
+     */
     public InternshipApplication build() {
-        return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status);
+        InternshipApplication internshipApplication = new InternshipApplication(company, role, address, phone, email,
+                applicationDate, priority, status);
+        internshipApplication = internshipApplication.setLastStage(lastStage);
+        return internshipApplication;
     }
 
     /**

@@ -128,6 +128,12 @@ public class EditCommand extends Command {
                 updatedInternshipApplication.setIsGhostedOrRejected(false);
             }
         }
+        if (internshipToEdit.getStatus() == Status.GHOSTED || internshipToEdit.getStatus() == Status.REJECTED) {
+            updatedInternshipApplication = updatedInternshipApplication.setLastStage(internshipToEdit.getLastStage());
+        } else {
+            updatedInternshipApplication = updatedInternshipApplication.setLastStage(internshipToEdit.getStatus());
+        }
+
         updatedInternshipApplication.setInterviews(interviews);
         return updatedInternshipApplication;
     }

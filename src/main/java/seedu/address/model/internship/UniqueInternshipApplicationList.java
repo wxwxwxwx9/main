@@ -72,7 +72,6 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
         }
 
         internalList.set(index, editedInternshipApplication);
-
     }
 
     /**
