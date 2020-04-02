@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RemovalBasedCommand;
+import seedu.address.model.status.Status;
 import seedu.address.testutil.PredicateUtil;
 import seedu.address.testutil.RemovalBasedCommandExecutionTypeUtil;
 
@@ -30,7 +31,7 @@ public class RemovalBasedCommandExecutionTypeParserTest {
     private static final String company = "google";
     private static final String date = "20 12 2020";
 
-    private static final String VALID_FIELD_COMPANY = "c/";
+    private static final String VALID_FIELD_STATUS = "s/";
     private static final String INVALID_FIELD_DATE = "d/";
 
     private static final String commandWord = DeleteCommand.COMMAND_WORD;
@@ -77,9 +78,9 @@ public class RemovalBasedCommandExecutionTypeParserTest {
 
     @Test
     public void parse_byFieldValidField_returnsRemovalBasedCommand() {
-        String validCommand = String.format("%s %s%s", commandWord, VALID_FIELD_COMPANY, company);
+        String validCommand = String.format("%s %s%s", commandWord, VALID_FIELD_STATUS, Status.APPLIED);
         assertParseSuccess(parser, validCommand,
-            new RemovalBasedCommand(PredicateUtil.prepareCompanyPredicate(company),
+            new RemovalBasedCommand(PredicateUtil.prepareStatusPredicate(Status.APPLIED.toString()),
                 RemovalBasedCommandExecutionType.BY_FIELD,
                 commandWord)
         );
