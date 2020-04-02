@@ -62,7 +62,7 @@ public class ApplicationDate implements Comparable<ApplicationDate> {
      * Prints the date in the print format provided.
      */
     public String printDate() {
-          return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN_TO_PRINT));
+        return fullApplicationDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN_TO_PRINT));
     }
 
     @Override
