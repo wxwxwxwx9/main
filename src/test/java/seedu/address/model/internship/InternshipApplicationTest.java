@@ -1,6 +1,7 @@
 package seedu.address.model.internship;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
@@ -27,6 +28,11 @@ public class InternshipApplicationTest {
         InternshipApplication ia = new InternshipApplicationBuilder().build();
         // No more tags -- check with team how else we can implement this test case
         // assertThrows(UnsupportedOperationException.class, () -> ia.getTags().remove(0));
+    }
+
+    @Test
+    public void setInterviews_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> FACEBOOK.setInterviews(null));
     }
 
     @Test
