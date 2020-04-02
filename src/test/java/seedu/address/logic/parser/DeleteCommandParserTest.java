@@ -8,7 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_LIST_FIRST_INTERNSHIP_
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.commandexecutiontype.CommandExecutionType;
+import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.testutil.PredicateUtil;
 
@@ -30,7 +30,7 @@ public class DeleteCommandParserTest {
     public void parse_byIndexValidIndex_returnsDeleteCommand() {
         String validIndexInput = "1";
         assertParseSuccess(parser, validIndexInput,
-            new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX));
+            new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DeleteCommandParserTest {
     public void parse_byIndicesValidIndices_returnsDeleteCommand() {
         String validIndicesInput = "1, 2";
         assertParseSuccess(parser, validIndicesInput,
-            new DeleteCommand(INDEX_LIST_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDICES));
+            new DeleteCommand(INDEX_LIST_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDICES));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class DeleteCommandParserTest {
         String company = "google";
         String validCommand = String.format("%s %s%s", DeleteCommand.COMMAND_WORD, VALID_FIELD_COMPANY, company);
         assertParseSuccess(parser, validCommand,
-            new DeleteCommand(PredicateUtil.prepareCompanyPredicate(company), CommandExecutionType.BY_FIELD));
+            new DeleteCommand(PredicateUtil.prepareCompanyPredicate(company), RemovalBasedCommandExecutionType.BY_FIELD));
     }
 
     @Test

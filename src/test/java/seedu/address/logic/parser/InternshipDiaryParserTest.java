@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.commandexecutiontype.CommandExecutionType;
+import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchivalCommand;
 import seedu.address.logic.commands.ArchiveCommand;
@@ -73,7 +73,7 @@ public class InternshipDiaryParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX), command);
+        assertEquals(new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX), command);
     }
 
     @Test

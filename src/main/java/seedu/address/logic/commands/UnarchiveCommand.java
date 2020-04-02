@@ -49,7 +49,9 @@ public class UnarchiveCommand extends Command {
 
         model.unarchiveInternshipApplication(internshipToUnarchive);
 
-        return new CommandResult(String.format(MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, internshipToUnarchive));
+        String feedback = internshipToUnarchive.toString();
+
+        return new CommandResult(feedback);
     }
 
     @Override
