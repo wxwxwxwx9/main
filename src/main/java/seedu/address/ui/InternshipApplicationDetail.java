@@ -57,9 +57,6 @@ public class InternshipApplicationDetail extends UiPart<Region> {
     private Label status;
 
     @FXML
-    private Label isArchive;
-
-    @FXML
     private Label interviewPreamble;
 
     public InternshipApplicationDetail(InternshipApplication internshipApplication) {
@@ -72,7 +69,6 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         priority.setText("Priority: " + internshipApplication.getPriority().fullPriority);
         applicationDate.setText("Application Date: " + internshipApplication.getApplicationDate().printDate());
         status.setText("Status: " + internshipApplication.getStatus().toString());
-        isArchive.setText("Archived: " + internshipApplication.isArchived().toString());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(
                 FXCollections.observableArrayList(internshipApplication.getInterviews()));
