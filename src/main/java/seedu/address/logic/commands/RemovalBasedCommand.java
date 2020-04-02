@@ -166,14 +166,7 @@ public class RemovalBasedCommand extends Command {
     public CommandResult executeByField(Model model, Function<Index, Command> lazyCommand) throws CommandException {
         requireNonNull(model);
 
-        // filter appropriate internship applications into a new list
-        List<InternshipApplication> copy = new ArrayList<>();
-        for (InternshipApplication internshipApplication : model.getFilteredInternshipApplicationList()) {
-            copy.add(internshipApplication);
-        }
-
-        List<InternshipApplication> internshipsToExecuteOn = copy.stream()
-            .filter(targetPredicate.get()).collect(Collectors.toList());
+        List<InternshipApplication> internshipsToExecuteOn = getPredicateFilteredInternshipApplications(model);
 
         List<Index> indices = convertInternshipApplicationsToIndices(model, internshipsToExecuteOn);
 
@@ -210,7 +203,10 @@ public class RemovalBasedCommand extends Command {
      * Executes the lazy command by index.
      * Retrieves the feedback from the command for output to user.
      *
-     * @return the command feedback.
+     * @param model model for execution of command.
+     * @param lazyCommand a function that creates the command.
+     * @param index to execute upon.
+     * @return the command feedback for user.
      * @throws CommandException if the indices are out of range.
      */
     private String executeLazyCommandByIndex(Model model, Function<Index, Command> lazyCommand,
@@ -227,7 +223,10 @@ public class RemovalBasedCommand extends Command {
      * index by 1).
      * Retrieves the feedback from the command for output to user.
      *
-     * @return the command feedback.
+     * @param model model for execution of command.
+     * @param lazyCommand a function that creates the command.
+     * @param indices to execute upon.
+     * @return the command feedback for user.
      * @throws CommandException if the indices are out of range.
      */
     private String executeLazyCommandByIndices(Model model, Function<Index, Command> lazyCommand,
@@ -245,10 +244,31 @@ public class RemovalBasedCommand extends Command {
     }
 
     /**
+     * Retrieves the predicate-filtered internship applications.
+     *
+     * @param model model for execution of command.
+     * @return the internship applications that was filtered by the predicate.
+     */
+    private List<InternshipApplication> getPredicateFilteredInternshipApplications(Model model) {
+        // filter appropriate internship applications into a new list
+        List<InternshipApplication> copy = new ArrayList<>();
+        for (InternshipApplication internshipApplication : model.getFilteredInternshipApplicationList()) {
+            copy.add(internshipApplication);
+        }
+        List<InternshipApplication> internshipsToExecuteOn = copy.stream()
+            .filter(targetPredicate.get()).collect(Collectors.toList());
+        return internshipsToExecuteOn;
+    }
+
+
+
+    /**
      * Converts the given internship applications to their corresponding indices in the
      * underlying internship applications list in the internship diary.
      * It will also sort the indices by order as users may not enter the indices sequentially.
      *
+     * @param model model for execution of command.
+     * @param predicateFilteredInternshipApplications internship applications to be converted to indices.
      * @return the appropriate indices.
      */
     private List<Index> convertInternshipApplicationsToIndices(Model model,
@@ -271,6 +291,8 @@ public class RemovalBasedCommand extends Command {
      * Verifies that all the given indices by user are valid and not out of bounds according to the
      * underlying internship applications list in the internship diary.
      *
+     * @param model model for execution of command.
+     * @param indices to check for validity.
      * @throws CommandException if the indices are out of range, with the specified indices that are out of range.
      */
     private void checkValidIndices(Model model, List<Index> indices) throws CommandException {
