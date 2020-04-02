@@ -41,7 +41,7 @@ public class PredicateDisplayFooter extends UiPart<Region> implements PropertyCh
      */
     private void updatePredicateDisplay(Predicate<InternshipApplication> predicate) {
         if (predicate == null) {
-            predicateLabel.setText("Not Filtered.");
+            predicateLabel.setText("Not Filtered");
         } else {
             predicateLabel.setText("Finding: " + predicate.toString());
         }

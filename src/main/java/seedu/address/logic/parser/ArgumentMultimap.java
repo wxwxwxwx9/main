@@ -15,7 +15,9 @@ import java.util.Optional;
  */
 public class ArgumentMultimap {
 
-    /** Prefixes mapped to their respective arguments**/
+    /**
+     * Prefixes mapped to their respective arguments
+     **/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
@@ -57,4 +59,21 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Returns the number of prefixes contained in argument multimap.
+     */
+    public Integer getSize() {
+        return argMultimap.size();
+    }
+
+    /**
+     * Checks if the multimap contains a particular prefix.
+     *
+     * @param prefix prefix to check for.
+     */
+    public boolean contains(Prefix prefix) {
+        return argMultimap.containsKey(prefix);
+    }
+
 }

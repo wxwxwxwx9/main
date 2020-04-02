@@ -41,7 +41,7 @@ public class ComparatorDisplayFooter extends UiPart<Region> implements PropertyC
      */
     private void updateComparatorDisplay(Comparator<InternshipApplication> comparator) {
         if (comparator == null) {
-            comparatorLabel.setText("Not Sorted.");
+            comparatorLabel.setText("Not Sorted");
         } else {
             comparatorLabel.setText("Sorted by: " + comparator.toString());
         }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIPS;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -24,16 +25,13 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     private UniqueInternshipApplicationList unarchivedInternships = new UniqueInternshipApplicationList();
     private UniqueInternshipApplicationList archivedInternships = new UniqueInternshipApplicationList();
 
-    /**
-     * The internship list that is shown to the user on the interface currently.
-     */
+    /** The internship list that is shown to the user on the interface currently. */
     private UniqueInternshipApplicationList displayedInternships = unarchivedInternships;
     private InternshipApplicationViewType currentView = InternshipApplicationViewType.UNARCHIVED;
 
     private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-    public InternshipDiary() {
-    }
+    public InternshipDiary() {}
 
     /**
      * Creates an InternshipDiary using the InternshipApplications in the {@code toBeCopied}
@@ -43,12 +41,18 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
         resetData(toBeCopied);
     }
 
-    //// internship list views
+    //// property change listeners
 
     @Override
-    public void addDisplayedInternshipsPropertyChangeListener(PropertyChangeListener l) {
-        changes.addPropertyChangeListener("displayedInternships", l);
+    public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
+        changes.addPropertyChangeListener(propertyType.toString(), l);
     }
+
+    private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {
+        changes.firePropertyChange(propertyType.toString(), null, newValue);
+    }
+
+    //// internship list views
 
     /**
      * Sets the displayed internship application(s) list with archived internship application(s) list.
@@ -57,7 +61,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     public void viewArchivedInternshipApplicationList() {
         this.displayedInternships = archivedInternships;
         this.currentView = InternshipApplicationViewType.ARCHIVED;
-        changes.firePropertyChange("displayedInternships", null, getDisplayedInternshipList());
+        firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());
     }
 
     /**
@@ -67,7 +71,7 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
     public void viewUnarchivedInternshipApplicationList() {
         this.displayedInternships = unarchivedInternships;
         this.currentView = InternshipApplicationViewType.UNARCHIVED;
-        changes.firePropertyChange("displayedInternships", null, getDisplayedInternshipList());
+        firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());
     }
 
     /**
@@ -85,11 +89,10 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      */
     public void resetData(ReadOnlyInternshipDiary newData) {
         requireNonNull(newData);
-        // temporary implementation to check if newData contains any duplicate internship applications as a whole
+        // check if newData contains any duplicate internship applications as a whole
         new UniqueInternshipApplicationList().setInternshipApplications(newData.getAllInternshipList());
         setArchivedInternships(newData.getAllInternshipList());
         setUnarchivedInternships(newData.getAllInternshipList());
-        viewUnarchivedInternshipApplicationList();
     }
 
     /**

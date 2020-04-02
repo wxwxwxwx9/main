@@ -16,6 +16,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_IS_ONLINE = new Prefix("o/");
 
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix[] ALL_PREFIXES = {
+        PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS, PREFIX_ADDRESS, PREFIX_DATE, PREFIX_EMAIL,
+        PREFIX_PHONE, PREFIX_PRIORITY, PREFIX_IS_ONLINE
+    };
+
 }

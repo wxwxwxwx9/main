@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static seedu.address.model.ListenerPropertyType.COMPARATOR;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
+import static seedu.address.model.ListenerPropertyType.VIEW_TYPE;
 
 import java.util.logging.Logger;
 
@@ -51,6 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatisticsBarFooter statisticsBarFooter;
     private ComparatorDisplayFooter comparatorDisplayFooter;
     private PredicateDisplayFooter predicateDisplayFooter;
+    private ViewDisplayFooter viewDisplayFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -74,13 +76,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane internshipApplicationDetailPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
-
-    @FXML
     private StackPane comparatorDisplayPlaceholder;
 
     @FXML
     private StackPane predicateDisplayPlaceholder;
+
+    @FXML
+    private StackPane viewDisplayPlaceholder;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
 
     @FXML
     private StackPane statisticsPlaceholder;
@@ -112,6 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsBarFooter);
         logic.addPropertyChangeListener(COMPARATOR, comparatorDisplayFooter);
         logic.addPropertyChangeListener(PREDICATE, predicateDisplayFooter);
+        logic.addPropertyChangeListener(VIEW_TYPE, viewDisplayFooter);
     }
 
     public Stage getPrimaryStage() {
@@ -203,6 +209,9 @@ public class MainWindow extends UiPart<Stage> {
 
         predicateDisplayFooter = new PredicateDisplayFooter();
         predicateDisplayPlaceholder.getChildren().add(predicateDisplayFooter.getRoot());
+
+        viewDisplayFooter = new ViewDisplayFooter();
+        viewDisplayPlaceholder.getChildren().add(viewDisplayFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

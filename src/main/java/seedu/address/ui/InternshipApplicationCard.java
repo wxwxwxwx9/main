@@ -1,10 +1,18 @@
 package seedu.address.ui;
 
+import static seedu.address.model.status.Status.APPLIED;
+import static seedu.address.model.status.Status.INTERVIEW;
+import static seedu.address.model.status.Status.OFFERED;
+import static seedu.address.model.status.Status.REJECTED;
+import static seedu.address.model.status.Status.WISHLIST;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.internship.InternshipApplication;
+import seedu.address.model.status.Status;
 
 /**
  * An UI component that displays information of a {@code InternshipApplication}.
@@ -12,6 +20,12 @@ import seedu.address.model.internship.InternshipApplication;
 public class InternshipApplicationCard extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationListCard.fxml";
+    private static final String WISHLIST_COLOR = "-fx-background-color: #cd70ff";
+    private static final String APPLIED_COLOR = "-fx-background-color: #209cee";
+    private static final String INTERVIEW_COLOR = "-fx-background-color: #22c65b";
+    private static final String OFFERED_COLOR = "-fx-text-fill: black; -fx-background-color: #ffdd57";
+    private static final String REJECTED_COLOR = "-fx-background-color: #ff3860";
+    private static final String GHOSTED_COLOR = "-fx-background-color: SLATEGRAY";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -42,20 +56,49 @@ public class InternshipApplicationCard extends UiPart<Region> {
     @FXML
     private Label priority;
     @FXML
-    private Label status;
+    private FlowPane status;
 
     public InternshipApplicationCard(InternshipApplication internshipApplication, int displayedIndex) {
         super(FXML);
         this.internshipApplication = internshipApplication;
         id.setText(displayedIndex + ". ");
         company.setText(internshipApplication.getCompany().fullCompany);
-        phone.setText(internshipApplication.getPhone().value);
-        address.setText(internshipApplication.getAddress().value);
-        email.setText(internshipApplication.getEmail().value);
         role.setText(internshipApplication.getRole().fullRole);
-        priority.setText(Integer.toString(internshipApplication.getPriority().fullPriority));
-        applicationDate.setText(internshipApplication.getApplicationDate().toString());
-        status.setText(internshipApplication.getStatus().toString() + internshipApplication.getLastStageMessage());
+        Label statusLabel = getStatusLabel();
+        status.getChildren().add(statusLabel);
+    }
+
+    /**
+     * Gets the status label colored based on the status of the internship application.
+     *
+     * @return the status label colored based on the status of the internship application
+     */
+    private Label getStatusLabel() {
+        Status internshipApplicationStatus = internshipApplication.getStatus();
+        Label statusLabel = new Label(internshipApplicationStatus.toString().toLowerCase());
+        switch (internshipApplicationStatus) {
+        case WISHLIST:
+            statusLabel.setStyle(WISHLIST_COLOR);
+            break;
+        case APPLIED:
+            statusLabel.setStyle(APPLIED_COLOR);
+            break;
+        case INTERVIEW:
+            statusLabel.setStyle(INTERVIEW_COLOR);
+            break;
+        case OFFERED:
+            statusLabel.setStyle(OFFERED_COLOR);
+            break;
+        case REJECTED:
+            statusLabel.setStyle(REJECTED_COLOR);
+            break;
+        case GHOSTED:
+            statusLabel.setStyle(GHOSTED_COLOR);
+            break;
+        default:
+            break;
+        }
+        return statusLabel;
     }
 
     @Override
