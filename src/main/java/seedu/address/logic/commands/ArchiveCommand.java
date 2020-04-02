@@ -49,7 +49,9 @@ public class ArchiveCommand extends Command {
 
         model.archiveInternshipApplication(internshipToArchive);
 
-        return new CommandResult(String.format(MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, internshipToArchive));
+        String feedback = internshipToArchive.toString();
+
+        return new CommandResult(feedback);
     }
 
     @Override

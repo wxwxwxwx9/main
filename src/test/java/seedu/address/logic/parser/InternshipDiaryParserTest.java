@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.commandexecutiontype.CommandExecutionType;
+import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchivalCommand;
 import seedu.address.logic.commands.ArchiveCommand;
@@ -27,6 +27,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InitClearCommand;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RemovalBasedCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
@@ -71,9 +72,12 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, CommandExecutionType.BY_INDEX), command);
+        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(
+            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        assertEquals(
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX,
+                DeleteCommand.COMMAND_WORD),
+            command);
     }
 
     @Test
@@ -167,16 +171,22 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_archive() throws Exception {
-        ArchiveCommand command = (ArchiveCommand) parser.parseCommand(
+        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(
             ArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
-        assertEquals(new ArchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
+        assertEquals(
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX,
+                ArchiveCommand.COMMAND_WORD),
+            command);
     }
 
     @Test
     public void parseCommand_unarchive() throws Exception {
-        UnarchiveCommand command = (UnarchiveCommand) parser.parseCommand(
+        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(
             UnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
-        assertEquals(new UnarchiveCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), command);
+        assertEquals(
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX,
+                UnarchiveCommand.COMMAND_WORD),
+            command);
     }
 
     @Test

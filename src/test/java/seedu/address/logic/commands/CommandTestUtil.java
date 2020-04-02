@@ -191,8 +191,7 @@ public class CommandTestUtil {
     public static void showInternshipApplicationAtIndices(Model model, List<Index> targetIndices) {
         // check that all indices are valid
         for (Index targetIndex : targetIndices) {
-            System.out.println(targetIndex.getZeroBased());
-            // assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
+            assertTrue(targetIndex.getZeroBased() < model.getFilteredInternshipApplicationList().size());
         }
 
         List<InternshipApplication> internshipApplications = new ArrayList<>();

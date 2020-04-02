@@ -6,10 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.interviewcode.InterviewCode;
@@ -50,25 +48,25 @@ public class ParserUtil {
     /**
      * Parses {@code args} into a list of {@code Index} and returns it.
      * Leading and trailing whitespaces for each index will be trimmed.
+     * The list of index will also be sorted and not contain duplicates.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static List<Index> parseIndices(String args, String delimiter) throws ParseException {
         String[] indices = args.split(delimiter);
-        for (int i = 0; i < indices.length; i++) {
-            indices[i] = indices[i].trim();
-        }
-        // remove duplicates
-        Set<String> set = new HashSet<>(Arrays.asList(indices));
-        List<Index> indicesList = new ArrayList<>();
-        for (String oneBasedIndex : set) {
-            String trimmedIndex = oneBasedIndex.trim();
-            if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+        List<Integer> integers = new ArrayList<>();
+        for (String oneBasedIndex : indices) {
+            oneBasedIndex = oneBasedIndex.trim();
+            if (!StringUtil.isNonZeroUnsignedInteger(oneBasedIndex)) {
                 throw new ParseException(MESSAGE_INVALID_INDEX);
             }
-            Index index = Index.fromOneBased(Integer.parseInt(trimmedIndex));
-            indicesList.add(index);
+            integers.add(Integer.parseInt(oneBasedIndex));
         }
+        List<Index> indicesList = integers.stream()
+            .distinct()
+            .sorted()
+            .map(oneBasedIndex -> Index.fromOneBased(oneBasedIndex))
+            .collect(Collectors.toList());
         return indicesList;
     }
 

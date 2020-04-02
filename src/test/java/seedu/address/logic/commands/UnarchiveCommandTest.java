@@ -118,8 +118,7 @@ public class UnarchiveCommandTest {
             .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         expectedModel.unarchiveInternshipApplication(ia);
 
-        String expectedMessage =
-            String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS, ia);
+        String expectedMessage = ia.toString();
 
         // default view is unarchived so we can use assertCommandSuccess
         assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
