@@ -314,7 +314,9 @@ public class RemovalBasedCommand extends Command {
             || (other instanceof RemovalBasedCommand // instanceof handles nulls
             && targetIndex.equals(((RemovalBasedCommand) other).targetIndex) // state check
             && targetIndices.equals(((RemovalBasedCommand) other).targetIndices) // state check
-            && targetPredicate.equals(((RemovalBasedCommand) other).targetPredicate)); // state check
+            && targetPredicate.equals(((RemovalBasedCommand) other).targetPredicate) // state check
+            && executionType.equals(((RemovalBasedCommand) other).executionType) // state check
+            && commandWord.equals(((RemovalBasedCommand) other).commandWord)); // state check
     }
 
 }

@@ -111,8 +111,7 @@ public class ArchiveCommandTest {
             .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         expectedModel.archiveInternshipApplication(ia);
 
-        String expectedMessage =
-            String.format(ArchiveCommand.MESSAGE_ARCHIVE_INTERNSHIP_SUCCESS, ia);
+        String expectedMessage = ia.toString();
 
         // default view is unarchived so we can use assertCommandSuccess
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
