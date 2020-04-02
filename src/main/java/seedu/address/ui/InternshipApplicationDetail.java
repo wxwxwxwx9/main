@@ -15,6 +15,15 @@ import seedu.address.model.internship.InternshipApplication;
 public class InternshipApplicationDetail extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationDetail.fxml";
+    // Whitespace utility for printing details.
+    private static final String ROLE_WHITESPACE = "                        ";
+    private static final String PHONE_WHITESPACE = "                     ";
+    private static final String ADDRESS_WHITESPACE = "                  ";
+    private static final String EMAIL_WHITESPACE = "                      ";
+    private static final String DATE_WHITESPACE = "    ";
+    private static final String PRIORITY_WHITESPACE = "                   ";
+    private static final String STATUS_WHITESPACE = "                     ";
+
 
     private InternshipApplication internshipApplication;
 
@@ -63,19 +72,19 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         super(FXML);
         company.setText(internshipApplication.getCompany().fullCompany);
         phone.setText(
-                "Phone:                     " + internshipApplication.getPhone().value);
+                "Phone:" + PHONE_WHITESPACE + internshipApplication.getPhone().value);
         address.setText(
-                "Address:                  " + internshipApplication.getAddress().value);
+                "Address:" + ADDRESS_WHITESPACE + internshipApplication.getAddress().value);
         email.setText(
-                "Email:                      " + internshipApplication.getEmail().value);
+                "Email:" + EMAIL_WHITESPACE + internshipApplication.getEmail().value);
         role.setText(
-                "Role:                        " + internshipApplication.getRole().fullRole);
+                "Role:" + ROLE_WHITESPACE + internshipApplication.getRole().fullRole);
         priority.setText(
-                "Priority:                   " + internshipApplication.getPriority().fullPriority);
+                "Priority:" + PRIORITY_WHITESPACE + internshipApplication.getPriority().fullPriority);
         applicationDate.setText(
-                "Application Date:    " + internshipApplication.getApplicationDate().printDate());
+                "Application Date:" + DATE_WHITESPACE + internshipApplication.getApplicationDate().printDate());
         status.setText(
-                "Status:                     " + internshipApplication.getStatus().toString());
+                "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(
                 FXCollections.observableArrayList(internshipApplication.getInterviews()));
