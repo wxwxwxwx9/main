@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InterviewBuilder;
-import seedu.address.testutil.TypicalInternshipApplications;
 import seedu.address.testutil.TypicalInterviews;
 
 public class InternshipApplicationTest {
