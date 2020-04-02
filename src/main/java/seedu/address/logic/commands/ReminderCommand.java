@@ -10,6 +10,7 @@ import seedu.address.logic.comparator.ApplicationDateAndInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.CustomToStringPredicate;
 import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
 
 /**
@@ -33,7 +34,9 @@ public class ReminderCommand extends Command {
         predicates.add(appDatePredicate);
         predicates.add(interviewDatePredicate);
         Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> false, Predicate::or);
-        model.updateFilteredInternshipApplicationList(predicate);
+        Predicate<InternshipApplication> customPredicate = new CustomToStringPredicate<>(predicate,
+                "Not Filtered");
+        model.updateFilteredInternshipApplicationList(customPredicate);
         model.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -24,6 +24,11 @@ public class ApplicationDateAndInterviewDateComparator implements Comparator<Int
     }
 
     @Override
+    public String toString() {
+        return "Not Sorted";
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other instanceof ApplicationDateAndInterviewDateComparator;
     }
