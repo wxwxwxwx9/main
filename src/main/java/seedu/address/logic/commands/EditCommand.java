@@ -85,7 +85,7 @@ public class EditCommand extends Command {
         InternshipApplication editedInternship = createEditedInternship(internshipToEdit, editInternshipDescriptor);
         if (editedInternship.getIsGhostedOrRejected() && (internshipToEdit.getStatus() != Status.GHOSTED)
                 && (internshipToEdit.getStatus() != Status.REJECTED)) {
-            editedInternship.setLastStage(internshipToEdit.getStatus());
+            editedInternship = editedInternship.setLastStage(internshipToEdit.getStatus());
         }
         if (!internshipToEdit.isSameInternshipApplication(editedInternship)
                 && model.hasInternshipApplication(editedInternship)) {
@@ -126,9 +126,9 @@ public class EditCommand extends Command {
             }
         }
         if (internshipToEdit.getStatus() == Status.GHOSTED || internshipToEdit.getStatus() == Status.REJECTED) {
-            updatedInternshipApplication.setLastStage(internshipToEdit.getLastStage());
+            updatedInternshipApplication = updatedInternshipApplication.setLastStage(internshipToEdit.getLastStage());
         } else {
-            updatedInternshipApplication.setLastStage(internshipToEdit.getStatus());
+            updatedInternshipApplication = updatedInternshipApplication.setLastStage(internshipToEdit.getStatus());
         }
 
         return updatedInternshipApplication;

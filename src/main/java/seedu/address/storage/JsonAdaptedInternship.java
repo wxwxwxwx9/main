@@ -167,7 +167,7 @@ class JsonAdaptedInternship {
         InternshipApplication internshipApplication = new InternshipApplication(modelCompany, modelRole, modelAddress,
                 modelPhone, modelEmail, modelDate, modelPriority, modelStatus, modelIsArchived);
         final Status modelLastStage = Status.valueOf(lastStage);
-        internshipApplication.setLastStage(modelLastStage);
+        internshipApplication = internshipApplication.setLastStage(modelLastStage);
 
         for (JsonAdaptedInterview jsonAdaptedInterview: interviews) {
             Interview interview = jsonAdaptedInterview.toModelType();
