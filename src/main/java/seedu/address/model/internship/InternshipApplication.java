@@ -141,8 +141,10 @@ public class InternshipApplication {
      * @return InternshipApplication with lastStage specified.
      */
     public InternshipApplication setLastStage(Status lastStage) {
-        return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
+        InternshipApplication internshipApplication = new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
                 lastStage);
+        internshipApplication.setInterviews(this.getInterviews());
+        return internshipApplication;
     }
 
     /**
