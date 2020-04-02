@@ -213,6 +213,11 @@ public class InternshipApplicationBuilder {
         return interviews;
     }
 
+    /**
+     * Builds an internship application with specified fields.
+     *
+     * @return InternshipApplication built.
+     */
     public InternshipApplication build() {
         InternshipApplication internshipApplication = new InternshipApplication(company, role, address, phone, email,
                 applicationDate, priority, status);
