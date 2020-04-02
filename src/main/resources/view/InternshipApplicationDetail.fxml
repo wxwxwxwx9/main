@@ -24,7 +24,6 @@ style="-fx-background-color: grey" minWidth="100" >
         <Label fx:id="applicationDate" styleClass="cell_small_label" text="\$applicationDate" />
         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
         <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
-        <Label fx:id="isArchive" styleClass="cell_small_label" text="\$isArchive" />
         <Label fx:id="interviewPreamble" styleClass="cell_big_label" text="\$interviews" />
     </VBox>
     <AnchorPane minWidth="100" minHeight="0.0" prefWidth="250" VBox.vgrow="ALWAYS" >
