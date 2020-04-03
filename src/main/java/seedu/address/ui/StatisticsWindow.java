@@ -113,7 +113,7 @@ public class StatisticsWindow extends UiPart<Stage> implements PropertyChangeLis
      * Clears the existing data and loads the bar chart with new data.
      */
     @SuppressWarnings("unchecked")
-    public void loadBarChart() {
+    private void loadBarChart() {
         internshipApplicationChart.getData().clear();
         ObservableList<XYChart.Data<String, Integer>> barChartData = generateBarChartData();
         internshipApplicationChart.getData().addAll(new XYChart.Series<String, Integer>(barChartData));
@@ -122,22 +122,31 @@ public class StatisticsWindow extends UiPart<Stage> implements PropertyChangeLis
     /**
      * Clears the existing data and loads the pie chart with new data.
      */
-    public void loadPieChart() {
+    private void loadPieChart() {
         internshipApplicationPie.getData().clear();
         ObservableList<PieChart.Data> pieChartData = generatePieChartData();
         internshipApplicationPie.getData().addAll(pieChartData);
-        pieChartData.forEach(data -> {
+        bindPieChartLegend(pieChartData);
+    }
+
+    /**
+     * Loads the legend of the pie chart with the percentage information if the percentage is valid.
+     */
+    private void bindPieChartLegend(ObservableList<PieChart.Data> pieChartData) {
+        for (PieChart.Data data : pieChartData) {
+            if (!Double.isNaN(data.getPieValue())) {
+                String percentageLegend = String.format("%s (%.2f%%)", data.getName(), data.getPieValue());
                 data.nameProperty().bind(
-                    Bindings.concat(String.format("%s (%.2f%%)", data.getName(), data.getPieValue()))
+                    Bindings.concat(percentageLegend)
                 );
             }
-        );
+        }
     }
 
     /**
      * Generates the relevant bar chart data using the generated count statistics.
      */
-    public ObservableList<XYChart.Data<String, Integer>> generateBarChartData() {
+    private ObservableList<XYChart.Data<String, Integer>> generateBarChartData() {
         ObservableList<XYChart.Data<String, Integer>> xyChartData = FXCollections.observableArrayList();
         for (Status status : statistics.getStatuses()) {
             XYChart.Data<String, Integer> data = new XYChart.Data<>(status.toString(), statistics.getCount(status));
@@ -149,7 +158,7 @@ public class StatisticsWindow extends UiPart<Stage> implements PropertyChangeLis
     /**
      * Generates the relevant pie chart data using the generated percentage statistics.
      */
-    public ObservableList<PieChart.Data> generatePieChartData() {
+    private ObservableList<PieChart.Data> generatePieChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for (Status status : statistics.getStatuses()) {
             PieChart.Data data = new PieChart.Data(status.toString(), statistics.getPercentage(status));
