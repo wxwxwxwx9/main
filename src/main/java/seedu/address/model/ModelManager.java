@@ -116,6 +116,7 @@ public class ModelManager implements Model, PropertyChangeListener {
 
     @Override
     public void addInternshipApplication(InternshipApplication internshipApplication) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL,internshipApplication);
         internshipDiary.addInternshipApplication(internshipApplication);
     }
 
