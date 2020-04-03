@@ -40,24 +40,6 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true)));
 
-        CommandResult commandResultWithInternshipApplication = new CommandResult("feedback",
-                TypicalInternshipApplications.AMY);
-
-        // different showInternshipApplication value -> returns false
-        assertFalse(commandResult.equals(commandResultWithInternshipApplication));
-
-        CommandResult commandResultWithDifferentInternshipApplication = new CommandResult("feedback",
-                TypicalInternshipApplications.BOB);
-
-        // different Internship Application -> returns false
-        assertFalse(commandResultWithInternshipApplication.equals(commandResultWithDifferentInternshipApplication));
-
-        CommandResult commandResultWithSameInternshipApplication = new CommandResult("feedback",
-                TypicalInternshipApplications.AMY);
-
-        // same Internship Application -> returns true
-        assertTrue(commandResultWithInternshipApplication.equals(commandResultWithSameInternshipApplication));
-
     }
 
     @Test
