@@ -295,6 +295,46 @@ Harder to implement reverse sorting.
 
 // end::sort[]
 
+// tag::clear[]
+=== Clear command
+
+The clear command allows the user to delete all internship applications. The following sequence
+diagram will illustrate the process of invocation for the command:
+
+image::SortSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the clear command.
+
+==== Implementation
+The find command is implemented in the class `InitClearCommand`, `ClearCommand` and uses the
+`ClearCommandConfirmationParser` class to parse the arguments for the command.
+
+The implementation for this command is unique as it causes 'LogicManager' to use `ClearCommandConfirmationParser`
+as the main parser to parse the next user input.
+
+==== Design Considerations
+
+===== Aspect: How to prompt for confirmation.
+* **Alternative 1 (current choice)**: Implement an abstract method `getNextParser` for all commands.
+** Pros: Easy to extend. +
+New commands which require a prompt or alternative parsing do not need to further
+modify the `InternshipDiaryParser` or `LogicManager` class.
+** Cons: Premature Optimisation.
+
+
+* **Alternative 1**: Have `InternshipDiaryParser` have different modes depending
+on what command was last executed.
+** Pros: Simple to understand.
+** Cons: `InternshipDiaryParser` has no access to the next mode the command leads into, `LogicManager`
+needs to pass it into `InternshipDiaryParser`. +
+As the different modes do not share code, they are better off as separate classes.
+
+* **Alternative 2**: Make a confirmation window which freeze the main window.
+** Pros: The `InternshipDiaryParser` or `LogicManager` class may not need to be modified.
+** Cons: Relies on global static methods which may lead to bugs in the future.
+
+// end::clear[]
+
 // tag::interview[]
 === Interview and Interview Commands
 ==== Implementation
