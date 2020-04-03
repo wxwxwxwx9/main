@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.internship.InternshipApplication;
-
 /**
  * Represents the result of a command execution.
  */

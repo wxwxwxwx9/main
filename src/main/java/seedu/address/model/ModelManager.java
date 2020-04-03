@@ -110,13 +110,13 @@ public class ModelManager implements Model, PropertyChangeListener {
 
     @Override
     public void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary) {
-        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL,null);
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, null);
         this.internshipDiary.resetData(internshipDiary);
     }
 
     @Override
     public void addInternshipApplication(InternshipApplication internshipApplication) {
-        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL,internshipApplication);
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, internshipApplication);
         internshipDiary.addInternshipApplication(internshipApplication);
     }
 

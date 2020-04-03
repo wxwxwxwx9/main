@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
-
 import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.Comparator;

@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
-import seedu.address.model.ListenerPropertyType;
 import seedu.address.model.internship.InternshipApplication;
 
 /**
@@ -43,7 +42,7 @@ public class InternshipApplicationDetailSetter implements PropertyChangeListener
             }
         } else if (propertyName.equals(PREDICATE.toString())) {
             Predicate<InternshipApplication> predicate = (Predicate<InternshipApplication>) e.getNewValue();
-            if (predicate!= null && !predicate.test(this.internshipApplication)) {
+            if (predicate != null && !predicate.test(this.internshipApplication)) {
                 updateInternshipDetail(null);
             }
         } else {

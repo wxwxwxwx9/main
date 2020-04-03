@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
 import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
 import static seedu.address.model.ListenerPropertyType.VIEW_TYPE;
-import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
 
 import java.util.logging.Logger;
 

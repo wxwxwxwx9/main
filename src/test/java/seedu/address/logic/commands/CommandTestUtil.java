@@ -142,7 +142,9 @@ public class CommandTestUtil {
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
-    /** Compares to a command that takes in an internship application to display. */
+    /**
+     * Compares to a command that takes in an internship application to display.
+     */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
         Model expectedModel, InternshipApplication internshipApplication) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
