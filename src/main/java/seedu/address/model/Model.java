@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
+
 import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -142,6 +144,11 @@ public interface Model {
      * Retrieves the current view of the internship diary.
      */
     InternshipApplicationViewType getCurrentView();
+
+    /**
+     * Changes the currently displayed InternshipApplicationDetail.
+     */
+    void displayInternshipDetail(InternshipApplication internshipApplication);
 
     /**
      * Adds a property listener for any changes in {@code propertyType} used.

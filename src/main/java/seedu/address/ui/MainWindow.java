@@ -4,6 +4,7 @@ import static seedu.address.model.ListenerPropertyType.COMPARATOR;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
 import static seedu.address.model.ListenerPropertyType.VIEW_TYPE;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
 
 import java.util.logging.Logger;
 
@@ -43,10 +44,12 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
+    // Container for Ui parts
+    private InternshipApplicationDetailSetter internshipApplicationDetailSetter;
+
     // Independent Ui parts residing in this Ui container
     private InternshipApplicationListPanel internshipApplicationListPanel;
     private ResultDisplay resultDisplay;
-    private InternshipApplicationDetail internshipApplicationDetail;
     private HelpWindow helpWindow;
     private StatisticsWindow statisticsWindow;
     private StatisticsBarFooter statisticsBarFooter;
@@ -102,6 +105,9 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        internshipApplicationDetailSetter =
+            new InternshipApplicationDetailSetter(internshipApplicationDetailPlaceholder);
+
         helpWindow = new HelpWindow();
         statisticsWindow = new StatisticsWindow(logic.getStatistics(), logic.getFilteredInternshipApplicationList());
 
@@ -117,7 +123,9 @@ public class MainWindow extends UiPart<Stage> {
         logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsBarFooter);
         logic.addPropertyChangeListener(COMPARATOR, comparatorDisplayFooter);
         logic.addPropertyChangeListener(PREDICATE, predicateDisplayFooter);
+        logic.addPropertyChangeListener(PREDICATE, internshipApplicationDetailSetter);
         logic.addPropertyChangeListener(VIEW_TYPE, viewDisplayFooter);
+        logic.addPropertyChangeListener(DISPLAYED_INTERNSHIP_DETAIL, internshipApplicationDetailSetter);
     }
 
     public Stage getPrimaryStage() {
@@ -184,13 +192,14 @@ public class MainWindow extends UiPart<Stage> {
 
         ListView<InternshipApplication> internshipApplicationListView = internshipApplicationListPanel
             .getInternshipApplicationListView();
+
         // Show internship application details on click
         internshipApplicationListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                internshipApplicationDetail = new InternshipApplicationDetail(internshipApplicationListView
-                    .getSelectionModel().getSelectedItem());
-                internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
+                InternshipApplication internshipApplication = internshipApplicationListView
+                    .getSelectionModel().getSelectedItem();
+                internshipApplicationDetailSetter.updateInternshipDetail(internshipApplication);
             }
         });
 
@@ -270,15 +279,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    /**
-     * Displays the selected internship application according to the {@code index}.
-     */
-    @FXML
-    private void handleShowInternshipApplication(InternshipApplication internshipApplication) {
-        internshipApplicationDetail = new InternshipApplicationDetail(internshipApplication);
-        internshipApplicationDetailPlaceholder.getChildren().add(internshipApplicationDetail.getRoot());
-    }
-
     public InternshipApplicationListPanel getInternshipApplicationListPanel() {
         return internshipApplicationListPanel;
     }
@@ -304,10 +304,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isShowInternshipApplication()) {
-                handleShowInternshipApplication(commandResult.getInternshipApplicationToShow());
             }
 
             return commandResult;
