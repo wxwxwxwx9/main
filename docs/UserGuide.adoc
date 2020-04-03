@@ -216,7 +216,7 @@ Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL]
 
 Examples:
 
-* `edit 1 s/new r/Product Management` +
+* `edit 1 s/applied r/Product Management` +
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
 === Locating an internship application by fields: `find`
