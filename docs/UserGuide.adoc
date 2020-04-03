@@ -32,8 +32,7 @@ Here are the steps to get you started on using Internship Diary:
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Type the command *`help`* in the command box and press kbd:[Enter] to execute it and open the help window. +
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
