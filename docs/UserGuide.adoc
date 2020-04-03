@@ -111,6 +111,8 @@ Formats:
 * The command will work on both the main and archival list.
 * Note that status holds a higher priority than index.
 ** For example, the application will delete according to status instead of index for the following command: `delete s/applied 1, 2, 3`
+* Note that duplicated index will be ignored and not affect the execution.
+** For example, the duplicated index will not affect the execution for the following command: `delete 2, 2, 3`
 ****
 
 Examples:
@@ -146,6 +148,8 @@ Formats:
 * The command will only work on the main list.
 * Note that status holds a higher priority than index.
 ** For example, the application will archive according to status instead of index for the following command: `archive s/applied 1, 2, 3`
+* Note that duplicated index will be ignored and not affect the execution.
+** For example, the duplicated index will not affect the execution for the following command: `archive 2, 2, 3`
 ****
 
 Examples:
@@ -181,6 +185,8 @@ Formats:
 * The command will only work on the archival list.
 * Note that status holds a higher priority than index.
 ** For example, the application will unarchive according to status instead of index for the following command: `unarchive s/applied 1, 2, 3`
+* Note that duplicated index will be ignored and not affect the execution.
+** For example, the duplicated index will not affect the execution for the following command: `unarchive 2, 2, 3`
 ****
 
 Examples:
