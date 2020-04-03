@@ -50,6 +50,12 @@ parameter which can be used as `add c/Google`.
 acceptable.
 ====
 
+====
+*Important Information*
+
+* Priority levels can range from 1 to 10 (inclusive).
+====
+
 === Viewing help : `help`
 
 Format: `help`
