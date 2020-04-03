@@ -109,6 +109,8 @@ Formats:
 * The index can be entered in any order.
 * The status has to be a valid one.
 * The command will work on both the main and archival list.
+* Note that status holds a higher priority than index.
+** For example, the application will delete according to status instead of index for the following command: `delete s/applied 1, 2, 3`
 ****
 
 Examples:
@@ -142,6 +144,8 @@ Formats:
 * The index can be entered in any order.
 * The status has to be a valid one.
 * The command will only work on the main list.
+* Note that status holds a higher priority than index.
+** For example, the application will archive according to status instead of index for the following command: `archive s/applied 1, 2, 3`
 ****
 
 Examples:
@@ -175,6 +179,8 @@ Formats:
 * The index can be entered in any order.
 * The status has to be a valid one.
 * The command will only work on the archival list.
+* Note that status holds a higher priority than index.
+** For example, the application will unarchive according to status instead of index for the following command: `unarchive s/applied 1, 2, 3`
 ****
 
 Examples:
@@ -331,7 +337,7 @@ Format: `stats`
 * The pie chart showcases:
 ** the percentage of internship application(s) under a status (wishlist, applied, interview, offered, rejected, ghosted)
 * The statistics window will dynamically update the statistics as you refine the view of your list of internship applications
-** this includes any command that modifies your view (e.g. `add`, `delete`, `archive`, `unarchive`, `find`, `edit`, list`, `archival`)
+** this includes any command that modifies your view (e.g. `add`, `delete`, `archive`, `unarchive`, `find`, `edit`, `list`, `archival`)
 ****
 
 === Exiting the program : `exit`
