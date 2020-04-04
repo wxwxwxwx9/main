@@ -11,7 +11,6 @@ import java.util.Comparator;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.internship.Company;
 import seedu.address.model.internship.InternshipApplication;
 
 

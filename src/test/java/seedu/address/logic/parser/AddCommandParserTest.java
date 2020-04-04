@@ -34,6 +34,7 @@ import static seedu.address.testutil.TypicalInternshipApplications.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.InternshipApplication;
@@ -158,7 +159,7 @@ public class AddCommandParserTest {
         // invalid date
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + ROLE_DESC_BOB + INVALID_DATE_DESC + PRIORITY_DESC_BOB + STATUS_DESC_BOB,
-            "Date should be in the form: DD MM YYYY");
+            ApplicationDate.MESSAGE_CONSTRAINTS);
 
         // invalid priority
         assertParseFailure(parser, COMPANY_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

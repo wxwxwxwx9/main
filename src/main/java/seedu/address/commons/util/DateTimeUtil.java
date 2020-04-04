@@ -65,6 +65,6 @@ public class DateTimeUtil {
             }
         }
         // This throws a DateTimeParseException
-        return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d M uuuu"));
+        return LocalDate.parse(dateString, getDateTimeFormatter(0, currentYear));
     }
 }
