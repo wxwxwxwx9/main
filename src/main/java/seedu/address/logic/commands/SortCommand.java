@@ -10,6 +10,7 @@ import java.util.Comparator;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
+import seedu.address.model.internship.Company;
 import seedu.address.model.internship.InternshipApplication;
 
 
@@ -30,7 +31,8 @@ public class SortCommand extends Command {
         + "Date: " + PREFIX_DATE + ", "
         + "Priority: " + PREFIX_PRIORITY + ", "
         + "Status: " + PREFIX_STATUS + ".\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_COMPANY;
+        + "Example: " + COMMAND_WORD + " " + PREFIX_COMPANY + "\n"
+        + "Remarks: sort order is detailed in the User Guide.";
 
     private final Comparator<InternshipApplication> comparator;
 
