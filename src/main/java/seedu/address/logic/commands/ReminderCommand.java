@@ -12,6 +12,7 @@ import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
 import seedu.address.model.internship.predicate.CustomToStringPredicate;
 import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
+import seedu.address.model.internship.predicate.IsNotArchivedPredicate;
 
 /**
  * Lists all internship applications in the internship diary that are due or have interview dates in 7 days.
@@ -28,12 +29,18 @@ public class ReminderCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ApplicationDateDuePredicate appDatePredicate = new ApplicationDateDuePredicate();
-        InterviewDateDuePredicate interviewDatePredicate = new InterviewDateDuePredicate();
-        List<Predicate<InternshipApplication>> predicates = new ArrayList<>();
-        predicates.add(appDatePredicate);
-        predicates.add(interviewDatePredicate);
-        Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> false, Predicate::or);
+        ApplicationDateDuePredicate appDateWithin7DaysPredicate = new ApplicationDateDuePredicate();
+        InterviewDateDuePredicate interviewDateWithin7DaysPredicate = new InterviewDateDuePredicate();
+        List<Predicate<InternshipApplication>> checkDatePredicates = new ArrayList<>();
+        checkDatePredicates.add(interviewDateWithin7DaysPredicate);
+        checkDatePredicates.add(appDateWithin7DaysPredicate);
+        Predicate<InternshipApplication> datePredicate = checkDatePredicates.stream().reduce(x -> false, Predicate::or);
+        IsNotArchivedPredicate isNotArchivedPredicate = new IsNotArchivedPredicate();
+        List<Predicate<InternshipApplication>> dateAndNotArchivedPredicates = new ArrayList<>();
+        dateAndNotArchivedPredicates.add(datePredicate);
+        dateAndNotArchivedPredicates.add(isNotArchivedPredicate);
+        Predicate<InternshipApplication> predicate = dateAndNotArchivedPredicates.stream().reduce(x -> true, Predicate::and);
+
         Predicate<InternshipApplication> customPredicate = new CustomToStringPredicate<>(predicate,
                 "Reminder");
         model.updateFilteredInternshipApplicationList(customPredicate);
