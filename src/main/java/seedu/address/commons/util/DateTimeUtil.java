@@ -17,23 +17,23 @@ public class DateTimeUtil {
         switch (index) {
         case 0:
             return new DateTimeFormatterBuilder()
-                    .appendPattern("yyyy M d")
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .toFormatter();
+                .appendPattern("yyyy M d")
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .toFormatter();
         case 1:
             return new DateTimeFormatterBuilder()
-                    .appendPattern("d M yyyy")
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .toFormatter();
+                .appendPattern("d M yyyy")
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .toFormatter();
         case 2:
             return new DateTimeFormatterBuilder()
-                    .appendPattern("d M")
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .parseDefaulting(ChronoField.YEAR, defaultYear)
-                    .toFormatter();
+                .appendPattern("d M")
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.YEAR, defaultYear)
+                .toFormatter();
         default:
             // default should never be triggered but just in case.
             assert false;

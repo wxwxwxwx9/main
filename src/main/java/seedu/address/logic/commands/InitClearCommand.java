@@ -11,8 +11,8 @@ public class InitClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Do you really want to clear all data in Internship Diary?\n"
-            + "Type 'yes' to confirm.\n"
-            + "Type anything else to cancel the command.";
+        + "Type 'yes' to confirm.\n"
+        + "Type anything else to cancel the command.";
 
     @Override
     public CommandResult execute(Model model) {

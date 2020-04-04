@@ -29,7 +29,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
     public InterviewCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_ADDRESS, PREFIX_IS_ONLINE);
+            ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_ADDRESS, PREFIX_IS_ONLINE);
 
         Index index;
         InterviewCode interviewCode;
@@ -40,7 +40,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
             interviewCode = ParserUtil.parseInterviewCode(indexAndCode[1]);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewCommand.MESSAGE_USAGE), pe);
         }
 
         switch (interviewCode) {
@@ -49,13 +49,13 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
         case DELETE:
             if (indexAndCode.length != 3) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewDeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewDeleteCommand.MESSAGE_USAGE));
             }
             return parseDelete(index, indexAndCode[2]);
         case EDIT:
             if (indexAndCode.length != 3) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE));
             }
             return parseEdit(index, indexAndCode[2], argumentMultimap);
         case LIST:
@@ -102,7 +102,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
             return new InterviewDeleteCommand(internshipIndex, index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewDeleteCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewDeleteCommand.MESSAGE_USAGE), pe);
         }
     }
 
@@ -110,16 +110,16 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
      * Parses the edit version of interview command. Returns an InterviewEditCommand object.
      */
     private InterviewCommand parseEdit(Index internshipIndex,
-                                       String interviewIndex, ArgumentMultimap argMultimap) throws ParseException {
+        String interviewIndex, ArgumentMultimap argMultimap) throws ParseException {
         Index index;
         try {
             index = ParserUtil.parseIndex(interviewIndex);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterviewEditCommand.MESSAGE_USAGE), pe);
         }
         InterviewEditCommand.EditInterviewDescriptor editInterviewDescriptor =
-                new InterviewEditCommand.EditInterviewDescriptor();
+            new InterviewEditCommand.EditInterviewDescriptor();
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editInterviewDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }

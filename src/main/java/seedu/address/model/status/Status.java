@@ -7,10 +7,10 @@ public enum Status {
     WISHLIST, APPLIED, INTERVIEW, OFFERED, REJECTED, GHOSTED;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Status should only be one of the following strings: "
-                    + "wishlist, applied, interview, offered, rejected, ghosted";
+        "Status should only be one of the following strings: "
+            + "wishlist, applied, interview, offered, rejected, ghosted";
 
-    private static final String[] validStatuses = new String[] {"wishlist", "applied", "interview",
+    private static final String[] validStatuses = new String[]{"wishlist", "applied", "interview",
         "offered", "rejected", "ghosted"};
 
     /**
@@ -19,7 +19,7 @@ public enum Status {
     public static boolean isValidStatus(String test) {
         String status = test.toLowerCase();
         boolean output = false;
-        for (String s: validStatuses) {
+        for (String s : validStatuses) {
             output = output || status.equals(s);
         }
         return output;

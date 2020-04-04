@@ -16,12 +16,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path internshipDiaryFilePath = Paths.get("data", "internshipdiary.json");
     // Old AB code
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path addressBookFilePath = Paths.get("data", "addressbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
@@ -70,7 +71,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && internshipDiaryFilePath.equals(o.internshipDiaryFilePath);
+            && internshipDiaryFilePath.equals(o.internshipDiaryFilePath);
     }
 
     @Override

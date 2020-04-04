@@ -30,19 +30,19 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all internship applications whose fields contain all of "
-            + "the specified field keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: "
-            + "[KEYWORDS] "
-            + "[" + PREFIX_COMPANY + "COMPANY] "
-            + "[" + PREFIX_ROLE + "ROLE] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_PRIORITY + "PRIORITY] "
-            + "[" + PREFIX_STATUS + "STATUS] "
-            + "Example: " + COMMAND_WORD + " c/Google r/Engineer";
+        + ": Finds all internship applications whose fields contain all of "
+        + "the specified field keywords (case-insensitive) and displays them as a list with index numbers.\n"
+        + "Parameters: "
+        + "[KEYWORDS] "
+        + "[" + PREFIX_COMPANY + "COMPANY] "
+        + "[" + PREFIX_ROLE + "ROLE] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_DATE + "DATE] "
+        + "[" + PREFIX_PRIORITY + "PRIORITY] "
+        + "[" + PREFIX_STATUS + "STATUS] "
+        + "Example: " + COMMAND_WORD + " c/Google r/Engineer";
 
     private final List<Predicate<InternshipApplication>> predicates;
     private final boolean isPreamble;
@@ -64,17 +64,17 @@ public class FindCommand extends Command {
         predicate = new CustomToStringPredicate<>(predicate, this.toString());
         model.updateFilteredInternshipApplicationList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW,
-                        model.getFilteredInternshipApplicationList().size()));
+            String.format(Messages.MESSAGE_INTERNSHIP_LISTED_OVERVIEW,
+                model.getFilteredInternshipApplicationList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
 
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicates.equals(((FindCommand) other).predicates)
-                && isPreamble == ((FindCommand) other).isPreamble); // state check
+            || (other instanceof FindCommand // instanceof handles nulls
+            && predicates.equals(((FindCommand) other).predicates)
+            && isPreamble == ((FindCommand) other).isPreamble); // state check
     }
 
     @Override

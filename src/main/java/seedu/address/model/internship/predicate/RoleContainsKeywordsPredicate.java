@@ -24,15 +24,15 @@ public class RoleContainsKeywordsPredicate implements Predicate<InternshipApplic
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> internshipApplication.getRole().fullRole.toLowerCase()
-                        .contains(keyword.toLowerCase()));
+            .anyMatch(keyword -> internshipApplication.getRole().fullRole.toLowerCase()
+                .contains(keyword.toLowerCase()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RoleContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((RoleContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof RoleContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((RoleContainsKeywordsPredicate) other).keywords)); // state check
     }
 
     public boolean isNull() {

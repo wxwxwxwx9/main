@@ -70,7 +70,7 @@ public class StatisticsWindow extends UiPart<Stage> implements PropertyChangeLis
      * @param internshipApplicationList list of existing internship applications.
      */
     public StatisticsWindow(Stage root, Statistics statistics,
-                            ObservableList<InternshipApplication> internshipApplicationList) {
+        ObservableList<InternshipApplication> internshipApplicationList) {
         super(FXML, root);
         internshipApplicationChart.setLegendVisible(false);
         this.statistics = statistics;
@@ -160,20 +160,20 @@ public class StatisticsWindow extends UiPart<Stage> implements PropertyChangeLis
 
     /**
      * Shows the statistics window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
+     *
+     * @throws IllegalStateException <ul>
+     * <li>
+     * if this method is called on a thread other than the JavaFX Application Thread.
+     * </li>
+     * <li>
+     * if this method is called during animation or layout processing.
+     * </li>
+     * <li>
+     * if this method is called on the primary stage.
+     * </li>
+     * <li>
+     * if {@code dialogStage} is already showing.
+     * </li>
      * </ul>
      */
     public void show() {

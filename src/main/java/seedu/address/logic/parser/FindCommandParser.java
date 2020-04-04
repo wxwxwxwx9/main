@@ -34,6 +34,7 @@ import seedu.address.model.internship.predicate.StatusContainsKeywordsPredicate;
 public class FindCommandParser implements Parser<FindCommand> {
     private static final Prefix[] ACCEPTED_PREFIXES = new Prefix[]{PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS};
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -42,10 +43,10 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, ACCEPTED_PREFIXES);
+            ArgumentTokenizer.tokenize(args, ACCEPTED_PREFIXES);
 
         if (!areAnyPrefixesPresent(argMultimap, ACCEPTED_PREFIXES)
-                && argMultimap.getPreamble().isEmpty()) {
+            && argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
@@ -69,7 +70,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * Returns true if not all of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix ... prefixes) {
+    private static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
@@ -82,7 +83,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private static List<Predicate<InternshipApplication>> getRequiredPredicates(ArgumentMultimap argumentMultimap,
-            Prefix ... prefixes) throws ParseException {
+        Prefix... prefixes) throws ParseException {
         List<Predicate<InternshipApplication>> predicates = new ArrayList<>();
         for (Prefix p : prefixes) {
             if (!argumentMultimap.getValue(p).isPresent()) {
@@ -104,8 +105,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @return the predicate corresponding to the prefix
      * @throws ParseException if the user input does not conform the expected format
      */
-    private static Predicate<InternshipApplication> getPredicate (Prefix prefix,
-            String[] arguments) throws ParseException {
+    private static Predicate<InternshipApplication> getPredicate(Prefix prefix,
+        String[] arguments) throws ParseException {
         if (prefix.equals(PREFIX_COMPANY)) {
             return new CompanyContainsKeywordsPredicate(Arrays.asList(arguments));
         } else if (prefix.equals(PREFIX_ROLE)) {

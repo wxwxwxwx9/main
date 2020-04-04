@@ -28,6 +28,6 @@ class ReversedComparator implements Comparator<InternshipApplication> {
     @Override
     public boolean equals(Object other) {
         return other instanceof ReversedComparator
-                && internalComparator.equals(((ReversedComparator) other).internalComparator);
+            && internalComparator.equals(((ReversedComparator) other).internalComparator);
     }
 }

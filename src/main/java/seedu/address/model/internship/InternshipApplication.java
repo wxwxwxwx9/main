@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class InternshipApplication {
     private final ApplicationDate applicationDate;
     private final Priority priority;
     private final Status status;
-    private final ArrayList<Interview> interviews;
+    private final List<Interview> interviews;
     private final Boolean isArchived;
     private Boolean isGhostedOrRejected;
     private final Status lastStage;
@@ -34,7 +35,7 @@ public class InternshipApplication {
      * Every field must be present and not null.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-            ApplicationDate applicationDate, Priority priority, Status status) {
+        ApplicationDate applicationDate, Priority priority, Status status) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -51,10 +52,11 @@ public class InternshipApplication {
     }
 
     /**
-     * Overloaded constructor to set isArchived field (probably not needed).
+     * Overloaded constructor to set isArchived, lastStage and interviews fields.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-             ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived) {
+        ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived, Status lastStage,
+        List<Interview> interviews) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -67,14 +69,15 @@ public class InternshipApplication {
         this.isArchived = isArchived;
         this.isGhostedOrRejected = false;
         this.lastStage = status;
-        interviews = new ArrayList<>();
+        this.interviews = interviews;
     }
 
     /**
      * Overloaded constructor to set lastStage field.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-                                 ApplicationDate applicationDate, Priority priority, Status status, Status lastStage) {
+        ApplicationDate applicationDate, Priority priority, Status status,
+        Status lastStage, List<Interview> interviews) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -87,28 +90,7 @@ public class InternshipApplication {
         this.isArchived = false;
         this.isGhostedOrRejected = false;
         this.lastStage = lastStage;
-        interviews = new ArrayList<>();
-    }
-
-    /**
-     * Overloaded constructor to set isArchived and lastStage fields.
-     */
-    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-                                 ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
-                                 Status lastStage) {
-        requireAllNonNull(company, phone, email, address, status);
-        this.company = company;
-        this.role = role;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.status = status;
-        this.applicationDate = applicationDate;
-        this.priority = priority;
-        this.isArchived = isArchived;
-        this.isGhostedOrRejected = false;
-        this.lastStage = lastStage;
-        interviews = new ArrayList<>();
+        this.interviews = interviews;
     }
 
     public Company getCompany() {
@@ -163,11 +145,12 @@ public class InternshipApplication {
      */
     public InternshipApplication setLastStage(Status lastStage) {
         return new InternshipApplication(company, role, address, phone, email, applicationDate, priority, status,
-                lastStage);
+            lastStage, interviews);
     }
 
     /**
      * Returns the last stage before the status of an internship application was updated to be ghosted/ rejected.
+     *
      * @return an enum of Status (APPLIED/ OFFERED/ INTERVIEW).
      */
     public Status getLastStage() {
@@ -176,6 +159,7 @@ public class InternshipApplication {
 
     /**
      * Returns the last stage failed.
+     *
      * @return message of the last stage failed, else an empty string.
      */
     public String getLastStageMessage() {
@@ -192,6 +176,7 @@ public class InternshipApplication {
 
     /**
      * Returns the earliest interview from today in the list of interviews of the application.
+     *
      * @param todayDate The current date today.
      * @return an Optional of LocalDate. Will return empty if there are no interviews after today's date.
      */
@@ -201,16 +186,16 @@ public class InternshipApplication {
         }
 
         Interview earliestInterview = interviews.get(0);
-        for (Interview currentInterview: interviews) {
+        for (Interview currentInterview : interviews) {
             LocalDate earliestDate = earliestInterview.getInterviewDate();
             LocalDate currentDate = currentInterview.getInterviewDate();
             if ((currentDate.compareTo(earliestDate) <= 0 || earliestDate.compareTo(todayDate) < 0)
-                    && currentDate.compareTo(todayDate) >= 0) {
+                && currentDate.compareTo(todayDate) >= 0) {
                 earliestInterview = currentInterview;
             }
         }
         return earliestInterview.getInterviewDate().compareTo(todayDate) >= 0
-                ? Optional.of(earliestInterview) : Optional.empty();
+            ? Optional.of(earliestInterview) : Optional.empty();
     }
 
     public void addInterview(Interview interview) {
@@ -221,12 +206,12 @@ public class InternshipApplication {
         return interviews.get(index);
     }
 
-    public void setInterviews(ArrayList<Interview> interviews) {
+    public void setInterviews(List<Interview> interviews) {
         requireNonNull(interviews);
         this.interviews.addAll(interviews);
     }
 
-    public ArrayList<Interview> getInterviews() {
+    public List<Interview> getInterviews() {
         return interviews;
     }
 
@@ -249,7 +234,8 @@ public class InternshipApplication {
                 this.priority,
                 this.status,
                 true,
-                this.lastStage
+                this.lastStage,
+                this.interviews
         );
     }
 
@@ -267,12 +253,15 @@ public class InternshipApplication {
                 this.applicationDate,
                 this.priority,
                 this.status,
-               false
+                false,
+                this.lastStage,
+                this.interviews
         );
     }
 
     /**
      * Returns application date or the earliest interview date scheduled, whichever is closer to current date.
+     *
      * @return earliest date from current date.
      */
     public ApplicationDate getEarliestApplicationOrInterviewDate() {
@@ -300,14 +289,14 @@ public class InternshipApplication {
         }
 
         return internshipApplication != null
-                && internshipApplication.getCompany().equals(getCompany())
-                && internshipApplication.getRole().equals(getRole())
-                && internshipApplication.getAddress().equals(getAddress())
-                && internshipApplication.getPhone().equals(getPhone())
-                && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate())
-                && internshipApplication.isArchived().equals(isArchived())
-                && internshipApplication.getInterviews().equals(getInterviews());
+            && internshipApplication.getCompany().equals(getCompany())
+            && internshipApplication.getRole().equals(getRole())
+            && internshipApplication.getAddress().equals(getAddress())
+            && internshipApplication.getPhone().equals(getPhone())
+            && internshipApplication.getEmail().equals(getEmail())
+            && internshipApplication.getApplicationDate().equals(getApplicationDate())
+            && internshipApplication.isArchived().equals(isArchived())
+            && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     /**
@@ -326,15 +315,15 @@ public class InternshipApplication {
 
         InternshipApplication internshipApplication = (InternshipApplication) other;
         return internshipApplication.getCompany().equals(getCompany())
-                && internshipApplication.getRole().equals(getRole())
-                && internshipApplication.getAddress().equals(getAddress())
-                && internshipApplication.getPhone().equals(getPhone())
-                && internshipApplication.getEmail().equals(getEmail())
-                && internshipApplication.getApplicationDate().equals(getApplicationDate())
-                && internshipApplication.getPriority().equals(getPriority())
-                && internshipApplication.getStatus().equals(getStatus())
-                && internshipApplication.isArchived().equals(isArchived())
-                && internshipApplication.getInterviews().equals(getInterviews());
+            && internshipApplication.getRole().equals(getRole())
+            && internshipApplication.getAddress().equals(getAddress())
+            && internshipApplication.getPhone().equals(getPhone())
+            && internshipApplication.getEmail().equals(getEmail())
+            && internshipApplication.getApplicationDate().equals(getApplicationDate())
+            && internshipApplication.getPriority().equals(getPriority())
+            && internshipApplication.getStatus().equals(getStatus())
+            && internshipApplication.isArchived().equals(isArchived())
+            && internshipApplication.getInterviews().equals(getInterviews());
     }
 
     @Override
@@ -347,23 +336,23 @@ public class InternshipApplication {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getCompany())
-                .append(" Role: ")
-                .append(getRole())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Application Date: ")
-                .append(getApplicationDate())
-                .append(" Priority: ")
-                .append(getPriority())
-                .append(" Status: ")
-                .append(getStatus())
-                .append(getLastStageMessage())
-                .append(" Archived: ")
-                .append(isArchived());
+            .append(" Role: ")
+            .append(getRole())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Application Date: ")
+            .append(getApplicationDate())
+            .append(" Priority: ")
+            .append(getPriority())
+            .append(" Status: ")
+            .append(getStatus())
+            .append(getLastStageMessage())
+            .append(" Archived: ")
+            .append(isArchived());
         return builder.toString();
     }
 

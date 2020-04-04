@@ -109,6 +109,10 @@ Formats:
 * The index can be entered in any order.
 * The status has to be a valid one.
 * The command will work on both the main and archival list.
+* Note that status holds a higher priority than index.
+** For example, the application will delete according to status instead of index for the following command: `delete s/applied 1, 2, 3`
+* Note that duplicated index will be ignored and not affect the execution.
+** For example, the duplicated index will not affect the execution for the following command: `delete 2, 2, 3`
 ****
 
 Examples:
@@ -142,6 +146,10 @@ Formats:
 * The index can be entered in any order.
 * The status has to be a valid one.
 * The command will only work on the main list.
+* Note that status holds a higher priority than index.
+** For example, the application will archive according to status instead of index for the following command: `archive s/applied 1, 2, 3`
+* Note that duplicated index will be ignored and not affect the execution.
+** For example, the duplicated index will not affect the execution for the following command: `archive 2, 2, 3`
 ****
 
 Examples:
@@ -175,6 +183,10 @@ Formats:
 * The index can be entered in any order.
 * The status has to be a valid one.
 * The command will only work on the archival list.
+* Note that status holds a higher priority than index.
+** For example, the application will unarchive according to status instead of index for the following command: `unarchive s/applied 1, 2, 3`
+* Note that duplicated index will be ignored and not affect the execution.
+** For example, the duplicated index will not affect the execution for the following command: `unarchive 2, 2, 3`
 ****
 
 Examples:
@@ -208,30 +220,31 @@ Examples:
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
 === Locating an internship application by fields: `find`
+Finds all internship application(s) with the specified fields containing any of the given keywords.
 
-Find internship application whose specified fields contain the given keywords. +
-Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
+[cols="1,20"]
+|===
+|💡|The find parameters will appear at the bottom left of the internship diary
+|===
 
-****
+[cols="1a,1"]
+|===
+2.1+|*Format*
+2.1+|`find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
+2.1+|*More Information*
+2.1+|
 * The search is case insensitive. e.g `google` will match `Google`
 * The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`
-* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named
-`Singapores`
-* If `[KEYWORDS]` is provided, find will look for match in any field based on `KEYWORDS`, regardless of whether other
-fields are specified
-* When fields are specified, only applications where all specified field match are returned (i.e. `AND` search). e
-.g.
-`find c/google r/software engineer` will return
-application with company being `Google` and role being `Software Engineer` but not company that is `Facebook` and
-role being `Software Engineer`
-****
-
-Examples:
-
-* `find Google` +
-Returns internship applications with company `Google` and `Google Deepmind` or with email `alice@google.com`
-* `find c/Google s/applied` +
-Returns internship applications with company `Google` and status `APPLIED`
+* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`
+* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`
+* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS`, regardless of whether other fields are specified.
+* When fields are specified, only applications where all the specified fields match are returned (i.e. `AND` search).
+e.g. `find c/google r/software engineer` will return application with company being `Google` and role
+being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`
+|*Usage Example(s)* | *Outcome*
+|`find Google`|Displays internship application(s) with company `Google` OR `Google Deepmind` OR with email `alice@google.com`
+|`find c/Google s/applied`|Displays internship application(s) with company `Google` AND status `APPLIED`
+|===
 
 === Sorting internship companies by field : `sort`
 
@@ -333,7 +346,7 @@ Format: `stats`
 * The pie chart showcases:
 ** the percentage of internship application(s) under a status (wishlist, applied, interview, offered, rejected, ghosted)
 * The statistics window will dynamically update the statistics as you refine the view of your list of internship applications
-** this includes any command that modifies your view (e.g. `add`, `delete`, `archive`, `unarchive`, `find`, `edit`, list`, `archival`)
+** this includes any command that modifies your view (e.g. `add`, `delete`, `archive`, `unarchive`, `find`, `edit`, `list`, `archival`)
 ****
 
 === Exiting the program : `exit`
@@ -358,22 +371,23 @@ There is no need to save manually.
 == Command Summary
 
 * *Help* : `help`
+* *List* : `list`
+* *Archival* : `archival`
+* *Select* : `select INDEX`
 * *Add* `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​` +
 e.g. `add c/Google r/Software engineer s/wishlist d/10 10 2010`
-* *List* : `list`
-* *Select* : `select INDEX`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Archive* : `archive INDEX` +
+e.g. `archive 3`
+* *Unarchive* : `unarchive INDEX` +
+e.g. `unarchive 3`
 * *Edit* : `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]` +
 e.g. `edit 2 c/Google s/applied`
 * *Find* : `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]` +
 e.g. `find c/google r/engineer`
-* *Search* : `search t/TAG` +
-e.g. `search t/Product Management`
-* *sort* : `sort FIELD` +
+* *Sort* : `sort FIELD` +
 e.g. `sort c/`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Clear* : `clear`
-* *Reminder* : `reminder`
 * *Interview* :
 
 ** Add:
@@ -388,6 +402,8 @@ e.g. `interview 1 edit 1 d/10 10 2020`
 ** Delete:
 `interview INTERNSHIP_INDEX delete INTERVIEW_INDEX` +
 e.g. `interview 1 delete 1`
-
+* *Reminder* : `reminder`
+* *Clear* : `clear`
+* *Statistics* : `stats`
 * *Exit* : `exit`
 

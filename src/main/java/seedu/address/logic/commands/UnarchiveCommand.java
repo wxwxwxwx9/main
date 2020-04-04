@@ -18,10 +18,10 @@ public class UnarchiveCommand extends Command {
     public static final String COMMAND_WORD = "unarchive";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unarchives the internship application "
-            + "identified by the index number used in the displayed internship list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+        + ": Unarchives the internship application "
+        + "identified by the index number used in the displayed internship list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNARCHIVE_INTERNSHIP_SUCCESS = "Unarchived Internship Application: %1$s";
     public static final String MESSAGE_ALREADY_UNARCHIVED = "Internship Application already unarchived!";
@@ -57,7 +57,7 @@ public class UnarchiveCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UnarchiveCommand // instanceof handles nulls
-                && targetIndex.equals(((UnarchiveCommand) other).targetIndex)); // state check
+            || (other instanceof UnarchiveCommand // instanceof handles nulls
+            && targetIndex.equals(((UnarchiveCommand) other).targetIndex)); // state check
     }
 }

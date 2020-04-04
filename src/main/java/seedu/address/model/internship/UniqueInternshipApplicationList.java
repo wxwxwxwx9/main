@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.internship.exceptions.DuplicateInternshipApplicationException;
 import seedu.address.model.internship.exceptions.InternshipApplicationNotFoundException;
 
@@ -30,7 +31,7 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
 
     private final ObservableList<InternshipApplication> internalList = FXCollections.observableArrayList();
     private final ObservableList<InternshipApplication> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent internship application as the given argument.
@@ -59,7 +60,7 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
      * must not be the same as another existing internship application in the list.
      */
     public void setInternshipApplication(InternshipApplication target,
-            InternshipApplication editedInternshipApplication) {
+        InternshipApplication editedInternshipApplication) {
         requireAllNonNull(target, editedInternshipApplication);
 
         int index = internalList.indexOf(target);
@@ -118,8 +119,8 @@ public class UniqueInternshipApplicationList implements Iterable<InternshipAppli
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueInternshipApplicationList // instanceof handles nulls
-                        && internalList.equals(((UniqueInternshipApplicationList) other).internalList));
+            || (other instanceof UniqueInternshipApplicationList // instanceof handles nulls
+            && internalList.equals(((UniqueInternshipApplicationList) other).internalList));
     }
 
     @Override

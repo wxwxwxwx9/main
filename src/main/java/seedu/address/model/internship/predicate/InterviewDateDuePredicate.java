@@ -2,7 +2,7 @@ package seedu.address.model.internship.predicate;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.model.internship.InternshipApplication;
@@ -21,8 +21,8 @@ public class InterviewDateDuePredicate implements Predicate<InternshipApplicatio
     @Override
     public boolean test(InternshipApplication internshipApplication) {
         boolean hasAtLeastOneInterviewDue = false;
-        ArrayList<Interview> interviews = internshipApplication.getInterviews();
-        for (Interview interview: interviews) {
+        List<Interview> interviews = internshipApplication.getInterviews();
+        for (Interview interview : interviews) {
             LocalDate interviewDate = interview.getInterviewDate();
             // count days between every interview in the internship application and current date
             Period duration = Period.between(currentDate, interviewDate);
@@ -37,7 +37,7 @@ public class InterviewDateDuePredicate implements Predicate<InternshipApplicatio
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InterviewDateDuePredicate // instanceof handles nulls
-                && currentDate.equals(((InterviewDateDuePredicate) other).currentDate)); // state check
+            || (other instanceof InterviewDateDuePredicate // instanceof handles nulls
+            && currentDate.equals(((InterviewDateDuePredicate) other).currentDate)); // state check
     }
 }

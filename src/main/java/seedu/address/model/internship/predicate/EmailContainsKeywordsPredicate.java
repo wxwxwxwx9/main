@@ -24,15 +24,15 @@ public class EmailContainsKeywordsPredicate implements Predicate<InternshipAppli
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> internshipApplication.getEmail().value.toLowerCase()
-                        .contains(keyword.toLowerCase()));
+            .anyMatch(keyword -> internshipApplication.getEmail().value.toLowerCase()
+                .contains(keyword.toLowerCase()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmailContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((EmailContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof EmailContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((EmailContainsKeywordsPredicate) other).keywords)); // state check
     }
 
     public boolean isNull() {

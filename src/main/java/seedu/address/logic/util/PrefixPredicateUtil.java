@@ -32,13 +32,17 @@ import seedu.address.model.status.Status;
  */
 public class PrefixPredicateUtil {
 
-    /** To execute a predicate lazily. */
+    /**
+     * To execute a predicate lazily.
+     */
     @FunctionalInterface
     public interface PredicateFunction {
         Predicate<InternshipApplication> apply(List<String> t) throws ParseException;
     }
 
-    /** Prefixes and their mapping to its appropriate predicates. */
+    /**
+     * Prefixes and their mapping to its appropriate predicates.
+     */
     public static final Map<Prefix, PredicateFunction> PREDICATE_MAP = Map.of(
         PREFIX_COMPANY, CompanyContainsKeywordsPredicate::new,
         PREFIX_ROLE, RoleContainsKeywordsPredicate::new,
@@ -55,8 +59,8 @@ public class PrefixPredicateUtil {
      * Checks if the user input is a valid status.
      *
      * @param argMultimap argument multimap to extract the prefix for predicate creation.
-     * @returns predicate to filter internship application list.
      * @throws ParseException if the user input does not conform the expected format.
+     * @returns predicate to filter internship application list.
      */
     public static Predicate<InternshipApplication> getFieldPredicate(ArgumentMultimap argMultimap,
         Prefix[] acceptedPrefixes) throws ParseException {

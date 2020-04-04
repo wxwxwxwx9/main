@@ -24,7 +24,7 @@ public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows applications that have are due or have interview"
-            + "dates in 7 days.\n" + "Example: " + COMMAND_WORD;
+        + "dates in 7 days.\n" + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed applications that are due or have interviews in 7 days.";
 
@@ -69,7 +69,7 @@ public class ReminderCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReminderCommand); // instanceof handles nulls
+            || (other instanceof ReminderCommand); // instanceof handles nulls
     }
 
 }

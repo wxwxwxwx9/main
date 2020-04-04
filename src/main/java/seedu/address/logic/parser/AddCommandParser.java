@@ -31,15 +31,16 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
-                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS);
+            ArgumentTokenizer.tokenize(args, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_ADDRESS,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DATE, PREFIX_PRIORITY, PREFIX_STATUS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY, PREFIX_ROLE, PREFIX_DATE, PREFIX_STATUS)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -53,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
 
         InternshipApplication internshipApplication =
-                new InternshipApplication(company, role, address, phone, email, date, priority, status);
+            new InternshipApplication(company, role, address, phone, email, date, priority, status);
 
         return new AddCommand(internshipApplication);
     }

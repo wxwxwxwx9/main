@@ -24,15 +24,15 @@ public class CompanyContainsKeywordsPredicate implements Predicate<InternshipApp
         }
 
         return keywords.stream()
-                .anyMatch(keyword -> internshipApplication.getCompany().fullCompany.toLowerCase()
-                        .contains(keyword.toLowerCase()));
+            .anyMatch(keyword -> internshipApplication.getCompany().fullCompany.toLowerCase()
+                .contains(keyword.toLowerCase()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CompanyContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((CompanyContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof CompanyContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((CompanyContainsKeywordsPredicate) other).keywords)); // state check
     }
 
     public boolean isNull() {

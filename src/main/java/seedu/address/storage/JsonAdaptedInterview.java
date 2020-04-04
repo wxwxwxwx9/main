@@ -24,8 +24,8 @@ public class JsonAdaptedInterview {
      */
     @JsonCreator
     public JsonAdaptedInterview(@JsonProperty("interviewAddress") String interviewAddress,
-                                @JsonProperty("isOnline") String isOnline,
-                                @JsonProperty("interviewDate") String interviewDate) {
+        @JsonProperty("isOnline") String isOnline,
+        @JsonProperty("interviewDate") String interviewDate) {
         this.isOnline = isOnline;
         this.interviewAddress = interviewAddress;
         this.interviewDate = interviewDate;
@@ -57,7 +57,7 @@ public class JsonAdaptedInterview {
         ApplicationDate modelDate;
         if (interviewDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ApplicationDate.class.getSimpleName()));
+                ApplicationDate.class.getSimpleName()));
         }
         if (!ApplicationDate.isValidApplicationDate(interviewDate)) {
             throw new IllegalValueException(ApplicationDate.MESSAGE_CONSTRAINTS);

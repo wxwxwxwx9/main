@@ -33,7 +33,7 @@ public class InterviewListCommand extends InterviewCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof InterviewListCommand
-                && index.equals(((InterviewListCommand) other).index));
+            || (other instanceof InterviewListCommand
+            && index.equals(((InterviewListCommand) other).index));
     }
 }
