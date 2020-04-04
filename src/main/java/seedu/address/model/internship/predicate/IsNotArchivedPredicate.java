@@ -11,7 +11,6 @@ public class IsNotArchivedPredicate implements Predicate<InternshipApplication> 
 
     @Override
     public boolean test(InternshipApplication internshipApplication) {
-        System.out.println(internshipApplication.isArchived());
         if (internshipApplication.isArchived()) {
             System.out.println("Returns false");
             return false;
