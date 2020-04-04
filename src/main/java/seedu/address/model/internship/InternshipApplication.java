@@ -68,12 +68,33 @@ public class InternshipApplication {
         this.priority = priority;
         this.isArchived = isArchived;
         this.isGhostedOrRejected = false;
+        this.lastStage = lastStage;
+        this.interviews = interviews;
+    }
+
+    /**
+     * Overloaded constructor to set isArchived, lastStage and interviews fields.
+     */
+    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
+                                 ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
+                                 List<Interview> interviews) {
+        requireAllNonNull(company, phone, email, address, status);
+        this.company = company;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.applicationDate = applicationDate;
+        this.priority = priority;
+        this.isArchived = isArchived;
+        this.isGhostedOrRejected = false;
         this.lastStage = status;
         this.interviews = interviews;
     }
 
     /**
-     * Overloaded constructor to set lastStage field.
+     * Overloaded constructor to set lastStage and interviews field.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
         ApplicationDate applicationDate, Priority priority, Status status,
