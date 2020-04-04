@@ -48,6 +48,8 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<InternshipApplication> comparator = argMultimapToComparator(argMultimap);
         if (argMultimap.getPreamble().equals(SortCommand.REVERSE_KEYWORD)) {
             comparator = comparator.reversed();
+        } else if (!argMultimap.getPreamble().equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
         return new SortCommand(comparator);
     }
@@ -66,7 +68,12 @@ public class SortCommandParser implements Parser<SortCommand> {
         if (prefixFound.size() != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-        return comparatorMap.get(prefixFound.get(0));
+        Prefix prefix = prefixFound.get(0);
+        // isPresent check already done above.
+        if (!argMultimap.getValue(prefix).get().equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+        return comparatorMap.get(prefix);
     }
 
 }
