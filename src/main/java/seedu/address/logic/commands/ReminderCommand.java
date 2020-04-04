@@ -9,10 +9,12 @@ import java.util.function.Predicate;
 import seedu.address.logic.comparator.ApplicationDateAndInterviewDateComparator;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.interview.Interview;
-import seedu.address.model.internship.predicate.*;
-
-import javax.lang.model.type.IntersectionType;
+import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.CustomToStringPredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
+import seedu.address.model.internship.predicate.IsNotArchivedPredicate;
+import seedu.address.model.internship.predicate.StatusIsInterviewPredicate;
+import seedu.address.model.internship.predicate.StatusIsWishlistPredicate;
 
 /**
  * Lists all internship applications in the internship diary that are due or have interview dates in 7 days.
@@ -24,7 +26,7 @@ public class ReminderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows applications that have are due or have interview"
             + "dates in 7 days.\n" + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Listed applications are due or have interviews in 7 days.";
+    public static final String MESSAGE_SUCCESS = "Listed applications that are due or have interviews in 7 days.";
 
     @Override
     public CommandResult execute(Model model) {

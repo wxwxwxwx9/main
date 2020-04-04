@@ -90,6 +90,27 @@ public class InternshipApplication {
         interviews = new ArrayList<>();
     }
 
+    /**
+     * Overloaded constructor to set isArchived and lastStage fields.
+     */
+    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
+                                 ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
+                                 Status lastStage) {
+        requireAllNonNull(company, phone, email, address, status);
+        this.company = company;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.applicationDate = applicationDate;
+        this.priority = priority;
+        this.isArchived = isArchived;
+        this.isGhostedOrRejected = false;
+        this.lastStage = lastStage;
+        interviews = new ArrayList<>();
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -158,10 +179,7 @@ public class InternshipApplication {
      * @return message of the last stage failed, else an empty string.
      */
     public String getLastStageMessage() {
-        if ((status == Status.GHOSTED || status == Status.REJECTED)
-                && (lastStage != Status.REJECTED || lastStage != Status.GHOSTED)) {
-            System.out.println(company.toString());
-            System.out.println(lastStage.toString());
+        if (status == Status.GHOSTED || status == Status.REJECTED) {
             return " [You failed at " + lastStage.toString() + ":(]";
         } else {
             return "";
@@ -230,7 +248,8 @@ public class InternshipApplication {
                 this.applicationDate,
                 this.priority,
                 this.status,
-                true
+                true,
+                this.lastStage
         );
     }
 
