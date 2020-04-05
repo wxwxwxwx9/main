@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.TypicalInternshipApplications;
-
 public class CommandResultTest {
 
     @Test

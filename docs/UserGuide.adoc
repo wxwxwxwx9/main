@@ -32,8 +32,7 @@ Here are the steps to get you started on using Internship Diary:
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Type the command *`help`* in the command box and press kbd:[Enter] to execute it and open the help window. +
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -49,6 +48,12 @@ parameter which can be used as `add c/Google`.
 (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also
 acceptable.
+====
+
+====
+*Important Information*
+
+* Priority levels can range from 1 to 10 (inclusive).
 ====
 
 === Viewing help : `help`
@@ -216,7 +221,7 @@ Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL]
 
 Examples:
 
-* `edit 1 s/new r/Product Management` +
+* `edit 1 s/applied r/Product Management` +
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
 === Locating an internship application by fields: `find`

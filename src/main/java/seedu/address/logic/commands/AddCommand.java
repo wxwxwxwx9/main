@@ -65,7 +65,7 @@ public class AddCommand extends Command {
         }
 
         model.addInternshipApplication(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

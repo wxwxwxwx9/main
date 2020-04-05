@@ -8,7 +8,8 @@ public enum ListenerPropertyType {
     PREDICATE("predicate"),
     FILTERED_INTERNSHIP_APPLICATIONS("filteredInternshipApplications"),
     DISPLAYED_INTERNSHIPS("displayedInternships"),
-    VIEW_TYPE("currentView");
+    VIEW_TYPE("currentView"),
+    DISPLAYED_INTERNSHIP_DETAIL("displayedDetails");
 
     private String propertyName;
 
