@@ -35,7 +35,7 @@ public class ReminderCommand extends Command {
         predicates.add(interviewDatePredicate);
         Predicate<InternshipApplication> predicate = predicates.stream().reduce(x -> false, Predicate::or);
         Predicate<InternshipApplication> customPredicate = new CustomToStringPredicate<>(predicate,
-                "Reminder");
+            "Reminder");
         model.updateFilteredInternshipApplicationList(customPredicate);
         model.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);

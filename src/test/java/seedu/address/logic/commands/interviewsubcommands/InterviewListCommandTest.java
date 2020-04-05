@@ -41,8 +41,8 @@ public class InterviewListCommandTest {
         InternshipApplication internshipApplication = model.getFilteredInternshipApplicationList()
             .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         assertCommandSuccess(new InterviewListCommand(INDEX_FIRST_INTERNSHIP_APPLICATION), model,
-                String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel,
-                internshipApplication);
+            String.format(MESSAGE_SUCCESS, internshipApplication), expectedModel,
+            internshipApplication);
     }
 
     @Test
