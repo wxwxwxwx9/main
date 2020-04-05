@@ -191,6 +191,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void displayInternshipDetail(InternshipApplication internshipApplication) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
             throw new AssertionError("This method should not be called.");
         }

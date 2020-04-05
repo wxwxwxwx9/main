@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.ListenerPropertyType.COMPARATOR;
 import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIPS;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
 import static seedu.address.model.ListenerPropertyType.VIEW_TYPE;
@@ -109,26 +110,31 @@ public class ModelManager implements Model, PropertyChangeListener {
 
     @Override
     public void setInternshipDiary(ReadOnlyInternshipDiary internshipDiary) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, null);
         this.internshipDiary.resetData(internshipDiary);
     }
 
     @Override
     public void addInternshipApplication(InternshipApplication internshipApplication) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, internshipApplication);
         internshipDiary.addInternshipApplication(internshipApplication);
     }
 
     @Override
     public void deleteInternshipApplication(InternshipApplication target) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, target, null);
         internshipDiary.removeInternship(target);
     }
 
     @Override
     public void archiveInternshipApplication(InternshipApplication target) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, target, null);
         internshipDiary.archiveInternshipApplication(target);
     }
 
     @Override
     public void unarchiveInternshipApplication(InternshipApplication target) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, target, null);
         internshipDiary.unarchiveInternshipApplication(target);
     }
 
@@ -141,7 +147,7 @@ public class ModelManager implements Model, PropertyChangeListener {
     @Override
     public void setInternshipApplication(InternshipApplication target, InternshipApplication editedInternship) {
         requireAllNonNull(target, editedInternship);
-
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, target, editedInternship);
         internshipDiary.setInternship(target, editedInternship);
     }
 
@@ -206,12 +212,21 @@ public class ModelManager implements Model, PropertyChangeListener {
     //=========== PropertyChanges ======================================================================
 
     @Override
+    public void displayInternshipDetail(InternshipApplication internshipApplication) {
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, internshipApplication);
+    }
+
+    @Override
     public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
         changes.addPropertyChangeListener(propertyType.toString(), l);
     }
 
     private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {
         changes.firePropertyChange(propertyType.toString(), null, newValue);
+    }
+
+    private void firePropertyChange(ListenerPropertyType propertyType, Object oldValue, Object newValue) {
+        changes.firePropertyChange(propertyType.toString(), oldValue, newValue);
     }
 
     /**
@@ -244,6 +259,7 @@ public class ModelManager implements Model, PropertyChangeListener {
      */
     private void fireAllPropertyChanges() {
         firePropertyChange(FILTERED_INTERNSHIP_APPLICATIONS, getFilteredInternshipApplicationList());
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, null);
         firePropertyChange(COMPARATOR, null);
         firePropertyChange(PREDICATE, null);
         firePropertyChange(VIEW_TYPE, getCurrentView());
