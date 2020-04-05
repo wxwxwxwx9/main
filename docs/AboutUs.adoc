@@ -32,8 +32,15 @@ Responsibilities: TBA
 image::female_student_happy.png[width="150", align="left"]
 {empty}[https://gerhean.github.io/[homepage]][http://github.com/gerhean[github]] [<<gerhean#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Adding love into the project :)
+Role: +
+Developer +
+Tech Adviser
+
+Responsibilities: +
+Storage +
+Sort Command +
+Command History +
+Sort/Find Display Footer
 
 '''
 
