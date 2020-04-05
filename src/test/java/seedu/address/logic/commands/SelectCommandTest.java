@@ -44,9 +44,11 @@ public class SelectCommandTest {
     public void execute_validIndexFilteredList_success() {
         class MockModel extends ModelManager {
             private boolean displayInternshipDetailCalled = false;
-            public MockModel (InternshipDiary diary, UserPrefs userPrefs) {
+
+            public MockModel(InternshipDiary diary, UserPrefs userPrefs) {
                 super(diary, userPrefs);
             }
+
             @Override
             public void displayInternshipDetail(InternshipApplication internshipApplication) {
                 displayInternshipDetailCalled = true;
@@ -55,7 +57,7 @@ public class SelectCommandTest {
         MockModel mockModel = new MockModel(getTypicalInternshipDiary(), new UserPrefs());
         showInternshipApplicationAtIndex(mockModel, INDEX_FIRST_INTERNSHIP_APPLICATION);
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-      
+
         InternshipApplication internshipApplication = mockModel.getFilteredInternshipApplicationList()
             .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
