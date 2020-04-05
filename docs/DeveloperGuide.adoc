@@ -262,6 +262,8 @@ in chronological order.
 in lexicographical order.
 * `PriorityComparator` -- Comparator to compare internship applications by their `Priority` field
 in ascending order.
+* `RoleComparator` -- Comparator to compare internship applications by their `Role` field
+in lexicographical order.
 * `StatusComparator` -- Comparator to compare internship applications by their `Status` field
 by the order which they are declared in the Status Enum class.
 
@@ -284,7 +286,7 @@ This works as the list uses stable sort.
 `EnteredCommandsHistory` allows the user to get the sort command template back
 in just one press of the up arrow key so there is little hassle. +
 Users do not have to remember the order to place the arguments to get the sort they want.
-** Cons: Feels a little restrictive.
+** Cons: Hard to explain the concept of stable sort in the User Guide.
 
 * **Alternative 2**: Allow multiple fields to sort by.
 ** Pros: Two less key presses.

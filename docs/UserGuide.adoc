@@ -259,10 +259,10 @@ Format: `sort [reverse] FIELD`.
 
 Available values for `FIELD`: +
 `c/`: Sorts by company name (Dictionary Order). +
-`r/`: Sorts by role (Dictionary Order). +
 `d/`: Sorts by application date (Chronological Order). +
+`r/`: Sorts by role (Dictionary Order). +
+`s/`: Sorts by status (Refer to <<Sort Order of Status>>). +
 `w/`: Sorts by priority level (Ascending Order). +
-`s/`: Sorts by status (Refer to <<Sort Order of Status>>).
 
 ****
 * Sort displayed internship companies based on a given FIELD
