@@ -28,7 +28,7 @@ public class SelectCommandTest {
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model,
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class SelectCommandTest {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
         assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model,
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
     }
 
     @Test
