@@ -39,6 +39,7 @@ Tech Adviser
 Responsibilities: +
 Storage +
 Sort Command +
+Clear Command +
 Command History +
 Sort/Find Display Footer
 

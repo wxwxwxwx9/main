@@ -303,7 +303,7 @@ Harder to implement reverse sorting.
 The clear command allows the user to delete all internship applications. The following sequence
 diagram will illustrate the process of invocation for the command:
 
-image::SortSequenceDiagram.png[]
+image::ClearSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the clear command.
 
@@ -311,8 +311,8 @@ The following subsections will go through the general implementations of the cle
 The find command is implemented in the class `InitClearCommand`, `ClearCommand` and uses the
 `ClearCommandConfirmationParser` class to parse the arguments for the command.
 
-The implementation for this command is unique as it causes 'LogicManager' to use `ClearCommandConfirmationParser`
-as the main parser to parse the next user input.
+The implementation for this command is unique as it causes 'LogicManager' to use `ClearCommandConfirmationParser`,
+which is a subclass of `InternshipDiaryParser`, as the main parser to parse the next user input.
 
 ==== Design Considerations
 
@@ -321,17 +321,18 @@ as the main parser to parse the next user input.
 ** Pros: Easy to extend. +
 New commands which require a prompt or alternative parsing do not need to further
 modify the `InternshipDiaryParser` or `LogicManager` class.
-** Cons: Premature Optimisation.
+** Cons: All commands will have to implement a `getNextParser` method. As `getNextParser` returns `null` for most
+commands, an abstract class is used. However, this means that commands cannot extend other abstract classes in
+the future.
 
-
-* **Alternative 1**: Have `InternshipDiaryParser` have different modes depending
+* **Alternative 2**: Have `InternshipDiaryParser` have different modes depending
 on what command was last executed.
 ** Pros: Simple to understand.
 ** Cons: `InternshipDiaryParser` has no access to the next mode the command leads into, `LogicManager`
 needs to pass it into `InternshipDiaryParser`. +
 As the different modes do not share code, they are better off as separate classes.
 
-* **Alternative 2**: Make a confirmation window which freeze the main window.
+* **Alternative 3**: Make a confirmation window which freeze the main window.
 ** Pros: The `InternshipDiaryParser` or `LogicManager` class may not need to be modified.
 ** Cons: Relies on global static methods which may lead to bugs in the future.
 
