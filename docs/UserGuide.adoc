@@ -258,10 +258,11 @@ Type `reverse` before `FIELD` to sort in the reverse order. +
 Format: `sort [reverse] FIELD`.
 
 Available values for `FIELD`: +
-`c/`: Sorts by company name. +
-`d/`: Sorts by application date. +
-`w/`: Sorts by priority level. +
-`s/`: Sorts by status.
+`c/`: Sorts by company name (Dictionary Order). +
+`d/`: Sorts by application date (Chronological Order). +
+`r/`: Sorts by role (Dictionary Order). +
+`s/`: Sorts by status (Refer to <<Sort Order of Status>>). +
+`w/`: Sorts by priority level (Ascending Order). +
 
 ****
 * Sort displayed internship companies based on a given FIELD
@@ -408,4 +409,17 @@ e.g. `interview 1 delete 1`
 * *Clear* : `clear`
 * *Statistics* : `stats`
 * *Exit* : `exit`
+
+== Appendix
+
+=== Sort Order of Status
+The sort order of Status is as follows:
+
+1. WISHLIST
+2. APPLIED
+3. INTERVIEW
+4. OFFERED
+5. REJECTED
+6. GHOSTED
+
 
