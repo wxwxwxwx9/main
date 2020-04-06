@@ -59,10 +59,10 @@ public class ReminderCommand extends Command {
         Predicate<InternshipApplication> predicate = dateAndNotArchivedPredicates.stream()
                 .reduce(x -> true, Predicate::and);
 
+        model.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         Predicate<InternshipApplication> customPredicate = new CustomToStringPredicate<>(predicate,
             "Reminder");
         model.updateFilteredInternshipApplicationList(customPredicate);
-        model.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

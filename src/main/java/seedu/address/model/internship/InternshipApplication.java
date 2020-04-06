@@ -289,7 +289,11 @@ public class InternshipApplication {
         LocalDate currentDate = LocalDate.now();
         Optional<Interview> earliestInterview = getEarliestInterview(currentDate);
         if (applicationDate.fullApplicationDate.compareTo(currentDate) < 0) { // application date before current date
-            return earliestInterview.get().getDate();
+            if (earliestInterview.isPresent()) {
+                return earliestInterview.get().getDate();
+            } else {
+                return applicationDate;
+            }
         }
         if (earliestInterview.isPresent()) { // there are interviews after current date
             ApplicationDate earliestInterviewDate = earliestInterview.get().getDate();
