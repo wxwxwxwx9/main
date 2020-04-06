@@ -11,7 +11,7 @@ import seedu.address.testutil.InternshipApplicationBuilder;
 class StatusIsWishlistPredicateTest {
     @Test
     public void equals() {
-        StatusIsInterviewPredicate predicate = new StatusIsInterviewPredicate();
+        StatusIsWishlistPredicate predicate = new StatusIsWishlistPredicate();
 
         // same object -> returns true
         assertTrue(predicate.equals(predicate));
@@ -24,14 +24,14 @@ class StatusIsWishlistPredicateTest {
     }
 
     @Test
-    public void test_statusIsInterview_returnsTrue() {
+    public void test_statusIsWishlist_returnsTrue() {
         StatusIsWishlistPredicate predicate = new StatusIsWishlistPredicate();
 
         assertTrue(predicate.test(new InternshipApplicationBuilder().withStatus(Status.WISHLIST).build()));
     }
 
     @Test
-    public void test_statusIsNotInterview_returnsFalse() {
+    public void test_statusIsNotWishlist_returnsFalse() {
         StatusIsWishlistPredicate predicate = new StatusIsWishlistPredicate();
 
         assertFalse(predicate.test(new InternshipApplicationBuilder().withStatus(Status.APPLIED).build()));
