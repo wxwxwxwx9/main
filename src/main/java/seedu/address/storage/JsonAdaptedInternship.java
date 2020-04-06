@@ -178,7 +178,7 @@ class JsonAdaptedInternship {
         }
 
         if (modelIsArchived) {
-            internshipApplication.archive();
+            internshipApplication = internshipApplication.archive();
         }
 
         return internshipApplication;

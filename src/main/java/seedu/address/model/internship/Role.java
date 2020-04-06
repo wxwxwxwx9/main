@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a InternshipApplication's role in the internship diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidRole(String)}
  */
-public class Role {
+public class Role implements Comparable<Role> {
     public static final String MESSAGE_CONSTRAINTS =
         "Roles should only contain alphanumeric characters and spaces, and it should not be blank";
 
@@ -48,6 +48,11 @@ public class Role {
         return other == this // short circuit if same object
             || (other instanceof Role // instanceof handles nulls
             && fullRole.equals(((Role) other).fullRole)); // state check
+    }
+
+    @Override
+    public int compareTo(Role other) {
+        return fullRole.compareTo(other.fullRole);
     }
 
     @Override

@@ -13,9 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.internship.InternshipApplication;
 
 /**
  * Primarily unit tests for {@code SelectCommand}, as command does not modify model.
@@ -28,7 +30,7 @@ public class SelectCommandTest {
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model,
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
     }
 
     @Test
@@ -40,10 +42,29 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
+        class MockModel extends ModelManager {
+            private boolean displayInternshipDetailCalled = false;
+
+            public MockModel(InternshipDiary diary, UserPrefs userPrefs) {
+                super(diary, userPrefs);
+            }
+
+            @Override
+            public void displayInternshipDetail(InternshipApplication internshipApplication) {
+                displayInternshipDetailCalled = true;
+            }
+        }
+        MockModel mockModel = new MockModel(getTypicalInternshipDiary(), new UserPrefs());
+        showInternshipApplicationAtIndex(mockModel, INDEX_FIRST_INTERNSHIP_APPLICATION);
         SelectCommand selectCommand = new SelectCommand(INDEX_FIRST_INTERNSHIP_APPLICATION);
-        assertCommandSuccess(selectCommand, model, SelectCommand.MESSAGE_SELECT_SUCCESS, model,
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()));
+
+        InternshipApplication internshipApplication = mockModel.getFilteredInternshipApplicationList()
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+
+        assertCommandSuccess(selectCommand, mockModel, SelectCommand.MESSAGE_SELECT_SUCCESS,
+            mockModel, internshipApplication);
+
+        assertTrue(mockModel.displayInternshipDetailCalled);
     }
 
     @Test

@@ -79,7 +79,7 @@ public class InterviewEditCommand extends InterviewCommand {
 
         lastShownList.set(interviewIndex.getZeroBased(), editedInterview);
         // todo: update display
-        return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview), internshipToModify);
+        return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview));
     }
 
     /**
