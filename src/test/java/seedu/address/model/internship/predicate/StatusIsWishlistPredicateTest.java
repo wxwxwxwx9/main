@@ -1,10 +1,12 @@
 package seedu.address.model.internship.predicate;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StatusIsWishlistPredicateTest {
     @Test

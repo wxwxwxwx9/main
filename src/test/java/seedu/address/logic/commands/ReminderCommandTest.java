@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.ReminderCommand.MESSAGE_SUCCESS;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,25 +22,19 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
-import seedu.address.model.internship.predicate.*;
+import seedu.address.model.internship.predicate.ApplicationDateDuePredicate;
+import seedu.address.model.internship.predicate.InterviewDateDuePredicate;
+import seedu.address.model.internship.predicate.IsNotArchivedPredicate;
+import seedu.address.model.internship.predicate.StatusIsInterviewPredicate;
+import seedu.address.model.internship.predicate.StatusIsWishlistPredicate;
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
 import seedu.address.testutil.InterviewBuilder;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
 
 class ReminderCommandTest {
 
     private Model model;
     private Model expectedModel;
-    InternshipApplication D;
-    InternshipApplication E;
-    InternshipApplication A;
-    InternshipApplication B;
 
     @BeforeEach
     public void setUp() {
@@ -46,14 +46,12 @@ class ReminderCommandTest {
                 .withCompany("Company A")
                 .withStatus(Status.REJECTED)
                 .build();
-        this.A = applicationA;
         // application that has not been applied to yet, due in 7 days
         InternshipApplication applicationB = new InternshipApplicationBuilder()
                 .withApplicationDate(new ApplicationDate(currentDate.plus(5, ChronoUnit.DAYS)))
                 .withCompany("Company B")
                 .withStatus(Status.WISHLIST)
                 .build();
-        this.B = applicationB;
         // application that has not been applied to yet, application date already over
         InternshipApplication applicationC = new InternshipApplicationBuilder()
                 .withApplicationDate(new ApplicationDate(currentDate.minus(10, ChronoUnit.DAYS)))
@@ -70,7 +68,6 @@ class ReminderCommandTest {
                 .withStatus(Status.APPLIED)
                 .withInterview(interviewD)
                 .buildWithInterviews();
-        this.D = applicationD;
         // application with Status.INTERVIEW, and has an interview in 7 days
         Interview interviewE = new InterviewBuilder()
                 .withDate(currentDate.plus(2, ChronoUnit.DAYS))
@@ -81,7 +78,6 @@ class ReminderCommandTest {
                 .withStatus(Status.INTERVIEW)
                 .withInterview(interviewE)
                 .buildWithInterviews();
-        this.D = applicationD;
         // application with Status.INTERVIEW, and does not have an interview in 7 days
         Interview interviewF = new InterviewBuilder()
                 .withDate(currentDate.plus(9, ChronoUnit.DAYS))
@@ -92,7 +88,6 @@ class ReminderCommandTest {
                 .withStatus(Status.INTERVIEW)
                 .withInterview(interviewF)
                 .buildWithInterviews();
-        this.E = applicationE;
         InternshipDiary internshipDiary = new InternshipDiary();
         internshipDiary.loadInternshipApplication(applicationA);
         internshipDiary.loadInternshipApplication(applicationB);

@@ -1,15 +1,12 @@
 package seedu.address.model.internship.predicate;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.model.internship.ApplicationDate;
+
 import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StatusIsInterviewPredicateTest {
     @Test

@@ -1,20 +1,20 @@
 package seedu.address.model.internship.predicate;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
+import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.status.Status;
 import seedu.address.testutil.InternshipApplicationBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
-import static seedu.address.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 class IsNotArchivedPredicateTest {
 
