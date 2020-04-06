@@ -262,6 +262,8 @@ in chronological order.
 in lexicographical order.
 * `PriorityComparator` -- Comparator to compare internship applications by their `Priority` field
 in ascending order.
+* `RoleComparator` -- Comparator to compare internship applications by their `Role` field
+in lexicographical order.
 * `StatusComparator` -- Comparator to compare internship applications by their `Status` field
 by the order which they are declared in the Status Enum class.
 
@@ -284,7 +286,7 @@ This works as the list uses stable sort.
 `EnteredCommandsHistory` allows the user to get the sort command template back
 in just one press of the up arrow key so there is little hassle. +
 Users do not have to remember the order to place the arguments to get the sort they want.
-** Cons: Feels a little restrictive.
+** Cons: Hard to explain the concept of stable sort in the User Guide.
 
 * **Alternative 2**: Allow multiple fields to sort by.
 ** Pros: Two less key presses.
@@ -294,6 +296,47 @@ Users are highly unlikely to use this feature, as sorting one field by one feels
 Harder to implement reverse sorting.
 
 // end::sort[]
+
+// tag::clear[]
+=== Clear command
+
+The clear command allows the user to delete all internship applications. The following sequence
+diagram will illustrate the process of invocation for the command:
+
+image::ClearSequenceDiagram.png[]
+
+The following subsections will go through the general implementations of the clear command.
+
+==== Implementation
+The find command is implemented in the class `InitClearCommand`, `ClearCommand` and uses the
+`ClearCommandConfirmationParser` class to parse the arguments for the command.
+
+The implementation for this command is unique as it causes 'LogicManager' to use `ClearCommandConfirmationParser`,
+which is a subclass of `InternshipDiaryParser`, as the main parser to parse the next user input.
+
+==== Design Considerations
+
+===== Aspect: How to prompt for confirmation.
+* **Alternative 1 (current choice)**: Implement an abstract method `getNextParser` for all commands.
+** Pros: Easy to extend. +
+New commands which require a prompt or alternative parsing do not need to further
+modify the `InternshipDiaryParser` or `LogicManager` class.
+** Cons: All commands will have to implement a `getNextParser` method. As `getNextParser` returns `null` for most
+commands, an abstract class is used. However, this means that commands cannot extend other abstract classes in
+the future.
+
+* **Alternative 2**: Have `InternshipDiaryParser` have different modes depending
+on what command was last executed.
+** Pros: Simple to understand.
+** Cons: `InternshipDiaryParser` has no access to the next mode the command leads into, `LogicManager`
+needs to pass it into `InternshipDiaryParser`. +
+As the different modes do not share code, they are better off as separate classes.
+
+* **Alternative 3**: Make a confirmation window which freeze the main window.
+** Pros: The `InternshipDiaryParser` or `LogicManager` class may not need to be modified.
+** Cons: Relies on global static methods which may lead to bugs in the future.
+
+// end::clear[]
 
 // tag::interview[]
 === Interview and Interview Commands
@@ -625,34 +668,49 @@ and creating a HashMap with those status as the key and respective count as the 
 //tag::reminder[]
 === Reminder Command
 
-The reminder command displays to users a list of internship applications which need to be submitted or have interviews
-scheduled in 7 days.
+The reminder command displays to users a list of internship applications which:
+
+* have status `wishlist` and need to be submitted in 7 days
+* have status `interview` and interviews scheduled in 7 days
 
 The following sequence diagram shows how the command is executed:
 
 .Sequence Diagram of `ReminderCommand`
 image::ReminderSequenceDiagram.png[]
 
-The following subsections will go through the general implementations of the reminder command.
-
 ==== Implementation
 The reminder command is implemented in the class `ReminderCommand` and instantiates two predicates
 `ApplicationDateDuePredicate` and `InterviewDateDuePredicate` with every call of the command.
 
-The two predicates classes implementing `Predicate<InternshipApplication>` are used as per follows:
+To facilitate the reminder command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
 
 * `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application
 has a date of the current date or within 7 days of the current date.
 
+* `StatusIsWishlistPredicate` -- Predicate to check whether the `Status` field of an internship application is
+`wishlist`.
+
 * `InterviewDateDuePredicate` -- Predicate to check whether there is at least one interview in the `ArrayList<Interview>
 interviews` of an internship application that has a date of the current date or within 7 days from the current date.
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also used
-to sort internship applications in terms of which application is more urgent. It compares internship applications
-by their `ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
+* `StatusIsInterviewPredicate` -- Predicate to check whether the `Status` field of an internship application is
+`interview`.
+
+* `IsNotArchivedPredicate` -- Predicate to check whether an internship application is not archived.
+
+Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
+`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
+operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
+the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The final predicate produced is
+then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
+
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
+passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
+applications in terms of which application is more urgent. It compares internship applications by their
+`ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
 applications, in order of either date being closer to current date. If two internship applications have the same date
 in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
-interviews` of the applications in order of which interview comes first.
+interviews` of the applications in order of which application has an interview that comes first.
 
 ==== Design considerations
 
@@ -802,6 +860,27 @@ Use case resumes at step 1
 1. User pass:q[<u>find Internship Application UC1</u>].
 2. User requests to prioritise the Internship Application.
 3. InternDiary updates the priority level of the Internship Application.
++
+Use case ends
+
+[discrete]
+=== Use case: UC4 - Sort Internship Application
+
+*MSS*
+
+1. User requests to sort the list.
+2. InternDiary sorts the list.
+3. InternDiary displays the sorted list.
+4. Footer displays the field which list is sorted by.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. InternDiary detects invalid syntax.
+[none]
+** 1a.1. InternDiary shows an error message.
 +
 Use case ends
 

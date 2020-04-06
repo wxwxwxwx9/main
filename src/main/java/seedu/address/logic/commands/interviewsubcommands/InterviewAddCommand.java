@@ -50,7 +50,8 @@ public class InterviewAddCommand extends InterviewCommand {
         }
 
         internshipToModify.addInterview(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), internshipToModify);
+        model.displayInternshipDetail(internshipToModify);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

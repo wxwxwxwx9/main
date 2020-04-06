@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.ListenerPropertyType.COMPARATOR;
+import static seedu.address.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
 import static seedu.address.model.ListenerPropertyType.FILTERED_INTERNSHIP_APPLICATIONS;
 import static seedu.address.model.ListenerPropertyType.PREDICATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INTERNSHIPS;
@@ -176,6 +177,47 @@ public class ModelManagerTest {
 
         modelManager.viewArchivedInternshipApplicationList();
         assertNull(mockListener.predicate);
+    }
+
+    @Test
+    public void addDisplayedInternsipDetailPropertyChangeListener_listChanged_listenerCalled() {
+        InternshipApplication google = GOOGLE;
+        InternshipApplication facebook = FACEBOOK;
+        class MockListener implements PropertyChangeListener {
+            private InternshipApplication oldInternshipApplication = null;
+            private InternshipApplication internshipApplication = null;
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                oldInternshipApplication = (InternshipApplication) e.getOldValue();
+                internshipApplication = (InternshipApplication) e.getNewValue();
+            }
+        }
+
+        MockListener mockListener = new MockListener();
+        modelManager.addPropertyChangeListener(DISPLAYED_INTERNSHIP_DETAIL, mockListener);
+        assertNull(mockListener.internshipApplication);
+
+        modelManager.addInternshipApplication(google);
+        assertNull(mockListener.oldInternshipApplication);
+        assertSame(google, mockListener.internshipApplication);
+
+        modelManager.setInternshipApplication(google, facebook);
+        assertSame(google, mockListener.oldInternshipApplication);
+        assertSame(facebook, mockListener.internshipApplication);
+
+        modelManager.deleteInternshipApplication(facebook);
+        assertSame(facebook, mockListener.oldInternshipApplication);
+        assertNull(mockListener.internshipApplication);
+
+        modelManager.displayInternshipDetail(google);
+        assertNull(mockListener.oldInternshipApplication);
+        assertSame(google, mockListener.internshipApplication);
+
+        modelManager.viewArchivedInternshipApplicationList();
+        assertNull(mockListener.oldInternshipApplication);
+        assertNull(mockListener.internshipApplication);
     }
 
     @Test

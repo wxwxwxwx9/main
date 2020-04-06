@@ -144,6 +144,11 @@ public interface Model {
     InternshipApplicationViewType getCurrentView();
 
     /**
+     * Changes the currently displayed InternshipApplicationDetail.
+     */
+    void displayInternshipDetail(InternshipApplication internshipApplication);
+
+    /**
      * Adds a property listener for any changes in {@code propertyType} used.
      */
     void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l);

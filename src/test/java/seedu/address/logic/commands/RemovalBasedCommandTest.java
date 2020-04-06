@@ -89,7 +89,7 @@ public class RemovalBasedCommandTest {
             new RemovalBasedCommand(index, executionTypeIndex, commandWord);
 
         InternshipApplication internshipApplicationToExecuteOn =
-                model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
         String expectedMessage = String.format(
             RemovalBasedCommand.MESSAGE_COMMAND_INTERNSHIP_SUCCESS.apply(commandWord),
@@ -150,7 +150,7 @@ public class RemovalBasedCommandTest {
         String deletedInternshipApplications = "";
 
         // create expected model and delete the appropriate internship applications
-        for (Index index: indices) {
+        for (Index index : indices) {
             InternshipApplication internshipApplicationToDelete =
                 model.getFilteredInternshipApplicationList().get(index.getZeroBased());
             expectedModel.deleteInternshipApplication(internshipApplicationToDelete);
@@ -193,7 +193,7 @@ public class RemovalBasedCommandTest {
         List<InternshipApplication> toDelete = new ArrayList<>();
 
         // get internship applications to delete
-        for (Index index: indices) {
+        for (Index index : indices) {
             InternshipApplication internshipApplicationToDelete =
                 expectedModel.getFilteredInternshipApplicationList().get(index.getZeroBased());
             toDelete.add(internshipApplicationToDelete);
@@ -299,7 +299,7 @@ public class RemovalBasedCommandTest {
 
         // BY INDEX
         RemovalBasedCommand firstRemovalBasedDeleteCommandByIndex =
-                new RemovalBasedCommand(index, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(index, executionTypeIndex, commandWord);
         RemovalBasedCommand secondRemovalBasedDeleteCommandByIndex =
             new RemovalBasedCommand(secondIndex, executionTypeIndex, commandWord);
 

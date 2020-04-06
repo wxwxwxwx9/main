@@ -15,7 +15,7 @@ import seedu.address.commons.util.DateTimeUtil;
  */
 public class ApplicationDate implements Comparable<ApplicationDate> {
     public static final String MESSAGE_CONSTRAINTS =
-        "Date should be in the form: DD MM YYYY";
+        "Date should be a valid date in the form: DD MM YYYY";
 
     // Default Pattern
     public static final String DATE_PATTERN = "dd MM yyyy";
