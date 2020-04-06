@@ -9,7 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPL
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
+import seedu.address.logic.commands.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RemovalBasedCommand;
 import seedu.address.model.status.Status;

@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
+import seedu.address.logic.commands.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -161,9 +161,10 @@ public class RemovalBasedCommand extends Command {
     public CommandResult executeByField(Model model, Function<Index, Command> lazyCommand) throws CommandException {
         requireNonNull(model);
 
-        List<InternshipApplication> internshipsToExecuteOn = getPredicateFilteredInternshipApplications(model);
+        List<InternshipApplication> internshipApplicationsToExecuteOn =
+            getPredicateFilteredInternshipApplications(model);
 
-        List<Index> indices = convertInternshipApplicationsToIndices(model, internshipsToExecuteOn);
+        List<Index> indices = convertInternshipApplicationsToIndices(model, internshipApplicationsToExecuteOn);
 
         checkValidIndices(model, indices);
 

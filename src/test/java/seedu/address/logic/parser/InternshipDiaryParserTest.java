@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
+import seedu.address.logic.commands.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchivalCommand;
 import seedu.address.logic.commands.ArchiveCommand;

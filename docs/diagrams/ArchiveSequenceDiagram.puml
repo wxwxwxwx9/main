@@ -3,67 +3,91 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":InternshipDiaryParser" as InternshipDiaryParser LOGIC_COLOR
-participant ":ArchiveCommandParser" as ArchiveCommandParser LOGIC_COLOR
-participant "d:ArchiveCommand" as ArchiveCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "r:RemovalBasedCommand" as RemovalBasedCommand LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-end box
+[-> LogicManager : execute("archive " + arg)
 
-[-> LogicManager : execute("archive 1")
 activate LogicManager
+'        add spacing
+RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-LogicManager -> InternshipDiaryParser : parseCommand("archive 1")
-activate InternshipDiaryParser
+'Parsing of removal-based command execution type'
+ref over LogicManager, RemovalBasedCommand : parse and create RemovalBasedCommand
+'        add spacing
+RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-create ArchiveCommandParser
-InternshipDiaryParser -> ArchiveCommandParser
-activate ArchiveCommandParser
+LogicManager -> RemovalBasedCommand : execute(model)
 
-ArchiveCommandParser --> InternshipDiaryParser
-deactivate ArchiveCommandParser
+    activate RemovalBasedCommand
+    '        add spacing
+    RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-InternshipDiaryParser -> ArchiveCommandParser : parse("1")
-activate ArchiveCommandParser
+    'Generating lazy command based on command word'
+    ref over RemovalBasedCommand : generate lazy removal-based command
 
-create ArchiveCommand
-ArchiveCommandParser -> ArchiveCommand
-activate ArchiveCommand
+    '        add spacing
+    RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-ArchiveCommand --> ArchiveCommandParser :
-deactivate ArchiveCommand
+    alt #white BY_INDEX
+    RemovalBasedCommand -> RemovalBasedCommand : executeByIndex(model, lazyCommand)
+        activate RemovalBasedCommand
+            'Construct and execute lazy removal-based command by index'
+            ref over RemovalBasedCommand : construct and execute lazy removal-based command by index
+            ref over RemovalBasedCommand : create command result
+            RemovalBasedCommand --> RemovalBasedCommand : cr
+            deactivate RemovalBasedCommand
+        '        add spacing
+        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-ArchiveCommandParser --> InternshipDiaryParser :
-deactivate ArchiveCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-ArchiveCommandParser -[hidden]-> InternshipDiaryParser
-destroy ArchiveCommandParser
+    else BY_INDICES
+    RemovalBasedCommand -> RemovalBasedCommand : executeByIndices(model, lazyCommand)
+        activate RemovalBasedCommand
+        RemovalBasedCommand -> RemovalBasedCommand : checkValidIndices(model, indices)
+            activate RemovalBasedCommand
+            RemovalBasedCommand --> RemovalBasedCommand
+            deactivate RemovalBasedCommand
+            '        add spacing
+            RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+            'Construct and execute lazy removal-based command by indices'
+            ref over RemovalBasedCommand : construct and execute lazy removal-based command by indices
+            ref over RemovalBasedCommand : create command result
+            RemovalBasedCommand --> RemovalBasedCommand : cr
+            deactivate RemovalBasedCommand
+        '        add spacing
+        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-InternshipDiaryParser --> LogicManager :
-deactivate InternshipDiaryParser
 
-LogicManager -> ArchiveCommand : execute(model)
-activate ArchiveCommand
+    else BY_FIELD
+    RemovalBasedCommand -> RemovalBasedCommand : executeByField(model, lazyCommand)
+        activate RemovalBasedCommand
+            RemovalBasedCommand -> RemovalBasedCommand : getPredicateFilteredInternshipApplications(model)
+            activate RemovalBasedCommand
+            RemovalBasedCommand --> RemovalBasedCommand : internshipApplicationsToExecuteOn
+            deactivate RemovalBasedCommand
+            '        add spacing
+            RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+            RemovalBasedCommand -> RemovalBasedCommand : convertInternshipApplicationsToIndices(internshipApplicationsToExecuteOn)
+            activate RemovalBasedCommand
+            RemovalBasedCommand --> RemovalBasedCommand : indices
+            deactivate RemovalBasedCommand
+            '        add spacing
+            RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+            'Construct and execute lazy removal-based command by indices'
+            ref over RemovalBasedCommand : construct and execute lazy removal-based command by indices
+            ref over RemovalBasedCommand : create command result
+            RemovalBasedCommand --> RemovalBasedCommand : cr
+            deactivate RemovalBasedCommand
+        '        add spacing
+        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
 
-ArchiveCommand -> Model : archiveInternshipApplication(1)
-activate Model
+    end alt
 
-Model --> ArchiveCommand
-deactivate Model
+    RemovalBasedCommand --> LogicManager : cr
 
-create CommandResult
-ArchiveCommand -> CommandResult
-activate CommandResult
+    deactivate RemovalBasedCommand
 
-CommandResult --> ArchiveCommand
-deactivate CommandResult
-
-ArchiveCommand --> LogicManager : result
-deactivate ArchiveCommand
-
-[<--LogicManager
+[<--LogicManager : cr
 deactivate LogicManager
+
 @enduml

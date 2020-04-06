@@ -1,4 +1,4 @@
-package seedu.address.commons.core.commandexecutiontype;
+package seedu.address.logic.commands.commandexecutiontype;
 
 import static seedu.address.logic.parser.CliSyntax.ALL_PREFIXES;
 import static seedu.address.logic.util.PrefixUtil.areAnyPrefixesPresent;

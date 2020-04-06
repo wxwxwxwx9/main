@@ -22,7 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
+import seedu.address.logic.commands.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;

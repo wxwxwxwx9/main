@@ -9,7 +9,7 @@ import static seedu.address.logic.util.PrefixUtil.areAnyPrefixesPresent;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
+import seedu.address.logic.commands.commandexecutiontype.RemovalBasedCommandExecutionType;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemovalBasedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
