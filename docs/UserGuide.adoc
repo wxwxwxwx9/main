@@ -320,9 +320,12 @@ Edits the date of the 1st interview in the 2nd internship application in the lis
 `interview 1 delete 1` +
 Deletes the 1st interview in the 1st internship application in the list.
 
-=== Getting deadline reminders : `reminder`
+=== Getting applications due or have interviews in 7 days : `reminder`
 
-Shows you all internship application(s) that need to be submitted or have interviews scheduled in 7 days. +
+Shows internship applications which:
+
+* have status `wishlist` and need to be submitted in 7 days
+* have status `interview` and interviews scheduled in 7 days
 
 The internship applications will be displayed in terms of urgency, with the application with the earliest application
 date or interview date, shown at the top.

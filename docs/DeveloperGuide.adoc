@@ -573,34 +573,49 @@ and creating a HashMap with those status as the key and respective count as the 
 //tag::reminder[]
 === Reminder Command
 
-The reminder command displays to users a list of internship applications which need to be submitted or have interviews
-scheduled in 7 days.
+The reminder command displays to users a list of internship applications which:
+
+* have status `wishlist` and need to be submitted in 7 days
+* have status `interview` and interviews scheduled in 7 days
 
 The following sequence diagram shows how the command is executed:
 
 .Sequence Diagram of `ReminderCommand`
 image::ReminderSequenceDiagram.png[]
 
-The following subsections will go through the general implementations of the reminder command.
-
 ==== Implementation
 The reminder command is implemented in the class `ReminderCommand` and instantiates two predicates
 `ApplicationDateDuePredicate` and `InterviewDateDuePredicate` with every call of the command.
 
-The two predicates classes implementing `Predicate<InternshipApplication>` are used as per follows:
+To facilitate the reminder command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
 
 * `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application
 has a date of the current date or within 7 days of the current date.
 
+* `StatusIsWishlistPredicate` -- Predicate to check whether the `Status` field of an internship application is
+`wishlist`.
+
 * `InterviewDateDuePredicate` -- Predicate to check whether there is at least one interview in the `ArrayList<Interview>
 interviews` of an internship application that has a date of the current date or within 7 days from the current date.
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also used
-to sort internship applications in terms of which application is more urgent. It compares internship applications
-by their `ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
+* `StatusIsInterviewPredicate` -- Predicate to check whether the `Status` field of an internship application is
+`interview`.
+
+* `IsNotArchivedPredicate` -- Predicate to check whether an internship application is not archived.
+
+Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
+`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
+operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
+the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The final predicate produced is
+then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
+
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
+passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
+applications in terms of which application is more urgent. It compares internship applications by their
+`ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
 applications, in order of either date being closer to current date. If two internship applications have the same date
 in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
-interviews` of the applications in order of which interview comes first.
+interviews` of the applications in order of which application has an interview that comes first.
 
 ==== Design considerations
 
