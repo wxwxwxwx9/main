@@ -1,0 +1,122 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":InternshipDiaryParser" as InternshipDiaryParser LOGIC_COLOR
+participant "i:InitClearCommand" as InitClearCommand LOGIC_COLOR
+participant "cr1:CommandResult" as CommandResult1 LOGIC_COLOR
+participant "cccp:ClearCommandConfirmationParser" as ClearCommandConfirmationParser LOGIC_COLOR
+participant "c:ClearCommand" as ClearCommand LOGIC_COLOR
+participant "cr2:CommandResult" as CommandResult2 LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "diary:InternshipDiary" as InternshipDiary MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("clear")
+activate LogicManager
+
+LogicManager -> InternshipDiaryParser : parseCommand("clear")
+activate InternshipDiaryParser
+
+create InitClearCommand
+InternshipDiaryParser -> InitClearCommand
+activate InitClearCommand
+
+InitClearCommand --> InternshipDiaryParser : i
+deactivate InitClearCommand
+
+InternshipDiaryParser --> LogicManager : i
+deactivate InternshipDiaryParser
+
+
+
+LogicManager -> InitClearCommand : execute()
+activate InitClearCommand
+
+create CommandResult1
+InitClearCommand -> CommandResult1
+activate CommandResult1
+
+CommandResult1 --> InitClearCommand : cr1
+deactivate CommandResult1
+
+InitClearCommand --> LogicManager : cr1
+deactivate InitClearCommand
+
+
+
+LogicManager -> InitClearCommand : getNextInternshipDiaryParser()
+activate InitClearCommand
+
+create ClearCommandConfirmationParser
+InitClearCommand -> ClearCommandConfirmationParser
+activate ClearCommandConfirmationParser
+
+ClearCommandConfirmationParser --> InitClearCommand : cccp
+deactivate ClearCommandConfirmationParser
+
+InitClearCommand --> LogicManager : cccp
+deactivate InitClearCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+
+
+
+
+[-> LogicManager : execute("yes")
+activate LogicManager
+
+LogicManager -> ClearCommandConfirmationParser : parseCommand("yes")
+activate ClearCommandConfirmationParser
+
+create ClearCommand
+ClearCommandConfirmationParser -> ClearCommand
+activate ClearCommand
+
+ClearCommand --> ClearCommandConfirmationParser : c
+deactivate ClearCommand
+
+ClearCommandConfirmationParser --> LogicManager : c
+deactivate ClearCommandConfirmationParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ClearCommandConfirmationParser -[hidden]-> InternshipDiaryParser
+destroy ClearCommandConfirmationParser
+
+
+
+LogicManager -> ClearCommand : execute()
+activate ClearCommand
+
+create InternshipDiary
+ClearCommand -> InternshipDiary
+activate InternshipDiary
+
+InternshipDiary --> ClearCommand : diary
+deactivate InternshipDiary
+
+ClearCommand -> Model : setInternshipDiary(diary)
+activate Model
+
+Model --> ClearCommand
+deactivate Model
+
+create CommandResult2
+ClearCommand -> CommandResult2
+activate CommandResult2
+
+CommandResult2 --> ClearCommand : cr2
+deactivate CommandResult2
+
+ClearCommand --> LogicManager : cr2
+deactivate ClearCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

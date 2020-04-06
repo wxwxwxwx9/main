@@ -41,7 +41,10 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
         }
 
-        return new CommandResult(MESSAGE_SELECT_SUCCESS, currentList.get(index.getZeroBased()));
+        InternshipApplication internshipApplication = currentList.get(index.getZeroBased());
+        model.displayInternshipDetail(internshipApplication);
+
+        return new CommandResult(MESSAGE_SELECT_SUCCESS);
     }
 
     @Override

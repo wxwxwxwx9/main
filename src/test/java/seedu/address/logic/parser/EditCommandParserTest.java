@@ -41,6 +41,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditInternshipDescriptor;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.Company;
 import seedu.address.model.internship.Email;
 import seedu.address.model.internship.Phone;
@@ -97,7 +98,7 @@ public class EditCommandParserTest {
             Priority.MESSAGE_CONSTRAINTS); // invalid priority
         assertParseFailure(parser, "1" + INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS); // invalid status
         assertParseFailure(parser, "1" + INVALID_DATE_DESC,
-            "Date should be in the form: DD MM YYYY"); // invalid date
+            ApplicationDate.MESSAGE_CONSTRAINTS); // invalid date
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);

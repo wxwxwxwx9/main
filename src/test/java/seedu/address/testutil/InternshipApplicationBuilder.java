@@ -221,7 +221,7 @@ public class InternshipApplicationBuilder {
      */
     public InternshipApplication build() {
         InternshipApplication internshipApplication = new InternshipApplication(company, role, address, phone, email,
-                applicationDate, priority, status);
+            applicationDate, priority, status);
         internshipApplication = internshipApplication.setLastStage(lastStage);
         return internshipApplication;
     }

@@ -60,7 +60,7 @@ public class ReminderCommand extends Command {
                 .reduce(x -> true, Predicate::and);
 
         Predicate<InternshipApplication> customPredicate = new CustomToStringPredicate<>(predicate,
-                "Reminder");
+            "Reminder");
         model.updateFilteredInternshipApplicationList(customPredicate);
         model.updateFilteredInternshipApplicationList(new ApplicationDateAndInterviewDateComparator());
         return new CommandResult(MESSAGE_SUCCESS);

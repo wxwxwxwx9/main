@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.comparator.ApplicationDateComparator;
 import seedu.address.logic.comparator.CompanyComparator;
 import seedu.address.logic.comparator.PriorityComparator;
+import seedu.address.logic.comparator.RoleComparator;
 import seedu.address.logic.comparator.StatusComparator;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.InternshipApplication;
@@ -30,6 +32,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     static {
         comparatorMap = Map.of(
             PREFIX_COMPANY, new CompanyComparator(),
+            PREFIX_ROLE, new RoleComparator(),
             PREFIX_DATE, new ApplicationDateComparator(),
             PREFIX_PRIORITY, new PriorityComparator(),
             PREFIX_STATUS, new StatusComparator()
@@ -48,6 +51,8 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<InternshipApplication> comparator = argMultimapToComparator(argMultimap);
         if (argMultimap.getPreamble().equals(SortCommand.REVERSE_KEYWORD)) {
             comparator = comparator.reversed();
+        } else if (!argMultimap.getPreamble().equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
         return new SortCommand(comparator);
     }
@@ -66,7 +71,12 @@ public class SortCommandParser implements Parser<SortCommand> {
         if (prefixFound.size() != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-        return comparatorMap.get(prefixFound.get(0));
+        Prefix prefix = prefixFound.get(0);
+        // isPresent check already done above.
+        if (!argMultimap.getValue(prefix).get().equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+        return comparatorMap.get(prefix);
     }
 
 }

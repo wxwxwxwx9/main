@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Comparator;
@@ -26,11 +27,14 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Sorts current list by given parameter.\n"
         + "Parameters: [" + REVERSE_KEYWORD + "] KEYWORD\n"
-        + "Available sorts: Company: " + PREFIX_COMPANY + ", "
+        + "Available sorts:"
+        + "Company: " + PREFIX_COMPANY + ", "
+        + "Role: " + PREFIX_ROLE + ", "
         + "Date: " + PREFIX_DATE + ", "
         + "Priority: " + PREFIX_PRIORITY + ", "
         + "Status: " + PREFIX_STATUS + ".\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_COMPANY;
+        + "Example: " + COMMAND_WORD + " " + PREFIX_COMPANY + "\n"
+        + "Remarks: sort order is detailed in the User Guide.";
 
     private final Comparator<InternshipApplication> comparator;
 

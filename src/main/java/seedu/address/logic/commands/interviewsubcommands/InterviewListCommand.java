@@ -27,7 +27,7 @@ public class InterviewListCommand extends InterviewCommand {
         requireNonNull(model);
         InternshipApplication internshipToList = super.getInternshipApplication(model, index);
         // Todo: change interviews into observable list and make it show here.
-        return new CommandResult(String.format(MESSAGE_SUCCESS, internshipToList), internshipToList);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, internshipToList));
     }
 
     @Override

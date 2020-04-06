@@ -95,7 +95,7 @@ public class EditCommand extends Command {
 
         model.setInternshipApplication(internshipToEdit, editedInternship);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship), editedInternship);
+        return new CommandResult(String.format(MESSAGE_EDIT_INTERNSHIP_SUCCESS, editedInternship));
     }
 
     /**
