@@ -269,12 +269,15 @@ public class ParserUtilTest {
     @Test
     public void parseStatus_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseStatus(INVALID_STATUS));
+        assertThrows(ParseException.class, () -> ParserUtil.parseStatus(VALID_STATUS.substring(1)));
     }
 
     @Test
     public void parseStatus_validValueWithoutWhiteSpace_returnsStatus() throws ParseException {
         Status status = Status.APPLIED;
         assertEquals(status, ParserUtil.parseStatus(VALID_STATUS));
+        assertEquals(status, ParserUtil.parseStatus(VALID_STATUS.substring(0, 1)));
+        assertEquals(status, ParserUtil.parseStatus(VALID_STATUS.substring(0, 3)));
     }
 
     @Test
