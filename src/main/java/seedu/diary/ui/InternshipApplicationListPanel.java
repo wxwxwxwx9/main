@@ -15,6 +15,8 @@ import seedu.diary.commons.core.LogsCenter;
 import seedu.diary.model.internship.InternshipApplication;
 import seedu.diary.model.internship.predicate.ApplicationDateDuePredicate;
 import seedu.diary.model.internship.predicate.InterviewDateDuePredicate;
+import seedu.diary.model.internship.predicate.StatusIsInterviewPredicate;
+import seedu.diary.model.internship.predicate.StatusIsWishlistPredicate;
 import seedu.diary.model.status.Status;
 
 /**
@@ -67,11 +69,9 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
                 setStyle(originalStyle);
             } else {
                 setGraphic(new InternshipApplicationCard(internshipApplication, getIndex() + 1).getRoot());
-                Predicate<InternshipApplication> upcomingPredicate = new ApplicationDateDuePredicate()
-                    .or(new InterviewDateDuePredicate());
                 if (internshipApplication.isArchived()) {
                     setStyle(originalStyle);
-                } else if (upcomingPredicate.test(internshipApplication)) {
+                } else if (isUpcoming(internshipApplication)) {
                     setStyle(UPCOMING_BACKGROUND_COLOR);
                 } else if (internshipApplication.getStatus().equals(Status.GHOSTED)) {
                     setStyle(GHOSTED_BACKGROUND_COLOR);
@@ -79,6 +79,21 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
                     setStyle(originalStyle);
                 }
             }
+        }
+
+        /**
+         * Verify if the given internship application has upcoming deadline or interview.
+         *
+         * @param internshipApplication The internship application to check.
+         * @return true if the application has a application deadline and is of status wishlist, or if the application
+         * has an upcoming interview and is of status interview. False otherwise.
+         */
+        private boolean isUpcoming(InternshipApplication internshipApplication) {
+            Predicate<InternshipApplication> applicationDateDuePredicate =
+                    new ApplicationDateDuePredicate().and(new StatusIsWishlistPredicate());
+            Predicate<InternshipApplication> upcomingInterviewDatePredicate =
+                    new InterviewDateDuePredicate().and(new StatusIsInterviewPredicate());
+            return applicationDateDuePredicate.or(upcomingInterviewDatePredicate).test(internshipApplication);
         }
     }
 
