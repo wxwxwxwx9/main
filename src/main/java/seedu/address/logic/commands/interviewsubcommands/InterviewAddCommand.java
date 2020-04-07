@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.InterviewCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.InterviewCommandException;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
@@ -29,15 +30,17 @@ public class InterviewAddCommand extends InterviewCommand {
         + PREFIX_IS_ONLINE + "false "
         + PREFIX_ADDRESS + "123 road "
         + PREFIX_DATE + "01 02 2020 ";
+    public static final String MESSAGE_OFFLINE_INTERVIEW_ADDRESS = "Offline interviews require address tag ["
+        + PREFIX_ADDRESS + "ADDRESS] non-empty";
 
     private final Index index;
-    private final Interview toAdd;
+    private final Interview interviewToAdd;
 
     public InterviewAddCommand(Index index, Interview interview) {
         requireNonNull(interview);
         requireNonNull(index);
         this.index = index;
-        toAdd = interview;
+        interviewToAdd = interview;
     }
 
     @Override
@@ -45,20 +48,24 @@ public class InterviewAddCommand extends InterviewCommand {
         requireNonNull(model);
         InternshipApplication internshipToModify = super.getInternshipApplication(model, index);
 
-        if (internshipToModify.hasInterview(toAdd)) {
+        if (internshipToModify.hasInterview(interviewToAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_INTERVIEW, internshipToModify));
         }
 
-        internshipToModify.addInterview(toAdd);
+        if (super.isInterviewBeforeApplication(internshipToModify, interviewToAdd)) {
+            throw new InterviewCommandException(super.MESSAGE_INTERVIEW_DATE_ERROR);
+        }
+
+        internshipToModify.addInterview(interviewToAdd);
         model.displayInternshipDetail(internshipToModify);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, interviewToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
             || (other instanceof InterviewAddCommand
-            && toAdd.equals(((InterviewAddCommand) other).toAdd)
+            && interviewToAdd.equals(((InterviewAddCommand) other).interviewToAdd)
             && index.equals(((InterviewAddCommand) other).index));
     }
 }
