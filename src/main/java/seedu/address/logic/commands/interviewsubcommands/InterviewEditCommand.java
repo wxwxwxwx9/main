@@ -78,7 +78,7 @@ public class InterviewEditCommand extends InterviewCommand {
         }
 
         lastShownList.set(interviewIndex.getZeroBased(), editedInterview);
-        model.displayInternshipDetail(internshipToModify);
+        // todo: update display
         return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview));
     }
 
