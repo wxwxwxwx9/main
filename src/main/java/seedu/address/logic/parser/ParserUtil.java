@@ -202,11 +202,11 @@ public class ParserUtil {
         requireNonNull(status);
         String trimmedStatus = status.trim();
         trimmedStatus = trimmedStatus.replaceAll("\\s", "_");
-        if (!Status.isValidStatus(trimmedStatus)) {
+        List<Status> possibleStatus = Status.possibleStatus(trimmedStatus);
+        if (possibleStatus.size() != 1) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
-        // replaces all whitespace with _
-        return Status.valueOf(trimmedStatus.toUpperCase());
+        return possibleStatus.get(0);
     }
 
     /**
