@@ -27,6 +27,6 @@ public interface Storage extends InternshipDiaryStorage, UserPrefsStorage {
     Optional<ReadOnlyInternshipDiary> readInternshipDiary() throws DataConversionException, IOException;
 
     @Override
-    void saveInternshipDiary(ReadOnlyInternshipDiary addressBook) throws IOException;
+    void saveInternshipDiary(ReadOnlyInternshipDiary internshipDiary) throws IOException;
 
 }
