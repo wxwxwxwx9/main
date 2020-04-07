@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/seedu/diary/logic/commands/commandexecutiontype/RemovalBasedCommandExecutionType.java
-package seedu.address.logic.commands.commandexecutiontype;
-=======
 package seedu.diary.commons.core.commandexecutiontype;
->>>>>>> ceb520bb124be721305b0243e18290c014bbe049:src/main/java/seedu/diary/commons/core/commandexecutiontype/RemovalBasedCommandExecutionType.java
 
 import static seedu.diary.logic.parser.CliSyntax.ALL_PREFIXES;
 import static seedu.diary.logic.util.PrefixUtil.areAnyPrefixesPresent;
