@@ -1,0 +1,67 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+Class InternshipDiary {
+    - changes: PropertyChangeSupport
+    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+    + firePropertyChange(ListenerPropertyType propertyType, \nObject newValue): void
+}
+
+Class ModelManager implements PropertyChangeListener {
+    - changes: PropertyChangeSupport
+    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
+    + propertyChange(PropertyChangeEvent e): void
+    - refreshFilteredInternshipApplications(Object newInternshipApplications)
+    - fireAllPropertyChanges(): void
+}
+
+Class UiComponent implements PropertyChangeListener {
+    + propertyChange(PropertyChangeEvent e): void
+}
+
+interface PropertyChangeListener {
+    propertyChange(PropertyChangeEvent e): void
+}
+
+enum ListenerPropertyType {
+    DISPLAYED_INTERNSHIPS
+    VIEW_TYPE
+    COMPARATOR
+    PREDICATE
+    FILTERED_INTERNSHIP_APPLICATIONS
+    DISPLAYED_INTERNSHIP_DETAILS
+}
+
+enum InternshipApplicationViewType {
+    ARCHIVED
+    UNARCHIVED
+}
+
+ModelManager o--> "1" InternshipDiary
+
+InternshipDiary ..> InternshipApplicationViewType
+InternshipDiary ..> ListenerPropertyType
+
+ModelManager -up- UiComponent: updates with new reference >
+UiComponent -- ModelManager: listens for updates to various ListenerPropertyType >
+
+InternshipDiary -- ModelManager: updates with new reference >
+ModelManager -left- InternshipDiary: listens for updates to DISPLAYED_INTERNSHIPS >
+
+ModelManager -[hidden]up-> PropertyChangeListener
+
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, internshipApplicationListPanel);
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsWindow);
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsBarFooter);
+'        logic.addPropertyChangeListener(COMPARATOR, comparatorDisplayFooter);
+'        logic.addPropertyChangeListener(PREDICATE, predicateDisplayFooter);
+'        logic.addPropertyChangeListener(PREDICATE, internshipApplicationDetailSetter);
+'        logic.addPropertyChangeListener(VIEW_TYPE, viewDisplayFooter);
+'        logic.addPropertyChangeListener(DISPLAYED_INTERNSHIP_DETAIL, internshipApplicationDetailSetter);
+
+
+
+@enduml

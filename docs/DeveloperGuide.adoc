@@ -493,28 +493,72 @@ Beyond the primary purpose of allowing users to switch between their view of mai
 This means that a user should not `archive` an internship application when it is already in the archival -- doing so will raise an exception.
 This is identical for the `unarchive` command in the main list as well.
 
-The following sequence diagram illustrates how an `archival` command is executed. The sequence diagram for the `list` command is identical.
-You may use the same sequence diagram as reference for how the `list` command is carried out.
-
-image::ArchivalSequenceDiagram.png[]
-
 ===== Implementation
+
+image::InternshipDiaryAndModelManagerClassDiagram.png[width="700", align="center"]
+
+As seen from the class diagram, our implementation involves maintaining 2 `UniqueInternshipApplicationList` objects: `unarchivedInternships` and `archivedInternships`.
+
+`displayedInternships` serves as a reference for either `archivedInternships` or `unarchivedInternships` at any one time.
+As the name suggests, it is the current list that is shown to the user in the GUI.
+
+The following sequence diagram illustrates how an `archival` command is executed. The `list` command is similar to `archival`.
+You may use the same sequence diagram for the `list` command.
+
+image::ArchivalSequenceDiagram.png[align="center"]
+
+The following code snippet is retrieved from the InternshipDiary class. It illustrates the internal workings of how we switch the view between archived list and the main list.
+
+    public void viewArchivedInternshipApplicationList() {
+        this.displayedInternships = archivedInternships;
+        this.currentView = InternshipApplicationViewType.ARCHIVED;
+        firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());
+    }
+
+It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
+However, such implementation brings about issues with reactivity where the UI elements that references `displayedInternships` are not aware of the
+reference update whenever the user executes `archival` or `list`. Therefore, users would still see the main list after executing the `archival` command.
+
+To resolve this issue, we employed the observer pattern. The idea is to assign each UI element to be an `observer` and `InternshipDiary` to be the `observable`.
+Consequently, whenever there is a state change to `InternshipDiary`, the list of `observers` will be notified and updated automatically.
+To achieve this observer pattern, we implemented the `PropertyChangeListener` interface.
+
+image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
+
+The updated class diagram above illustrates the implementation of the aforementioned observer pattern.
+
+Note that certain methods and members from the previous class diagram have been omitted for brevity. The updated class diagram
+shows the additional methods and members.
+
+With reference to the code snippet above, the line of code, `firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());`,
+is the mechanism that updates the relevant UI elements about the reference change in `displayedInternships`.
+
+*activity diagram to be inserted here*
 
 ===== Design Considerations
 
-===== Aspect: How to implement the internship application archival mechanism
-* **Alternative 1 (current choice)**: Manipulate the current view of the internship diary to accommodate the archival mechanism.
-This is easily achieved with efficient use of the FilteredList and Predicates, along with a boolean isArchived variable
-for each internship application to help us decide if the internship application should be rendered.
-** Pros: Cleaner code and more maintainable codebase. More efficient use of memory and resources as well.
-** Cons: Users have to be mindful of the two different views in the internship diary.
+===== Aspect: How to implement the archival view mechanism
+* **Alternative 1 (current choice)**: Maintain two `UniqueInternshipApplicationList`, `archivedInternships` and `unarchivedInternships`
+and use `displayedInternships` as the reference for UI elements to get the list of internship application(s).
+Whenever user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships`.
+In terms of storage, we will use only one list. This means that whenever we load the list of internship application(s) from the JSON save file,
+we will filter the internship application(s) appropriately into `archivedInternships` and `unarchivedInternships` in `InternshipDiary`.
+When saving, we combine both `archivedInternships` and `unarchivedInternships` into a single list for storage.
+** Pros: No need to modify the storage and its relevant test cases.
+** Cons: Potentially expensive in terms of computation. Furthermore, we will have to implement observer pattern to handle the reference changes.
 
-* **Alternative 2**: Create a separate internship diary dedicated to handle archived internship applications.
+* **Alternative 2**: Create a separate internship diary specifically to handle archived internship applications.
 ** Pros: Straightforward and intuitive. +
-This should be easily understood by users as the idea is to replicate the current internship diary, with the same commands and features.
-To move internship application, one just has to archive / unarchive from the appropriate internship diary.
-** Cons: Users will have to deal with two internship diaries, which can be undesirable.
-This approach is memory-inefficient as well.
+This should be easily understood by users and implementers as the idea is to replicate the current internship diary, with the same commands and features.
+To view the archived internship application(s), one just has to render the appropriate internship diary.
+** Cons: Have to modify the storage and its relevant test cases to save two internship diaries.
+This may be time-consuming in terms of implementation and refactoring.
+
+* **Alternative 3**: Manipulate the current view of the internship application list by using Predicates and FilteredList,
+along with the boolean isArchived variable in `InternshipApplication`. For example,
+for each internship application to help us decide if the internship application should be rendered.
+** Pros: Less effort in implementation and less expensive in terms of memory and computation.
+** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
 
 ==== Archive & Unarchive
 
@@ -527,11 +571,11 @@ Conversely, the command `unarchive` allows a user to move internship application
 While implementing the `archive` and `unarchive` commands, we realised that users may sometimes want to cherry-pick multiple internship application(s) to execute on and/or mass-execute on certain types of internship application(s).
 For example, a user may want to archive all the internship application(s) that have the status of "rejected".
 
-Therefore, we decided to specifically create a new category, "removal-based commands", to classify commands like `archive`, `unarchive`, and `delete`.
-This is because the utility of such functions serve to modify the list by removing a certain item. This makes the three commands very similar in terms of functionality.
+Therefore, we specifically created a new category, "removal-based commands", to classify commands like `archive`, `unarchive`, and `delete`.
+This is because the utility of such functions are very similar; in that they serve to modify the list by removing items.
 
-The intention of introducing such a category is to extend the functionality of such "removal-based commands" to allowing users to execute the commands with different
-arguments depending on their intention.
+The intention of introducing such a category is to extend the functionality of such "removal-based commands" -- to give users
+the ability to execute commands on multiple internship application(s).
 
 Currently, we have implemented the functionality for users to execute `archive`, `unarchive,` and `delete` command based on index, indices,
 and by the internship application(s) status. This is known as an "execution type" for a "removal-based command".
@@ -601,17 +645,13 @@ image::ActivityDiagramArchiveCommand.png[]
 
 ==== Design Considerations
 
-===== Aspect: How to implement the internship application archival mechanism
-* **Alternative 1 (current choice)**: Manipulate the current view of the internship diary to accommodate the archival mechanism.
-This is easily achieved with efficient use of the FilteredList and Predicates, along with a boolean isArchived variable
-for each internship application to help us decide if the internship application should be rendered.
+===== Aspect: How to implement multiple execution types for removal-based commands
+* **Alternative 1 (current choice)**:
 ** Pros: Cleaner code and more maintainable codebase. More efficient use of memory and resources as well.
 ** Cons: Users have to be mindful of the two different views in the internship diary.
 
-* **Alternative 2**: Create a separate internship diary dedicated to handle archived internship applications.
-** Pros: Straightforward and intuitive. +
-This should be easily understood by users as the idea is to replicate the current internship diary, with the same commands and features.
-To move internship application, one just has to archive / unarchive from the appropriate internship diary.
+* **Alternative 2**:
+** Pros: Code will be  +
 ** Cons: Users will have to deal with two internship diaries, which can be undesirable.
 This approach is memory-inefficient as well.
 

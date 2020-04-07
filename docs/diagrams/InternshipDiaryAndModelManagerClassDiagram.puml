@@ -1,0 +1,31 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+Class InternshipDiary {
+    - displayedInternships: UniqueInternshipApplicationList = unarchivedInternships
+    - unarchivedInternships: UniqueInternshipApplicationList
+    - archivedInternships: UniqueInternshipApplicationList
+    - currentView: InternshipApplicationViewType
+    + viewArchivedInternshipApplicationList(): void
+    + viewUnarchivedInternshipApplicationList(): void
+    + getCurrentView(): InternshipApplicationViewType
+    + getDisplayedInternshipList(): ObservableList<InternshipApplication>
+}
+
+Class ModelManager {
+    - InternshipDiary: ReadOnlyInternshipDiary
+}
+
+enum InternshipApplicationViewType {
+    ARCHIVED
+    UNARCHIVED
+}
+
+ModelManager o--> "1" InternshipDiary
+InternshipDiary ..> InternshipApplicationViewType
+
+InternshipDiary -[hidden]right-> InternshipApplicationViewType
+
+@enduml
