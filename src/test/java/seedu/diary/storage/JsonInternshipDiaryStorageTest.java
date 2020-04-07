@@ -97,12 +97,12 @@ public class JsonInternshipDiaryStorageTest {
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code internshipDiary} at the specified {@code filePath}.
      */
-    private void saveInternshipDiary(ReadOnlyInternshipDiary addressBook, String filePath) {
+    private void saveInternshipDiary(ReadOnlyInternshipDiary internshipDiary, String filePath) {
         try {
             new JsonInternshipDiaryStorage(Paths.get(filePath))
-                .saveInternshipDiary(addressBook, addToTestDataPathIfNotNull(filePath));
+                .saveInternshipDiary(internshipDiary, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
