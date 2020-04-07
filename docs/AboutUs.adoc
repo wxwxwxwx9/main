@@ -47,10 +47,10 @@ Sort/Find Display Footer
 
 === Felicia Tay Wan Yee
 image::feliciatay.png[width="150", align="left"]
-{empty}[https://github.com/FeliciaTay[github]] [<<felicia#, portfolio>>]
+{empty}[https://github.com/FeliciaTay[github]] [<<feliciatay#, portfolio>>]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: TBA
 
 '''
 

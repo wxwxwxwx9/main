@@ -52,11 +52,32 @@ public class InternshipApplication {
     }
 
     /**
-     * Overloaded constructor to set isArchived field (probably not needed).
+     * Overloaded constructor to set isArchived, lastStage and interviews fields.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-        ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
+        ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived, Status lastStage,
         List<Interview> interviews) {
+        requireAllNonNull(company, phone, email, address, status);
+        this.company = company;
+        this.role = role;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+        this.applicationDate = applicationDate;
+        this.priority = priority;
+        this.isArchived = isArchived;
+        this.isGhostedOrRejected = false;
+        this.lastStage = lastStage;
+        this.interviews = interviews;
+    }
+
+    /**
+     * Overloaded constructor to set isArchived, lastStage and interviews fields.
+     */
+    public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
+                                 ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
+                                 List<Interview> interviews) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -73,7 +94,7 @@ public class InternshipApplication {
     }
 
     /**
-     * Overloaded constructor to set lastStage field.
+     * Overloaded constructor to set lastStage and interviews field.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
         ApplicationDate applicationDate, Priority priority, Status status,
@@ -224,16 +245,19 @@ public class InternshipApplication {
      * The rationale behind this is to uphold immutability.
      */
     public InternshipApplication archive() {
-        return new InternshipApplication(this.company,
-            this.role,
-            this.address,
-            this.phone,
-            this.email,
-            this.applicationDate,
-            this.priority,
-            this.status,
-            true,
-            this.interviews);
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+                true,
+                this.lastStage,
+                this.interviews
+        );
     }
 
     /**
@@ -241,16 +265,19 @@ public class InternshipApplication {
      * The rationale behind this is to uphold immutability.
      */
     public InternshipApplication unarchive() {
-        return new InternshipApplication(this.company,
-            this.role,
-            this.address,
-            this.phone,
-            this.email,
-            this.applicationDate,
-            this.priority,
-            this.status,
-            false,
-            this.interviews);
+        return new InternshipApplication(
+                this.company,
+                this.role,
+                this.address,
+                this.phone,
+                this.email,
+                this.applicationDate,
+                this.priority,
+                this.status,
+                false,
+                this.lastStage,
+                this.interviews
+        );
     }
 
     /**
@@ -262,7 +289,11 @@ public class InternshipApplication {
         LocalDate currentDate = LocalDate.now();
         Optional<Interview> earliestInterview = getEarliestInterview(currentDate);
         if (applicationDate.fullApplicationDate.compareTo(currentDate) < 0) { // application date before current date
-            return earliestInterview.get().getDate();
+            if (earliestInterview.isPresent()) {
+                return earliestInterview.get().getDate();
+            } else {
+                return applicationDate;
+            }
         }
         if (earliestInterview.isPresent()) { // there are interviews after current date
             ApplicationDate earliestInterviewDate = earliestInterview.get().getDate();

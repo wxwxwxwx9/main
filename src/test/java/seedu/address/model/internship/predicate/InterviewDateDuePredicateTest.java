@@ -42,7 +42,7 @@ class InterviewDateDuePredicateTest {
 
         // interview date is within 7 days from current date
         InternshipApplicationBuilder internshipApplicationTestWithin = new InternshipApplicationBuilder();
-        LocalDate laterDate = LocalDate.now().plus(4, ChronoUnit.DAYS);
+        LocalDate laterDate = currentDate.plus(4, ChronoUnit.DAYS);
         Interview newInterviewTestWithin = new Interview(true, new ApplicationDate(laterDate),
             new Address("123 Stevens Road"));
         internshipApplicationTestWithin.withInterview(newInterviewTestWithin);
