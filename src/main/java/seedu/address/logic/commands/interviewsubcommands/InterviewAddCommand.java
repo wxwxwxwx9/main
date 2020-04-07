@@ -24,7 +24,7 @@ public class InterviewAddCommand extends InterviewCommand {
         + "Parameters: INDEX (must be a positive integer) add "
         + "[" + PREFIX_IS_ONLINE + "is it an online interview (true/false)] "
         + "[" + PREFIX_DATE + "DATE] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS (optional if online interview] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS (optional if online interview, compulsory if offline interview)] \n"
         + "Example: " + COMMAND_WORD + " 1 add "
         + PREFIX_IS_ONLINE + "false "
         + PREFIX_ADDRESS + "123 road "
