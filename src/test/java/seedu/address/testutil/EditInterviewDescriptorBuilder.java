@@ -48,6 +48,18 @@ public class EditInterviewDescriptorBuilder {
     }
 
     /**
+     * Overloaded interviewDate setter that uses a LocalDate instead of a String.
+     */
+    public EditInterviewDescriptorBuilder withInterviewDate(LocalDate date) {
+        try {
+            descriptor.setDate(new ApplicationDate(date));
+            return this;
+        } catch (DateTimeParseException e) {
+            return this;
+        }
+    }
+
+    /**
      * Sets the {@code Address} of the {@code EditInternshipDescriptor} that we are building.
      */
     public EditInterviewDescriptorBuilder withAddress(String address) {

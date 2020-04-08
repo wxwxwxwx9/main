@@ -17,9 +17,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.InterviewCommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.InternshipApplication;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.EditInterviewDescriptorBuilder;
@@ -49,6 +51,31 @@ public class InterviewEditCommandTest {
             INDEX_FIRST_INTERVIEW, editInterviewDescriptor);
         assertThrows(NullPointerException.class, () ->
             command.execute(null));
+    }
+
+    @Test
+    public void execute_invalidDate_throwsInterviewCommandException() {
+        ApplicationDate date = model.getFilteredInternshipApplicationList()
+                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()).getApplicationDate();
+        InterviewEditCommand.EditInterviewDescriptor tempInterviewDescriptor = new EditInterviewDescriptorBuilder()
+                .withInterviewDate(date.fullApplicationDate.minusDays(3)).build();
+        InterviewEditCommand command = new InterviewEditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
+                INDEX_FIRST_INTERVIEW, tempInterviewDescriptor);
+        assertThrows(InterviewCommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void execute_missingAddressField_throwsInterviewCommandException() {
+        Interview interview = new InterviewBuilder(ONLINE).build();
+        model.getFilteredInternshipApplicationList()
+                .get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased()).addInterview(interview);
+        Index index = Index.fromOneBased(model.getFilteredInternshipApplicationList()
+                .get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased()).getInterviews().size());
+        InterviewEditCommand.EditInterviewDescriptor tempInterviewDescriptor = new EditInterviewDescriptorBuilder()
+                .withIsOnline("false").build();
+        InterviewEditCommand command = new InterviewEditCommand(INDEX_SECOND_INTERNSHIP_APPLICATION,
+                index, tempInterviewDescriptor);
+        assertThrows(InterviewCommandException.class, () -> command.execute(model));
     }
 
     @Test

@@ -25,7 +25,6 @@ import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewListCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InterviewBuilder;
