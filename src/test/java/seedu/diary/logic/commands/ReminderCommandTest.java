@@ -101,33 +101,21 @@ class ReminderCommandTest {
 
     @Test
     public void execute_afterReminder_showsFilteredAndSortedList() {
+
         ApplicationDateDuePredicate appDateWithin7DaysPredicate = new ApplicationDateDuePredicate();
         StatusIsWishlistPredicate statusIsWishlistPredicate = new StatusIsWishlistPredicate();
-        List<Predicate<InternshipApplication>> checkWishlistPredicate = new ArrayList<>();
-        checkWishlistPredicate.add(appDateWithin7DaysPredicate);
-        checkWishlistPredicate.add(statusIsWishlistPredicate);
-        Predicate<InternshipApplication> wishlistPredicate = checkWishlistPredicate.stream()
-                .reduce(x -> true, Predicate::and);
+        Predicate<InternshipApplication> wishlistPredicate = appDateWithin7DaysPredicate.and(statusIsWishlistPredicate);
 
         InterviewDateDuePredicate interviewDateWithin7DaysPredicate = new InterviewDateDuePredicate();
         StatusIsInterviewPredicate statusIsInterviewPredicate = new StatusIsInterviewPredicate();
-        List<Predicate<InternshipApplication>> checkInterviewPredicate = new ArrayList<>();
-        checkInterviewPredicate.add(interviewDateWithin7DaysPredicate);
-        checkInterviewPredicate.add(statusIsInterviewPredicate);
-        Predicate<InternshipApplication> interviewPredicate = checkInterviewPredicate.stream()
-                .reduce(x -> true, Predicate::and);
+        Predicate<InternshipApplication> interviewPredicate = interviewDateWithin7DaysPredicate
+                .and(statusIsInterviewPredicate);
 
-        List<Predicate<InternshipApplication>> checkDatePredicates = new ArrayList<>();
-        checkDatePredicates.add(wishlistPredicate);
-        checkDatePredicates.add(interviewPredicate);
-        Predicate<InternshipApplication> datePredicate = checkDatePredicates.stream().reduce(x -> false, Predicate::or);
+        Predicate<InternshipApplication> datePredicate = wishlistPredicate.or(interviewPredicate);
 
         IsNotArchivedPredicate isNotArchivedPredicate = new IsNotArchivedPredicate();
-        List<Predicate<InternshipApplication>> dateAndNotArchivedPredicates = new ArrayList<>();
-        dateAndNotArchivedPredicates.add(datePredicate);
-        dateAndNotArchivedPredicates.add(isNotArchivedPredicate);
-        Predicate<InternshipApplication> predicate = dateAndNotArchivedPredicates.stream()
-                .reduce(x -> true, Predicate::and);
+
+        Predicate<InternshipApplication> predicate = isNotArchivedPredicate.and(datePredicate);
 
         assertEquals(expectedModel.getAllInternshipApplicationList().size(), 6);
         expectedModel.updateFilteredInternshipApplicationList(predicate);
