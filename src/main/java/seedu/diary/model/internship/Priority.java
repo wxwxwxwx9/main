@@ -11,7 +11,7 @@ public class Priority implements Comparable<Priority> {
     public static final int HIGHEST_PRIORITY = 10;
     public static final int LOWEST_PRIORITY = 0;
     public static final String MESSAGE_CONSTRAINTS =
-        "Priority should only contain a number, and it should not be blank";
+        "Priority should only contain a number between 0 to 10 inclusive, and it should not be blank";
 
     public final int fullPriority;
 
