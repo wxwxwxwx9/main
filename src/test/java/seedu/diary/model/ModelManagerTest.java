@@ -91,7 +91,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasInternshipApplication_nullPerson_throwsNullPointerException() {
+    public void hasInternshipApplication_nullInternshipApplication_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasInternshipApplication(null));
     }
 
