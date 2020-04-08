@@ -5,6 +5,10 @@ import java.time.format.DateTimeFormatter;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 
+/**
+ * Represents an interview that is scheduled to be conducted offline.
+ * Address field is compulsory when creating this Interview object.
+ */
 public class OfflineInterview extends Interview {
 
     public OfflineInterview(ApplicationDate interviewDate, Address interviewAddress) {

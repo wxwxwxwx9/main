@@ -13,9 +13,16 @@ import seedu.address.model.internship.ApplicationDate;
  * Represents an Interview in the Internship Diary.
  * Interviews are always tagged to an internship application.
  */
-abstract public class Interview {
+public abstract class Interview {
     protected final ApplicationDate interviewDate;
     protected final Address interviewAddress;
+
+    protected Interview(ApplicationDate interviewDate, Address interviewAddress) {
+        requireNonNull(interviewDate);
+        requireNonNull(interviewAddress);
+        this.interviewDate = interviewDate;
+        this.interviewAddress = interviewAddress;
+    }
 
     /**
      * Constructs a new online or offline interview based on the parameters given.
@@ -36,13 +43,6 @@ abstract public class Interview {
      */
     public static Interview createOnlineInterview(ApplicationDate interviewDate) {
         return new OnlineInterview(interviewDate);
-    }
-
-    protected Interview(ApplicationDate interviewDate, Address interviewAddress) {
-        requireNonNull(interviewDate);
-        requireNonNull(interviewAddress);
-        this.interviewDate = interviewDate;
-        this.interviewAddress = interviewAddress;
     }
 
     /**

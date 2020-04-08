@@ -5,6 +5,10 @@ import java.time.format.DateTimeFormatter;
 import seedu.address.model.internship.Address;
 import seedu.address.model.internship.ApplicationDate;
 
+/**
+ * Represents an interview that is scheduled to be conducted online.
+ * Address field will be automatically replace with an 'NA', meaning Not Applicable.
+ */
 public class OnlineInterview extends Interview {
     public static final Address ADDRESS_NOT_APPLICABLE = new Address("NA");
 

@@ -1,6 +1,7 @@
 package seedu.address.model.internship.interview;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
@@ -15,6 +16,24 @@ import seedu.address.testutil.InterviewBuilder;
  * Tests integration between OfflineInterview and OnlineInterview.
  */
 public class InterviewTest {
+
+    @Test
+    public void createInterview_invalidArgs_throwsNullPointerException() {
+        Interview interview = CENTRAL_LIBRARY;
+        // Null date
+        assertThrows(NullPointerException.class, () -> Interview.createInterview(false, null,
+                interview.getInterviewAddress()));
+        // Null address
+        assertThrows(NullPointerException.class, () -> Interview.createInterview(false,
+                interview.getDate(), null));
+    }
+
+    @Test
+    public void createOnlineInterview_validArgs_success() {
+        Interview interview = ONLINE;
+        Interview onlineInterview = Interview.createOnlineInterview(interview.getDate());
+        assertTrue(ONLINE.equals(onlineInterview));
+    }
 
     @Test
     public void equals() {
