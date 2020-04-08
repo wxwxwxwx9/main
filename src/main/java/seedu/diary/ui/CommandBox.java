@@ -61,11 +61,13 @@ public class CommandBox extends UiPart<Region> {
             String text = commandsHistory.iterateNext();
             if (text != null) {
                 commandTextField.setText(text);
+                commandTextField.positionCaret(commandTextField.getLength());
             }
         } else if (ke.getCode() == KeyCode.DOWN) {
             String text = commandsHistory.iteratePrevious();
             if (text != null) {
                 commandTextField.setText(text);
+                commandTextField.positionCaret(commandTextField.getLength());
             }
         } else if (ke.getCode() != KeyCode.LEFT && ke.getCode() != KeyCode.RIGHT) {
             commandsHistory.resetIterator();
