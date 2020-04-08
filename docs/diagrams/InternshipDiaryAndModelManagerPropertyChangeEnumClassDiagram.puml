@@ -5,17 +5,15 @@ skinparam classAttributeIconSize 0
 
 Class InternshipDiary {
     - displayedInternships: \nUniqueInternshipApplicationList
-'    - changes: PropertyChangeSupport
-'    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
-'    + firePropertyChange(ListenerPropertyType propertyType, \nObject newValue): void
+    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+    + firePropertyChange(ListenerPropertyType propertyType, \nObject newValue): void
 }
 
 Class ModelManager implements PropertyChangeListener {
-     - filteredInternshipApplications: \nFilteredList<InternshipApplication>
-'    - changes: PropertyChangeSupport
-'    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
-'    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
+    - filteredInternshipApplications: \nFilteredList<InternshipApplication>
     + propertyChange(PropertyChangeEvent e): void
+    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
 '    - refreshFilteredInternshipApplications(Object newInternshipApplications)
 '    - fireAllPropertyChanges(): void
 }
@@ -39,17 +37,17 @@ ModelManager .up.> PropertyChangeSupport
 
 PropertyChangeSupport .right.> PropertyChangeListener
 
-'enum ListenerPropertyType <<enumeration>> {
-'    DISPLAYED_INTERNSHIPS
-'    FILTERED_INTERNSHIP_APPLICATIONS
-'    VIEW_TYPE
-'    COMPARATOR
-'    PREDICATE
-'    DISPLAYED_INTERNSHIP_DETAILS
-'}
-'
-'InternshipDiary ..> ListenerPropertyType
-'ModelManager ..> ListenerPropertyType
+enum ListenerPropertyType <<enumeration>> {
+    DISPLAYED_INTERNSHIPS
+    FILTERED_INTERNSHIP_APPLICATIONS
+    VIEW_TYPE
+    COMPARATOR
+    PREDICATE
+    DISPLAYED_INTERNSHIP_DETAILS
+}
+
+InternshipDiary ..> ListenerPropertyType
+ModelManager ..> ListenerPropertyType
 
 StatisticsWindow -left- ModelManager: observes\n (listens to) >
 

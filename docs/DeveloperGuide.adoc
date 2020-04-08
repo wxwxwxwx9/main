@@ -485,7 +485,9 @@ The two mechanisms can be further broken down into the following four commands: 
 
 To handle the ability for a user to switch views, we implemented the commands `list` and `archival`.
 
-The command `list` allows the user to view the list of unarchived internship application(s) and `archival` allows the user to view the archived list of internship application(s). From here on, we will refer to the unarchived list as "main list".
+`list` allows the user to view the unarchived internship application(s) and `archival` allows the user to view the archived internship application(s).
+
+From here on, we will refer to the list of unarchived internship application(s) the *"main list"*.
 
 Beyond the primary purpose of allowing users to switch between their view of main and archived list of internship application(s),
 `list` and `archival` also helps to verify that the `archive` and `unarchive` commands are used appropriately.
@@ -495,19 +497,25 @@ This is identical for the `unarchive` command in the main list as well.
 
 ===== Implementation
 
-image::InternshipDiaryAndModelManagerClassDiagram.png[width="700", align="center"]
+image::InternshipDiaryAndModelManagerClassDiagram.png[width="800", align="center"]
 
-As seen from the class diagram, our implementation involves maintaining 2 `UniqueInternshipApplicationList` objects: `unarchivedInternships` and `archivedInternships`.
+The class diagram above depicts the important methods and variables that are used to implement the functionality to switch
+views between the main list and archival list.
 
-`displayedInternships` serves as a reference for either `archivedInternships` or `unarchivedInternships` at any one time.
-As the name suggests, it is the current list that is shown to the user in the GUI.
+image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800", align="center"]
+
+As seen from the object diagram, our implementation involves maintaining 3 `UniqueInternshipApplicationList` objects: `archivedInternships`, `unarchivedInternships`, and `displayedInternships`.
+
+As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
+`archivedInternships` or `unarchivedInternships` at any one time. For example, when a user is viewing the main list,
+`displayedInternships` references `unarchivedInternships`.
 
 The following sequence diagram illustrates how an `archival` command is executed. The `list` command is similar to `archival`.
 You may use the same sequence diagram for the `list` command.
 
 image::ArchivalSequenceDiagram.png[align="center"]
 
-The following code snippet is retrieved from the InternshipDiary class. It illustrates the internal workings of how we switch the view between archived list and the main list.
+The following code snippet is retrieved from the InternshipDiary class. It illustrates the internal workings of how we switch the view between the archived list and the main list.
 
     public void viewArchivedInternshipApplicationList() {
         this.displayedInternships = archivedInternships;
@@ -516,22 +524,59 @@ The following code snippet is retrieved from the InternshipDiary class. It illus
     }
 
 It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
-However, such implementation brings about issues with reactivity where the UI elements that references `displayedInternships` are not aware of the
-reference update whenever the user executes `archival` or `list`. Therefore, users would still see the main list after executing the `archival` command.
+However, such implementation brings about issues with reactivity -- where UI elements that references `displayedInternships` will not be aware of the
+reference update in `displayedInternships` whenever the user executes `archival` or `list`. Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
-To resolve this issue, we employed the observer pattern. The idea is to assign each UI element to be an `observer` and `InternshipDiary` to be the `observable`.
-Consequently, whenever there is a state change to `InternshipDiary`, the list of `observers` will be notified and updated automatically.
-To achieve this observer pattern, we implemented the `PropertyChangeListener` interface.
+In order to resolve this issue, we need to employ the observer pattern. The idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
+Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
+
+To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
+`PropertyChangeSupport` is a utility class to support the observer pattern by managing a list of listeners (observers) and firing property change events to
+the listeners. A class that contains an instance of `PropertyChangeSupport` is an observable. On the other hand, a class
+that implements the `PropertyChangeListener` interface is an observer.
 
 image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
 
-The updated class diagram above illustrates the implementation of the aforementioned observer pattern.
+The class diagram above showcases our implementation of a two-tier observer-observable structure: +
+1. `InternshipDiary` is an observable. +
+2. `ModelManager` is both an observable and observer. It observes any changes to `displayedInternships` contained in `InternshipDiary`. +
+3. `StatisticsWindow` is an observer. It observes any changes to `filteredInternshipApplications` contained in `ModelManager`. +
 
-Note that certain methods and members from the previous class diagram have been omitted for brevity. The updated class diagram
-shows the additional methods and members.
+`InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport`. `ModelManager` serves as an
+abstraction between `StatisticsWindow` and `InternshipDiary`. Note that all the UI elements in our implementation
+follow the above class diagram -- `StatisticsWindow` just happens to be the UI element that we chose to illustrate our diagram.
 
-With reference to the code snippet above, the line of code, `firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());`,
-is the mechanism that updates the relevant UI elements about the reference change in `displayedInternships`.
+Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function
+of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe. It will also have to specify which property
+of that object it wants to observe.
+
+In our case, when ModelManager is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance
+belonging to `InternshipDiary`. The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
+is a reference to itself (so that it can be registered as a listener of the `displayedInternships` property).
+
+The process is similar for any UI element that wants to observe the `filteredInternshipApplications` property of `ModelManager`.
+
+As a result, whenever there is a change to the attribute (property) `displayedInternships` in `InternshipDiary`, the `PropertyChangeSupport` instance of
+`InternshipDiary` will call `firePropertyChange` to emit a property change event to `ModelManager`. The emitted event will trigger the
+`propertyChange` function of `ModelManager`. `ModelManager` can then retrieve the new reference from the event and update its
+`filteredInternshipApplications` accordingly. It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
+`filteredInternshipApplications` property.
+
+Note that this two-tier observer-observable structure is necessary as the UI elements reference `filteredInternshipApplications`
+of `ModelManager`. On the other hand, `ModelManager` references `displayedInternships` of `InternshipDiary`.
+The commands `list` and `archival` specifically target `displayedInternships` to change its reference.
+
+image::InternshipDiaryAndModelManagerPropertyChangeEnumClassDiagram.png[align="center"]
+
+Our team also implemented enumeration for each property that is being observed. This ensures type safety and a way for us
+to track what properties are observed. This is especially important when many properties are being observed. The above is an updated class diagram
+with the enumeration `ListenerPropertyType` implementation.
+
+Each observable will implement two additional methods as an abstraction to use `ListenerPropertyType` enum as parameters: +
+1) addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) +
+2) firePropertyChange(ListenerPropertyType propertyType, Object newValue) +
+
+The following activity diagram illustrates a high-level overview of the implemented observer pattern.
 
 *activity diagram to be inserted here*
 
@@ -559,6 +604,14 @@ along with the boolean isArchived variable in `InternshipApplication`. For examp
 for each internship application to help us decide if the internship application should be rendered.
 ** Pros: Less effort in implementation and less expensive in terms of memory and computation.
 ** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
+
+===== Aspect: How to implement the observer pattern
+* **Alternative 1 (current choice)**: Use `PropertyChangeSupport` class and `PropertyChangeListener` interface from the `java.beans` package to support our implementation.
+** Pros: Easy and intuitive to use. Good built-in support. Highly recommended by other users from StackOverflow as well.
+** Cons: -
+* **Alternative 2**: Use Java's `Observable` class and `Observer` interface.
+** Pros: -
+** Cons: The package is deprecated. Harder to understand and implement.
 
 ==== Archive & Unarchive
 

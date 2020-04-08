@@ -1,0 +1,28 @@
+@startuml
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class "<u>:ModelManager" as ModelManager {
+}
+
+class "<u>:InternshipDiary" as InternshipDiary {
+}
+
+class "<u>displayedInternships:UniqueInternshipApplicationList" as displayedInternships {
+}
+
+class "<u>archivedInternships:UniqueInternshipApplicationList" as archivedInternships {
+}
+
+class "<u>unarchivedInternships:UniqueInternshipApplicationList" as unarchivedInternships {
+}
+
+InternshipDiary -up- ModelManager
+InternshipDiary -right- displayedInternships
+InternshipDiary -down- archivedInternships
+InternshipDiary -down- unarchivedInternships
+
+
+@enduml
