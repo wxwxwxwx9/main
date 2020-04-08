@@ -2,13 +2,18 @@ package seedu.diary.model.internship;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.diary.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.diary.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.diary.commons.core.index.Index;
+import seedu.diary.model.ListenerPropertyType;
 import seedu.diary.model.internship.interview.Interview;
 import seedu.diary.model.status.Status;
 
@@ -26,10 +31,14 @@ public class InternshipApplication {
     private final ApplicationDate applicationDate;
     private final Priority priority;
     private final Status status;
-    private final List<Interview> interviews;
     private final Boolean isArchived;
     private Boolean isGhostedOrRejected;
     private final Status lastStage;
+
+    private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
+
+    private List<Interview> interviews;
 
     /**
      * Every field must be present and not null.
@@ -219,8 +228,22 @@ public class InternshipApplication {
             ? Optional.of(earliestInterview) : Optional.empty();
     }
 
+    /** Adds given interview into interview list. Will fire property change event */
     public void addInterview(Interview interview) {
         interviews.add(interview);
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, interviews);
+    }
+
+    /** Deletes given interview from interview list. Will fire property change event */
+    public void deleteInterview(Interview interview) {
+        interviews.remove(interview);
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, interviews);
+    }
+
+    /** Sets given interview into specified index in the interview list. Will fire property change event */
+    public void setInterview(Index index, Interview interview) {
+        interviews.set(index.getZeroBased(), interview);
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, interviews);
     }
 
     public Interview getInterview(int index) {
@@ -230,6 +253,7 @@ public class InternshipApplication {
     public void setInterviews(List<Interview> interviews) {
         requireNonNull(interviews);
         this.interviews.addAll(interviews);
+        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, this.interviews);
     }
 
     public List<Interview> getInterviews() {
@@ -301,6 +325,16 @@ public class InternshipApplication {
         } else { // there are no interviews after current date
             return applicationDate;
         }
+    }
+
+    //=========== PropertyChanges ======================================================================
+
+    public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
+        changes.addPropertyChangeListener(propertyType.toString(), l);
+    }
+
+    private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {
+        changes.firePropertyChange(propertyType.toString(), null, newValue);
     }
 
     /**

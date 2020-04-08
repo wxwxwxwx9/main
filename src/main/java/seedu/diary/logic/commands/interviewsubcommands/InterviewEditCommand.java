@@ -84,7 +84,7 @@ public class InterviewEditCommand extends InterviewCommand {
             throw new InterviewCommandException(MESSAGE_INTERVIEW_DATE_ERROR);
         }
 
-        lastShownList.set(interviewIndex.getZeroBased(), editedInterview);
+        internshipToModify.setInterview(interviewIndex, editedInterview);
         model.displayInternshipDetail(internshipToModify);
         return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview));
     }
