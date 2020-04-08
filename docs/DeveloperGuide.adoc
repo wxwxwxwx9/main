@@ -584,8 +584,7 @@ The following sequence diagram shows how the command is executed:
 image::ReminderSequenceDiagram.png[]
 
 ==== Implementation
-The reminder command is implemented in the class `ReminderCommand` and instantiates two predicates
-`ApplicationDateDuePredicate` and `InterviewDateDuePredicate` with every call of the command.
+The reminder command is implemented in the class `ReminderCommand`.
 
 To facilitate the reminder command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
 
