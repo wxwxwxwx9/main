@@ -23,14 +23,14 @@ import seedu.diary.model.internship.InternshipApplication;
 public class InternshipApplicationUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code InternshipApplication}.
      */
     public static String getAddCommand(InternshipApplication internshipApplication) {
         return AddCommand.COMMAND_WORD + " " + getInternshipApplicationDetails(internshipApplication);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code InternshipApplication}'s details.
      */
     public static String getInternshipApplicationDetails(InternshipApplication internshipApplication) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MM YYYY");

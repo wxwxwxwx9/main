@@ -1,5 +1,5 @@
 {
-  "_comment": "InternshipDiary save file which contains the same Person values as in TypicalPersons#getTypicalInternshipDiary()",
+  "_comment": "InternshipDiary save file which contains the same Internship Application values as in TypicalInternshipApplications#getTypicalInternshipDiary()",
   "internships" : [ {
     "company": "Google",
     "role": "Software Engineer",

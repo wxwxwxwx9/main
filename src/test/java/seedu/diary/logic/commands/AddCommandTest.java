@@ -208,7 +208,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single internship application.
      */
     private class ModelStubWithInternshipApplication extends ModelStub {
         private final InternshipApplication internshipApplication;
@@ -225,7 +225,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the internship application being added.
      */
     private class ModelStubAcceptingInternshipAdded extends ModelStub {
         final ArrayList<InternshipApplication> internshipsAdded = new ArrayList<>();

@@ -25,7 +25,7 @@ public class InterviewUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code Interview}'s details.
      */
     public static String getInterviewDetails(Interview interview) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MM YYYY");

@@ -113,7 +113,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicateInternshipApplicationUnfilteredList_failure() {
         InternshipApplication firstInternshipApplication =
             model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
         EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder(firstInternshipApplication).build();
@@ -123,10 +123,10 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
+    public void execute_duplicateInternshipApplicationFilteredList_failure() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
 
-        // edit person in filtered list into a duplicate in diary book
+        // edit internship application in filtered list into a duplicate in diary book
         InternshipApplication internshipApplicationInList =
             model.getInternshipDiary().getDisplayedInternshipList()
                 .get(INDEX_SECOND_INTERNSHIP_APPLICATION.getZeroBased());
@@ -136,7 +136,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidInternshipApplicationIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
         EditCommand.EditInternshipDescriptor descriptor =
             new EditInternshipDescriptorBuilder().withCompany(VALID_COMPANY_BOB).build();
@@ -150,7 +150,7 @@ public class EditCommandTest {
      * but smaller than size of diary book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
+    public void execute_invalidInternshipApplicationIndexFilteredList_failure() {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
         Index outOfBoundIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
         // ensures that outOfBoundIndex is still in bounds of diary book list

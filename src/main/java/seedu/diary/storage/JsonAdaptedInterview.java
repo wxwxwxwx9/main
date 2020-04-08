@@ -20,7 +20,7 @@ public class JsonAdaptedInterview {
     private final String interviewDate;
 
     /**
-     * Constructs a {@code JsonAdaptedInterview} with the given person details.
+     * Constructs a {@code JsonAdaptedInterview} with the given interview details.
      */
     @JsonCreator
     public JsonAdaptedInterview(@JsonProperty("interviewAddress") String interviewAddress,
