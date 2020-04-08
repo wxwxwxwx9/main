@@ -26,7 +26,7 @@ public class InterviewBuilder {
     }
 
     public InterviewBuilder(Interview toCopy) {
-        this.isOnline = toCopy.isOnline;
+        this.isOnline = toCopy.getIsOnline();
         this.interviewDate = new ApplicationDate(toCopy.getInterviewDate());
         this.interviewAddress = toCopy.getInterviewAddress();
     }
@@ -71,7 +71,7 @@ public class InterviewBuilder {
     }
 
     public Interview build() {
-        return new Interview(isOnline, interviewDate, interviewAddress);
+        return Interview.createInterview(isOnline, interviewDate, interviewAddress);
     }
 
 }

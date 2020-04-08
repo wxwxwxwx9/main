@@ -23,7 +23,7 @@ import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.model.InternshipDiary;
 import seedu.address.model.Model;
 import seedu.address.model.internship.InternshipApplication;
-import seedu.address.model.internship.interview.Interview;
+import seedu.address.model.internship.interview.OnlineInterview;
 import seedu.address.model.internship.predicate.CompanyContainsKeywordsPredicate;
 import seedu.address.testutil.EditInternshipDescriptorBuilder;
 import seedu.address.testutil.EditInterviewDescriptorBuilder;
@@ -53,7 +53,7 @@ public class CommandTestUtil {
     public static final String VALID_LAST_STAGE_BOB = "APPLIED";
 
     public static final String VALID_ADDRESS_NUS = "123 Kent Ridge Road";
-    public static final String VALID_ADDRESS_ONLINE = Interview.ADDRESS_NOT_APPLICABLE;
+    public static final String VALID_ADDRESS_ONLINE = OnlineInterview.ADDRESS_NOT_APPLICABLE.toString();
     public static final String VALID_DATE_NUS = "10 10 2010";
     public static final String VALID_DATE_ONLINE = "20 02 2020";
     public static final String VALID_IS_ONLINE_NUS = "false";

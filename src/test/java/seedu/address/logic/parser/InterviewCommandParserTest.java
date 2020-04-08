@@ -25,6 +25,7 @@ import seedu.address.logic.commands.interviewsubcommands.InterviewAddCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewDeleteCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewEditCommand;
 import seedu.address.logic.commands.interviewsubcommands.InterviewListCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.internship.ApplicationDate;
 import seedu.address.model.internship.interview.Interview;
 import seedu.address.testutil.InterviewBuilder;
@@ -96,6 +97,8 @@ public class InterviewCommandParserTest {
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
             + ADDRESS_DESC_NUS + ONLINE_DESC_NUS, expectedMessage);
         //not online but missing address
+        expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                InterviewAddCommand.MESSAGE_OFFLINE_INTERVIEW_ADDRESS);
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
             + ONLINE_DESC_NUS + DATE_DESC_NUS, expectedMessage);
     }

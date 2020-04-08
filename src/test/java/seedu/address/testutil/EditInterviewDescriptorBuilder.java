@@ -31,7 +31,7 @@ public class EditInterviewDescriptorBuilder {
         descriptor = new InterviewEditCommand.EditInterviewDescriptor();
         descriptor.setAddress(interview.getInterviewAddress());
         descriptor.setDate(interview.getDate());
-        descriptor.setOnline(interview.isOnline);
+        descriptor.setOnline(interview.getIsOnline());
     }
 
 
