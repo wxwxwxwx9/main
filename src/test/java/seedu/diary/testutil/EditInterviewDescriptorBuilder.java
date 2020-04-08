@@ -31,7 +31,7 @@ public class EditInterviewDescriptorBuilder {
         descriptor = new InterviewEditCommand.EditInterviewDescriptor();
         descriptor.setAddress(interview.getInterviewAddress());
         descriptor.setDate(interview.getDate());
-        descriptor.setOnline(interview.isOnline);
+        descriptor.setOnline(interview.getIsOnline());
     }
 
 
@@ -41,6 +41,18 @@ public class EditInterviewDescriptorBuilder {
     public EditInterviewDescriptorBuilder withInterviewDate(String date) {
         try {
             descriptor.setDate(new ApplicationDate(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MM yyyy"))));
+            return this;
+        } catch (DateTimeParseException e) {
+            return this;
+        }
+    }
+
+    /**
+     * Overloaded interviewDate setter that uses a LocalDate instead of a String.
+     */
+    public EditInterviewDescriptorBuilder withInterviewDate(LocalDate date) {
+        try {
+            descriptor.setDate(new ApplicationDate(date));
             return this;
         } catch (DateTimeParseException e) {
             return this;

@@ -16,9 +16,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.diary.logic.commands.CommandResult;
 import seedu.diary.logic.commands.exceptions.CommandException;
+import seedu.diary.logic.commands.exceptions.InterviewCommandException;
 import seedu.diary.model.Model;
 import seedu.diary.model.ModelManager;
 import seedu.diary.model.UserPrefs;
+import seedu.diary.model.internship.ApplicationDate;
 import seedu.diary.model.internship.InternshipApplication;
 import seedu.diary.model.internship.interview.Interview;
 import seedu.diary.testutil.InterviewBuilder;
@@ -48,6 +50,15 @@ public class InterviewAddCommandTest {
             new InterviewBuilder().build());
         assertThrows(NullPointerException.class, () ->
             command.execute(null));
+    }
+
+    @Test
+    public void execute_invalidDate_throwsInterviewCommandException() {
+        ApplicationDate date = model.getFilteredInternshipApplicationList()
+                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()).getApplicationDate();
+        Interview interview = new InterviewBuilder().withDate(date.fullApplicationDate.minusDays(3)).build();
+        InterviewAddCommand command = new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, interview);
+        assertThrows(InterviewCommandException.class, () -> command.execute(model));
     }
 
     @Test

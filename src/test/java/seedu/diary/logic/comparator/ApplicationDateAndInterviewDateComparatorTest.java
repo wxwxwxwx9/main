@@ -40,15 +40,15 @@ class ApplicationDateAndInterviewDateComparatorTest {
 
         // with same application date, comparing internship2(with earlier 'earliest interview date') and
         // internship3(with later 'earliest interview date') --> returns negative int
-        Interview newInterviewForInternship2 = new Interview(true,
+        Interview newInterviewForInternship2 = Interview.createInterview(true,
             new ApplicationDate(currentDate.plus(12, ChronoUnit.DAYS)),
             new Address("123 Stevens Road"));
-        Interview anotherInterviewForInternship2 = new Interview(true,
+        Interview anotherInterviewForInternship2 = Interview.createInterview(true,
             new ApplicationDate(currentDate.plus(25, ChronoUnit.DAYS)),
             new Address("123 Stevens Road"));
         internship2.withInterview(newInterviewForInternship2);
         internship2.withInterview(anotherInterviewForInternship2);
-        Interview newInterviewForInternship3 = new Interview(true,
+        Interview newInterviewForInternship3 = Interview.createInterview(true,
             new ApplicationDate(currentDate.plus(16, ChronoUnit.DAYS)),
             new Address("123 Stevens Road"));
         internship3.withInterview(newInterviewForInternship3);

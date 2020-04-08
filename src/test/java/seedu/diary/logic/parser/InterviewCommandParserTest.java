@@ -95,7 +95,9 @@ public class InterviewCommandParserTest {
         //missing date
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
             + ADDRESS_DESC_NUS + ONLINE_DESC_NUS, expectedMessage);
-        //not online but missing diary
+        //not online but missing address
+        expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                InterviewAddCommand.MESSAGE_OFFLINE_INTERVIEW_ADDRESS);
         assertParseFailure(parser, INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased() + " add "
             + ONLINE_DESC_NUS + DATE_DESC_NUS, expectedMessage);
     }

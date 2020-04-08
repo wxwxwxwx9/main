@@ -1,34 +1,46 @@
 package seedu.diary.model.internship.interview;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import seedu.diary.model.internship.Address;
 import seedu.diary.model.internship.ApplicationDate;
-
 
 /**
  * Represents an Interview in the Internship Diary.
  * Interviews are always tagged to an internship application.
  */
-public class Interview {
-    public static final String ADDRESS_NOT_APPLICABLE = "NA";
+public abstract class Interview {
+    protected final ApplicationDate interviewDate;
+    protected final Address interviewAddress;
 
-    public final boolean isOnline;
-
-    private final ApplicationDate interviewDate;
-    private final Address interviewAddress;
-
-    public Interview(boolean isOnline, ApplicationDate interviewDate, Address interviewAddress) {
-        this.isOnline = isOnline;
+    protected Interview(ApplicationDate interviewDate, Address interviewAddress) {
+        requireNonNull(interviewDate);
+        requireNonNull(interviewAddress);
         this.interviewDate = interviewDate;
         this.interviewAddress = interviewAddress;
     }
 
-    public Interview(boolean isOnline, ApplicationDate interviewDate) {
-        this.isOnline = isOnline;
-        this.interviewDate = interviewDate;
-        this.interviewAddress = new Address(ADDRESS_NOT_APPLICABLE);
+    /**
+     * Constructs a new online or offline interview based on the parameters given.
+     * This is the default static constructor to create an interview object.
+     */
+    public static Interview createInterview(boolean isOnline,
+        ApplicationDate interviewDate, Address interviewAddress) {
+        if (isOnline) {
+            return new OnlineInterview(interviewDate);
+        } else {
+            return new OfflineInterview(interviewDate, interviewAddress);
+        }
+    }
+
+    /**
+     * Constructs a new online interview.
+     * This constructor is only for adding a new online interview.
+     */
+    public static Interview createOnlineInterview(ApplicationDate interviewDate) {
+        return new OnlineInterview(interviewDate);
     }
 
     /**
@@ -46,17 +58,8 @@ public class Interview {
         return interviewAddress;
     }
 
-
-    /**
-     * Checks if the interview is valid. If it is an online interview, it should not have an diary.
-     * Otherwise, any valid diary is fine.
-     */
-    public boolean isValid() {
-        if (isOnline) {
-            return interviewAddress.equals(new Address(ADDRESS_NOT_APPLICABLE));
-        }
-        return true;
-    }
+    /** Returns a boolean on whether the interview is to be conducted online.*/
+    public abstract boolean getIsOnline();
 
     @Override
     public boolean equals(Object other) {
@@ -71,21 +74,6 @@ public class Interview {
         Interview interview = (Interview) other;
         return interview.getInterviewDate().equals(getInterviewDate())
             && interview.getInterviewAddress().equals(getInterviewAddress())
-            && interview.isOnline == isOnline;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        if (isOnline) {
-            builder.append("Online Interview on: ")
-                .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)));
-        } else {
-            builder.append("Interview on: ")
-                .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)))
-                .append(" at: ")
-                .append(getInterviewAddress());
-        }
-        return builder.toString();
+            && this.getIsOnline() == interview.getIsOnline();
     }
 }

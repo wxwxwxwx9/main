@@ -33,7 +33,7 @@ public class InterviewCard extends UiPart<Region> {
         this.interview = interview;
         String title = "Interview : ";
         date.setText("Interview Date: " + interview.getDate().printDate());
-        if (interview.isOnline) {
+        if (interview.getIsOnline()) {
             this.title.setText(index + ". ONLINE " + title);
         } else {
             this.title.setText(index + ". OFFLINE " + title);
