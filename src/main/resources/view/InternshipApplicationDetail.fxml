@@ -4,13 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<?import javafx.scene.control.skin.ColorPalette.ColorPickerGrid?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       style="-fx-background-color: grey" minWidth="100">
     <VBox alignment="CENTER_LEFT" minHeight="180">
@@ -18,7 +16,7 @@
             <Insets top="5" right="5" bottom="5" left="15" />
         </padding>
         <Label fx:id="company" text="\$first" styleClass="cell_big_label" wrapText="true"/>
-        <GridPane minHeight = "20">
+        <GridPane minHeight = "20" >
             <children>
                 <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Role:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="role" styleClass="cell_small_label" text="\$role" wrapText="true"/>
@@ -36,7 +34,7 @@
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="status" styleClass="cell_small_label" text="\$status" />
             </children>
             <columnConstraints>
-                <ColumnConstraints minWidth="150" />
+                <ColumnConstraints minWidth="110" />
             </columnConstraints>
         </GridPane>
         <Label fx:id="interviewPreamble" styleClass="cell_big_label" text="\$interviews" />

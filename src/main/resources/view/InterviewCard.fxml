@@ -25,7 +25,7 @@
                     <Label GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="address" styleClass="cell_small_label" text="\$interviewAddress" wrapText="true" />
                 </children>
                 <columnConstraints>
-                    <ColumnConstraints minWidth="135" />
+                    <ColumnConstraints minWidth="120" />
                 </columnConstraints>
             </GridPane>
         </VBox>
