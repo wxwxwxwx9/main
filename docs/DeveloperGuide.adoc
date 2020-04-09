@@ -610,17 +610,9 @@ When saving, we will combine both `archivedInternships` and `unarchivedInternshi
 ** Pros: No need to modify the storage and its relevant test cases. This provides some stability in the refactoring process.
 ** Cons: Potentially expensive in terms of computation. Furthermore, we will have to implement observer pattern to handle the reference changes.
 
-* **Alternative 2**: Create a separate internship diary specifically to handle archived internship applications.
-** Pros: Straightforward and intuitive. +
-This should be easily understood by users and implementers as the idea is to replicate the current internship diary, with the same commands and features.
-To view the archived internship application(s), one just has to render the appropriate internship diary.
-** Cons: Have to modify the storage and its relevant test cases to save two internship diaries.
-This may be time-consuming in terms of implementation and refactoring of the existing codebase.
-
-* **Alternative 3**: Manipulate the current view of the internship application list by using Predicates and FilteredList,
-along with the boolean isArchived variable in `InternshipApplication`. For example,
-for each internship application to help us decide if the internship application should be rendered.
-** Pros: Less effort in implementation and less expensive in terms of memory and computation.
+* **Alternative 2**: Manipulate the current view of the internship application list by using Predicate and FilteredList,
+along with the boolean isArchived variable in `InternshipApplication`. This will help us determine which internship application should be rendered.
+** Pros: Less effort in implementation and less expensive in terms of memory and computation. No need to implement observer pattern as there will be no reference updates.
 ** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
 
 ===== Aspect: How to implement the observer pattern
@@ -639,9 +631,9 @@ we implemented the commands `archive` and `unarchive`:
 * `archive` allows a user to move internship application(s) from the main list to the archival list.
 * `unarchive` allows a user to move internship application(s) from the archival list to the main list.
 
-The following activity diagram depicts the flow of an `archive` command. The activity diagram for `unarchive` is very similar as well.
+The following activity diagram depicts the behaviour of an `archive` command. You may use it as a reference for `unarchive` as well. The activity diagrams for both are very similar.
 
-image::ActivityDiagramArchiveCommand.png[]
+image::ActivityDiagramArchiveCommand.png[align="center"]
 
 While implementing the `archive` and `unarchive` commands, we realised that users may sometimes want to cherry-pick multiple internship application(s) to execute on or mass-execute on certain types of internship application(s).
 For example, a user may want to archive all the internship application(s) that have the status of "rejected".
@@ -674,7 +666,7 @@ Note that `command` can be any one of the *removal-based commands*.
 It is important to note that each execution type works similarly. At the core, all of them involves retrieving the index of a internship application to execute on.
 The difference lies in the pre-processing stage -- the steps an execution type takes to retrieve all the required indices.
 
-Therefore, for brevity, we will only be illustrating the usage of the command `archive` with the execution type `BY_FIELD`.
+Therefore, to be succinct, we will only be illustrating the usage of the command `archive` with the execution type `BY_FIELD`.
 Other variations of *removal-based commands* and *execution types* are similar.
 
 The following sequence diagram provides a high-level overview of how the `archive` command with the execution type of `BY_FIELD` is executed in our application.
@@ -685,8 +677,6 @@ As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` invo
 applying the predicate to filter the internship applications.
 
 ====
-Important Note: +
-
 We have implemented the mechanism to be reusable and extensible for new commands and execution types.
 
 This is evident in the sequence diagram above, where the different kinds of *removal-based commands* are abstracted from the diagram and
@@ -746,7 +736,7 @@ image::CreateCommandResultSequenceDiagram.png[width="500", align="center"]
 ** Cons: Will require many case handling (e.g. switch cases). Polymorphism may be a better solution in terms of code re-usability and elegance.
 
 * **Alternative 2**: Use polymorphism where each removal-based command extends the class `RemovalBasedCommand` and inherit the appropriate execution type methods. +
-** Pros: Code will possibly be more elegant and reusable.  +
+** Pros: Code will likely be more elegant and reusable.  +
 ** Cons: Likely to require major redesigning and refactoring of existing logic codebase because we will have to modify `Command` class.
 Furthermore, the changes may affect areas that we may not have considered. This is risky and will take a lot of time and effort.
 
