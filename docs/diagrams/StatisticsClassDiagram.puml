@@ -1,0 +1,49 @@
+@startuml
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+
+Class ModelManager {
+}
+
+Class Statistics {
+    - statusCount: HashMap<Status, Integer>
+    + computeAndUpdateStatistics(ObservableList<InternshipApplication> \n internshipApplicationList): void
+    - resetStatistics(): void
+    + getCount(Status status): int
+    + getPercentage(Status status): double
+    + getTotalCount(): int
+}
+
+Class StatisticsWindow {
+    - internshipApplicationList: ObservableList<InternshipApplication>
+    + updateStatistics(): void
+    - loadBarChart(): void
+    - loadPieChart(): void
+}
+
+Class StatisticsBarFooter {
+    - internshipApplicationList: ObservableList<InternshipApplication>
+    + updateStatistics(): void
+}
+
+enum Status <<enumeration>> {
+    WISHLIST
+    APPLIED
+    INTERVIEW
+    OFFERED
+    REJECTED
+    GHOSTED
+}
+
+ModelManager o--> "1" Statistics
+
+Statistics .right.> Status
+
+StatisticsWindow o-up-> "1" Statistics
+StatisticsBarFooter o-up-> "1" Statistics
+
+
+@enduml

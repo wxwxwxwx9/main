@@ -34,8 +34,8 @@ class PropertyChangeSupport {
     + firePropertyChange(String propertyName, Object oldValue, Object newValue)
 }
 
-InternshipDiary .up.> PropertyChangeSupport
-ModelManager .up.> PropertyChangeSupport
+InternshipDiary -up-> "1" PropertyChangeSupport
+ModelManager -up-> "1" PropertyChangeSupport
 
 PropertyChangeSupport .right.> PropertyChangeListener
 

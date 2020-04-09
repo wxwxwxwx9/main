@@ -593,7 +593,7 @@ Below is the updated class diagram with the implementation of `ListenerPropertyT
 
 image::InternshipDiaryAndModelManagerPropertyChangeEnumClassDiagram.png[align="center"]
 
-As seen from the diagram above, each observable will implement two additional methods as an abstraction to use `ListenerPropertyType` enumeration as parameters:
+As seen from the diagram above, each observable will implement two additional methods to use `ListenerPropertyType` enumeration as parameters:
 
 . `addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l)`
 . `firePropertyChange(ListenerPropertyType propertyType, Object newValue)`
@@ -618,9 +618,9 @@ along with the boolean isArchived variable in `InternshipApplication`. This will
 ===== Aspect: How to implement the observer pattern
 * **Alternative 1 (current choice)**: Use `PropertyChangeSupport` class and `PropertyChangeListener` interface from the `java.beans` package to support our implementation.
 ** Pros: Easy and intuitive to use. Good built-in support. Highly recommended by other users from StackOverflow as well.
-** Cons: -
+** Cons: Seemingly negligible for our usage.
 * **Alternative 2**: Use Java's `Observable` class and `Observer` interface.
-** Pros: -
+** Pros: Seemingly negligible for our usage.
 ** Cons: The package is deprecated. Harder to understand and implement.
 
 ==== Archive & Unarchive
@@ -652,7 +652,7 @@ We have implemented the following execution types: `BY_INDEX`, `BY_INDICES`, and
 execute by the status field of an internship application currently.
 
 ====
-The format of a removal-based command can take on any of the following forms:
+The format of a *removal-based command* can take on any of the following forms:
 
 . `command` INDEX
 . `command` INDEX, [INDEX], [INDEX], ... +
@@ -712,13 +712,13 @@ image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center"]
 It can be seen that the previously-generated lazy command is executed in the above sequence diagram.
 
 The appropriate command, `ArchiveCommand`, is constructed and subsequently executed on the index provided, by making the
-appropriate function call to the internship diary model to execute on the internship application.
+appropriate function call to the model to execute on the internship application. In this case, `archiveInternshipApplication` is called.
 
 The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices (multiple index-es).
 
 image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500", align="center"]
 
-As seen above, `executeLazyCommandOnIndices` is merely reusing the function `executeLazyCommandOnIndex` (from the previous sequence diagram)
+As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram)
 by running it on every index provided.
 
 The following sequence diagram captures the process of re-creating the command result in `RemovalBasedCommand` by
@@ -732,11 +732,11 @@ image::CreateCommandResultSequenceDiagram.png[width="500", align="center"]
 * **Alternative 1 (current choice)**: Use encapsulation to generate appropriate removal-based command which will execute based on the execute type provided. +
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when
 `RemovalBasedCommand` is executed. This removal-based command will then be used on the index/indices provided according to the execution type.
-** Pros: Relatively easy to implement and convey the idea to team members.
-** Cons: Will require many case handling (e.g. switch cases). Polymorphism may be a better solution in terms of code re-usability and elegance.
+** Pros: Easier to implement and convey the idea to team members.
+** Cons: Will require many case handling (e.g. switch cases). Polymorphism may be a better solution in terms of code extensibility and elegance.
 
 * **Alternative 2**: Use polymorphism where each removal-based command extends the class `RemovalBasedCommand` and inherit the appropriate execution type methods. +
-** Pros: Code will likely be more elegant and reusable.  +
+** Pros: Code will likely be more extensible and elegant.
 ** Cons: Likely to require major redesigning and refactoring of existing logic codebase because we will have to modify `Command` class.
 Furthermore, the changes may affect areas that we may not have considered. This is risky and will take a lot of time and effort.
 
@@ -745,37 +745,52 @@ Furthermore, the changes may affect areas that we may not have considered. This 
 
 This feature allows users to view relevant metrics using the data entered by the users for their internship application(s).
 
-Currently, the metrics include:
-. the amount of internship applications sent
-. percentage of internship applications in each status category
+Currently, the tracked metrics include:
 
-Such metrics include
-
-Users will be able to view those metrics from two areas on the application: 1) `StatisticsBarFooter`, and 2) `StatisticsWindow`.
+* the amount of internship applications sent
+* percentage of internship applications in each status
 
 ==== Implementation
 
-`StatisticsBarFooter` serves as a quick view of the internship applications count. This bar footer is always visible to user
-and is attached to the `MainWindow` of the application.
+The following class diagram shows the implementation of the statistics feature.
 
-`StatisticsWindow` serves as an additional graphical statistics interface for users to get a visual breakdown of their internship
-application(s) in the form of a bar chart or pie chart.
+image::StatisticsClassDiagram.png[width="500", align="center"]
 
-Users will be able to bring up the `StatisticsWindow` by executing the command `stats`.
+Users will be able to view those metrics from two areas:
+
+. `StatisticsBarFooter`
+.. found at the bottom of the application in the form of a bar footer
+.. serves as a quick view of the metrics in counters
+. `StatisticsWindow`
+.. displayed on a separate window that is opened upon the command `stats`
+.. serves as an additional graphical statistics interface for users to get a visual breakdown of the metrics +
+(currently in the form of a bar chart and a pie chart)
+
+The statistics object is used to generate statistics for any internship application list that it is given.
+`StatisticsWindow` and `StatisticsBarFooter` each contain an instance of `Statistics` that helps them compute the relevant statistics
+whenever there is any update to the internship application list.
+
+The internship application list can be updated either due to a change in reference in `displayedInternships` from `InternshipDiary` (e.g. `archival` and `list`) or any modifications to the
+current internship application list (e.g. adding, deleting, editing of internship applications).
+
+The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` has the same workflow) is notified of the updates
+in the internship application list and how it updates the statistics.
+
+image::ActivityDiagramStatistics.png[width="700", align="center"]
 
 ==== Design Considerations
 
 ===== Aspect: Which list to retrieve data from to generate statistics
 * **Alternative 1 (current choice)**: Using filtered ObservableList +
 The filtered list is dynamically updated by `find` and `sort` command. The statistics model will generate statistics based
-on the dynamic filtering changes that occur in the list (the current view selected by user).
+on the dynamic filtering changes that occur in either the main list or archival list (the current view selected by user).
 ** Pros: Users will be choose which list they want to view the relevant statistics for.
 Works well with `archival`, `list`, and `find` commands that dynamically changes the list.
 ** Cons: Often re-computation upon changes in the filtered list may cause some performance bottleneck.
 
-* **Alternative 2**: Using base list that contains all of the internship application(s)
+* **Alternative 2**: Using the base list that contains all of the internship application(s)
 The base list is not filtered according to predicate(s) set by users.
-** Pros: Recomputes lesser than using filtered ObservableList as it only recomputes upon addition(s), deletion(s), or changes
+** Pros: Require less re-computation compared to using filtered ObservableList, as it only recomputes upon addition(s), deletion(s), or changes
 in an internship application stored in the list.
 ** Cons: May be unintuitive to some extent for users when the statistics do not tally with the current view of the list.
 
@@ -786,8 +801,8 @@ the statistics model will iterate through the list and generate/update the lates
 * **Alternative 1 (current choice)**: Storing the mapping between each status and count using a HashMap +
 The idea is to retrieve all the statuses available from the enum (whenever the statistics model is created)
 and creating a HashMap with those status as the key and respective count as the value.
-** Pros: Extensible and reusable. Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses. +
-** Cons: Seemingly negligible cons for our particular usage.
+** Pros: Extensible and reusable. Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses.
+** Cons: Seemingly negligible cons for our usage.
 
 * **Alternative 2**: Store each status count in separate variables that are initialized upon the creation of statistics model.
 ** Pros: Straightforward and very easy to understand for future developers.
