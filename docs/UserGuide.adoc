@@ -23,17 +23,19 @@ With the Internship Diary, you can leave behind your troubling times trying to t
 The application is designed and optimized for users who can type quickly, and provides an elegant design which is easy on the eyes.
 
 == Quick Start
+
 Here are the steps to get you started on using Internship Diary:
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `internshipdiary.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+. Ensure you have Java `11` or above installed in your Computer.
+. Download the latest `internshipdiary.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command *`help`* in the command box and press kbd:[Enter] to execute it and open the help window. +
-.  Refer to <<Features>> for details of each command.
+. Type the command *`help`* in the command box and press kbd:[Enter] to execute it and open the help window. +
+. Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -41,13 +43,11 @@ image::Ui.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a
-parameter which can be used as `add c/Google`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a parameter which can be used as `add c/Google`.
 * Items in square brackets are optional e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
 (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also
-acceptable.
+* Parameters can be in any order e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable.
 ====
 
 ====
@@ -77,9 +77,9 @@ Format: `archival`
 === Selecting an internship application to display: `select`
 
 Selects an internship application to display on the right panel of the internship diary. +
+
 [TIP]
-Alternatively, you could use your mouse and click on a specific internship application
-in the left panel of the internship diary
+Alternatively, you could use your mouse and click on a specific internship application in the left panel of the internship diary
 
 Format: `select INDEX`
 
@@ -215,7 +215,9 @@ Edits an internship application in the internship diary. +
 Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​`
 
 ****
-* Edits the internship application at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the internship application at the specified `INDEX`.
+The index refers to the index number shown in the displayed list.
+The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -226,6 +228,7 @@ Examples:
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
 === Locating an internship application by fields: `find`
+
 Finds all internship application(s) with the specified fields containing any of the given keywords.
 
 [cols="1,20"]
@@ -277,6 +280,7 @@ Returns a list of currently displayed companies sorted by company name.
 === Modifying an interview in an internship application : `interview`
 
 Add, list, edit or delete interviews within an internship application +
+
 [TIP]
 An interview must contain a date and a boolean that represents whether an interview is conducted online or not. +
 If the interview is not conducted online, an additional address field must be provided.
@@ -293,6 +297,7 @@ The command will behave identically to their internship application counterparts
 Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the interview list. +
 Both indexes must be positive integer 1, 2, 3, ...
 ****
+
 * Specific format of each `COMMAND_WORD`:
 
 ** Add interview +
@@ -328,10 +333,8 @@ Shows internship applications which:
 * have status `wishlist` and need to be submitted in 7 days
 * have status `interview` and interviews scheduled in 7 days
 
-The internship applications will be displayed in terms of urgency, with the application with the earliest application
-date or interview date, shown at the top.
- +
-Format: `reminder`
+The internship applications will be displayed in terms of urgency, with the application with the earliest application date or interview date, shown at the top.
++ Format: `reminder`
 // end::delete[]
 
 === Clearing all entries : `clear`
@@ -417,6 +420,7 @@ e.g. `interview 1 delete 1`
 == Appendix
 
 === Valid Values of Status
+
 The valid values of Status as listed in sort order:
 
 1. WISHLIST
@@ -427,12 +431,13 @@ The valid values of Status as listed in sort order:
 6. GHOSTED
 
 === Structure of Internship Application
+
 image::internshipDetailsExample.png[width="790"]
 
 [TIP]
 An input consisting of only spaces is also considered empty.
 
-[%header, cols="1a, 1, 1, 1, 5"]
+[%header,cols="1a, 1, 1, 1, 5"]
 |===
 |*Field Name* | *Prefix* | Can Be Empty? | Max Number of Values | Remarks
 | Company | c/ | No | 1 | No restrictions on input.
