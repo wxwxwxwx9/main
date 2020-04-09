@@ -13,24 +13,24 @@ group LOGIC_COLOR_T1 sd generation of lazy removal-based command
     activate RemovalBasedCommand
        '        add spacing
        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
-        alt #white delete
-            RemovalBasedCommand -> RemovalBasedCommand : generateLazyCommand()
-            activate RemovalBasedCommand
-            RemovalBasedCommand --> RemovalBasedCommand : lazy function to construct DeleteCommand
-            deactivate RemovalBasedCommand
-        else archive
+'        alt #white delete
+'            RemovalBasedCommand -> RemovalBasedCommand : generateLazyCommand()
+'            activate RemovalBasedCommand
+'            RemovalBasedCommand --> RemovalBasedCommand : lazy function to construct DeleteCommand
+'            deactivate RemovalBasedCommand
+'        else archive
             RemovalBasedCommand -> RemovalBasedCommand : generateLazyCommand()
             activate RemovalBasedCommand
             RemovalBasedCommand --> RemovalBasedCommand : lazy function to construct ArchiveCommand
             deactivate RemovalBasedCommand
-        else unarchive
-            RemovalBasedCommand -> RemovalBasedCommand : generateLazyCommand()
-            activate RemovalBasedCommand
-            RemovalBasedCommand --> RemovalBasedCommand : lazy function to construct UnarchiveCommand
-            deactivate RemovalBasedCommand
-        else exception
-        'how to represent this?'
-        end
+'        else unarchive
+'            RemovalBasedCommand -> RemovalBasedCommand : generateLazyCommand()
+'            activate RemovalBasedCommand
+'            RemovalBasedCommand --> RemovalBasedCommand : lazy function to construct UnarchiveCommand
+'            deactivate RemovalBasedCommand
+'        else exception
+'        'how to represent this?'
+'        end
 
     '        add spacing
     RemovalBasedCommand -[hidden]-> RemovalBasedCommand

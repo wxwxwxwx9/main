@@ -41,10 +41,8 @@ public class RemovalBasedCommand extends Command {
         + "the specified field keywords (case-insensitive).\n"
         + "There must be only one specified field. \n"
         + "Parameters: "
-        // + "[" + PREFIX_COMPANY + "COMPANY] "
-        // + "[" + PREFIX_ROLE + "ROLE] "
         + "[" + PREFIX_STATUS + "STATUS] "
-        + "Example: " + commandWord + " s/google";
+        + "Example: " + commandWord + " s/rejected";
 
     public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_SUCCESS = (commandWord) ->
         commandWord.toUpperCase() + "D:\n%1$s";
