@@ -9,27 +9,55 @@
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My Internship Diary is a desktop address book desktop internship tracking application written in Java, and has about
+15 kLoC. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major enhancement*: Revamp the find command
+** This enhancement enables the general find where it works similarly to Ctrl-F on most programs. It will take in
+the keywords you entered will list any internship application that has fields that matches any of the keywords provided.
+** This enhancement also enables the specific find, where it the user can specify what which field they are
+interested in searching in. The user can find in multiple fields as well. In this case, only the internship
+applications that has the fields matching the specified fields will be listed.
 
-* *Minor enhancement*:
+** This enhancement posed a challenge as:
+*** Quite a bit of planning involved, mainly to consider how I should perform the search, and how I can separate the
+general and specific find. At the end the plan to use predicates was decided
+*** Quite a bit of knowledge with how predicates work is required as I needed to know how I can combine the required
+predicates cleanly so that it is readable and to ensure that it is correct.
 
-* *Code contributed*:
+* *Minor enhancement*: Add visual display of upcoming application deadlines and interviews and inactive applications
+** This enhancement allows the user to determine which application has deadlines or interviews due in 7 days or if
+there are ghosted application in a quick glance. Internship application with upcoming deadline will show green while
+inactive application will show red.
+** This enhancement, while minor, posed some challenges as well:
+*** Setting it in CSS is not possible as I still wanted to keep the odd and even colors.
+*** Setting it in code without first saving the CSS style would cause the style to not reset to the default CSS style.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=ongch00[Reposense]
 
 * *Other contributions*:
+** Helped with refactoring of Internship Diary from Address Book by adding the model classes and updating DG diagrams
+and text
 
 ** Project management:
-
-** Documentation:
+*** Managed releases `v1.2` - `v1.3` (3 releases) on GitHub
 
 ** Community:
-
-** Tools:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F10-2/main/pull/32[#32]
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/115[#115]
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118]
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/201[#201]
 
 == Contributions to the User Guide
-
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=find]
 
 == Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=find]
