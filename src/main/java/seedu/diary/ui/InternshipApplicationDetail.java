@@ -72,20 +72,13 @@ public class InternshipApplicationDetail extends UiPart<Region> {
     public InternshipApplicationDetail(InternshipApplication internshipApplication) {
         super(FXML);
         company.setText(internshipApplication.getCompany().fullCompany);
-        phone.setText(
-            "Phone:" + PHONE_WHITESPACE + internshipApplication.getPhone().value);
-        address.setText(
-            "Address:" + ADDRESS_WHITESPACE + internshipApplication.getAddress().value);
-        email.setText(
-            "Email:" + EMAIL_WHITESPACE + internshipApplication.getEmail().value);
-        role.setText(
-            "Role:" + ROLE_WHITESPACE + internshipApplication.getRole().fullRole);
-        priority.setText(
-            "Priority:" + PRIORITY_WHITESPACE + internshipApplication.getPriority().fullPriority);
-        applicationDate.setText(
-            "Application Date:" + DATE_WHITESPACE + internshipApplication.getApplicationDate().printDate());
-        status.setText(
-            "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString()
+        phone.setText(internshipApplication.getPhone().value);
+        address.setText(internshipApplication.getAddress().value);
+        email.setText(internshipApplication.getEmail().value);
+        role.setText(internshipApplication.getRole().fullRole);
+        priority.setText(internshipApplication.getPriority().fullPriority + "");
+        applicationDate.setText(internshipApplication.getApplicationDate().printDate());
+        status.setText(internshipApplication.getStatus().toString()
                 + internshipApplication.getLastStageMessage());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(

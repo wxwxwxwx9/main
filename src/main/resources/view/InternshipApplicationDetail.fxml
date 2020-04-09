@@ -10,20 +10,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.skin.ColorPalette.ColorPickerGrid?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-style="-fx-background-color: grey" minWidth="100">
+      style="-fx-background-color: grey" minWidth="100">
     <VBox alignment="CENTER_LEFT" minHeight="180">
         <padding>
             <Insets top="5" right="5" bottom="5" left="15" />
         </padding>
         <Label fx:id="company" text="\$first" styleClass="cell_big_label" />
-        <Label fx:id="role" styleClass="cell_small_label" text="\$role" />
-        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-        <Label fx:id="applicationDate" styleClass="cell_small_label" text="\$applicationDate" />
-        <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-        <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
+        <GridPane minHeight = "20">
+            <children>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Role:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="role" styleClass="cell_small_label" text="\$role" />
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Address:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="address" styleClass="cell_small_label" text="\$address" />
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Phone:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="Email:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="email" styleClass="cell_small_label" text="\$email" />
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="ApplicationDate:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="applicationDate" styleClass="cell_small_label" text="\$applicationDate" />
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="Priority:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="priority" styleClass="cell_small_label" text="\$priority" />
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="6" text="Status:" styleClass="cell_small_label" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="status" styleClass="cell_small_label" text="\$status" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints minWidth="150" />
+            </columnConstraints>
+        </GridPane>
         <Label fx:id="interviewPreamble" styleClass="cell_big_label" text="\$interviews" />
     </VBox>
     <AnchorPane minWidth="100" minHeight="50.0" prefWidth="250" VBox.vgrow="ALWAYS" >

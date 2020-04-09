@@ -17,8 +17,17 @@
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <Label fx:id="title" text="\$first" styleClass="cell_small_label" />
-            <Label fx:id="date" styleClass="cell_small_label" text="\$applicationDate" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+            <GridPane minHeight = "20">
+                <children>
+                    <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Interview Date:" styleClass="cell_small_label" />
+                    <Label GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="date" styleClass="cell_small_label" text="\$interviewDate" />
+                    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Interview Address:" styleClass="cell_small_label" />
+                    <Label GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="address" styleClass="cell_small_label" text="\$interviewAddress" />
+                </children>
+                <columnConstraints>
+                    <ColumnConstraints minWidth="135" />
+                </columnConstraints>
+            </GridPane>
         </VBox>
     </GridPane>
 </HBox>
