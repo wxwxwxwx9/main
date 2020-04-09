@@ -15,9 +15,9 @@ import seedu.diary.model.internship.interview.Interview;
 public class TypicalInterviews {
 
     public static final Interview CENTRAL_LIBRARY = new InterviewBuilder()
-        .withAddress("215 Bras Basah").withDate("05 03 2015").withIsOnline(false).build();
+        .withAddress("215 Bras Basah").withDate("05 05 2020").withIsOnline(false).build();
     public static final Interview ORCHARD_TOWER = new InterviewBuilder()
-        .withAddress("Orchard Towers 12-555").withDate("20 01 2020").withIsOnline(false).build();
+        .withAddress("Orchard Towers 12-555").withDate("20 10 2020").withIsOnline(false).build();
 
     public static final Interview NUS = new InterviewBuilder().withAddress(VALID_ADDRESS_NUS)
         .withDate(VALID_DATE_NUS).withIsOnline(VALID_IS_ONLINE_NUS).build();

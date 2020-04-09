@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newInternshipApplication_success() {
         InternshipApplication validInternshipApplication = new InternshipApplicationBuilder().build();
 
         Model expectedModel = new ModelManager(model.getInternshipDiary(), new UserPrefs());
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateInternshipApplication_throwsCommandException() {
         InternshipApplication internshipInList = model.getInternshipDiary().getDisplayedInternshipList().get(0);
         assertCommandFailure(new AddCommand(internshipInList), model, AddCommand.MESSAGE_DUPLICATE_INTERNSHIP);
     }

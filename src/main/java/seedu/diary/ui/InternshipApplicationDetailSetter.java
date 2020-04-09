@@ -14,12 +14,9 @@ import javafx.scene.layout.StackPane;
 import seedu.diary.model.internship.InternshipApplication;
 
 /**
- * A graphical interface for the statistics that is displayed at the footer of the application.
+ * A setter for the internship application details on the stack pane.
  */
 public class InternshipApplicationDetailSetter implements PropertyChangeListener {
-
-    private static final String FXML = "ComparatorDisplayFooter.fxml";
-
     private final StackPane internshipApplicationDetailPlaceholder;
     private InternshipApplication internshipApplication;
     private Region internshipApplicationDetailRoot;
@@ -29,7 +26,7 @@ public class InternshipApplicationDetailSetter implements PropertyChangeListener
     }
 
     /**
-     * Receives the latest changes in Comparator from internship diary.
+     * Receives the latest changes in predicate or the internship application selected from internship diary.
      * Updates the relevant display accordingly.
      */
     @SuppressWarnings("unchecked")
@@ -41,6 +38,10 @@ public class InternshipApplicationDetailSetter implements PropertyChangeListener
                 updateInternshipDetail((InternshipApplication) e.getNewValue());
             }
         } else if (propertyName.equals(PREDICATE.toString())) {
+            if (internshipApplication == null) {
+                return;
+            }
+
             Predicate<InternshipApplication> predicate = (Predicate<InternshipApplication>) e.getNewValue();
             if (predicate != null && !predicate.test(this.internshipApplication)) {
                 updateInternshipDetail(null);

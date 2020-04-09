@@ -35,7 +35,7 @@ public class ApplicationDateIsDatePredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different dates -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

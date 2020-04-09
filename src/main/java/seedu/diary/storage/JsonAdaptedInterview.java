@@ -20,7 +20,7 @@ public class JsonAdaptedInterview {
     private final String interviewDate;
 
     /**
-     * Constructs a {@code JsonAdaptedInterview} with the given person details.
+     * Constructs a {@code JsonAdaptedInterview} with the given interview details.
      */
     @JsonCreator
     public JsonAdaptedInterview(@JsonProperty("interviewAddress") String interviewAddress,
@@ -37,7 +37,7 @@ public class JsonAdaptedInterview {
     public JsonAdaptedInterview(Interview source) {
         interviewAddress = source.getInterviewAddress().value;
         interviewDate = source.getDate().toString();
-        isOnline = Boolean.toString(source.isOnline);
+        isOnline = Boolean.toString(source.getIsOnline());
     }
 
     /**
@@ -72,6 +72,6 @@ public class JsonAdaptedInterview {
         }
         Boolean modelIsOnline = Boolean.parseBoolean(isOnline);
 
-        return new Interview(modelIsOnline, modelDate, modelAddress);
+        return Interview.createInterview(modelIsOnline, modelDate, modelAddress);
     }
 }

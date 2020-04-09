@@ -14,6 +14,7 @@ import seedu.diary.commons.util.CollectionUtil;
 import seedu.diary.logic.commands.CommandResult;
 import seedu.diary.logic.commands.InterviewCommand;
 import seedu.diary.logic.commands.exceptions.CommandException;
+import seedu.diary.logic.commands.exceptions.InterviewCommandException;
 import seedu.diary.model.Model;
 import seedu.diary.model.internship.Address;
 import seedu.diary.model.internship.ApplicationDate;
@@ -38,6 +39,8 @@ public class InterviewEditCommand extends InterviewCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_INTERVIEW =
         "This interview already exists in the following internship application: %1$s.";
+    public static final String MESSAGE_REQUIRE_ADDRESS = "You are changing an Online Interview "
+        + "into an Offline Interview, Address field is required.";
 
     private final Index internshipIndex;
     private final Index interviewIndex;
@@ -77,8 +80,12 @@ public class InterviewEditCommand extends InterviewCommand {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_INTERVIEW, internshipToModify));
         }
 
+        if (super.isInterviewBeforeApplication(internshipToModify, editedInterview)) {
+            throw new InterviewCommandException(MESSAGE_INTERVIEW_DATE_ERROR);
+        }
+
         lastShownList.set(interviewIndex.getZeroBased(), editedInterview);
-        // todo: update display
+        model.displayInternshipDetail(internshipToModify);
         return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview));
     }
 
@@ -87,15 +94,20 @@ public class InterviewEditCommand extends InterviewCommand {
      * edited with {@code editInternshipDescriptor}.
      */
     private static Interview createEditedInterview(Interview interviewToEdit,
-        EditInterviewDescriptor editInterviewDescriptor) {
+        EditInterviewDescriptor editInterviewDescriptor) throws InterviewCommandException {
         assert interviewToEdit != null;
+
+        boolean updatedIsOnline = editInterviewDescriptor.getIsOnline().orElse(interviewToEdit.getIsOnline());
+
+        if (interviewToEdit.getIsOnline() && !updatedIsOnline && editInterviewDescriptor.getAddress().isEmpty()) {
+            throw new InterviewCommandException(MESSAGE_REQUIRE_ADDRESS);
+        }
 
         Address updatedAddress = editInterviewDescriptor.getAddress().orElse(interviewToEdit.getInterviewAddress());
         ApplicationDate updatedDate = editInterviewDescriptor.getInterviewDate()
             .orElse(interviewToEdit.getDate());
-        boolean updatedIsOnline = editInterviewDescriptor.getIsOnline().orElse(interviewToEdit.isOnline);
 
-        return new Interview(updatedIsOnline, updatedDate, updatedAddress);
+        return Interview.createInterview(updatedIsOnline, updatedDate, updatedAddress);
 
     }
 

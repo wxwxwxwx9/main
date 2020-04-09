@@ -25,7 +25,7 @@ public class InterviewUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code Interview}'s details.
      */
     public static String getInterviewDetails(Interview interview) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MM YYYY");
@@ -33,7 +33,7 @@ public class InterviewUtil {
         sb.append(PREFIX_ADDRESS + interview.getInterviewAddress().value + " ");
         sb.append(PREFIX_DATE + dateFormat
             .format(interview.getInterviewDate()) + " ");
-        sb.append(PREFIX_IS_ONLINE + String.valueOf(interview.isOnline) + " ");
+        sb.append(PREFIX_IS_ONLINE + String.valueOf(interview.getIsOnline()) + " ");
         return sb.toString();
     }
 

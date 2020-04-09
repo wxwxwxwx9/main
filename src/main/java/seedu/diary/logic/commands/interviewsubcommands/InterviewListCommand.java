@@ -26,7 +26,7 @@ public class InterviewListCommand extends InterviewCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         InternshipApplication internshipToList = super.getInternshipApplication(model, index);
-        // Todo: change interviews into observable list and make it show here.
+        model.displayInternshipDetail(internshipToList);
         return new CommandResult(String.format(MESSAGE_SUCCESS, internshipToList));
     }
 

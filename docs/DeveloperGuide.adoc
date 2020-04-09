@@ -804,8 +804,7 @@ The following sequence diagram shows how the command is executed:
 image::ReminderSequenceDiagram.png[]
 
 ==== Implementation
-The reminder command is implemented in the class `ReminderCommand` and instantiates two predicates
-`ApplicationDateDuePredicate` and `InterviewDateDuePredicate` with every call of the command.
+The reminder command is implemented in the class `ReminderCommand`.
 
 To facilitate the reminder command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
 
@@ -914,9 +913,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |tag each application with a status | track my internship application phase
 
-|`* * *` |self-reflecting user |mark what positions of internship I have been applying to | see which positions I have the best chance of getting and easily look up past internship application when applying to similar positions
+|`* * *` |self-reflecting user |mark what positions of internship I have been applying to | look up past internship applications and see which positions I had been offered more as a reference for future applications
 
-|`* * *` |user |set reminders for internship deadlines/appointments| make sure I do not miss any internship opportunities
+|`* * *` |user |set reminders for internship deadlines/interviews| make sure I do not miss any internship opportunities by not applying in time/ missing interviews
 
 |`* *` |user |be able to add companies I wish to apply to in a wish-list |apply to them when the window opens
 

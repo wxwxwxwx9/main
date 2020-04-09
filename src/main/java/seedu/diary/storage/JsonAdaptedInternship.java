@@ -86,7 +86,8 @@ class JsonAdaptedInternship {
      * Converts this Jackson-friendly adapted internship application object
      * into the model's {@code InternshipApplication} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted internship application
+     * object.
      */
     public InternshipApplication toModelType() throws IllegalValueException {
         if (company == null) {

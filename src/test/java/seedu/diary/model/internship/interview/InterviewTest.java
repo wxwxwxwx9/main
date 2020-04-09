@@ -1,6 +1,7 @@
 package seedu.diary.model.internship.interview;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.diary.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.diary.logic.commands.CommandTestUtil.VALID_DATE_AMY;
@@ -11,24 +12,27 @@ import org.junit.jupiter.api.Test;
 
 import seedu.diary.testutil.InterviewBuilder;
 
+/**
+ * Tests integration between OfflineInterview and OnlineInterview.
+ */
 public class InterviewTest {
 
     @Test
-    public void isValid_validInterview_returnTrue() {
-        //Not online and diary available
-        Interview interview = new InterviewBuilder().build();
-        assertTrue(interview.isValid());
-        //Online and diary is NA
-        interview = new InterviewBuilder(ONLINE).build();
-        assertTrue(interview.isValid());
+    public void createInterview_invalidArgs_throwsNullPointerException() {
+        Interview interview = CENTRAL_LIBRARY;
+        // Null date
+        assertThrows(NullPointerException.class, () -> Interview.createInterview(false, null,
+                interview.getInterviewAddress()));
+        // Null address
+        assertThrows(NullPointerException.class, () -> Interview.createInterview(false,
+                interview.getDate(), null));
     }
 
     @Test
-    public void isValid_invalidInterview_returnFalse() {
-        Interview interview = new InterviewBuilder().build();
-        //Online and diary is not NA
-        interview = new InterviewBuilder().withIsOnline(true).build();
-        assertFalse(interview.isValid());
+    public void createOnlineInterview_validArgs_success() {
+        Interview interview = ONLINE;
+        Interview onlineInterview = Interview.createOnlineInterview(interview.getDate());
+        assertTrue(ONLINE.equals(onlineInterview));
     }
 
     @Test
