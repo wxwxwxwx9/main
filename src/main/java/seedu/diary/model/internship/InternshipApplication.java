@@ -2,7 +2,7 @@ package seedu.diary.model.internship;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.diary.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.diary.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
+import static seedu.diary.model.ListenerPropertyType.DISPLAYED_INTERVIEWS;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -231,19 +231,19 @@ public class InternshipApplication {
     /** Adds given interview into interview list. Will fire property change event */
     public void addInterview(Interview interview) {
         interviews.add(interview);
-        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, interviews);
+        firePropertyChange(DISPLAYED_INTERVIEWS, interviews);
     }
 
     /** Deletes given interview from interview list. Will fire property change event */
     public void deleteInterview(Interview interview) {
         interviews.remove(interview);
-        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, interviews);
+        firePropertyChange(DISPLAYED_INTERVIEWS, interviews);
     }
 
     /** Sets given interview into specified index in the interview list. Will fire property change event */
     public void setInterview(Index index, Interview interview) {
         interviews.set(index.getZeroBased(), interview);
-        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, interviews);
+        firePropertyChange(DISPLAYED_INTERVIEWS, interviews);
     }
 
     public Interview getInterview(int index) {
@@ -253,7 +253,7 @@ public class InternshipApplication {
     public void setInterviews(List<Interview> interviews) {
         requireNonNull(interviews);
         this.interviews.addAll(interviews);
-        firePropertyChange(DISPLAYED_INTERNSHIP_DETAIL, this.interviews);
+        firePropertyChange(DISPLAYED_INTERVIEWS, this.interviews);
     }
 
     public List<Interview> getInterviews() {
@@ -331,6 +331,14 @@ public class InternshipApplication {
 
     public void addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l) {
         changes.addPropertyChangeListener(propertyType.toString(), l);
+    }
+
+    /** Removes all property change listeners from Internship Application. */
+    public void removeAllPropertyChangeListener() {
+        PropertyChangeListener[] propertyChangeListeners = changes.getPropertyChangeListeners();
+        for (PropertyChangeListener pcl: propertyChangeListeners) {
+            changes.removePropertyChangeListener(pcl);
+        }
     }
 
     private void firePropertyChange(ListenerPropertyType propertyType, Object newValue) {

@@ -1,6 +1,6 @@
 package seedu.diary.ui;
 
-import static seedu.diary.model.ListenerPropertyType.DISPLAYED_INTERNSHIP_DETAIL;
+import static seedu.diary.model.ListenerPropertyType.DISPLAYED_INTERVIEWS;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -94,8 +94,10 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         interviewListPanel = new InterviewListPanel(
             FXCollections.observableArrayList(internshipApplication.getInterviews()));
         interviewListPanelPlaceHolder.getChildren().add(interviewListPanel.getRoot());
+        // remove old listeners to InternshipApplication
+        internshipApplication.removeAllPropertyChangeListener();
         // initiate listener to InternshipApplication
-        internshipApplication.addPropertyChangeListener(DISPLAYED_INTERNSHIP_DETAIL, interviewListPanel);
+        internshipApplication.addPropertyChangeListener(DISPLAYED_INTERVIEWS, interviewListPanel);
 
     }
 }
