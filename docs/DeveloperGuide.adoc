@@ -633,7 +633,7 @@ we implemented the commands `archive` and `unarchive`:
 
 The following activity diagram depicts the behaviour of an `archive` command. You may use it as a reference for `unarchive` as well. The activity diagrams for both are very similar.
 
-image::ActivityDiagramArchiveCommand.png[align="center"]
+image::ActivityDiagramArchiveCommand.png[align="center", width="700"]
 
 While implementing the `archive` and `unarchive` commands, we realised that users may sometimes want to cherry-pick multiple internship application(s) to execute on or mass-execute on certain types of internship application(s).
 For example, a user may want to archive all the internship application(s) that have the status of "rejected".
@@ -743,10 +743,13 @@ Furthermore, the changes may affect areas that we may not have considered. This 
 
 === Statistics Feature
 
-This feature allows users to view relevant metrics for their internship application(s).
+This feature allows users to view relevant metrics using the data entered by the users for their internship application(s).
 
-Such metrics include the amount of internship applications sent, and the percentage of internship applications in each
-status category -- `wishlist`, `applied`, `interview`, `offered`, `rejected`.
+Currently, the metrics include:
+. the amount of internship applications sent
+. percentage of internship applications in each status category
+
+Such metrics include
 
 Users will be able to view those metrics from two areas on the application: 1) `StatisticsBarFooter`, and 2) `StatisticsWindow`.
 
