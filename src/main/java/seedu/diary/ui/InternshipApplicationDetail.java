@@ -20,12 +20,6 @@ public class InternshipApplicationDetail extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationDetail.fxml";
 
-    /** Utility method to pad strings to the right until fixed length. */
-    public static String fixedLengthPadRight(String string, int length) {
-        return String.format("%1$-"+length+ "s", string);
-    }
-
-
     private InternshipApplication internshipApplication;
 
     private InterviewListPanel interviewListPanel;
@@ -94,5 +88,10 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         // initiate listener to InternshipApplication
         internshipApplication.addPropertyChangeListener(DISPLAYED_INTERVIEWS, interviewListPanel);
 
+    }
+    
+    /** Utility method to pad strings to the right until fixed length. */
+    public static String fixedLengthPadRight(String string, int length) {
+        return String.format("%1$-" + length + "s", string);
     }
 }
