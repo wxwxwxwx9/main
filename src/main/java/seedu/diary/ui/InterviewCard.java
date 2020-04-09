@@ -1,13 +1,13 @@
 package seedu.diary.ui;
 
-import static seedu.diary.ui.InternshipApplicationDetail.fixedLengthPadRight;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import seedu.diary.model.internship.interview.Interview;
+
+import static seedu.diary.ui.InternshipApplicationDetail.fixedLengthPadRight;
 
 /**
  * A UI component that shows information regarding an {@code Interview}.
