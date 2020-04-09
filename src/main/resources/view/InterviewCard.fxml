@@ -16,9 +16,9 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <Label fx:id="title" text="\$first" styleClass="cell_header_label" />
-            <Label fx:id="date" styleClass="cell_detail_label" text="\$applicationDate" />
-            <Label fx:id="address" styleClass="cell_detail_label" text="\$address" />
+            <Label fx:id="title" text="\$first" styleClass="cell_small_label" />
+            <Label fx:id="date" styleClass="cell_small_label" text="\$applicationDate" />
+            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
         </VBox>
     </GridPane>
 </HBox>

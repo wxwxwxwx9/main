@@ -19,11 +19,14 @@ import seedu.diary.model.internship.InternshipApplication;
 public class InternshipApplicationDetail extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationDetail.fxml";
-
-    /** Utility method to pad strings to the right until fixed length. */
-    public static String fixedLengthPadRight(String string, int length) {
-        return String.format("%1$-"+length+ "s", string);
-    }
+    // Whitespace utility for printing details.
+    private static final String ROLE_WHITESPACE = "                        ";
+    private static final String PHONE_WHITESPACE = "                     ";
+    private static final String ADDRESS_WHITESPACE = "                  ";
+    private static final String EMAIL_WHITESPACE = "                      ";
+    private static final String DATE_WHITESPACE = "    ";
+    private static final String PRIORITY_WHITESPACE = "                   ";
+    private static final String STATUS_WHITESPACE = "                     ";
 
 
     private InternshipApplication internshipApplication;
@@ -70,20 +73,19 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         super(FXML);
         company.setText(internshipApplication.getCompany().fullCompany);
         phone.setText(
-            fixedLengthPadRight("Phone:", 20) + internshipApplication.getPhone().value);
+            "Phone:" + PHONE_WHITESPACE + internshipApplication.getPhone().value);
         address.setText(
-            fixedLengthPadRight("Address:", 20) + internshipApplication.getAddress().value);
+            "Address:" + ADDRESS_WHITESPACE + internshipApplication.getAddress().value);
         email.setText(
-            fixedLengthPadRight("Email:", 20) + internshipApplication.getEmail().value);
+            "Email:" + EMAIL_WHITESPACE + internshipApplication.getEmail().value);
         role.setText(
-            fixedLengthPadRight("Role:", 20) + internshipApplication.getRole().fullRole);
+            "Role:" + ROLE_WHITESPACE + internshipApplication.getRole().fullRole);
         priority.setText(
-            fixedLengthPadRight("Priority:", 20) + internshipApplication.getPriority().fullPriority);
+            "Priority:" + PRIORITY_WHITESPACE + internshipApplication.getPriority().fullPriority);
         applicationDate.setText(
-            fixedLengthPadRight("Application Date:", 20)
-                + internshipApplication.getApplicationDate().printDate());
+            "Application Date:" + DATE_WHITESPACE + internshipApplication.getApplicationDate().printDate());
         status.setText(
-            fixedLengthPadRight("Status:", 20) + internshipApplication.getStatus().toString()
+            "Status:" + STATUS_WHITESPACE + internshipApplication.getStatus().toString()
                 + internshipApplication.getLastStageMessage());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(

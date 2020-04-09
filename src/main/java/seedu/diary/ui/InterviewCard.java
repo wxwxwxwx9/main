@@ -7,8 +7,6 @@ import javafx.scene.layout.Region;
 
 import seedu.diary.model.internship.interview.Interview;
 
-import static seedu.diary.ui.InternshipApplicationDetail.fixedLengthPadRight;
-
 /**
  * A UI component that shows information regarding an {@code Interview}.
  */
@@ -34,12 +32,12 @@ public class InterviewCard extends UiPart<Region> {
         super(FXML);
         this.interview = interview;
         String title = "Interview : ";
+        date.setText("Interview Date: " + interview.getDate().printDate());
         if (interview.getIsOnline()) {
             this.title.setText(index + ". ONLINE " + title);
         } else {
             this.title.setText(index + ". OFFLINE " + title);
         }
-        date.setText(fixedLengthPadRight("Interview Date:", 20) + interview.getDate().printDate());
-        address.setText(fixedLengthPadRight("Interview Address:", 20) + interview.getInterviewAddress().value);
+        address.setText("Interview Address: " + interview.getInterviewAddress().value);
     }
 }
