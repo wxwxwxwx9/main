@@ -46,9 +46,6 @@ public class InternshipApplicationDetail extends UiPart<Region> {
     private Label company;
 
     @FXML
-    private Label id;
-
-    @FXML
     private Label phone;
 
     @FXML
