@@ -104,6 +104,7 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
      * Parses the given {@code String} of arguments in the context of the RemovalBasedCommand
      * that is to be executed by accepted fields/prefixes and returns a RemovalBasedCommand for execution.
      *
+     * @param args the argument to be parsed into a predicate.
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public RemovalBasedCommand commandByField(String args) throws ParseException {
@@ -111,6 +112,12 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
         return new RemovalBasedCommand(predicate, RemovalBasedCommandExecutionType.BY_FIELD, commandWord);
     }
 
+    /**
+     * Creates the appropriate predicate according to the argument.
+     *
+     * @param args the argument to be parsed into a predicate.
+     * @throws ParseException if the user input does not conform to the expected format.
+     */
     private Predicate<InternshipApplication> generatePredicate(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
         boolean isValidField = checkValidField(argMultimap);
