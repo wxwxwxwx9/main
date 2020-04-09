@@ -17,13 +17,13 @@
         <padding>
             <Insets top="5" right="5" bottom="5" left="15" />
         </padding>
-        <Label fx:id="company" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="company" text="\$first" styleClass="cell_big_label" wrapText="true"/>
         <GridPane minHeight = "20">
             <children>
                 <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Role:" styleClass="cell_small_label" />
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="role" styleClass="cell_small_label" text="\$role" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="role" styleClass="cell_small_label" text="\$role" wrapText="true"/>
                 <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Address:" styleClass="cell_small_label" />
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="address" styleClass="cell_small_label" text="\$address" />
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
                 <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Phone:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="phone" styleClass="cell_small_label" text="\$phone" />
                 <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="Email:" styleClass="cell_small_label" />
