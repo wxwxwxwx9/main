@@ -1,0 +1,46 @@
+@startuml
+start
+
+while () is ([Application running])
+
+    while () is ([Else])
+        if () then ([key up pressed])
+            if () then ([no earlier history])
+            else ([else])
+                :Set the text of
+                CommandBox to be the
+                text at historyIterator;
+                :Increase position of
+                historyIterator by 1;
+            endif
+
+        else if () then ([key down pressed])
+            if () then ([no later history])
+            else ([else])
+                :Decrease position of
+                historyIterator by 1;
+                :Set the text of
+                CommandBox to be the
+                text at historyIterator;
+            endif
+        else if () then ([key left or right pressed])
+        else ([else])
+            :Set position of historyIterator
+            to be the front of
+            EnteredCommandHistory;
+        endif
+    endwhile ([User presses enter])
+
+  :Command is executed;
+  if () then ([command successful])
+      :Add text in CommandBox to front of
+      EnteredCommandHistory;
+      :Set position of historyIterator
+      to be the front of
+      EnteredCommandHistory;
+      :Clear text in CommandBox;
+  else ([else])
+  endif
+endwhile ([else])
+stop
+@enduml

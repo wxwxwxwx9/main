@@ -338,6 +338,29 @@ As the different modes do not share code, they are better off as separate classe
 
 // end::clear[]
 
+// tag::command-history[]
+=== Command History
+
+The command history feature allows the user to press the up and down arrow keys to select previous commands.
+
+The following activity diagram depicts the behaviour of the `CommandBox` while the user is entering commands.
+
+image::CommandHistoryActivityDiagram.png[]
+
+The following subsections will go through the general implementations of the command history feature.
+
+==== Implementation
+The implementation of command history involves only the UI classes `CommandBox` and `EnteredCommandsHistory`.
+Internally, `EnteredCommandsHistory` uses a `LinkedList` to store the command history. The `LinkedList` data structure
+was chosen the data structure needed to be a queue which also allows the last accessed element to be reaccessed quickly.
+This meant that the data structure has to support random access or have a `ListIterator`. Unfortunately, Java's default
+`ArrayDeque` does not support either. While it is possible to implement an `ArrayDeque` with random access, the default
+`LinkedList` already provides a `ListIterator`. While this is potentially slower than an `ArrayDeque` with random access,
+for the sake of convenience, `LinkedList` was chosen.
+
+
+// end::command-history[]
+
 // tag::interview[]
 === Interview and Interview Commands
 ==== Implementation
