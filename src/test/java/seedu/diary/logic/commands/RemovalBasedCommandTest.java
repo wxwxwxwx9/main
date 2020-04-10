@@ -154,7 +154,7 @@ public class RemovalBasedCommandTest {
             InternshipApplication internshipApplicationToDelete =
                 model.getFilteredInternshipApplicationList().get(index.getZeroBased());
             expectedModel.deleteInternshipApplication(internshipApplicationToDelete);
-            deletedInternshipApplications += internshipApplicationToDelete + "\n";
+            deletedInternshipApplications += internshipApplicationToDelete + "\n\n";
         }
 
         String expectedMessage = String.format(
@@ -197,7 +197,7 @@ public class RemovalBasedCommandTest {
             InternshipApplication internshipApplicationToDelete =
                 expectedModel.getFilteredInternshipApplicationList().get(index.getZeroBased());
             toDelete.add(internshipApplicationToDelete);
-            deletedInternshipApplications += internshipApplicationToDelete + "\n";
+            deletedInternshipApplications += internshipApplicationToDelete + "\n\n";
         }
 
         for (InternshipApplication internshipApplication : toDelete) {
@@ -248,7 +248,7 @@ public class RemovalBasedCommandTest {
         // delete the filtered internship applications
         for (InternshipApplication toDelete : internshipApplicationsToDelete) {
             expectedModel.deleteInternshipApplication(toDelete);
-            deletedInternshipApplications += toDelete + "\n";
+            deletedInternshipApplications += toDelete + "\n\n";
         }
 
         RemovalBasedCommand removalBasedDeleteCommand =
@@ -280,7 +280,7 @@ public class RemovalBasedCommandTest {
         // delete the filtered internship applications
         for (InternshipApplication toDelete : internshipApplicationsToDelete) {
             expectedModel.deleteInternshipApplication(toDelete);
-            deletedInternshipApplications += toDelete + "\n";
+            deletedInternshipApplications += toDelete + "\n\n";
         }
 
         RemovalBasedCommand removalBasedDeleteCommand =

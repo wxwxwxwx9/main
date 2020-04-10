@@ -1,0 +1,78 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":RemovalBasedCommand" as RemovalBasedCommand LOGIC_COLOR
+'participant "u:UnarchiveCommand" as UnarchiveCommand LOGIC_COLOR
+participant "a:ArchiveCommand" as ArchiveCommand LOGIC_COLOR
+'participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+group #transparent sd construct and execute lazy removal-based command by index
+
+    activate RemovalBasedCommand
+        '        add spacing
+        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+        RemovalBasedCommand -> RemovalBasedCommand : executeLazyCommandByIndex(model, lazyCommand, index)
+            activate RemovalBasedCommand
+'            alt #white delete
+'                create DeleteCommand
+'                RemovalBasedCommand -> DeleteCommand : lazyCommand.apply(index)
+'                    activate DeleteCommand
+'                    DeleteCommand --> RemovalBasedCommand : d
+'                    deactivate DeleteCommand
+'                RemovalBasedCommand -> DeleteCommand : execute(model)
+'                    activate DeleteCommand
+'                    DeleteCommand -> Model : deleteInternshipApplication(index)
+'                    activate Model
+'                    Model --> DeleteCommand
+'                    deactivate Model
+'                    DeleteCommand --> RemovalBasedCommand : feedback
+'                    deactivate DeleteCommand
+'                '        add spacing
+'                RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+'            else archive
+                create ArchiveCommand
+                RemovalBasedCommand -> ArchiveCommand : lazyCommand.apply(index)
+                    activate ArchiveCommand
+                    ArchiveCommand --> RemovalBasedCommand : a
+                    deactivate ArchiveCommand
+                RemovalBasedCommand -> ArchiveCommand : execute(model)
+                    activate ArchiveCommand
+                    ArchiveCommand -> Model : archiveInternshipApplication(index)
+                    activate Model
+                    Model --> ArchiveCommand
+                    deactivate Model
+                    ArchiveCommand --> RemovalBasedCommand : feedback
+                    deactivate ArchiveCommand
+                '        add spacing
+                RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+'            else unarchive
+'                create UnarchiveCommand
+'                RemovalBasedCommand -> UnarchiveCommand : lazyCommand.apply(index)
+'                    activate UnarchiveCommand
+'                    UnarchiveCommand --> RemovalBasedCommand : u
+'                    deactivate UnarchiveCommand
+'                RemovalBasedCommand -> UnarchiveCommand : execute(model)
+'                    activate UnarchiveCommand
+'                    UnarchiveCommand -> Model : unarchiveInternshipApplication(index)
+'                    activate Model
+'                    Model --> UnarchiveCommand
+'                    deactivate Model
+'                    UnarchiveCommand --> RemovalBasedCommand : feedback
+'                    deactivate UnarchiveCommand
+'                '        add spacing
+'                RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+'            end
+            RemovalBasedCommand --> RemovalBasedCommand : feedback
+            deactivate RemovalBasedCommand
+            '        add spacing
+            RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+
+end group ref
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":RemovalBasedCommand" as RemovalBasedCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+group LOGIC_COLOR_T1 sd create command result
+
+    activate RemovalBasedCommand
+        '        add spacing
+        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+        create CommandResult
+        RemovalBasedCommand -> CommandResult : CommandResult(feedback)
+            activate CommandResult
+            CommandResult --> RemovalBasedCommand : cr
+            deactivate CommandResult
+
+    '        add spacing
+    RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+
+end group ref
+
+@enduml

@@ -10,6 +10,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":InternshipDiary" as InternshipDiary MODEL_COLOR
 end box
 
 [-> LogicManager : execute("archival")
@@ -31,8 +32,14 @@ deactivate InternshipDiaryParser
 LogicManager -> ArchivalCommand : execute()
 activate ArchivalCommand
 
-ArchivalCommand -> Model : updateFilteredInternshipApplicationList(PREDICATE_SHOW_ARCHIVED_INTERNSHIPS)
+ArchivalCommand -> Model : viewArchivedInternshipApplicationList()
 activate Model
+
+Model -> InternshipDiary : viewArchivedInternshipApplicationList()
+activate InternshipDiary
+
+InternshipDiary --> Model
+deactivate InternshipDiary
 
 Model --> ArchivalCommand
 deactivate Model

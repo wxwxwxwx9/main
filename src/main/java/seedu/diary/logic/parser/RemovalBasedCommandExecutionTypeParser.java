@@ -104,21 +104,35 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
      * Parses the given {@code String} of arguments in the context of the RemovalBasedCommand
      * that is to be executed by accepted fields/prefixes and returns a RemovalBasedCommand for execution.
      *
+     * @param args the argument to be parsed into a predicate.
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public RemovalBasedCommand commandByField(String args) throws ParseException {
+        Predicate<InternshipApplication> predicate = generatePredicate(args);
+        return new RemovalBasedCommand(predicate, RemovalBasedCommandExecutionType.BY_FIELD, commandWord);
+    }
+
+    /**
+     * Creates the appropriate predicate according to the argument.
+     *
+     * @param args the argument to be parsed into a predicate.
+     * @throws ParseException if the user input does not conform to the expected format.
+     */
+    private Predicate<InternshipApplication> generatePredicate(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, acceptedPrefixes);
-        boolean hasOnlyOneField = (argMultimap.getSize() - 1) == 1;
-        boolean hasAcceptedPrefixesPresent = areAnyPrefixesPresent(argMultimap, acceptedPrefixes);
-        boolean isValidField = hasOnlyOneField & hasAcceptedPrefixesPresent;
+        boolean isValidField = checkValidField(argMultimap);
         if (!isValidField) {
             String exceptionMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 RemovalBasedCommand.MESSAGE_USAGE_BY_FIELD.apply(commandWord));
             throw new ParseException(exceptionMessage);
         }
-        Predicate<InternshipApplication> predicate = getFieldPredicate(argMultimap, acceptedPrefixes);
+        return getFieldPredicate(argMultimap, acceptedPrefixes);
+    }
 
-        return new RemovalBasedCommand(predicate, RemovalBasedCommandExecutionType.BY_FIELD, commandWord);
+    private boolean checkValidField(ArgumentMultimap argMultimap) {
+        boolean hasOnlyOneField = (argMultimap.getSize() - 1) == 1;
+        boolean hasAcceptedPrefixesPresent = areAnyPrefixesPresent(argMultimap, acceptedPrefixes);
+        return hasOnlyOneField & hasAcceptedPrefixesPresent;
     }
 
 }

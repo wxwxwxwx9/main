@@ -1,0 +1,94 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":InternshipDiaryParser" as InternshipDiaryParser LOGIC_COLOR
+participant ":RemovalBasedCommand\nExecutionTypeParser" as RemovalBasedCommandExecutionTypeParser LOGIC_COLOR
+participant "r:RemovalBasedCommand" as RemovalBasedCommand LOGIC_COLOR
+participant "<<class>>\n:RemovalBasedCommand\nExecutionType" as RemovalBasedCommandExecutionType LOGIC_COLOR
+end box
+
+'Can reference ParserUtil for more details on how the parser actually determines which command execution type this is'
+
+group #transparent sd parse and create RemovalBasedCommand
+
+    activate LogicManager
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    RemovalBasedCommandExecutionTypeParser -[hidden]-> InternshipDiaryParser
+    LogicManager -> InternshipDiaryParser : parseCommand("archive s/rejected")
+
+        activate InternshipDiaryParser
+        create RemovalBasedCommandExecutionTypeParser
+        InternshipDiaryParser -> RemovalBasedCommandExecutionTypeParser : RemovalBasedCommandExecutionTypeParser("archive")
+            activate RemovalBasedCommandExecutionTypeParser
+            RemovalBasedCommandExecutionTypeParser --> InternshipDiaryParser
+            deactivate RemovalBasedCommandExecutionTypeParser
+
+        InternshipDiaryParser -> RemovalBasedCommandExecutionTypeParser : parse("s/rejected")
+
+        activate RemovalBasedCommandExecutionTypeParser
+        RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommandExecutionType : getExecutionType("s/rejected")
+            activate RemovalBasedCommandExecutionType
+            RemovalBasedCommandExecutionType --> RemovalBasedCommandExecutionTypeParser : BY_FIELD
+            deactivate RemovalBasedCommandExecutionType
+
+'        alt #white BY_INDEX
+'        RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommandExecutionTypeParser : commandByIndex(arg)
+'            activate RemovalBasedCommandExecutionTypeParser
+'            create RemovalBasedCommand
+'            RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommand : RemovalBasedCommand(arg, BY_INDEX, "archive")
+'                activate RemovalBasedCommand
+'                RemovalBasedCommand --> RemovalBasedCommandExecutionTypeParser : r
+'                deactivate RemovalBasedCommand
+'            RemovalBasedCommandExecutionTypeParser --> RemovalBasedCommandExecutionTypeParser : r
+'            deactivate RemovalBasedCommandExecutionTypeParser
+'            'Hidden arrow to position the destroy marker below the end of the activation bar.
+'            RemovalBasedCommandExecutionTypeParser -[hidden]-> RemovalBasedCommandExecutionTypeParser
+'
+'        else BY_INDICES
+'        RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommandExecutionTypeParser : commandByIndices(arg)
+'            activate RemovalBasedCommandExecutionTypeParser
+'            create RemovalBasedCommand
+'            RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommand : RemovalBasedCommand(arg, BY_INDICES, "archive")
+'                activate RemovalBasedCommand
+'                RemovalBasedCommand --> RemovalBasedCommandExecutionTypeParser : r
+'                deactivate RemovalBasedCommand
+'            RemovalBasedCommandExecutionTypeParser --> RemovalBasedCommandExecutionTypeParser : r
+'            deactivate RemovalBasedCommandExecutionTypeParser
+'            'Hidden arrow to position the destroy marker below the end of the activation bar.
+'            RemovalBasedCommandExecutionTypeParser -[hidden]-> RemovalBasedCommandExecutionTypeParser
+'
+'        else BY_FIELD
+        RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommandExecutionTypeParser : commandByField("s/rejected")
+            activate RemovalBasedCommandExecutionTypeParser
+            RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommandExecutionTypeParser : generatePredicate("s/rejected")
+                activate RemovalBasedCommandExecutionTypeParser
+                RemovalBasedCommandExecutionTypeParser --> RemovalBasedCommandExecutionTypeParser : predicate
+                deactivate RemovalBasedCommandExecutionTypeParser
+            create RemovalBasedCommand
+            RemovalBasedCommandExecutionTypeParser -> RemovalBasedCommand : RemovalBasedCommand(predicate, BY_FIELD, "archive")
+                activate RemovalBasedCommand
+                RemovalBasedCommand --> RemovalBasedCommandExecutionTypeParser : r
+                deactivate RemovalBasedCommand
+            RemovalBasedCommandExecutionTypeParser --> RemovalBasedCommandExecutionTypeParser : r
+            deactivate RemovalBasedCommandExecutionTypeParser
+            'Hidden arrow to position the destroy marker below the end of the activation bar.
+            RemovalBasedCommandExecutionTypeParser -[hidden]-> RemovalBasedCommandExecutionTypeParser
+
+'        end alt
+
+        RemovalBasedCommandExecutionTypeParser --> InternshipDiaryParser : r
+        deactivate RemovalBasedCommandExecutionTypeParser
+        'Hidden arrow to position the destroy marker below the end of the activation bar.
+        RemovalBasedCommandExecutionTypeParser -[hidden]-> InternshipDiaryParser
+        destroy RemovalBasedCommandExecutionTypeParser
+
+    InternshipDiaryParser --> LogicManager : r
+    deactivate InternshipDiaryParser
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    RemovalBasedCommandExecutionTypeParser -[hidden]-> InternshipDiaryParser
+
+end group ref
+
+@enduml

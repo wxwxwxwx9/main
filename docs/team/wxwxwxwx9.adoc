@@ -3,17 +3,43 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: My Internship Diary
+== PROJECT: Internship Diary
 
 ---
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Internship Diary is a desktop-based internship application tracking software.
+The idea for this software came about when we realised that the nature of a computer science degree is internship-driven;
+in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good job as a fresh graduate.
+Essentially, your first big internship will serve as a pivotal moment for your future career. Having said that, internship application is often a
+tedious and messy process, with companies having different hiring processes and requirements.
+We set out to tackle this pain point -- by coming up with a solution to help computer science students manage and streamline their internship application journey
+Ultimately, we aim to make every student's internship hunt during their four years as a computer science undergraduate a pleasant one, and hopefully maximise their chances of landing the best possible internship.
 
 == Summary of contributions
 
 * *Major enhancement*:
+
+Implemented the Archival System
+What it does: The archival system allows users to move their internship applications from the main list to a back-up list which is known as the archival.
+Justification: This feature is particularly important as it helps users to organise their internship application(s). Whenever there are
+internship application(s) that are no longer relevant / are of interest to the user, he/she can archive those internship application(s) so that
+it "declutters" their main list. This allows them to focus on the internship application(s) that are more important currently.
+Highlights: The archival feature seems trivial as it is usually a staple feature in many tracking applications. However, the difficult part comes in deciding what is the sustainable and extensible way to
+implement this feature. You may view my developer guide to read more about the design considerations involved in this implementation.
+
+
+Created a statistics dashboard.
+What it does: The statistics dashboard dynamically generates relevant statistics from the list of internship application(s) in the current view.
+This provides users with a visualization of their internship application journey in terms of numbers.
+Justification: The hunt for internship can be seen as a journey of growth in terms of personal and professional development.
+By having useful and relevant statistics, one can gain insight into what they are good at and what they can work on to make themselves a more attractive candidate for internship roles.
+Highlights:
+
+Listener System (Observer pattern)
+
+Multi-Execution Command Type
 
 * *Minor enhancement*:
 

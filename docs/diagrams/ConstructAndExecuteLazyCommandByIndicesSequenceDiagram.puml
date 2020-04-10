@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":RemovalBasedCommand" as RemovalBasedCommand LOGIC_COLOR
+end box
+
+group LOGIC_COLOR_T1 sd construct and execute lazy removal-based command by indices
+
+    activate RemovalBasedCommand
+        '        add spacing
+        RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+        RemovalBasedCommand -> RemovalBasedCommand : executeLazyCommandByIndices(model, lazyCommand, indices)
+            activate RemovalBasedCommand
+'           not gonna mention the index decrement
+            loop #grey for each index
+                '        add spacing
+                RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+                ref over RemovalBasedCommand : construct and execute lazy removal-based command by index
+                '        add spacing
+                RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+            end
+            RemovalBasedCommand --> RemovalBasedCommand : feedback
+            deactivate RemovalBasedCommand
+            '        add spacing
+            RemovalBasedCommand -[hidden]-> RemovalBasedCommand
+
+end group ref
+
+@enduml

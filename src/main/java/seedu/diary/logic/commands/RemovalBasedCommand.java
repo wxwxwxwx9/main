@@ -24,33 +24,29 @@ import seedu.diary.model.internship.InternshipApplication;
  */
 public class RemovalBasedCommand extends Command {
 
-    public static final Function<String, String> MESSAGE_USAGE_BY_INDEX = (commandWord) -> commandWord
+    public static final Function<String, String> MESSAGE_USAGE_BY_INDEX = (commandWord) -> commandWord.toUpperCase()
         + "s the internship application.\n"
         + "Identified by the index number used in the displayed internship list.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + commandWord + " 1\n";
 
-    public static final Function<String, String> MESSAGE_USAGE_BY_INDICES = (commandWord) -> commandWord
-        + "s the internship application "
-        + "identified by the index number used in the displayed internship list.\n"
-        + "Parameters: INDICES (must have more than 1 positive integer with comma as separator)\n"
-        + "Example: " + commandWord + " 3, 1 ,5";
+    public static final Function<String, String> MESSAGE_USAGE_BY_INDICES = (commandWord) -> commandWord.toUpperCase()
+        + "s the internship application.\n"
+        + "Identified by the index number used in the displayed internship list.\n"
+        + "Parameters: INDEX, [INDEX], [INDEX], ... (all index must be positive integer with comma as separator)\n"
+        + "Note that INDEX enclosed in bracket is optional.\n"
+        + "Example: " + commandWord + " 3, 1, 5";
 
-    public static final Function<String, String> MESSAGE_USAGE_BY_FIELD = (commandWord) -> commandWord
-        + "s all internship applications whose fields contain all of "
-        + "the specified field keywords (case-insensitive).\n"
-        + "There must be only one specified field. \n"
+    public static final Function<String, String> MESSAGE_USAGE_BY_FIELD = (commandWord) -> commandWord.toUpperCase()
+        + "s all internship applications with the specified status."
+        + "The specified field keywords (case-insensitive).\n"
+        + "There must be only one specified status.\n"
         + "Parameters: "
-        // + "[" + PREFIX_COMPANY + "COMPANY] "
-        // + "[" + PREFIX_ROLE + "ROLE] "
-        + "[" + PREFIX_STATUS + "STATUS] "
-        + "Example: " + commandWord + " s/google";
+        + PREFIX_STATUS + "STATUS"
+        + "Example: " + commandWord + " s/rejected";
 
     public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_SUCCESS = (commandWord) ->
-        commandWord.toUpperCase() + "D:\n%1$s";
-
-    public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_FAILURE = (commandWord) ->
-        commandWord.toLowerCase() + "D:\n%1$s";
+        commandWord.toUpperCase() + "D internship application(s) — \n\n%1$s";
 
     public static final String MESSAGE_COMMAND_UNEXPECTED_FAILURE = "Something went wrong!";
 
@@ -161,9 +157,10 @@ public class RemovalBasedCommand extends Command {
     public CommandResult executeByField(Model model, Function<Index, Command> lazyCommand) throws CommandException {
         requireNonNull(model);
 
-        List<InternshipApplication> internshipsToExecuteOn = getPredicateFilteredInternshipApplications(model);
+        List<InternshipApplication> internshipApplicationsToExecuteOn =
+            getPredicateFilteredInternshipApplications(model);
 
-        List<Index> indices = convertInternshipApplicationsToIndices(model, internshipsToExecuteOn);
+        List<Index> indices = convertInternshipApplicationsToIndices(model, internshipApplicationsToExecuteOn);
 
         checkValidIndices(model, indices);
 
@@ -233,7 +230,7 @@ public class RemovalBasedCommand extends Command {
                 Index newIndex = indices.get(j).getDecrementIndex();
                 indices.set(j, newIndex);
             }
-            commandFeedback += executeLazyCommandByIndex(model, lazyCommand, indices.get(i)) + "\n";
+            commandFeedback += executeLazyCommandByIndex(model, lazyCommand, indices.get(i)) + "\n\n";
         }
         return commandFeedback;
     }

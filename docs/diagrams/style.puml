@@ -7,6 +7,9 @@
 
 'T1 through T4 are shades of the original color from lightest to darkest
 
+!define COMMONS_COLOR #02aba0
+!define COMMONS_COLOR_T1 #07e8d9
+
 !define UI_COLOR #1D8900
 !define UI_COLOR_T1 #83E769
 !define UI_COLOR_T2 #3FC71B

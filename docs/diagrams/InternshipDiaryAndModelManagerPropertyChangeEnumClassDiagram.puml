@@ -1,0 +1,67 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+Class InternshipDiary {
+    - displayedInternships: \nUniqueInternshipApplicationList
+    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+    + firePropertyChange(ListenerPropertyType propertyType, \nObject newValue): void
+}
+
+Class ModelManager implements PropertyChangeListener {
+    - filteredInternshipApplications: \nFilteredList<InternshipApplication>
+    + propertyChange(PropertyChangeEvent e): void
+    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
+    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
+'    - refreshFilteredInternshipApplications(Object newInternshipApplications)
+'    - fireAllPropertyChanges(): void
+}
+
+Class StatisticsWindow implements PropertyChangeListener {
+    - internshipApplicationList: \nObservableList<InternshipApplication>
+    + propertyChange(PropertyChangeEvent e): void
+}
+
+interface PropertyChangeListener <<interface>> {
+    propertyChange(PropertyChangeEvent e): void
+}
+
+class PropertyChangeSupport {
+    + addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
+    + firePropertyChange(String propertyName, Object oldValue, Object newValue)
+}
+
+InternshipDiary -up-> "1" PropertyChangeSupport
+ModelManager -up-> "1" PropertyChangeSupport
+
+PropertyChangeSupport .right.> PropertyChangeListener
+
+enum ListenerPropertyType <<enumeration>> {
+    DISPLAYED_INTERNSHIPS
+    FILTERED_INTERNSHIP_APPLICATIONS
+    VIEW_TYPE
+    COMPARATOR
+    PREDICATE
+    DISPLAYED_INTERNSHIP_DETAILS
+}
+
+InternshipDiary ..> ListenerPropertyType
+ModelManager ..> ListenerPropertyType
+
+StatisticsWindow -left- ModelManager: observes\n (listens to) >
+
+ModelManager -left- InternshipDiary: observes\n (listens to) >
+
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, internshipApplicationListPanel);
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsWindow);
+'        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsBarFooter);
+'        logic.addPropertyChangeListener(COMPARATOR, comparatorDisplayFooter);
+'        logic.addPropertyChangeListener(PREDICATE, predicateDisplayFooter);
+'        logic.addPropertyChangeListener(PREDICATE, internshipApplicationDetailSetter);
+'        logic.addPropertyChangeListener(VIEW_TYPE, viewDisplayFooter);
+'        logic.addPropertyChangeListener(DISPLAYED_INTERNSHIP_DETAIL, internshipApplicationDetailSetter);
+
+
+
+@enduml
