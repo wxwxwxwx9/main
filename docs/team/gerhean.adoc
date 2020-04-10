@@ -30,12 +30,13 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP
 * *Other contributions*:
 
 ** Project management:
-*** Created a Intellij IDEA code style XML (link) for the team to use, in order to standardise the code base and to
+*** Standardised the Intellij IDEA code formatter, in order to make the code base more uniform and to
 meet the checkstyle requirements.
 
 ** Review/mentoring contributions:
 *** Was the main technical adviser, and suggested implementation methods for several features.
-**** Examples:
+**** Examples: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118],
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/82[#82]
 
 ** Enhancements to existing features:
 *** Added confirmation prompt for clear command.
