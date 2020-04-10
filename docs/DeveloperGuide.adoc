@@ -18,8 +18,8 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-This developer guide is for software developers or designers who want to understand the system design and implementation
-of InternshipDiary.
+This developer guide is written for software developers or designers who wish to contribute to the project. However, you may also use it if
+you wish to gain deeper insight into the system design and implementation of *Internship Diary*.
 
 == Setting up
 
@@ -34,10 +34,6 @@ Refer to the guide <<SettingUp#, here>>.
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/diary/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/diary/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -109,12 +105,12 @@ link:{repoURL}/src/main/java/seedu/diary/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("select 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `select 1` Command
+image::SelectSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `SelectCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -726,7 +722,7 @@ The following sequence diagram captures the process of executing the lazy `Archi
 image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500", align="center"]
 
 As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram)
-by running it on every index provided.
+by running it on every index provided. The feedback from each execution is cumulatively concatenated to form a single feedback.
 
 The following sequence diagram captures the process of re-creating the command result in `RemovalBasedCommand` by
 using the feedback obtained from the specific command execution, which is `ArchiveCommand` in our example.
