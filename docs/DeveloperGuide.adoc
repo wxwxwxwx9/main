@@ -836,7 +836,45 @@ Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+Internship Diary uses link:https://gradle.org/[Gradle] for build automation.
+
+See link:https://ay1920s2-cs2103t-f10-2.github.io/main/UsingGradle.html[UsingGradle] for more details.
+
+=== Continuous Integration
+
+Internship Diary uses link:https://travis-ci.org/[Travis CI] for continuous integration.
+
+See  link:https://ay1920s2-cs2103t-f10-2.github.io/main/UsingTravis.html[UsingTravis] for more details.
+
+=== Coverage Reporting
+
+Internship Diary uses link:https://coveralls.io/[Coveralls] to track code coverage.
+
+See link:https://ay1920s2-cs2103t-f10-2.github.io/main/UsingCoveralls.html[UsingCoveralls] for more details.
+
+=== Managing Dependencies
+
+Sometimes third-party libraries may be required (e.g. Jackson library for JSON parsing). You may include such dependencies into
+the project using the 2 ways:
+
+. Use Gradle to automatically manage the dependencies +
+(Gradle can download the dependencies automatically)
+. Manually download and include the libraries in the repository +
+(Note that this will require extra work and may bloat the repo size)
+
+=== Making a Release
+
+Here are the steps to create a new release:
+
+. Update the version number in MainApp.java.
+
+. Generate a JAR file link:https://ay1920s2-cs2103t-f10-2.github.io/main/UsingGradle.html#creating-the-jar-file[using Gradle].
+
+. Tag the repo with the appropriate version number. e.g. v2.0
+
+. link:https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository[Create a new release using GitHub] and upload the JAR file you created.
 
 [appendix]
 == Product Scope
