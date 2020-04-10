@@ -1,9 +1,7 @@
 package seedu.diary.testutil;
 
 import seedu.diary.commons.core.index.Index;
-import seedu.diary.logic.commands.ArchiveCommand;
 import seedu.diary.logic.commands.DeleteCommand;
-import seedu.diary.logic.commands.UnarchiveCommand;
 
 /**
  * A utility class for RemovalBasedCommandExecutionType.
@@ -33,26 +31,5 @@ public class RemovalBasedCommandExecutionTypeUtil {
     public static final String DELETE_BY_INVALID_INDICES = DeleteCommand.COMMAND_WORD + INVALID_INDICES;
     public static final String DELETE_BY_INVALID_INDICES_OUT_OF_BOUNDS =
         DeleteCommand.COMMAND_WORD + INVALID_INDICES_JUMBLED;
-
-    // Archive
-    public static final String ARCHIVE_BY_VALID_INDEX = ArchiveCommand.COMMAND_WORD + VALID_INDEX;
-    public static final String ARCHIVE_BY_VALID_INDICES = ArchiveCommand.COMMAND_WORD + VALID_INDICES;
-    public static final String ARCHIVE_BY_VALID_INDICES_JUMBLED = ArchiveCommand.COMMAND_WORD + VALID_INDICES_JUMBLED;
-
-    public static final String ARCHIVE_BY_INVALID_INDEX = ArchiveCommand.COMMAND_WORD + INVALID_INDEX;
-    public static final String ARCHIVE_BY_INVALID_INDICES = ArchiveCommand.COMMAND_WORD + INVALID_INDICES;
-    public static final String ARCHIVE_BY_INVALID_INDICES_OUT_OF_BOUNDS =
-        ArchiveCommand.COMMAND_WORD + INVALID_INDICES_JUMBLED;
-
-    // Unarchive
-    public static final String UNARCHIVE_BY_VALID_INDEX = UnarchiveCommand.COMMAND_WORD + VALID_INDEX;
-    public static final String UNARCHIVE_BY_VALID_INDICES = UnarchiveCommand.COMMAND_WORD + VALID_INDICES;
-    public static final String UNARCHIVE_BY_VALID_INDICES_JUMBLED =
-        UnarchiveCommand.COMMAND_WORD + VALID_INDICES_JUMBLED;
-
-    public static final String UNARCHIVE_BY_INVALID_INDEX = UnarchiveCommand.COMMAND_WORD + INVALID_INDEX;
-    public static final String UNARCHIVE_BY_INVALID_INDICES = UnarchiveCommand.COMMAND_WORD + INVALID_INDICES;
-    public static final String UNARCHIVE_BY_INVALID_INDICES_OUT_OF_BOUNDS =
-        UnarchiveCommand.COMMAND_WORD + INVALID_INDICES_JUMBLED;
 
 }

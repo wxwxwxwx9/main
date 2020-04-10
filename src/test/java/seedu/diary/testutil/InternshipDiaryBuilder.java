@@ -25,7 +25,7 @@ public class InternshipDiaryBuilder {
      * Adds a new {@code InternshipApplication} to the {@code InternshipDiary} that we are building.
      */
     public InternshipDiaryBuilder withInternshipApplication(InternshipApplication application) {
-        internshipDiary.addInternshipApplication(application);
+        internshipDiary.loadInternshipApplication(application);
         return this;
     }
 
