@@ -5,6 +5,8 @@ src/main/resources/docs/
 
 # IDEA files
 /.idea/
+# Except the codeStyles
+!/.idea/codeStyles/*
 /out/
 /*.iml
 
