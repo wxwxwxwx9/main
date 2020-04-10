@@ -18,19 +18,19 @@
         <Label fx:id="company" text="\$first" styleClass="cell_big_label" wrapText="true"/>
         <GridPane minHeight = "20" >
             <children>
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="0" text="Role:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="0" text="Role:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="role" styleClass="cell_small_label" text="\$role" wrapText="true"/>
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="1" text="Address:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="1" text="Address:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="2" text="Phone:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="2" text="Phone:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="Email:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="3" text="Email:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="email" styleClass="cell_small_label" text="\$email" />
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="ApplicationDate:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="4" text="ApplicationDate:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="applicationDate" styleClass="cell_small_label" text="\$applicationDate" />
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="Priority:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="5" text="Priority:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-                <Label GridPane.columnIndex="0" GridPane.rowIndex="6" text="Status:" styleClass="cell_small_label" />
+                <Label GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="6" text="Status:" styleClass="cell_small_label" />
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="status" styleClass="cell_small_label" text="\$status" />
             </children>
             <columnConstraints>
