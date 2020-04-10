@@ -34,7 +34,7 @@ image::female_student_happy.png[width="150", align="left"]
 
 Role: +
 Developer +
-Tech Adviser
+Chief Technical Officer
 
 Responsibilities: +
 Storage +
