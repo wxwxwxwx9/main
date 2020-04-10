@@ -341,35 +341,91 @@ As the different modes do not share code, they are better off as separate classe
 // tag::interview[]
 === Interview and Interview Commands
 ==== Implementation
-The implementation of interviews will be facilitated by two overarching components, the Model Class `Interview`
+The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
 which is associated to an `InternshipApplication` (see Model Diagram <<Design-Model>> ) and the Logic Classes `InterviewCommandParser` and `InterviewCommand`.
 
-The class diagram below shows the classes associated to `Interview`. `Interview` will consist of the following variables:
+The Logic Classes will interact with the `Interview` Classes to modify the interviews list in `InternshipApplication`.
+More detailed explanations will be provided in the subsequent sections.
 
-* `boolean` isOnline -- indicates whether the interview is online.
+==== Interview
+There are two types of interviews currently available in Internship Diary:
+
+* `Online Interview` -- this type of interview will not carry an address. A placeholder `Address` "NA" will be set.
+* `Offline Interview` -- this type of interview must have an address.
+
+`Interview` will consist of the following variables and method:
+
+* `getIsOnline()` -- abstract method that returns whether the interview is to be conducted online.
 * `ApplicationDate` interviewDate -- indicates the date of the interview.
 * `Address` interviewAddress -- indicates the address of the interview.
 
-In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement `interviewDate` and `interviewAddress`
+In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement
+`interviewDate` and `interviewAddress` +
+The class diagram below shows the classes associated to `Interview`.
 
 image::InterviewClassDiagram.png[]
 
-Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes.
-The `interview` command will encompass four types of sub-command: `add list edit delete`. Correspondingly, the `InterviewCommand`
-class will be made abstract with specific implementation of each sub-command in an inheriting class, this can be seen in the diagram below.
+==== Interview Commands
+Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes. +
+The `interview` command will encompass four types of sub-command:
+
+* `add` -- add an `Interview` to the specified `InternshipApplication`.
+* `edit` -- edits a specified `Interview` that exists in the interview list in the specified `InternshipApplication`.
+* `delete` -- deletes a specified `Interview` that exists in the interview list in the specified `InternshipApplication`.
+* `list` -- lists all `Interview` in the specified `InternshipApplication`.  +
+Currently `list` functions similarly to `select`, additional functions for list will be proposed in <<InterviewListCommand-Improvements>>.
+
+Correspondingly, the `InterviewCommand`class will be made abstract with specific implementation
+of each sub-command in an inheriting class, this can be seen in the diagram below.
 
 image::InterviewCommandClassDiagram.png[]
 
-Additionally, `InterviewCommand` will implement the `InterviewCommand#getInternshipApplication(Model, Index)` operation.
-This is to facilitate all sub-commands to acquire the `InternshipApplication` to modify the `Interview` from.
+Additionally, `InterviewCommand` will implement the following static operations to facilitate sub-commands:
 
-`InterviewCommandParser` is the entry point to all `interview` sub-command. It will be invoked from `InternshipDiaryParser`
+* `InterviewCommand#getInternshipApplication(Model, Index)` will assist all sub-commands in acquiring the
+`InternshipApplication` to modify.
+* `InterviewCommand#isInterviewBeforeApplication(InternshipApplication, Interview)` will assist `edit` and `add`
+commands in checking whether the interview occurs before the internship application.
+
+Lastly, as the commands inherit from `Command` interface, the commands will implement `execute(Model)`.
+All the sub-commands follow roughly the same execution sequence as seen in the diagram below.
+
+image::
+
+The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
+Then followed by creating a CommandResult, and returning it.
+
+==== Interview Commands Parser
+`InterviewCommandParser` is the entry point to all sub-commands of `InterviewCommand`. It will be invoked from `InternshipDiaryParser`
 which is the primary logic parser for user input. The following sequence diagram will illustrate the process of invocation for
- `InterviewAddCommand`. All other sub-commands will follow the same invocation format.
+ `InterviewAddCommand`. All other sub-commands will follow similar a invocation format.
 
 image::InterviewCommandSequenceDiagram.png[]
 
+[[InterviewListCommand-Improvements]]
+==== [Proposed Improvements] Interview List Command
+Currently, the `InterviewListCommand` is functionally similar to `SelectCommand`.
+In v2.0, there will be the following improvements to the `InterviewListCommand`:
+
+* Additional Parameters
+** New command format will be `interview INDEX list [o/IsOnline] [a/Address] [d/Date]`.
+** The command will return the list of interviews consisting of only the interviews that contain the optional
+fields provided in the command.
+** `FilteredList` from `javafx` will be used to implement this feature.
+
 ==== Design Considerations
+===== Aspect: How to implement Interview
+* **Alternative 1 (current choice in v1.4)**: Use an abstract class as the primary reference to Interviews.
+Implement types of Interview as extending classes.
+** Pros: More scalable, able to easily add new Interview types. +
+Easier to debug and handle exceptions.
+** Cons: More classes to create and handle.
+
+* **Alternative 2 (previous choice in v1.3)**: Use a concrete Interview class with additional variables to differentiate
+Interview types.
+** Pros: Simple to implement.
+** Cons: Increasing number of variables if more interview types will be added.
+
 ===== Aspect: How to implement different interview commands
 * **Alternative 1 (current choice)**: Use a standardized command with sub-command type parsed as user input.
 ** Pros: More streamlined, only one command. +
