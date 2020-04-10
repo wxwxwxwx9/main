@@ -101,10 +101,14 @@
 
 .list-cell:filled:even {
     -fx-background-color: #3c3e3f;
+    -fx-border-color: derive(#1d1d1d, 20%);;
+    -fx-border-width: 2 0 0 0;
 }
 
 .list-cell:filled:odd {
     -fx-background-color: #515658;
+    -fx-border-color: derive(#1d1d1d, 20%);;
+    -fx-border-width: 2 0 0 0;
 }
 
 .list-cell:filled:selected {
