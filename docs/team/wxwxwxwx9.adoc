@@ -25,9 +25,9 @@ their internship applications easily so that they can keep themselves updated wi
 This will motivate students to freely apply for many different companies and roles because they know that Internship Diary is always keeping their applications organized.
 Consequently, this may improve their chance of landing an internship.
 
-== Summary of contributions
+== Summary of Contributions
 
-* *Enhancements*:
+=== Enhancements
 
 Implemented the Archival System
 
@@ -51,23 +51,23 @@ The statistics feature provides users with important information about their int
 For example, the addition of a new status would not require the refactoring of model. To solve the issue, a HashMap was used to hold the counter for each status.
 This required careful design considerations.
 
-* *Code contributed*:
+=== Code Contribution
 All of my contributions can be found here:
 link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2020-04-09[RepoSense Report]
 
-* *Other contributions*:
+=== Other Contributions
 
-* Project management:
+* Project Management:
 ** Actively managed team repo's issue panel by adding, assigning, labeling, and closing issues.
 
 * Documentation
 ** Contributed to both the User Guide (UG) and Developer Guide (DG).
 
-* Major refactoring of the original codebase
+* Major Refactoring of the Original Codebase
 ** Allowed the team to proceed morphing the product and implementing features
 (PR link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/54[#54])
 
-* Bug fixes
+* Bug Fixes
 ** Fixed bugs reported during PE dry run
 (PR link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/185[#185], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/197[#197], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/54[#218])
 
