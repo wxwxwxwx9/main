@@ -26,8 +26,6 @@ public class InternshipApplicationTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         InternshipApplication ia = new InternshipApplicationBuilder().build();
-        // No more tags -- check with team how else we can implement this test case
-        // assertThrows(UnsupportedOperationException.class, () -> ia.getTags().remove(0));
     }
 
     @Test

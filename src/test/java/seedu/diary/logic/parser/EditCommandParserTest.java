@@ -90,9 +90,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
 
-        // assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC,
-        //         Address.MESSAGE_CONSTRAINTS); // no invalid diary
-
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
         assertParseFailure(parser, "1" + INVALID_PRIORITY_DESC,
             Priority.MESSAGE_CONSTRAINTS); // invalid priority
@@ -204,15 +201,4 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
-    /* Test for tags from AB3
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_INTERNSHIP_APPLICATION;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditInternshipDescriptor descriptor = new EditInternshipDescriptorBuilder().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }*/
 }

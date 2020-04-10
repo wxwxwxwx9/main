@@ -15,8 +15,7 @@ import static seedu.diary.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICA
 import static seedu.diary.testutil.TypicalIndexes.INDEX_LIST_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_LIST_SECOND_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
-import static seedu.diary.testutil.TypicalInternshipApplications.FACEBOOK;
-import static seedu.diary.testutil.TypicalInternshipApplications.GOOGLE;
+import static seedu.diary.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +27,11 @@ import org.junit.jupiter.api.Test;
 import seedu.diary.commons.core.Messages;
 
 import seedu.diary.commons.core.index.Index;
-import seedu.diary.model.InternshipDiary;
 import seedu.diary.model.Model;
 import seedu.diary.model.ModelManager;
 import seedu.diary.model.UserPrefs;
 import seedu.diary.model.internship.InternshipApplication;
-import seedu.diary.testutil.InternshipDiaryBuilder;
+import seedu.diary.model.status.Status;
 
 /**
  * Contains integration tests (interaction with the Model, DeleteCommand) and unit tests for
@@ -43,34 +41,24 @@ import seedu.diary.testutil.InternshipDiaryBuilder;
  */
 public class RemovalBasedCommandTest {
 
-    private final String test = "test";
-    private final String test2 = "test2";
+    private final Predicate<InternshipApplication> validPredicate = prepareStatusPredicate(Status.APPLIED.toString());
+    private final Predicate<InternshipApplication> secondValidPredicate =
+        prepareStatusPredicate(Status.WISHLIST.toString());
+    private final Predicate<InternshipApplication> invalidPredicate = prepareEmailPredicate(Status.APPLIED.toString());
 
     private List<Index> indices;
     private List<Index> secondIndices;
 
-    private final Predicate<InternshipApplication> validPredicate = prepareStatusPredicate(test);
-    private final Predicate<InternshipApplication> secondValidPredicate = prepareStatusPredicate(test2);
-    private final Predicate<InternshipApplication> invalidPredicate = prepareEmailPredicate(test);
-
     private final String commandWord = DeleteCommand.COMMAND_WORD;
 
-    private final Model model = new ModelManager(getMockInternshipDiary(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getMockInternshipDiary(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
 
     @BeforeEach
     public void setUp() {
         // to prevent leakage between test cases, where the list is mutated
         indices = new ArrayList<>(INDEX_LIST_FIRST_INTERNSHIP_APPLICATION);
         secondIndices = new ArrayList<>(INDEX_LIST_SECOND_INTERNSHIP_APPLICATION);
-    }
-
-    private InternshipDiary getMockInternshipDiary() {
-        InternshipDiary mockInternshipDiary = new InternshipDiaryBuilder()
-            .withInternshipApplication(GOOGLE)
-            .withInternshipApplication(FACEBOOK)
-            .build();
-        return mockInternshipDiary;
     }
 
     @Test
