@@ -472,13 +472,13 @@ This still requires user to remember the right words to invoke the different ver
 ** Cons: Longer and less specific execution method.
 // end::find[]
 
-=== Archiving System
+=== Archival System
 
 This feature allows users to store chosen internship application(s) into the archival.
 
 The entire system is driven by two mechanisms:
 
-. the ability to switch views between archived and unarchived list of internship application(s)
+. the ability to switch views between the archived and unarchived list of internship application(s)
 . the ability to move internship application(s) into the archived list and vice-versa
 
 The two mechanisms can be further broken down into the following four commands: `list`, `archival`, `archive`, and `unarchive`.
@@ -490,7 +490,8 @@ To handle the ability for a user to switch views, we implemented the commands `l
 * `list` allows the user to view the unarchived internship application(s)
 * `archival` allows the user to view the archived internship application(s)
 
-From here on, we will refer to the list of unarchived internship application(s) as the *"main list"*.
+From here on, we will refer to the list of unarchived internship application(s) as the *main list*, and the list of
+archived internship application(s) as the *archival list*.
 
 Beyond the primary purpose of allowing users to switch between their view of main and archived list of internship application(s),
 `list` and `archival` also helps to verify that the `archive` and `unarchive` commands are used appropriately.
@@ -500,7 +501,7 @@ This is identical for the `unarchive` command in the main list as well.
 
 ===== Implementation
 
-The class diagram below depicts the important methods and variables that provides us the ability to switch
+The class diagram below depicts the important methods and variables that provide us the ability to switch
 views between the main list and the archival list.
 
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="800", align="center"]
@@ -514,9 +515,10 @@ The object diagram below illustrates the three `UniqueInternshipApplicationList`
 image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800", align="center"]
 
 As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
-`archivedInternships` or `unarchivedInternships` at any one time. When a user is viewing the main list,
-`displayedInternships` references `unarchivedInternships`. And when a user is viewing the archival list, `displayedInternships`
-references `archivedInternships`.
+`archivedInternships` or `unarchivedInternships` at any one time.
+
+When a user is viewing the main list, `displayedInternships` references `unarchivedInternships`.
+And when a user is viewing the archival list, `displayedInternships` references `archivedInternships`.
 
 The following sequence diagram illustrates how an `archival` command is executed. The `list` command is similar to `archival`.
 You may use the same sequence diagram for the `list` command.
@@ -532,14 +534,14 @@ The following code snippet is retrieved from the InternshipDiary class. It illus
     }
 
 It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
-However, such implementation brings about issues with reactivity -- where UI elements that reference `displayedInternships` will not be aware of the
+However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the
 reference update in `displayedInternships` whenever the user executes `archival` or `list`. Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
 In order to resolve this issue, we need to employ the observer pattern. The idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
 Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
 
 To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
-`PropertyChangeSupport` is a utility class to support the observer pattern by managing a list of listeners (observers) and firing property change events to
+`PropertyChangeSupport` is a utility class to support the observer pattern by managing a list of listeners (observers) and firing `PropertyChangeEvent` to
 the listeners. A class that contains an instance of `PropertyChangeSupport` is an observable. On the other hand, a class
 that implements the `PropertyChangeListener` interface is an observer.
 
@@ -580,7 +582,8 @@ As a result, whenever there is a change to the property `displayedInternships` i
 `filteredInternshipApplications` property.
 
 ====
-Note that this two-tier observer-observable structure is necessary because `list` and `archival` only changes the reference of `displayedInternships`. +
+[NOTE]
+This two-tier observer-observable structure is necessary because `list` and `archival` only changes the reference of `displayedInternships`. +
 
 When 'ModelManager' updates its property `filteredInternshipApplications` with the new reference, UI elements that reference `filteredInternshipApplications`
 will not be aware of the reference update to `filteredInternshipApplications`. Thus, `ModelManager` has to notify and update the UI elements as well.
@@ -598,11 +601,14 @@ As seen from the diagram above, each observable will implement two additional me
 . `addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l)`
 . `firePropertyChange(ListenerPropertyType propertyType, Object newValue)`
 
+This forms an abstraction as users would not be allowed to call the the `addPropertyChangeListener` and `firePropertyChange` methods of
+`PropertyChangeSupport` directly.
+
 ===== Design Considerations
 
 ===== Aspect: How to implement the Archiving system on the backend
 * **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`. +
-`displayedInternships` will be used as the reference for UI elements to get the list of internship application(s) for display.
+`displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
 Whenever the user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships`.
 In terms of storage, we will use only one list. This means that whenever we load the list of internship application(s) from the JSON save file,
 we will filter the internship application(s) appropriately into `archivedInternships` and `unarchivedInternships` in `InternshipDiary`.
@@ -611,13 +617,13 @@ When saving, we will combine both `archivedInternships` and `unarchivedInternshi
 ** Cons: Potentially expensive in terms of computation. Furthermore, we will have to implement observer pattern to handle the reference changes.
 
 * **Alternative 2**: Manipulate the current view of the internship application list by using Predicate and FilteredList,
-along with the boolean isArchived variable in `InternshipApplication`. This will help us determine which internship application should be rendered.
-** Pros: Less effort in implementation and less expensive in terms of memory and computation. No need to implement observer pattern as there will be no reference updates.
+along with the boolean isArchived variable in `InternshipApplication`. This will easily help us determine which internship application should be rendered.
+** Pros: Very easy to implement and less expensive in terms of memory and computation. No need to implement observer pattern as there will be no reference updates.
 ** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
 
 ===== Aspect: How to implement the observer pattern
 * **Alternative 1 (current choice)**: Use `PropertyChangeSupport` class and `PropertyChangeListener` interface from the `java.beans` package to support our implementation.
-** Pros: Easy and intuitive to use. Good built-in support. Highly recommended by other users from StackOverflow as well.
+** Pros: Easy and intuitive to use. Good built-in support. Seems to be highly recommended by other users.
 ** Cons: Seemingly negligible for our usage.
 * **Alternative 2**: Use Java's `Observable` class and `Observer` interface.
 ** Pros: Seemingly negligible for our usage.
@@ -646,37 +652,38 @@ Through this new class, users will be able to execute the commands on multiple i
 
 ===== Implementation
 
-Users are able to execute *removal-based commands* like `archive` according to the execution types we have in the enumeration class `RemovalBasedCommandExecutionType`.
+Users are able to execute removal-based commands like `archive` according to the execution types we have in the enumeration class `RemovalBasedCommandExecutionType`.
 
 We have implemented the following execution types: `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`. For the execution type `BY_FIELD`, users can only
 execute by the status field of an internship application currently.
 
 ====
-The format of a *removal-based command* can take on any of the following forms:
+The format of a removal-based command can take on any of the following forms:
 
 . `command` INDEX
 . `command` INDEX, [INDEX], [INDEX], ... +
-(where INDEX within the bracket is optional and there can be as many INDEX as the number of internship application(s) displayed)
+(where INDEX within the bracket is optional and there can only be as many INDEX as the number of internship application(s) displayed)
 . `command` s/STATUS +
 (where STATUS refers to a valid internship application status)
 
-Note that `command` can be any one of the *removal-based commands*.
+Note that `command` can be any one of the removal-based commands.
 ====
 
 It is important to note that each execution type works similarly. At the core, all of them involves retrieving the index of a internship application to execute on.
 The difference lies in the pre-processing stage -- the steps an execution type takes to retrieve all the required indices.
 
-Therefore, to be succinct, we will only be illustrating the usage of the command `archive` with the execution type `BY_FIELD`.
+Therefore, to ensure succinctness, we will only be illustrating the usage of the command `archive` with the execution type `BY_FIELD`.
 Other variations of *removal-based commands* and *execution types* are similar.
 
 The following sequence diagram provides a high-level overview of how the `archive` command with the execution type of `BY_FIELD` is executed in our application.
 
 image::ArchiveSequenceDiagram.png[align="center"]
 
-As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves retrieving the appropriate indices after
-applying the predicate to filter the internship applications.
+As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the
+internship applications and then converting these internship applications to their respective index. This will provide us with required indices.
 
 ====
+[NOTE]
 We have implemented the mechanism to be reusable and extensible for new commands and execution types.
 
 This is evident in the sequence diagram above, where the different kinds of *removal-based commands* are abstracted from the diagram and
@@ -692,10 +699,10 @@ It also shows how a `RemovalBasedCommand` is created with the appropriate `Remov
 
 image::RemovalBasedCommandExecutionTypeParserSequenceDiagram.png[align="center"]
 
-As seen from the diagram above, the parser determined the *execution type* to be `BY_FIELD` and generated the appropriate predicate to
+As seen from the diagram above, the parser determined the execution type to be `BY_FIELD` and generated the appropriate predicate to
 construct a `RemovalBasedCommand` instance.
 
-Based on the command word passed in to create the `RemovalBasedCommand` instance, `RemovalBasedCommand` creates a lazy lambda function
+Based on the command word passed in to construct the `RemovalBasedCommand` instance, `RemovalBasedCommand` creates a lazy lambda function
 that can be called to construct the appropriate *removal-based command* for execution.
 
 The following sequence diagram depicts the above behaviour.
@@ -704,17 +711,17 @@ image::GenerateLazyCommandSequenceDiagram.png[width="500", align="center"]
 
 As the command word is `archive`, a lazy lambda function to construct an `ArchiveCommand` is returned.
 
-The following sequence diagram captures the process of executing a *removal-based command* on one index.
+The following sequence diagram captures the process of executing a removal-based command on one index.
 This particular index allows us to retrieve the appropriate internship application.
 
 image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center"]
 
 It can be seen that the previously-generated lazy command is executed in the above sequence diagram.
 
-The appropriate command, `ArchiveCommand`, is constructed and subsequently executed on the index provided, by making the
+`ArchiveCommand` is constructed and subsequently executed on the index provided, by making the
 appropriate function call to the model to execute on the internship application. In this case, `archiveInternshipApplication` is called.
 
-The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices (multiple index-es).
+The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices.
 
 image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500", align="center"]
 
@@ -729,7 +736,8 @@ image::CreateCommandResultSequenceDiagram.png[width="500", align="center"]
 ==== Design Considerations
 
 ===== Aspect: How to implement multiple execution types for removal-based commands
-* **Alternative 1 (current choice)**: Use encapsulation to generate appropriate removal-based command which will execute based on the execute type provided. +
+* **Alternative 1 (current choice)**: Use encapsulation to hold the appropriate command word, which will then be used to
+generate the removal-based command that will execute based on the execute type provided.
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when
 `RemovalBasedCommand` is executed. This removal-based command will then be used on the index/indices provided according to the execution type.
 ** Pros: Easier to implement and convey the idea to team members.
@@ -738,45 +746,56 @@ image::CreateCommandResultSequenceDiagram.png[width="500", align="center"]
 * **Alternative 2**: Use polymorphism where each removal-based command extends the class `RemovalBasedCommand` and inherit the appropriate execution type methods. +
 ** Pros: Code will likely be more extensible and elegant.
 ** Cons: Likely to require major redesigning and refactoring of existing logic codebase because we will have to modify `Command` class.
-Furthermore, the changes may affect areas that we may not have considered. This is risky and will take a lot of time and effort.
+Furthermore, the changes may affect areas that we may not have considered. This is risky and will take a lot of time, effort, and team discussion.
 
 
 === Statistics Feature
 
-This feature allows users to view relevant metrics using the data entered by the users for their internship application(s).
+This feature allows users to view relevant metrics about their internship application(s).
 
 Currently, the tracked metrics include:
 
-* the amount of internship applications sent
-* percentage of internship applications in each status
+* the amount of internship applications in each status
+* the percentage of internship applications in each status
 
 ==== Implementation
 
-The following class diagram shows the implementation of the statistics feature.
+The following class diagram gives an overview of our implementation of the statistics feature.
 
-image::StatisticsClassDiagram.png[width="500", align="center"]
+image::StatisticsClassDiagram.png[width="800", align="center"]
 
-Users will be able to view those metrics from two areas:
+Users will be able to view the metrics from two areas:
 
 . `StatisticsBarFooter`
 .. found at the bottom of the application in the form of a bar footer
-.. serves as a quick view of the metrics in counters
+.. serves as a quick view of the metrics in terms of counters
 . `StatisticsWindow`
 .. displayed on a separate window that is opened upon the command `stats`
 .. serves as an additional graphical statistics interface for users to get a visual breakdown of the metrics +
 (currently in the form of a bar chart and a pie chart)
 
-The statistics object is used to generate statistics for any internship application list that it is given.
-`StatisticsWindow` and `StatisticsBarFooter` each contain an instance of `Statistics` that helps them compute the relevant statistics
+The `Statistics` object is used to generate statistics for any internship application list that it is given.
+`StatisticsWindow` and `StatisticsBarFooter` each contains an instance of `Statistics` that helps them compute the relevant statistics
 whenever there is any update to the internship application list.
 
 The internship application list can be updated either due to a change in reference in `displayedInternships` from `InternshipDiary` (e.g. `archival` and `list`) or any modifications to the
 current internship application list (e.g. adding, deleting, editing of internship applications).
 
-The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` has the same workflow) is notified of the updates
-in the internship application list and how it updates the statistics.
+The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` shares the same workflow) is notified of the updates
+in the internship application list and how it subsequently updates the statistics.
 
 image::ActivityDiagramStatistics.png[width="700", align="center"]
+
+Upon creation of the `StatisticsWindow` and `StatisticsBarFooter`, each of them will attach an event listener to the internship application list
+that it was given. This event listener will notify them of any internal modifications to the internship application list.
+
+On the other hand, both `StatisticsWindow` and `StatisticsBarFooter` will register themselves as *observers* as well. This is so that
+the implemented observer pattern can notify them of any changes in the internship application list reference and update them with the new reference
+accordingly.
+
+Any of the two updates above will trigger the `Statistics` to recompute with the updated internship application list.
+`StatisticsWindow` and `StatisticsBarFooter` will then retrieve the required computed metrics from `Statistics` and re-binds the
+them to the UI accordingly.
 
 ==== Design Considerations
 
