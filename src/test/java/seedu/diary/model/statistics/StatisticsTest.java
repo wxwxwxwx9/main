@@ -24,59 +24,55 @@ import seedu.diary.testutil.InternshipApplicationBuilder;
  */
 public class StatisticsTest {
 
-    private static final InternshipApplication FACEBOOK = new InternshipApplicationBuilder()
-        .withCompany("Facebook")
+    // these internship applications samples are currently only used within here
+    // if other classes start needing such samples, we will create a new util class so that
+    // we can reused all these samples
+    private static final InternshipApplication WISHLIST_IA = new InternshipApplicationBuilder()
+        .withCompany("a")
         .withStatus(Status.WISHLIST)
         .build();
-    private static final InternshipApplication APPLE = new InternshipApplicationBuilder()
-        .withCompany("Apple")
+    private static final InternshipApplication APPLIED_IA = new InternshipApplicationBuilder()
+        .withCompany("b")
         .withStatus(Status.APPLIED)
         .build();
-    private static final InternshipApplication AMAZON = new InternshipApplicationBuilder()
-        .withCompany("Amazon")
+    private static final InternshipApplication INTERVIEW_IA = new InternshipApplicationBuilder()
+        .withCompany("c")
         .withStatus(Status.INTERVIEW)
         .build();
-    private static final InternshipApplication NETFLIX = new InternshipApplicationBuilder()
-        .withCompany("Netflix")
+    private static final InternshipApplication OFFERED_IA = new InternshipApplicationBuilder()
+        .withCompany("d")
         .withStatus(Status.OFFERED)
         .build();
-    private static final InternshipApplication GOOGLE = new InternshipApplicationBuilder()
-        .withCompany("Google")
+    private static final InternshipApplication REJECTED_IA = new InternshipApplicationBuilder()
+        .withCompany("e")
         .withStatus(Status.REJECTED)
         .build();
-    private static final InternshipApplication SHOPEE = new InternshipApplicationBuilder()
-        .withCompany("Shopee")
+    private static final InternshipApplication GHOSTED_IA = new InternshipApplicationBuilder()
+        .withCompany("f")
         .withStatus(Status.GHOSTED)
         .build();
 
-    private Statistics statistics;
-    private Statistics expectedStatistics;
-    private Model model;
-    private Model emptyModel;
+    private final Statistics statistics = new Statistics();
+    private final Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
+    private final Model emptyModel = new ModelManager(new InternshipDiary(), new UserPrefs());
 
-    private HashMap<Status, Integer> statusCount;
+    private final HashMap<Status, Integer> statusCount = new HashMap<>();
 
-    private Status[] statuses;
+    private final Status[] statuses = Status.class.getEnumConstants();
 
     @BeforeEach
     public void setUp() {
-        statistics = new Statistics();
-        expectedStatistics = new Statistics();
-        model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
-        emptyModel = new ModelManager(new InternshipDiary(), new UserPrefs());
-        statusCount = new HashMap<>();
-        statuses = Status.class.getEnumConstants();
+        model.addInternshipApplication(WISHLIST_IA);
+        model.addInternshipApplication(APPLIED_IA);
+        model.addInternshipApplication(INTERVIEW_IA);
+        model.addInternshipApplication(OFFERED_IA);
+        model.addInternshipApplication(REJECTED_IA);
+        model.addInternshipApplication(GHOSTED_IA);
         initializeStatusCount();
     }
 
     @Test
     public void computeCount_internshipApplicationWithAllStatusAdded_countComputedCorrectly() {
-        model.addInternshipApplication(FACEBOOK);
-        model.addInternshipApplication(APPLE);
-        model.addInternshipApplication(AMAZON);
-        model.addInternshipApplication(NETFLIX);
-        model.addInternshipApplication(GOOGLE);
-        model.addInternshipApplication(SHOPEE);
         statistics.computeCount(model.getFilteredInternshipApplicationList());
         computeActualStatusCount();
         int actualTotalCount = 0;
@@ -101,12 +97,6 @@ public class StatisticsTest {
 
     @Test
     public void resetStatistics_internshipApplicationWithAllStatusAdded_countsBecomeZero() {
-        model.addInternshipApplication(FACEBOOK);
-        model.addInternshipApplication(APPLE);
-        model.addInternshipApplication(AMAZON);
-        model.addInternshipApplication(NETFLIX);
-        model.addInternshipApplication(GOOGLE);
-        model.addInternshipApplication(SHOPEE);
         statistics.computeAndUpdateStatistics(model.getFilteredInternshipApplicationList());
         for (Status status : statuses) {
             assertNotEquals(statistics.getCount(status), 0);

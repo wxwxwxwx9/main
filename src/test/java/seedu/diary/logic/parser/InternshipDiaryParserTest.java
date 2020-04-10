@@ -171,8 +171,8 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_archive() throws Exception {
-        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(
-            ArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        String input = ArchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased();
+        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(input);
         assertEquals(
             new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX,
                 ArchiveCommand.COMMAND_WORD),
@@ -181,8 +181,8 @@ public class InternshipDiaryParserTest {
 
     @Test
     public void parseCommand_unarchive() throws Exception {
-        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(
-            UnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased());
+        String input = UnarchiveCommand.COMMAND_WORD + " " + INDEX_FIRST_INTERNSHIP_APPLICATION.getOneBased();
+        RemovalBasedCommand command = (RemovalBasedCommand) parser.parseCommand(input);
         assertEquals(
             new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, RemovalBasedCommandExecutionType.BY_INDEX,
                 UnarchiveCommand.COMMAND_WORD),
