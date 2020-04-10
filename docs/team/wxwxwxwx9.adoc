@@ -5,62 +5,83 @@
 
 == PROJECT: Internship Diary
 
----
+This portfolio provides an overview of my contribution to the software engineering project *Internship Diary*.
 
 == Overview
 
 Internship Diary is a desktop-based internship application tracking software.
+
 The idea for this software came about when we realised that the nature of a computer science degree is internship-driven;
 in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good job as a fresh graduate.
 Essentially, your first big internship will serve as a pivotal moment for your future career. Having said that, internship application is often a
-tedious and messy process, with companies having different hiring processes and requirements.
-We set out to tackle this pain point -- by coming up with a solution to help computer science students manage and streamline their internship application journey
-Ultimately, we aim to make every student's internship hunt during their four years as a computer science undergraduate a pleasant one, and hopefully maximise their chances of landing the best possible internship.
+tedious and messy process as companies having different hiring processes and requirements.
+
+We set out to tackle this pain point -- by coming up with a solution to help computer science students manage and streamline their internship application journey.
+We aim to make every student's internship hunt during their four years as a computer science undergraduate a pleasant one, and hopefully maximise their chances of landing the best possible internship.
+
+Internship Diary offers a one-stop solution for users to organise and track their internship applications. It enables users to retrieve any information about
+their internship applications easily so that they can keep themselves updated with the companies they have applied to.
+
+This will motivate students to freely apply for many different companies and roles because they know that Internship Diary is always keeping their applications organized.
+Consequently, this may improve their chance of landing an internship.
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Enhancements*:
 
 Implemented the Archival System
-What it does: The archival system allows users to move their internship applications from the main list to a back-up list which is known as the archival.
-Justification: This feature is particularly important as it helps users to organise their internship application(s). Whenever there are
-internship application(s) that are no longer relevant / are of interest to the user, he/she can archive those internship application(s) so that
-it "declutters" their main list. This allows them to focus on the internship application(s) that are more important currently.
-Highlights: The archival feature seems trivial as it is usually a staple feature in many tracking applications. However, the difficult part comes in deciding what is the sustainable and extensible way to
-implement this feature. You may view my developer guide to read more about the design considerations involved in this implementation.
+
+. *What it does*: Allows users to move their internship applications from the main list to the archival list.
+. *Justification*: This feature is particularly important as it helps users to keep their internship applications organized. Whenever there are
+internship application(s) that are no longer relevant / of interest to the user, the user can archive those internship applications so that
+it "de-clutters" their main list. This allows them to focus on the internship application(s) that are more important currently.
+. *Highlights*: The archival feature seems trivial as it is usually a staple feature in many tracking applications.
+However, it was challenging to decide how to implement in our use case such that the feature is sustainable and extensible.
+Due to the chosen design, there was a need to implement a form of observer pattern to handle reactivity issues -- this became another important design consideration.
+Furthermore, for the `archive` and `unarchive` commands, the concept of enabling multiple execution types (e.g. by index, indices, and status) was
+challenging to design and implement.
 
 
-Created a statistics dashboard.
-What it does: The statistics dashboard dynamically generates relevant statistics from the list of internship application(s) in the current view.
-This provides users with a visualization of their internship application journey in terms of numbers.
-Justification: The hunt for internship can be seen as a journey of growth in terms of personal and professional development.
-By having useful and relevant statistics, one can gain insight into what they are good at and what they can work on to make themselves a more attractive candidate for internship roles.
-Highlights:
+Implemented the Statistics feature
 
-Listener System (Observer pattern)
-
-Multi-Execution Command Type
-
-* *Minor enhancement*:
+. *What it does*: The statistics feature dynamically generates relevant metrics from the list of internship application(s) in the current view (e.g. archival).
+. *Justification*: The hunt for internship can be seen as a journey of growth in terms of personal and professional development.
+The statistics feature provides users with important information about their internship application journey in terms of numbers, which the user can interpret and generate insights.
+. *Highlights*: Implementing the Statistics feature on its own was straightforward. The difficulty lies in how it can be implemented in an extensible manner.
+For example, the addition of a new status would not require the refactoring of model. To solve the issue, a HashMap was used to hold the counter for each status.
+This required careful design considerations.
 
 * *Code contributed*:
+All of my contributions can be found here:
+link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2020-04-09[RepoSense Report]
 
 * *Other contributions*:
 
-** Project management:
+* Project management:
+** Actively managed team repo's issue panel by adding, assigning, labeling, and closing issues.
 
-** Documentation:
+* Documentation
+** Contributed to both the User Guide (UG) and Developer Guide (DG).
 
-** Community:
+* Major refactoring of the original codebase
+** Allowed the team to proceed morphing the product and implementing features
+(PR link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/54[#54])
 
-** Tools:
-**** Set up Travis CI and Coveralls
+* Bug fixes
+** Fixed bugs reported during PE dry run
+(PR link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/185[#185], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/197[#197], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/54[#218])
+
+* Community:
+** PRs reviewed (with non-trivial review comments):
+link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/32[#32]
+link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/33[#33]
+link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/65[#65]
+link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118]
+link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/124[#124]
+
 
 == Contributions to the User Guide
 
 
 == Contributions to the Developer Guide
-
-
-
 
