@@ -1,5 +1,11 @@
 package seedu.diary.ui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -8,10 +14,11 @@ import javafx.scene.layout.Region;
 
 import seedu.diary.model.internship.interview.Interview;
 
+
 /**
  * Panel containing the list of interviews in a specific Internship Application.
  */
-public class InterviewListPanel extends UiPart<Region> {
+public class InterviewListPanel extends UiPart<Region> implements PropertyChangeListener {
 
     public static final String FXML = "InterviewListPanel.fxml";
 
@@ -25,8 +32,19 @@ public class InterviewListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code InternshipApplication} using a
-     * {@code InternshipApplicationCard}.
+     * Receives the latest changes in displayed interviews from the internship application.
+     * Updates the interview list view accordingly.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        List<Interview> interviews = (ArrayList<Interview>) e.getNewValue();
+        interviewListView.setItems(FXCollections.observableArrayList(interviews));
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Interview} using a
+     * {@code InterviewCard}.
      */
     class InternshipApplicationListViewCell extends ListCell<Interview> {
         @Override
