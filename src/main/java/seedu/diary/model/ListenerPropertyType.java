@@ -9,7 +9,8 @@ public enum ListenerPropertyType {
     FILTERED_INTERNSHIP_APPLICATIONS("filteredInternshipApplications"),
     DISPLAYED_INTERNSHIPS("displayedInternships"),
     VIEW_TYPE("currentView"),
-    DISPLAYED_INTERNSHIP_DETAIL("displayedDetails");
+    DISPLAYED_INTERNSHIP_DETAIL("displayedDetails"),
+    DISPLAYED_INTERVIEWS("displayedInterviews");
 
     private String propertyName;
 
