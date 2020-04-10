@@ -29,25 +29,25 @@ Consequently, this may improve their chance of landing an internship.
 
 === Enhancements
 
-Implemented the Archival System
+. Implemented the Archival System
 
-. *What it does*: Allows users to move their internship applications from the main list to the archival list.
-. *Justification*: This feature is particularly important as it helps users to keep their internship applications organized. Whenever there are
+* *What it does*: Allows users to move their internship applications from the main list to the archival list.
+* *Justification*: This feature is particularly important as it helps users to keep their internship applications organized. Whenever there are
 internship application(s) that are no longer relevant / of interest to the user, the user can archive those internship applications so that
 it "de-clutters" their main list. This allows them to focus on the internship application(s) that are more important currently.
-. *Highlights*: The archival feature seems trivial as it is usually a staple feature in many tracking applications.
+* *Highlights*: The archival feature seems trivial as it is usually a staple feature in many tracking applications.
 However, it was challenging to decide how to implement in our use case such that the feature is sustainable and extensible.
 Due to the chosen design, there was a need to implement a form of observer pattern to handle reactivity issues -- this became another important design consideration.
 Furthermore, for the `archive` and `unarchive` commands, the concept of enabling multiple execution types (e.g. by index, indices, and status) was
 challenging to design and implement.
 
 
-Implemented the Statistics feature
+. Implemented the Statistics feature
 
-. *What it does*: The statistics feature dynamically generates relevant metrics from the list of internship application(s) in the current view (e.g. archival).
-. *Justification*: The hunt for internship can be seen as a journey of growth in terms of personal and professional development.
+* *What it does*: The statistics feature dynamically generates relevant metrics from the list of internship application(s) in the current view (e.g. archival).
+* *Justification*: The hunt for internship can be seen as a journey of growth in terms of personal and professional development.
 The statistics feature provides users with important information about their internship application journey in terms of numbers, which the user can interpret and generate insights.
-. *Highlights*: Implementing the Statistics feature on its own was straightforward. The difficulty lies in how it can be implemented in an extensible manner.
+* *Highlights*: Implementing the Statistics feature on its own was straightforward. The difficulty lies in how it can be implemented in an extensible manner.
 For example, the addition of a new status would not require the refactoring of model. To solve the issue, a HashMap was used to hold the counter for each status.
 This required careful design considerations.
 
