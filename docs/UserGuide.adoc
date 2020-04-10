@@ -326,16 +326,25 @@ Edits the date of the 1st interview in the 2nd internship application in the lis
 `interview 1 delete 1` +
 Deletes the 1st interview in the 1st internship application in the list.
 
+//tag::reminder[]
 === Getting applications due or have interviews in 7 days : `reminder`
 
-Shows internship applications which:
+This command will display to you all internship application(s) that:
 
 * have status `wishlist` and need to be submitted in 7 days
 * have status `interview` and interviews scheduled in 7 days
 
-The internship applications will be displayed in terms of urgency, with the application with the earliest application date or interview date, shown at the top.
-+ Format: `reminder`
-// end::delete[]
+[cols="1,20"]
+|===
+|💡|Applications are displayed in order of earliest application date or scheduled interview date followed by those with later dates.
+|===
+
+[cols="1a,1"]
+|===
+2.1+|*Format*
+2.1+|`reminder`
+|===
+//end::reminder[]
 
 === Clearing all entries : `clear`
 
