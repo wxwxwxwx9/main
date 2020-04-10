@@ -1101,6 +1101,120 @@ Use case ends
 +
 Use case ends
 
+[discrete]
+=== Use case: UC5 - Select Internship Application
+
+*MSS*
+
+1. User requests to select an Internship Application.
+2. InternDiary displays selected Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The Internship Application to be selected does not exist.
+[none]
+** 1a.1. InternDiary shows an error message.
++
+Use case resumes at step 1
+
+[discrete]
+=== Use case: UC6 - Add Interview
+
+*MSS*
+
+1. User pass:q[<u>find Internship Application UC1</u>].
+2. User requests to add an Interview to a specific Internship Application.
+3. InternDiary creates an Interview.
+4. InternDiary adds Interview into Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The Internship Application does not exist.
+[none]
+** 2a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 3a. The Interview to be created has invalid fields.
+[none]
+** 3a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 4a. The Interview to be added already exists in the Internship Application.
+[none]
+** 4a.1 InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: UC7 - Edit Interview
+
+*MSS*
+
+1. User requests to edit a specific Interview in a specific Internship Application.
+2. InternDiary creates a new Interview with edited fields.
+3. InternDiary replaces old Interview with new Interview in Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The Internship Application does not exist.
+[none]
+** 1a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 2a. The new Interview to be created has invalid fields.
+[none]
+** 2a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 3a. The Interview to be added already exists in the Internship Application.
+[none]
+** 3a.1 InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: UC8 - Delete Interview
+
+*MSS*
+
+1. User requests to delete a specific Interview in a specific Internship Application.
+2. InternDiary removes Interview in Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The Internship Application does not exist.
+[none]
+** 1a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 2a. The Interview to be deleted does not exist.
+[none]
+** 2a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
 _{More to be added}_
 
 [appendix]
