@@ -20,6 +20,7 @@ We set out to tackle this pain point -- by coming up with a solution to help com
 * *Major enhancement*: added *the ability to sort internship applications*.
 ** What it does: Sorts internship applications by field.
 ** Justification: This feature improves the product significantly as users can better manage their internship application list.
+This is a basic feature which every organizer app need to have.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 * *Minor enhancement*: added display of what the current list is sorted or filtered by.
@@ -31,21 +32,21 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP
 
 ** Project management:
 *** Standardised the Intellij IDEA code formatter, in order to make the code base more uniform and to
-meet the checkstyle requirements.
+meet the checkstyle requirements (https://github.com/AY1920S2-CS2103T-F10-2/main/pull/221[#221].
 
 ** Review/mentoring contributions:
 *** Was the main technical adviser, and suggested implementation methods for several features.
-**** Examples: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118],
-https://github.com/AY1920S2-CS2103T-F10-2/main/pull/82[#82]
+**** Examples:
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/82[#82],
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118],
+https://github.com/AY1920S2-CS2103T-F10-2/main/pull/216[#216]
 
 ** Enhancements to existing features:
 *** Added confirmation prompt for clear command.
 *** Prettified the help window.
 
-** Documentation:
-
 ** Community:
-*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1])
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/74[#74])
 
 ** Tools:
 **** Set up Travis CI and Coveralls
