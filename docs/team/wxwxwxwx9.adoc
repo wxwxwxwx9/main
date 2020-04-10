@@ -58,7 +58,7 @@ link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=g
 === Other Contributions
 
 * Project Management:
-** Actively managed team repo's issue panel by adding, assigning, labeling, and closing issues.
+** Actively managed team repository's issue panel by adding, assigning, labeling, and closing issues.
 
 * Documentation
 ** Contributed to both the User Guide (UG) and Developer Guide (DG).
