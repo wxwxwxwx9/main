@@ -142,8 +142,8 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Internship Diary data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save the `InternshipDiary` data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -153,88 +153,6 @@ Classes used by multiple components are in the `seedu.diary.commons` package.
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedInternshipDiary`.
-It extends `InternshipDiary` with an undo/redo history, stored internally as an `internshipDiaryStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedInternshipDiary#commit()` -- Saves the current internship diary state in its history.
-* `VersionedInternshipDiary#undo()` -- Restores the previous internship diary state from its history.
-* `VersionedInternshipDiary#redo()` -- Restores a previously undone internship diary state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitInternshipDiary()`, `Model#undoInternshipDiary()` and `Model#redoInternshipDiary()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedInternshipDiary` will be initialized with the initial internship diary state, and the `currentStatePointer` pointing to that single internship diary state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th internship application in the internship diary. The `delete` command calls `Model#commitInternshipDiary()`, causing the modified state of the internship diary after the `delete 5` command executes to be saved in the `internshipDiaryStateList`, and the `currentStatePointer` is shifted to the newly inserted internship diary state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add c/Google ...` to add a new internship application. The `add` command also calls `Model#commitInternshipDiary()`, causing another modified internship diary state to be saved into the `internshipDiaryStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitInternshipDiary()`, so the internship diary state will not be saved into the `internshipDiaryStateList`.
-
-Step 4. The user now decides that adding the internship application was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoInternshipDiary()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous internship diary state, and restores the internship diary to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial internship diary state, then there are no previous internship diary states to restore. The `undo` command uses `Model#canUndoInternshipDiary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoInternshipDiary()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the internship diary to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `internshipDiaryStateList.size() - 1`, pointing to the latest internship diary state, then there are no undone internship diary states to restore. The `redo` command uses `Model#canRedoInternshipDiary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the internship diary, such as `list`, will usually not call `Model#commitInternshipDiary()`, `Model#undoInternshipDiary()` or `Model#redoInternshipDiary()`. Thus, the `internshipDiaryStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitInternshipDiary()`. Since the `currentStatePointer` is not pointing at the end of the `internshipDiaryStateList`, all internship diary states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add c/Google ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire internship diary.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the internship application being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of internship diary states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedInternshipDiary`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
 // tag::sort[]
 === Sort command
@@ -290,7 +208,6 @@ Users do not have to remember the order to place the arguments to get the sort t
 Users has to remember the order to place the arguments to get the sort they want. +
 Users are highly unlikely to use this feature, as sorting one field by one feels more natural. +
 Harder to implement reverse sorting.
-
 // end::sort[]
 
 // tag::clear[]
@@ -331,7 +248,6 @@ As the different modes do not share code, they are better off as separate classe
 * **Alternative 3**: Make a confirmation window which freeze the main window.
 ** Pros: The `InternshipDiaryParser` or `LogicManager` class may not need to be modified.
 ** Cons: Relies on global static methods which may lead to bugs in the future.
-
 // end::clear[]
 
 // tag::interview[]
@@ -468,6 +384,7 @@ This still requires user to remember the right words to invoke the different ver
 ** Cons: Longer and less specific execution method.
 // end::find[]
 
+// tag::archival[]
 === Archival System
 
 This feature allows users to store chosen internship application(s) into the archival.
@@ -551,15 +468,14 @@ The class diagram above showcases our implementation of a two-tier observer-obse
 * `StatisticsWindow` is an observer
 ** It observes any changes to `filteredInternshipApplications` contained in `ModelManager`
 
+[NOTE]
 ====
-Do note the following:
-
 * `InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport`.
 * `ModelManager` serves as an abstraction between `StatisticsWindow` and `InternshipDiary`.
 * All the UI elements in our implementation follow the above class diagram -- `StatisticsWindow` just happens to be the UI element that we chose to illustrate our diagram.
 ====
 
-From here on, we will briefly discuss how the observer pattern works in our implementation.
+We will briefly discuss how the observer pattern works in our implementation.
 
 Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function
 of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe. It will also have to specify which property
@@ -569,7 +485,7 @@ In our case, when ModelManager is created, it will call the `addPropertyChangeLi
 belonging to `InternshipDiary`. The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
 is a reference to `ModelManager` itself (so that it can be registered as a listener of the `displayedInternships` property).
 
-The process is similar for any UI element that wants to observe the `filteredInternshipApplications` attribute (property) of `ModelManager`.
+The process is similar for any UI element that wants to observe the `filteredInternshipApplications` property of `ModelManager`.
 
 As a result, whenever there is a change to the property `displayedInternships` in `InternshipDiary`, the `PropertyChangeSupport` instance of
 `InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`. The emitted event will trigger the
@@ -579,7 +495,7 @@ As a result, whenever there is a change to the property `displayedInternships` i
 
 ====
 [NOTE]
-This two-tier observer-observable structure is necessary because `list` and `archival` only changes the reference of `displayedInternships`. +
+The two-tier observer-observable structure is *necessary*. This is because `list` and `archival` only changes the reference of `displayedInternships`. +
 
 When 'ModelManager' updates its property `filteredInternshipApplications` with the new reference, UI elements that reference `filteredInternshipApplications`
 will not be aware of the reference update to `filteredInternshipApplications`. Thus, `ModelManager` has to notify and update the UI elements as well.
@@ -597,19 +513,19 @@ As seen from the diagram above, each observable will implement two additional me
 . `addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l)`
 . `firePropertyChange(ListenerPropertyType propertyType, Object newValue)`
 
-This forms an abstraction as users would not be allowed to call the the `addPropertyChangeListener` and `firePropertyChange` methods of
+This forms a layer of abstraction as users would not be allowed to call the the `addPropertyChangeListener` and `firePropertyChange` methods of
 `PropertyChangeSupport` directly.
 
 ===== Design Considerations
 
-===== Aspect: How to implement the Archiving system on the backend
-* **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`. +
+===== Aspect: How to implement the Archival system on the backend
+* **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`.
 `displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
-Whenever the user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships`.
+Whenever the user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships` and vice-versa.
 In terms of storage, we will use only one list. This means that whenever we load the list of internship application(s) from the JSON save file,
 we will filter the internship application(s) appropriately into `archivedInternships` and `unarchivedInternships` in `InternshipDiary`.
 When saving, we will combine both `archivedInternships` and `unarchivedInternships` into a single list for storage.
-** Pros: No need to modify the storage and its relevant test cases. This provides some stability in the refactoring process.
+** Pros: No need to modify the storage and its relevant test cases. This provides stability in the refactoring process.
 ** Cons: Potentially expensive in terms of computation. Furthermore, we will have to implement observer pattern to handle the reference changes.
 
 * **Alternative 2**: Manipulate the current view of the internship application list by using Predicate and FilteredList,
@@ -617,7 +533,7 @@ along with the boolean isArchived variable in `InternshipApplication`. This will
 ** Pros: Very easy to implement and less expensive in terms of memory and computation. No need to implement observer pattern as there will be no reference updates.
 ** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
 
-===== Aspect: How to implement the observer pattern
+===== Aspect: How to implement the Observer Pattern
 * **Alternative 1 (current choice)**: Use `PropertyChangeSupport` class and `PropertyChangeListener` interface from the `java.beans` package to support our implementation.
 ** Pros: Easy and intuitive to use. Good built-in support. Seems to be highly recommended by other users.
 ** Cons: Seemingly negligible for our usage.
@@ -651,7 +567,7 @@ Through this new class, users will be able to execute the commands on multiple i
 Users are able to execute removal-based commands like `archive` according to the execution types we have in the enumeration class `RemovalBasedCommandExecutionType`.
 
 We have implemented the following execution types: `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`. For the execution type `BY_FIELD`, users can only
-execute by the status field of an internship application currently.
+execute by the `Status` field of an internship application currently.
 
 ====
 The format of a removal-based command can take on any of the following forms:
@@ -676,7 +592,8 @@ The following sequence diagram provides a high-level overview of how the `archiv
 image::ArchiveSequenceDiagram.png[align="center"]
 
 As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the
-internship applications and then converting these internship applications to their respective index. This will provide us with required indices.
+internship applications and then converting these internship applications to their respective index.
+This provides us with required indices that we will execute the removal-based command on.
 
 ====
 [NOTE]
@@ -707,7 +624,7 @@ image::GenerateLazyCommandSequenceDiagram.png[width="500", align="center"]
 
 As the command word is `archive`, a lazy lambda function to construct an `ArchiveCommand` is returned.
 
-The following sequence diagram captures the process of executing a removal-based command on one index.
+The following sequence diagram captures the process of executing the lazy removal-based command on one index.
 This particular index allows us to retrieve the appropriate internship application.
 
 image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center", width="800"]
@@ -737,14 +654,15 @@ generate the removal-based command that will execute based on the execute type p
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when
 `RemovalBasedCommand` is executed. This removal-based command will then be used on the index/indices provided according to the execution type.
 ** Pros: Easier to implement and convey the idea to team members.
-** Cons: Will require many case handling (e.g. switch cases). Polymorphism may be a better solution in terms of code extensibility and elegance.
+** Cons: Will require multiple case handlings (e.g. switch cases). Polymorphism may be a better solution in terms of code extensibility and elegance.
 
 * **Alternative 2**: Use polymorphism where each removal-based command extends the class `RemovalBasedCommand` and inherit the appropriate execution type methods. +
 ** Pros: Code will likely be more extensible and elegant.
 ** Cons: Likely to require major redesigning and refactoring of existing logic codebase because we will have to modify `Command` class.
 Furthermore, the changes may affect areas that we may not have considered. This is risky and will take a lot of time, effort, and team discussion.
+// end::archival[]
 
-
+// tag::statistics[]
 === Statistics Feature
 
 This feature allows users to view relevant metrics about their internship application(s).
@@ -796,15 +714,13 @@ them to the UI accordingly.
 ==== Design Considerations
 
 ===== Aspect: Which list to retrieve data from to generate statistics
-* **Alternative 1 (current choice)**: Using filtered ObservableList +
-The filtered list is dynamically updated by `find` and `sort` command. The statistics model will generate statistics based
-on the dynamic filtering changes that occur in either the main list or archival list (the current view selected by user).
+* **Alternative 1 (current choice)**: Use filtered ObservableList. The filtered list is dynamically updated by `find` and `sort` command.
+The statistics model will generate statistics based on the dynamic filtering changes that occur in either the main list or archival list (the current view selected by user).
 ** Pros: Users will be choose which list they want to view the relevant statistics for.
 Works well with `archival`, `list`, and `find` commands that dynamically changes the list.
 ** Cons: Often re-computation upon changes in the filtered list may cause some performance bottleneck.
 
-* **Alternative 2**: Using the base list that contains all of the internship application(s)
-The base list is not filtered according to predicate(s) set by users.
+* **Alternative 2**: Use the base list that contains all of the internship application(s). The base list is not filtered according to predicate(s) set by users.
 ** Pros: Require less re-computation compared to using filtered ObservableList, as it only recomputes upon addition(s), deletion(s), or changes
 in an internship application stored in the list.
 ** Cons: May be unintuitive to some extent for users when the statistics do not tally with the current view of the list.
@@ -813,17 +729,18 @@ in an internship application stored in the list.
 A list of internship application(s) will be passed into the statistics model and upon function call,
 the statistics model will iterate through the list and generate/update the latest statistics accordingly.
 
-* **Alternative 1 (current choice)**: Storing the mapping between each status and count using a HashMap +
+* **Alternative 1 (current choice)**: Store the mapping between each status and count using a HashMap.
 The idea is to retrieve all the statuses available from the enum (whenever the statistics model is created)
-and creating a HashMap with those status as the key and respective count as the value.
+and create a HashMap with those status as the key and respective count as the value.
 ** Pros: Extensible and reusable. Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses.
 ** Cons: Seemingly negligible cons for our usage.
 
 * **Alternative 2**: Store each status count in separate variables that are initialized upon the creation of statistics model.
 ** Pros: Straightforward and very easy to understand for future developers.
 ** Cons: Very inextensible.
+// end::statistics[]
 
-//tag::reminder[]
+// tag::reminder[]
 === Reminder Command
 
 The reminder command displays to users a list of internship applications which:
@@ -887,7 +804,7 @@ to current date.
 scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`. User might miss out
 on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in
 to check `interviewDate`.
-//end::reminder[]
+// end::reminder[]
 
 === Logging
 
