@@ -48,7 +48,7 @@ public class Statistics {
      *
      * @param internshipApplicationList list of existing internship application(s).
      */
-    private void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {
+    public void computeCount(ObservableList<InternshipApplication> internshipApplicationList) {
         List<Status> newStatuses = internshipApplicationList.stream()
             .map(ia -> {
                 return ia.getStatus();
@@ -63,7 +63,7 @@ public class Statistics {
     /**
      * Resets the current statistics.
      */
-    private void resetStatistics() {
+    public void resetStatistics() {
         for (Status status : statuses) {
             statusCount.put(status, 0);
         }

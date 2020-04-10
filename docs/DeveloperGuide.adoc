@@ -714,7 +714,7 @@ As the command word is `archive`, a lazy lambda function to construct an `Archiv
 The following sequence diagram captures the process of executing a removal-based command on one index.
 This particular index allows us to retrieve the appropriate internship application.
 
-image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center"]
+image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center", width="800"]
 
 It can be seen that the previously-generated lazy command is executed in the above sequence diagram.
 
