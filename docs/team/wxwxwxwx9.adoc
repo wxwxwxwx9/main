@@ -9,7 +9,7 @@ This portfolio provides an overview of my contributions to the software engineer
 
 == Overview
 
-Internship Diary is a desktop-based internship application tracking software.
+*Internship Diary* is a desktop-based internship application tracking software.
 
 The idea for this software came about when we realised that the nature of a computer science degree is internship-driven;
 in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good job as a fresh graduate.
@@ -31,15 +31,15 @@ Consequently, this may improve their chance of landing an internship.
 
 . Implemented the Archival System
 
-* *What it does*: Allows users to move their internship applications from the main list to the archival list.
+* *What it does*: Allows users to move their internship applications from the main list to the archival list and vice-versa.
 * *Justification*: This feature is particularly important as it helps users to keep their internship applications organized. Whenever there are
 internship application(s) that are no longer relevant / of interest to the user, the user can archive those internship applications so that
 it "de-clutters" their main list. This allows them to focus on the internship application(s) that are more important currently.
 * *Highlights*: The archival feature seems trivial as it is usually a staple feature in many tracking applications.
-However, it was challenging to decide how to implement in our use case such that the feature is sustainable and extensible.
+However, it was challenging to decide on a design implementation for our use case such that the feature is sustainable and extensible.
 Due to the chosen design, there was a need to implement a form of observer pattern to handle reactivity issues -- this became another important design consideration.
 Furthermore, for the `archive` and `unarchive` commands, the concept of enabling multiple execution types (e.g. by index, indices, and status) was
-challenging to design and implement.
+not trivial to design and implement as well.
 
 
 . Implemented the Statistics feature
