@@ -3,33 +3,47 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: My Internship Diary
-
----
+== PROJECT: Internship Diary
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My Internship Diary is a desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major enhancement*: Implement the Reminder Command
+** What it does: This implementation enables the user to view applications that need to be submitted or have interviews scheduled in 7 days.
+** Justification: This aims to help prevent the user from missing submission deadlines or interview dates.
 
-* *Minor enhancement*:
+* *Minor enhancement*: Implement the display of the last stage where an application failed
+** What it does: This implementation enables the user to view the stage (`applied`, `interview`, `offered`) which the
+application was at before it was `ghosted` or `rejected`.
+** Justification: This aims to help user reflect on the stage at which the application could be done better for future applications.
 
-* *Code contributed*:
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=feliciatay[Reposense]
 
 * *Other contributions*:
 
+** Helped with refactoring UI of Internship Diary from Address Book
+
 ** Project management:
+*** Managed releases `v1.2` - `v1.3` (3 releases) on GitHub
 
 ** Documentation:
+*** Added relevant sections for Reminder feature in UG and DG
+*** Edited Reminder user story
 
 ** Community:
-
-** Tools:
+*** TBC
 
 == Contributions to the User Guide
-
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=find]
 
 == Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::../DeveloperGuide.adoc[tag=find]

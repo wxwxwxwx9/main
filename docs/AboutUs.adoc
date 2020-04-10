@@ -50,7 +50,9 @@ image::feliciatay.png[width="150", align="left"]
 {empty}[https://github.com/FeliciaTay[github]] [<<feliciatay#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBA
+Responsibilities: +
+Implementing Reminder Command +
+Documentation
 
 '''
 
