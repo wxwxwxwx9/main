@@ -53,7 +53,7 @@ public class InterviewDeleteCommandTest {
             INDEX_FIRST_INTERVIEW);
         String expectedMessage = String.format(InterviewDeleteCommand.MESSAGE_SUCCESS, interviewToDelete);
         assertEquals(expectedMessage, command.execute(model).getFeedbackToUser());
-        assertTrue(!internshipApplication.hasInterview(interviewToDelete));
+        assertFalse(internshipApplication.hasInterview(interviewToDelete));
     }
 
     @Test

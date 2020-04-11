@@ -61,7 +61,7 @@ public class UnarchiveCommandTest {
         InternshipApplication archivedInternshipApplication =
             expectedModel.getAllInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
-        assertTrue(!archivedInternshipApplication.isArchived());
+        assertFalse(archivedInternshipApplication.isArchived());
     }
 
     @Test

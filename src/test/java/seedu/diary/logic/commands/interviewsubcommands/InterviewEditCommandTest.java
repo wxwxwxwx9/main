@@ -2,6 +2,7 @@ package seedu.diary.logic.commands.interviewsubcommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.diary.testutil.Assert.assertThrows;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
@@ -90,7 +91,7 @@ public class InterviewEditCommandTest {
         String expectedMessage = String.format(InterviewEditCommand.MESSAGE_EDIT_INTERVIEW_SUCCESS, editedInterview);
 
         assertEquals(expectedMessage, command.execute(model).getFeedbackToUser());
-        assertTrue(!internshipApplication.hasInterview(interviewToEdit));
+        assertFalse(internshipApplication.hasInterview(interviewToEdit));
     }
 
     @Test
@@ -124,30 +125,30 @@ public class InterviewEditCommandTest {
             INDEX_FIRST_INTERVIEW, editInterviewDescriptor);
 
         //same object -> returns true
-        assertTrue(command.equals(command));
+        assertEquals(command, command);
 
         //different object but same variables -> returns true
-        assertTrue(command.equals(copy));
+        assertEquals(command, copy);
 
         //null -> returns false
-        assertFalse(command.equals(null));
+        assertNotEquals(null, command);
 
         //different type -> returns false
-        assertFalse(command.equals(5));
+        assertNotEquals(5, command);
 
         //different internshipIndex -> returns false
         copy = new InterviewEditCommand(INDEX_SECOND_INTERNSHIP_APPLICATION,
             INDEX_FIRST_INTERVIEW, editInterviewDescriptor);
-        assertFalse(command.equals(copy));
+        assertNotEquals(command, copy);
 
         //different interviewIndex -> returns false
         copy = new InterviewEditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
             INDEX_SECOND_INTERVIEW, editInterviewDescriptor);
-        assertFalse(command.equals(copy));
+        assertNotEquals(command, copy);
 
         //different editInterviewDescriptor -> returns false
         copy = new InterviewEditCommand(INDEX_FIRST_INTERNSHIP_APPLICATION,
             INDEX_FIRST_INTERVIEW, new EditInterviewDescriptorBuilder(ORCHARD_TOWER).build());
-        assertFalse(command.equals(copy));
+        assertNotEquals(command, copy);
     }
 }
