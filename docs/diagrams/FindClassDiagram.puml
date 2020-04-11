@@ -1,0 +1,68 @@
+@startuml
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+Class FindCommandParser {
+
+}
+
+Class FindCommand {
+
+}
+
+Class Predicate <<interface>> {
+
+}
+
+Class CompanyContainsKeywordsPredicate {
+
+}
+
+Class RoleContainsKeywordsPredicate {
+
+}
+
+Class AddressContainsKeywordsPredicate {
+
+}
+
+Class PhoneContainsNumbersPredicate {
+
+}
+
+Class EmailContainsKeywordsPredicate {
+
+}
+
+Class ApplicationDateIsDatePredicate {
+
+}
+
+Class PriorityContainsNumbersPredicate {
+
+}
+
+Class StatusContainsKeywordsPredicate {
+
+}
+
+note as N1
+  The Predicate interface is the default java.util.function.Predicate functional interface
+end note
+
+N1 ... Predicate
+FindCommandParser .down.> Predicate
+FindCommandParser .right.> FindCommand
+FindCommand .down.> Predicate
+CompanyContainsKeywordsPredicate .up.|> Predicate
+RoleContainsKeywordsPredicate ..up.|> Predicate
+AddressContainsKeywordsPredicate .up.|> Predicate
+PhoneContainsNumbersPredicate ..up.|> Predicate
+EmailContainsKeywordsPredicate .up.|> Predicate
+ApplicationDateIsDatePredicate ..up.|> Predicate
+PriorityContainsNumbersPredicate .up.|> Predicate
+StatusContainsKeywordsPredicate ..up.|> Predicate
+
+@enduml
