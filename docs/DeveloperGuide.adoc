@@ -1,9 +1,11 @@
 = Internship Diary - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -518,7 +520,7 @@ This forms a layer of abstraction as users would not be allowed to call the the 
 
 ===== Design Considerations
 
-===== Aspect: How to implement the Archival system on the backend
+===== Aspect: How to implement the Archival view system on the backend
 * **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`.
 `displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
 Whenever the user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships` and vice-versa.
@@ -562,14 +564,20 @@ of such functions are very similar; in that they serve to modify the list by rem
 Therefore, we specifically created a new class, `RemovalBasedCommand`, to extend the functionality of *removal-based commands* like `archive`, `unarchive`, and `delete`.
 Through this new class, users will be able to execute the commands on multiple internship applications.
 
+In the following section, we will delve slightly deeper and discuss about the lower-level implementation of the extended functionality.
+
 ===== Implementation
 
 The following class diagram depicts our implementation of the extended functionality.
 
 image::RemovalBasedClassDiagram.png[align="center"]
 
-The purpose of `RemovalBasedCommandExecutionTypeParser` is solely to determine the execution type of the command by parsing the user input.
-On the other hand, `RemovalBasedCommand` is responsible for creating the appropriate command based on the `commandWord` that was generated from
+The idea of the implementation can be summarized as follows:
+
+. The purpose of `RemovalBasedCommandExecutionTypeParser` is solely to determine the execution type of the command by parsing the user input
+and calling `RemovalBasedCommandExecutionType#getExecutionType`.
+
+. On the other hand, `RemovalBasedCommand` is responsible for creating and executing the appropriate command based on the `commandWord` that was generated from
 the user input and passed down from `InternshipDiaryParser`.
 
 Users are able to execute removal-based commands like `archive` according to the execution types we have in the enumeration class `RemovalBasedCommandExecutionType`.
