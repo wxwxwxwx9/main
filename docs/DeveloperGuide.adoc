@@ -564,6 +564,14 @@ Through this new class, users will be able to execute the commands on multiple i
 
 ===== Implementation
 
+The following class diagram depicts our implementation of the extended functionality.
+
+image::RemovalBasedClassDiagram.png[align="center"]
+
+The purpose of `RemovalBasedCommandExecutionTypeParser` is solely to determine the execution type of the command by parsing the user input.
+On the other hand, `RemovalBasedCommand` is responsible for creating the appropriate command based on the `commandWord` that was generated from
+the user input and passed down from `InternshipDiaryParser`.
+
 Users are able to execute removal-based commands like `archive` according to the execution types we have in the enumeration class `RemovalBasedCommandExecutionType`.
 
 We have implemented the following execution types: `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`. For the execution type `BY_FIELD`, users can only
@@ -844,12 +852,13 @@ You may refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * is a Computer Science student
-* is looking for an internship
-* has a need to organise internship application
+* is actively looking for internships
+* has a need to organise internship applications
 * is a fast typist
 * is comfortable using CLI apps
+* prefers desktop applications 
 
-*Value proposition*: An easy to use CLI program that can help students to organise and plan for their internship
+*Value proposition*: An easy-to-use CLI program that can help students to organise and plan for their internship
 
 [appendix]
 == User Stories
@@ -887,7 +896,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Internship Diary` (InternDiary) and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: UC1 - Find Internship Application
@@ -895,7 +904,7 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to find a specific Internship Application by company name.
-2.  InternDiary shows the Internship Application with all its corresponding fields.
+2.  Internship Diary shows the Internship Application with all its corresponding fields.
 +
 Use case ends.
 
@@ -913,7 +922,7 @@ Use case ends.
 
 1. User pass:q[<u>find Internship Application UC1</u>].
 2. User requests to edit the fields of the Internship Application.
-3. InternDiary updates the new fields of the Internship Application.
+3. Internship Diary updates the new fields of the Internship Application.
 +
 Use case ends
 
@@ -922,7 +931,7 @@ Use case ends
 [none]
 * 2a. The given index is invalid.
 [none]
-** 2a1. InternDiary shows an error message
+** 2a1. Internship Diary shows an error message
 +
 Use case resumes at step 1
 
@@ -933,7 +942,7 @@ Use case resumes at step 1
 
 1. User pass:q[<u>find Internship Application UC1</u>].
 2. User requests to prioritise the Internship Application.
-3. InternDiary updates the priority level of the Internship Application.
+3. Internship Diary updates the priority level of the Internship Application.
 +
 Use case ends
 
@@ -943,8 +952,8 @@ Use case ends
 *MSS*
 
 1. User requests to sort the list.
-2. InternDiary sorts the list.
-3. InternDiary displays the sorted list.
+2. Internship Diary sorts the list.
+3. Internship Diary displays the sorted list.
 4. Footer displays the field which list is sorted by.
 +
 Use case ends
@@ -952,9 +961,9 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a. InternDiary detects invalid syntax.
+* 1a. Internship Diary detects invalid syntax.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case ends
 

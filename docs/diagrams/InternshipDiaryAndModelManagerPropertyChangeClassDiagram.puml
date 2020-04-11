@@ -3,6 +3,15 @@
 hide circle
 skinparam classAttributeIconSize 0
 
+'package Model <<Rectangle>> {
+'    class InternshipDiary
+'    class ModelManager
+'}
+'
+'package UI <<Rectangle>> {
+'    class StatisticsWindow
+'}
+
 Class InternshipDiary {
     - displayedInternships: \nUniqueInternshipApplicationList
 '    - changes: PropertyChangeSupport
@@ -25,7 +34,7 @@ Class StatisticsWindow implements PropertyChangeListener {
     + propertyChange(PropertyChangeEvent e): void
 }
 
-interface PropertyChangeListener <<interface>> {
+class PropertyChangeListener <<interface>> {
     propertyChange(PropertyChangeEvent e): void
 }
 
