@@ -1331,6 +1331,12 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+=== Using Internship Diary with Sample Internship Application List
+. Close Internship Diary.
+. Delete the file `./internshipdiary.json` (if applicable).
+. Launch Internship Diary. +
+  Expected: A sample internship application list with 6 internship applications should be displayed.
+
 === Launch and Shutdown
 
 . Initial launch
@@ -1396,19 +1402,33 @@ _{ more test cases ... }_
 
 === Sorting the list of internship applications
 . Sorting a list of internship applications.
-.. Prerequisites: List all internship applications using the `list`.  +
+.. Prerequisites: List all internship applications using `list`.  +
 Select any internship application by clicking one.
 ... Test case: `sort c/`
-Expected: No change in displayed internship details. Internship application list sorted by company (Case insensitive).
+Expected: No change in displayed internship details. Internship application list sorted by company (case insensitive).
+Sort order displayed in footer.
 ... Test case: `sort reverse c/` +
-Expected: No change in displayed internship details. Internship application list sorted by company in reverse alphabetical order.
-.. Prerequisites: Use `find` command to reduce size of internship application list without deleting any internship applications.
+Expected: No change in displayed internship details. Internship application list sorted by company in
+reverse alphabetical order (case insensitive). Sort order displayed in footer.
+... Test case: `sort reversed c/` +
+Expected: Internship application list not sorted. Error details shown in the result box as invalid command format.
+No change in footer display.
+... Test case: `sort c/ a` +
+Expected: Internship application list not sorted. Error details shown in the result box as invalid command format.
+No change in footer display.
+... Test case: `sort c/ r/` +
+Expected: Internship application list not sorted. Error details shown in the result box as invalid command format.
+No change in footer display.
+.. Prerequisites: Use `find` command to reduce size of internship application list without deleting any internship applications. +
+For example, `find r/software`
 ... Test case: `sort c/` +
 Expected: No change to number of internship applications displayed.
 .. Prerequisites: Ensure current internship application list has multiple internship applications with fields of the same value.
 For example, multiple internship applications with `role` being `software developer`
 ... Test case: `sort r/` +
-Expected: No change in order of internship applications with identical roles (Stable sort).
+Expected: No change in order of internship applications with identical roles (stable sort).
+. Sorting a list of internship applications in `archival` mode.
+.. Repeat the above steps, but list all internship applications using `archival`.
 
 
 === Saving data
