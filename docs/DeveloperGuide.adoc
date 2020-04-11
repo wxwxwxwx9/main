@@ -256,30 +256,60 @@ As the different modes do not share code, they are better off as separate classe
 === Interview and Interview Commands
 
 ==== Implementation
-
-The implementation of interviews will be facilitated by two overarching components, the Model Class `Interview`
+The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
 which is associated to an `InternshipApplication` (see Model Diagram <<Design-Model>> ) and the Logic Classes `InterviewCommandParser` and `InterviewCommand`.
 
-The class diagram below shows the classes associated to `Interview`. `Interview` will consist of the following variables:
+The Logic Classes will interact with the `Interview` Classes to modify the interviews list in `InternshipApplication`.
+More detailed explanations will be provided in the subsequent sections.
 
-* `boolean` isOnline -- indicates whether the interview is online.
+==== Interview
+There are two types of interviews currently available in Internship Diary:
+
+* `Online Interview` -- this type of interview will not carry an address. A placeholder `Address` "NA" will be set.
+* `Offline Interview` -- this type of interview must have an address.
+
+`Interview` will consist of the following variables and method:
+
+* `getIsOnline()` -- abstract method that returns whether the interview is to be conducted online.
 * `ApplicationDate` interviewDate -- indicates the date of the interview.
 * `Address` interviewAddress -- indicates the address of the interview.
 
-In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement `interviewDate` and `interviewAddress`
+In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement
+`interviewDate` and `interviewAddress` +
+The class diagram below shows the classes associated to `Interview`.
 
 image::InterviewClassDiagram.png[]
 
-Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes.
-The `interview` command will encompass four types of sub-command: `add list edit delete`.
-Correspondingly, the `InterviewCommand`
-class will be made abstract with specific implementation of each sub-command in an inheriting class, this can be seen in the diagram below.
+==== Interview Commands
+Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes. +
+The `interview` command will encompass four types of sub-command:
+
+* `add` -- add an `Interview` to the specified `InternshipApplication`.
+* `edit` -- edits a specified `Interview` that exists in the interview list in the specified `InternshipApplication`.
+* `delete` -- deletes a specified `Interview` that exists in the interview list in the specified `InternshipApplication`.
+* `list` -- lists all `Interview` in the specified `InternshipApplication`.  +
+Currently `list` functions similarly to `select`, additional functions for list will be proposed in <<InterviewListCommand-Improvements>>.
+
+Correspondingly, the `InterviewCommand`class will be made abstract with specific implementation
+of each sub-command in an inheriting class, this can be seen in the diagram below.
 
 image::InterviewCommandClassDiagram.png[]
 
-Additionally, `InterviewCommand` will implement the `InterviewCommand#getInternshipApplication(Model, Index)` operation.
-This is to facilitate all sub-commands to acquire the `InternshipApplication` to modify the `Interview` from.
+Additionally, `InterviewCommand` will implement the following static operations to facilitate sub-commands:
 
+* `InterviewCommand#getInternshipApplication(Model, Index)` will assist all sub-commands in acquiring the `InternshipApplication` to modify.
+* `InterviewCommand#isInterviewBeforeApplication(InternshipApplication, Interview)` will assist `edit` and `add`
+commands in checking whether the interview occurs before the internship application.
+
+Lastly, as the commands inherit from `Command` interface, the commands will implement `execute(Model)`.
+All the sub-commands follow roughly the same execution sequence as seen in the diagram below.
+
+image::InterviewAddCommandExecuteSequenceDiagram.png[]
+
+The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
+Then followed by creating a CommandResult, and returning it.
+
+==== Interview Commands Parser
 `InterviewCommandParser` is the entry point to all `interview` sub-command.
 It will be invoked from `InternshipDiaryParser`
 which is the primary logic parser for user input.
@@ -289,7 +319,29 @@ All other sub-commands will follow the same invocation format.
 
 image::InterviewCommandSequenceDiagram.png[]
 
+[[InterviewListCommand-Improvements]]
+==== [Proposed Improvements] Interview List Command
+Currently, the `InterviewListCommand` is functionally similar to `SelectCommand`.
+In v2.0, there will be the following improvements to the `InterviewListCommand`:
+
+* Additional Parameters
+** New command format will be `interview INDEX list [o/IsOnline] [a/Address] [d/Date]`.
+** The command will return the list of interviews consisting of only the interviews that contain the optional
+fields provided in the command.
+** `FilteredList` from `javafx` will be used to implement this feature.
+
 ==== Design Considerations
+===== Aspect: How to implement Interview
+* **Alternative 1 (current choice in v1.4)**: Use an abstract class as the primary reference to Interviews.
+Implement types of Interview as extending classes.
+** Pros: More scalable, able to easily add new Interview types. +
+Easier to debug and handle exceptions.
+** Cons: More classes to create and handle.
+
+* **Alternative 2 (previous choice in v1.3)**: Use a concrete Interview class with additional variables to differentiate
+Interview types.
+** Pros: Simple to implement.
+** Cons: Increasing number of variables if more interview types will be added.
 
 ===== Aspect: How to implement different interview commands
 
@@ -978,6 +1030,120 @@ Internship Diary detects invalid syntax.
 +
 Use case ends
 
+[discrete]
+=== Use case: UC5 - Select Internship Application
+
+*MSS*
+
+1. User requests to select an Internship Application.
+2. InternDiary displays selected Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The Internship Application to be selected does not exist.
+[none]
+** 1a.1. InternDiary shows an error message.
++
+Use case resumes at step 1
+
+[discrete]
+=== Use case: UC6 - Add Interview
+
+*MSS*
+
+1. User pass:q[<u>find Internship Application UC1</u>].
+2. User requests to add an Interview to a specific Internship Application.
+3. InternDiary creates an Interview.
+4. InternDiary adds Interview into Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The Internship Application does not exist.
+[none]
+** 2a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 3a. The Interview to be created has invalid fields.
+[none]
+** 3a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 4a. The Interview to be added already exists in the Internship Application.
+[none]
+** 4a.1 InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: UC7 - Edit Interview
+
+*MSS*
+
+1. User requests to edit a specific Interview in a specific Internship Application.
+2. InternDiary creates a new Interview with edited fields.
+3. InternDiary replaces old Interview with new Interview in Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The Internship Application does not exist.
+[none]
+** 1a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 2a. The new Interview to be created has invalid fields.
+[none]
+** 2a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 3a. The Interview to be added already exists in the Internship Application.
+[none]
+** 3a.1 InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[discrete]
+=== Use case: UC8 - Delete Interview
+
+*MSS*
+
+1. User requests to delete a specific Interview in a specific Internship Application.
+2. InternDiary removes Interview in Internship Application.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The Internship Application does not exist.
+[none]
+** 1a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
+[none]
+* 2a. The Interview to be deleted does not exist.
+[none]
+** 2a.1. InternDiary shows an error message.
++
+Use case resumes at step 2
+
 _{More to be added}_
 
 [appendix]
@@ -1119,6 +1285,37 @@ Status bar remains the same.
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Adding an interview to an internship application
+
+. Adding an interview while an internship application is displayed.
+.. Prerequisites: List all internship applications using the `list`.  +
+   Select the first internship application using the `select 1` command.
+.. Test case: `interview 1 add o/true d/(internship application date)` +
+   As the interview relies on the date of application, use the application date in the internship application displayed. +
+   Expected: Online interview added to the internship application. Details of the interview displayed in the list inside the displayed internship application.
+.. Test case: `interview 1 add o/false d/(internship application date) a/123 Kent Ridge Road` +
+   Expected: Offline interview added to the internship application. Details of the interview displayed in the list inside the displayed internship application.
+.. Test case: `interview 1 add o/true d/(internship application date - 1 )` +
+   Expected: No interview is added. Error details shown in the result box.
+.. Other incorrect interview add commands to try: `interview 1 add`, `interview 0 add`, `interview 1 add o/false d/(valid date)` (offline interview must have address).
+
+=== Editing an interview in an internship application
+
+. Editing an interview while an internship application is displayed.
+.. Prerequisites: List all internship applications using the `list`.  +
+   Select the first internship application using the `select 1` command. +
+   Add an online interview to the first internship application using the `interview 1 add o/true d/(internship application date)` command. +
+   Let x be the index number of the new online interview as displayed inside the internship application displayed.
+.. Test case: `interview 1 edit x d/(internship application date + 1)`
+   Expected: The online interview's date has been successfully changed.
+.. Test case: `interview 1 edit x o/false a/123 Kent Ridge Road` +
+   Expected: The online interview has been edited into an offline interview.
+.. Test case: `interview 1 edit x o/false` +
+   Expected: No change to online interview. Error details shown in the result box as address field is mandatory when editing an online into an offline interview.
+.. Test case: `interview 1 edit 0 o/false a/123 Kent Ridge Road` +
+   Expected: No change to online interview. Error details shown in the result box as interview index is out of bounds.
+.. Other incorrect interview edit commands to try: `interview 1 edit`, `interview 1 edit x` (no change of interview fields will result in error).
 
 === Saving data
 

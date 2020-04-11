@@ -20,6 +20,10 @@ Class InternshipApplicationCard
 Class StatusBarFooter
 Class CommandBox
 Class EnteredCommandsHistory
+Class InternshipApplicationDetail
+Class InternshipApplicationDetailSetter
+Class InterviewListPanel
+Class InterviewCard
 }
 
 package Model <<Rectangle>> {
@@ -44,6 +48,11 @@ MainWindow *-down-> ResultDisplay
 MainWindow *-down-> InternshipApplicationListPanel
 MainWindow *-down-> StatusBarFooter
 MainWindow *-down-> PredicateDisplayFooter
+MainWindow *-down-> InternshipApplicationDetail
+MainWindow *-down-> InternshipApplicationDetailSetter
+
+InternshipApplicationDetail -down-> InterviewListPanel
+InterviewListPanel -down-> InterviewCard
 
 InternshipApplicationListPanel -down-> InternshipApplicationCard
 
@@ -61,12 +70,19 @@ StatisticsBarFooter--|> UiPart
 ComparatorDisplayFooter --|> UiPart
 PredicateDisplayFooter --|> UiPart
 HelpWindow --|> UiPart
+InternshipApplicationDetail --|> UiPart
+InterviewListPanel --|> UiPart
+InterviewCard --|> UiPart
+
+InternshipApplicationDetailSetter ..> InternshipApplicationDetail
 
 StatisticsBarFooter ..> Model
 StatisticsWindow ..> Model
 PredicateDisplayFooter ..> Model
 ComparatorDisplayFooter ..> Model
 InternshipApplicationCard ..> Model
+InternshipApplicationDetail ..> Model
+InterviewCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
