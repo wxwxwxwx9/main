@@ -1030,10 +1030,123 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise.
+Furthermore, any references made to the `list` refers to the *main list* (unarchived internship applications), unless specified otherwise.
 
 [discrete]
-=== Use case: UC1 - Find Internship Application
+=== Use case: UC1 - View Main List
+
+*MSS*
+
+1. User requests to view the main list.
+2. Internship Diary displays the main list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC2 - View Archival List
+
+*MSS*
+
+1. User requests to view the archival list.
+2. Internship Diary displays the archival list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC3 - Add Internship Application
+
+*MSS*
+
+1. User requests to add an internship application to the list.
+2. Internship Diary adds the internship application to the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an error in the input.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC4 - Delete Internship Application
+
+*MSS*
+
+1. User requests to delete an internship application from the list.
+2. Internship Diary deletes the internship application from the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC5 - Archive Internship Application
+
+*Precondition(s)*
+
+* Internship Diary is displaying the main list.
+
+*Guarantee(s)*
+
+* Internship Application appears in the archival list.
+
+*MSS*
+
+1. User requests to archive an internship application from the list.
+2. Internship Diary archives the internship application.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC6 - Unarchive Internship Application
+
+*Precondition(s)*
+
+* Internship Diary is displaying the archival list.
+
+*Guarantee(s)*
+
+* Internship Application appears in the main list.
+
+*MSS*
+
+1. User requests to unarchive an internship application from the archival list.
+2. Internship Diary unarchives the internship application.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC7 - Find Internship Application
 
 *MSS*
 
@@ -1051,7 +1164,7 @@ No Internship Application is shown.
 Use case ends.
 
 [discrete]
-=== Use case: UC2 - Edit Internship Application
+=== Use case: UC8 - Edit Internship Application
 
 *MSS*
 
@@ -1074,7 +1187,7 @@ Use case resumes at step 1
 
 [discrete]
 
-=== Use case: UC3 - Prioritise Internship Application
+=== Use case: UC9 - Prioritise Internship Application
 
 *MSS*
 
@@ -1085,7 +1198,7 @@ Use case resumes at step 1
 Use case ends
 
 [discrete]
-=== Use case: UC4 - Sort Internship Application
+=== Use case: UC10 - Sort Internship Application
 
 *MSS*
 
@@ -1108,12 +1221,12 @@ Internship Diary detects invalid syntax.
 Use case ends
 
 [discrete]
-=== Use case: UC5 - Select Internship Application
+=== Use case: UC11 - Select Internship Application
 
 *MSS*
 
 1. User requests to select an Internship Application.
-2. InternDiary displays selected Internship Application.
+2. Internship Diary displays selected Internship Application.
 +
 Use case ends
 
@@ -1122,19 +1235,19 @@ Use case ends
 [none]
 * 1a. The Internship Application to be selected does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 1
 
 [discrete]
-=== Use case: UC6 - Add Interview
+=== Use case: UC12 - Add Interview
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to add an Interview to a specific Internship Application.
-3. InternDiary creates an Interview.
-4. InternDiary adds Interview into Internship Application.
+3. Internship Diary creates an Interview.
+4. Internship Diary adds Interview into Internship Application.
 +
 Use case ends
 
@@ -1143,32 +1256,32 @@ Use case ends
 [none]
 * 2a. The Internship Application does not exist.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 3a. The Interview to be created has invalid fields.
 [none]
-** 3a.1. InternDiary shows an error message.
+** 3a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 4a. The Interview to be added already exists in the Internship Application.
 [none]
-** 4a.1 InternDiary shows an error message.
+** 4a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC7 - Edit Interview
+=== Use case: UC13 - Edit Interview
 
 *MSS*
 
 1. User requests to edit a specific Interview in a specific Internship Application.
-2. InternDiary creates a new Interview with edited fields.
-3. InternDiary replaces old Interview with new Interview in Internship Application.
+2. Internship Diary creates a new Interview with edited fields.
+3. Internship Diary replaces old Interview with new Interview in Internship Application.
 +
 Use case ends
 
@@ -1177,31 +1290,31 @@ Use case ends
 [none]
 * 1a. The Internship Application does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 2a. The new Interview to be created has invalid fields.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 3a. The Interview to be added already exists in the Internship Application.
 [none]
-** 3a.1 InternDiary shows an error message.
+** 3a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC8 - Delete Interview
+=== Use case: UC14 - Delete Interview
 
 *MSS*
 
 1. User requests to delete a specific Interview in a specific Internship Application.
-2. InternDiary removes Interview in Internship Application.
+2. Internship Diary removes Interview in Internship Application.
 +
 Use case ends
 
@@ -1210,18 +1323,30 @@ Use case ends
 [none]
 * 1a. The Internship Application does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 2a. The Interview to be deleted does not exist.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
-_{More to be added}_
+[discrete]
+=== Use case: UC15 - View Statistics
+
+*Guarantee(s)*
+
+* Separate window that contains the statistics appears.
+
+*MSS*
+
+1. User requests to view the statistics of his internship application(s).
+2. Internship Diary displays the statistics.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1351,23 +1476,244 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 _{ more test cases ... }_
 
-=== Deleting an internship application
+=== Command Box
 
-. Deleting an internship application while all internship applications are listed
+. Retrieving previous commands
 
-.. Prerequisites: List all internship applications using the `list` command. Multiple internship applications in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
-Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No internship application is deleted.
-Error details shown in the status message.
-Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites:
+* At least one command has been executed
+* Tester is not already at the oldest executed command
 
-_{ more test cases ... }_
+... Test case: ↑ +
+Expected: Previously executed command appears in the Command Box.
+
+. Retrieving later commands
+
+.. Prerequisites:
+* Tester has retrieved at least one previous command
+
+... Test case: ↓ +
+Expected: A command that was entered after the current retrieved command appears in the Command Box.
+
+=== Main List View
+
+. Viewing the main list of internship application(s)
+... Test case: "list" +
+Expected: All unarchived internship application(s) are displayed.
+
+=== Archival List View
+
+. Viewing the archival list of internship application(s)
+... Test case: "archival" +
+Expected: All archived internship application(s) are displayed.
+
+=== Adding an internship application
+
+. Adding an internship application
+
+... Test case: `add c/Google r/Software Engineer d/17 04 2020 s/applied` +
+Expected: New internship application is added to the bottom of the list.
+Details of the newly-added internship application shown in the feedback box.
+
+=== Deleting internship application
+
+. Deleting an internship application by index
+
+.. Prerequisites:
+* At least one internship application displayed
+
+... Test case: `delete 1` +
+Expected: First internship application is deleted from the list.
+Details of the deleted internship application shown in the feedback box.
+
+... Test case: `delete 0` +
+Expected: No internship application is deleted.
+Error details shown in feedback box.
+
+... Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+. Deleting internship applications by indices
+
+.. Prerequisites:
+* At least two internship applications displayed
+
+... Test case: `delete 1, 2` +
+Expected: First and second internship applications are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete 2, 1` +
+Expected: First and second internship applications are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete 2, 2` +
+Expected: Second internship applications is deleted from the list.
+Details of the deleted internship application shown in the feedback box.
+
+... Test case: `delete 0, 2` +
+Expected: No internship application is deleted.
+Error details shown in feedback box.
+
+. Deleting internship application(s) by status field
+
+.. Prerequisites:
+* at least one internship application with status "applied"
+* at least one internship application with status "wishlist"
+* no internship applications with status "rejected"
+
+... Test case: `delete s/applied` +
+Expected: All internship application(s) with status "applied" are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete s/rejected` +
+Expected: No internship application(s) deleted.
+Feedback box will show blank list of internship applications deleted.
+
+... Test case: `delete s/notvalidstatus` +
+Expected: No internship application deleted.
+Error details shown in feedback box.
+
+... Test case: `delete s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+=== Archiving internship application
+
+. Archiving an internship application by index
+
+.. Prerequisites:
+* At least one internship application displayed
+
+... Test case: `archive 1` +
+Expected: First internship application is archived from the list.
+Details of the archived internship application shown in the feedback box.
+
+... Test case: `archive 0` +
+Expected: No internship application is archived.
+Error details shown in feedback box.
+
+... Other incorrect archive commands to try: `archive`, `archive x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+. Archiving internship applications by indices
+
+.. Prerequisites:
+* At least two internship applications displayed
+
+... Test case: `archive 1, 2` +
+Expected: First and second internship applications are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive 2, 1` +
+Expected: First and second internship applications are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive 2, 2` +
+Expected: Second internship applications is archived from the list.
+Details of the archived internship application shown in the feedback box.
+
+... Test case: `archive 0, 2` +
+Expected: No internship application is archived.
+Error details shown in feedback box.
+
+. Archiving internship application(s) by status field
+
+.. Prerequisites:
+* at least one internship application with status "applied"
+* at least one internship application with status "wishlist"
+* no internship applications with status "rejected"
+
+... Test case: `archive s/applied` +
+Expected: All internship application(s) with status "applied" are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive s/rejected` +
+Expected: No internship application(s) archived.
+Feedback box will show blank list of internship applications archived.
+
+... Test case: `archive s/notvalidstatus` +
+Expected: No internship application archived.
+Error details shown in feedback box.
+
+... Test case: `archive s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+
+=== Unarchiving internship application
+
+. Unarchiving an internship application by index
+
+.. Prerequisites:
+* At least one internship application displayed
+
+... Test case: `unarchive 1` +
+Expected: First internship application is unarchived from the list.
+Details of the unarchived internship application shown in the feedback box.
+
+... Test case: `unarchive 0` +
+Expected: No internship application is unarchived.
+Error details shown in feedback box.
+
+... Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+. Unarchiving internship applications by indices
+
+.. Prerequisites:
+* At least two internship applications displayed
+
+... Test case: `unarchive 1, 2` +
+Expected: First and second internship applications are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive 2, 1` +
+Expected: First and second internship applications are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive 2, 2` +
+Expected: Second internship applications is unarchived from the list.
+Details of the unarchived internship application shown in the feedback box.
+
+... Test case: `unarchive 0, 2` +
+Expected: No internship application is unarchived.
+Error details shown in feedback box.
+
+. Unarchiving internship application(s) by status field
+
+.. Prerequisites:
+* at least one internship application with status "applied"
+* at least one internship application with status "wishlist"
+* no internship applications with status "rejected"
+
+... Test case: `unarchive s/applied` +
+Expected: All internship application(s) with status "applied" are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive s/rejected` +
+Expected: No internship application(s) unarchived.
+Feedback box will show blank list of internship applications unarchived.
+
+... Test case: `unarchive s/notvalidstatus` +
+Expected: No internship application unarchived.
+Error details shown in feedback box.
+
+... Test case: `unarchive s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
 
 === Adding an interview to an internship application
 
@@ -1399,6 +1745,12 @@ _{ more test cases ... }_
 .. Test case: `interview 1 edit 0 o/false a/123 Kent Ridge Road` +
    Expected: No change to online interview. Error details shown in the result box as interview index is out of bounds.
 .. Other incorrect interview edit commands to try: `interview 1 edit`, `interview 1 edit x` (no change of interview fields will result in error).
+
+=== Showing Statistics Window
+
+. Display statistics window
+.. Test case: `stats`
+* Expected: A separate window will appear with graphical representation of the statistics.
 
 === Sorting the list of internship applications
 . Sorting a list of internship applications.
@@ -1434,6 +1786,6 @@ Expected: No change in order of internship applications with identical roles (st
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
+any commands.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-_{ more test cases ... }_

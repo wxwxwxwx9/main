@@ -355,13 +355,4 @@ public class RemovalBasedCommandTest {
 
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show no applications.
-     */
-    private void showNoInternshipApplication(Model model) {
-        model.updateFilteredInternshipApplicationList(p -> false);
-
-        assertTrue(model.getFilteredInternshipApplicationList().isEmpty());
-    }
-
 }
