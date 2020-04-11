@@ -128,7 +128,7 @@ public class ModelManagerTest {
         modelManager.viewUnarchivedInternshipApplicationList();
         InternshipApplication newUnarchivedGoogleApplication =
             modelManager.getInternshipDiary().getDisplayedInternshipList().get(0);
-        assertTrue(!newUnarchivedGoogleApplication.isArchived());
+        assertFalse(newUnarchivedGoogleApplication.isArchived());
     }
 
     @Test
