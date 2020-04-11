@@ -20,7 +20,9 @@ interview commands.
 ** **Justification:** Interviews are important to an internship application. As interviews are almost always the next step
 towards a successful application, it is important for the user to be able to organise and view his interviews.
 Therefore, this features improves the product by allowing the user to add and modify interviews in an internship application.
-** **Highlights:**
+** **Highlights:** This enhancement requires extensive testing as it makes massive increments to the current Model and Logic packages.
+The implementation had to be constantly tweaked to ensure good integration with all other enhancements. Meticulousness and
+the ability to write good test cases was integral to implementing this enhancement.
 
 * *Major enhancement*: implemented display of internship application details in the Graphical User Interface (GUI)
 ** **What it does:** This feature enables the user to display the details of a selected internship application
@@ -30,8 +32,9 @@ internship application. This is important because the user will need to refer to
 organise his internships.
 ** **Highlights:** This enhancement uses property change listeners to react to any changes by the user
 to the displayed filtered list on the left panel and the internship application selected.
-This implementation will allow for better flexibility in future modifications to internship application.
-Additionally, it will also be less prone to bugs and errors.
+This implementation will allow for better flexibility in future modifications to internship application,
+while being less prone to bugs and errors. Additionally, this enhancement requires strong knowledge of
+javafx and the Ui structure of Internship Diary in order to produce a robust and well-integrated GUI enhancement.
 ** **Credits:** link:gerhean.adoc[Ger Hean] for improving the implementation by using java property change.
 
 * *Minor enhancement*: added select command to show Internship Application detail based on index.
