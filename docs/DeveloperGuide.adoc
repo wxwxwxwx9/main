@@ -367,12 +367,14 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 
 ===== Aspect: Should invalid Commands be stored.
 * **Alternative 1 (current choice)**: No.
-** Pros:
+** Pros: Reduces clutter in the Command History.
 ** Cons:
 
 * **Alternative 2**: Yes (Same as Windows Command Prompt).
-** Pros:
-** Cons:
+** Pros: User can store an incomplete draft command in the Command History.
+** Cons: Users who frequently make mistakes would find it troublesome to navigate
+through all the failed attempts. This is especially so as our application does not have
+an autocomplete feature.
 
 
 // end::command-history[]
