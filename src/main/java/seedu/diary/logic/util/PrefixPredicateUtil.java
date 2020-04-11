@@ -59,8 +59,8 @@ public class PrefixPredicateUtil {
      * Checks if the user input is a valid status.
      *
      * @param argMultimap argument multimap to extract the prefix for predicate creation.
-     * @throws ParseException if the user input does not conform the expected format.
      * @return predicate to filter internship application list.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public static Predicate<InternshipApplication> getFieldPredicate(ArgumentMultimap argMultimap,
         Prefix[] acceptedPrefixes) throws ParseException {
