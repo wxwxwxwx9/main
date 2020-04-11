@@ -20,13 +20,6 @@ public class InternshipApplicationDetail extends UiPart<Region> {
 
     private static final String FXML = "InternshipApplicationDetail.fxml";
     // Whitespace utility for printing details.
-    private static final String ROLE_WHITESPACE = "                        ";
-    private static final String PHONE_WHITESPACE = "                     ";
-    private static final String ADDRESS_WHITESPACE = "                  ";
-    private static final String EMAIL_WHITESPACE = "                      ";
-    private static final String DATE_WHITESPACE = "    ";
-    private static final String PRIORITY_WHITESPACE = "                   ";
-    private static final String STATUS_WHITESPACE = "                     ";
 
 
     private InternshipApplication internshipApplication;
