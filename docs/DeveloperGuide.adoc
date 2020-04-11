@@ -297,15 +297,14 @@ image::InterviewCommandClassDiagram.png[]
 
 Additionally, `InterviewCommand` will implement the following static operations to facilitate sub-commands:
 
-* `InterviewCommand#getInternshipApplication(Model, Index)` will assist all sub-commands in acquiring the
-`InternshipApplication` to modify.
+* `InterviewCommand#getInternshipApplication(Model, Index)` will assist all sub-commands in acquiring the `InternshipApplication` to modify.
 * `InterviewCommand#isInterviewBeforeApplication(InternshipApplication, Interview)` will assist `edit` and `add`
 commands in checking whether the interview occurs before the internship application.
 
 Lastly, as the commands inherit from `Command` interface, the commands will implement `execute(Model)`.
 All the sub-commands follow roughly the same execution sequence as seen in the diagram below.
 
-image::
+image::InterviewAddCommandExecuteSequenceDiagram.png[]
 
 The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
 Then followed by creating a CommandResult, and returning it.
