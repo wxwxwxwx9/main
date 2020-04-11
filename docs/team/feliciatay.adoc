@@ -9,29 +9,30 @@ This portfolio summarizes my contributions to Internship Diary.
 
 == Overview
 
-Internship Diary is a desktop-based internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Internship Diary is a desktop-based internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
 The inspiration behind this project is a common problem faced by all group members - the difficulty in organising and tracking internship
-applications effeciently. With having internship experience being a graduation requirement for all Computer Science NUS undergraduates,
+applications efficiently. With having internship experience being a graduation requirement for all Computer Science NUS undergraduates,
 we strongly feel for the need to have a software application to help students like us deal with the organising and tracking of internship
 applications. Hence, Internship Diary was created.
 
 == Summary of contributions
 
-* *Major enhancement*: Implement the Reminder Command
-** *What it does:* This implementation enables the user to view applications that need to be submitted or have interviews scheduled in 7 days.
-** *Justification:* This aims to help prevent the user from missing submission deadlines or interview dates.
+* *Major enhancement*: Adding Reminder feature (PR: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/82[#82], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/152[#152], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/201[#201], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/215[#215])
+** *What it does:* This feature enables the user to view applications that need to be submitted or have interviews scheduled in 7 days.
+** *Justification:*: It aims to help the user keep track of his internship applications, to avoid missing submission deadlines or interview dates. It can also
+give the user an idea of the applications to focus on more first.
 
-* *Minor enhancement*: Implement the display of the last stage where an application failed
+* *Minor enhancement*: Implement the display of the last stage where an application failed (PR: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/115[#115], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/134[#134])
 ** *What it does:* This implementation enables the user to view the stage (`applied`, `interview`, `offered`) which the
 application was at before it was `ghosted` or `rejected`.
-** *Justification:* This aims to help the user reflect on the stage at which the application could be done better for future applications.
+** *Justification:* This aims to help the user reflect on the stage at which the application could have been done better, to aid future applications.
 
 * *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=feliciatay[Reposense]
 
 * *Other contributions*:
 
-** Helped with refactoring UI of Internship Diary from Address Book (Pull request: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/52[#52])
+** Helped with refactoring UI of Internship Diary from Address Book (PR: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/52[#52])
 
 ** Project management:
 *** Updated team repository's issue panel by assigning, labelling and closing issues
