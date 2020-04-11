@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-My Internship Diary is developed by the https://github.com/AY1920S2-CS2103T-F10-2/main[AY1920S2-CS2103T-F10-2] team. +
+Internship Diary is developed by the https://github.com/AY1920S2-CS2103T-F10-2/main[AY1920S2-CS2103T-F10-2] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -14,8 +14,13 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::ongch00.png[width="150", align="left"]
 {empty}[https://github.com/ongch00[github]] [<<ongch00#, portfolio>>]
 
-Role: Developer +
-Responsibilities: TBA
+Role:
+
+* Developer
+
+Responsibilities:
+
+* TBA
 
 '''
 
@@ -23,8 +28,17 @@ Responsibilities: TBA
 image::wxwxwxwx9.png[width="150", align="left"]
 {empty}[http://github.com/wxwxwxwx9[github]] [<<wxwxwxwx9#, portfolio>>]
 
-Role: Developer +
-Responsibilities: TBA
+Role:
+
+* Developer
+
+Responsibilities:
+
+* Archival System
+* Observer Pattern
+* Multi-Execution Types for Removal-Based Commands
+* Statistics / Metrics Dashboard
+* Deliverables & Deadlines
 
 '''
 
@@ -32,16 +46,18 @@ Responsibilities: TBA
 image::female_student_happy.png[width="150", align="left"]
 {empty}[https://gerhean.github.io/[homepage]][http://github.com/gerhean[github]] [<<gerhean#, portfolio>>]
 
-Role: +
-Developer +
-Chief Technical Officer
+Role:
 
-Responsibilities: +
-Storage +
-Sort Command +
-Clear Command +
-Command History +
-Sort/Find Display Footer
+* Developer
+* Tech Adviser
+
+Responsibilities:
+
+* Storage
+* Sort Command
+* Clear Command
+* Command History
+* Sort/Find Display Footer
 
 '''
 
@@ -49,8 +65,13 @@ Sort/Find Display Footer
 image::feliciatay.png[width="150", align="left"]
 {empty}[https://github.com/FeliciaTay[github]] [<<feliciatay#, portfolio>>]
 
-Role: Developer +
-Responsibilities: TBA
+Role:
+
+* Developer
+
+Responsibilities:
+
+* TBA
 
 '''
 
@@ -58,7 +79,12 @@ Responsibilities: TBA
 image::foochifa.png[width="150", align="left"]
 {empty}[http://github.com/foochifa[github]] [<<foochifa#, portfolio>>]
 
-Role: Developer +
-Responsibilities: TBA
+Role:
+
+* Developer
+
+Responsibilities:
+
+* TBA
 
 '''
