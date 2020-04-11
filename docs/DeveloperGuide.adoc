@@ -1819,6 +1819,28 @@ in order of earliest application date or scheduled interview date followed by th
 Test case: `reminder` +
 Expected: No applications should be shown.
 
+=== Finding internship applications
+
+. Finding a list of internship application.
+.. Prerequisites: Starting from an empty list, +
+    add 3 internship applications into the list using the following commands: +
+    `add c/Google r/Software Engineer a/123 Kent Ridge Road p/98765432 e/hr@google.com d/02-12-2019 w/10 s/applied` +
+    `add c/Facebook r/Software Developer a/Singapore p/87654321 e/joinus@facebook.com d/20-04-2020 w/9 s/wishlist` +
+    `add c/Shopee r/Product Developer a/5 Science Park Dr p/99999999 e/shopee@google.com d/10-03-2020 w/1 s/rejected`
+.. Test case: `find` +
+    Expected: No change in list. Error details shown in the result box as at least one of the optional parameters must be entered.
+.. Test case: `find google` +
+    Expected: Only the internship applications with company names `Google` and `Shopee` will be listed (google can be found in the email of Shopee)
+.. Test case: `find r/software developer` +
+    Expected: All 3 internship applications are listed.
+.. Test case: `find 02-12-2019` +
+    Expected: No internship applications are listed as general find don't work with dates.
+.. Test case: `find d/02-12-2019` +
+    Expected: Only the internship applications with company names `Google` is listed as it matches the application date.
+.. Test case: `find w/1` +
+    Expected: Only the internship applications with company names `Shopee` will be listed (search for priority is not based on substring)
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
