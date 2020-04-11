@@ -85,3 +85,4 @@ include::../UserGuide.adoc[tag=sort]
 
 include::../DeveloperGuide.adoc[tag=sort]
 include::../DeveloperGuide.adoc[tag=clear]
+include::../DeveloperGuide.adoc[tag=command-history]

@@ -279,10 +279,26 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 
 ==== Design Considerations
 
-===== Aspect: Should invalid Commands be stored.
+===== Aspect: What should happen when DOWN is pressed when the latest history is being shown.
+* **Alternative 1 (current choice)**: Blank the CommandBox.
+** Pros: Provides users an easy way to clear the CommandBox.
+** Cons: Users are unable to view their command history without losing the command they have typed.
+
+* **Alternative 2**: Nothing (Same as Windows Command Prompt).
+** Pros: Easy to implement.
+** Cons: Users are unable to view their command history without losing the command they have typed. +
+No easy way to clear the CommandBox.
+
+* **Alternative 2**: Store and display the last modified text.
+** Pros: Users can view their command history without losing the command they have typed.
+** Cons: No easy way to clear the CommandBox. +
+Harder to implement.
+
+===== Aspect: Should invalid commands be stored.
 * **Alternative 1 (current choice)**: No.
 ** Pros: Reduces clutter in the Command History.
-** Cons:
+** Cons: Users would not be able to see their failed attempts. +
+Users are unable to look at their command history without losing the command they have typed (due to above decision).
 
 * **Alternative 2**: Yes (Same as Windows Command Prompt).
 ** Pros: User can store an incomplete draft command in the Command History.
@@ -290,6 +306,20 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 through all the failed attempts. This is especially so as our application does not have
 an autocomplete feature.
 
+===== Aspect: When should the position of historyIterator reset.
+* **Alternative 1 (current choice)**: Whenever user modifies the text in the CommandBox
+and when command executed successfully.
+** Pros: Less confusing for users.
+** Cons: More key presses to repeat a series of commands.
+
+* **Alternative 2**: Never (Same as Windows Command Prompt).
+** Pros: Users can easily repeat a series of commands.
+** Cons: Potentially confusing for users. Harder to implement as underlying data structure is linked list.
+
+==== Proposed Feature
+
+There are plans to save the Command History in the hard drive, so that it may be accessed across sessions.
+However, due to the complexity and difficulty of implementation, it will only be rolled out in a future version.
 
 // end::command-history[]
 
