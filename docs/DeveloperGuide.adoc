@@ -462,7 +462,7 @@ This is identical for the `unarchive` command in the main list as well.
 
 The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
 
-image::InternshipDiaryAndModelManagerClassDiagram.png[width="800",align="center"]
+image::InternshipDiaryAndModelManagerClassDiagram.png[width="700",align="center"]
 
 The object diagram below illustrates the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`:
 
@@ -498,7 +498,7 @@ However, such implementation brings about issues with reactivity -- where elemen
 Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
 In order to resolve this issue, we need to employ the observer pattern.
-The idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
+The general idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
 Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
 
 To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
@@ -518,7 +518,10 @@ The class diagram above showcases our implementation of a two-tier observer-obse
 
 [NOTE]
 ====
-* `InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport`.
+* `InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport` to manage their listeners respectively.
+* `PropertyChangeSupport` serves as the intermediary and an abstraction between the *observables* and *observers*.
+* Observers are generalized (polymorphism) as they implement the `PropertyChangeListener` interface; these observers are managed by `PropertyChangeSupport`.
+* There is *no coupling* between the observables and observers.
 * `ModelManager` serves as an abstraction between `StatisticsWindow` and `InternshipDiary`.
 * All the UI elements in our implementation follow the above class diagram -- `StatisticsWindow` just happens to be the UI element that we chose to illustrate our diagram.
 ====
@@ -536,11 +539,14 @@ The process is similar for any UI element that wants to observe the `filteredInt
 
 As a result, whenever there is a change to the property `displayedInternships` in `InternshipDiary`, the `PropertyChangeSupport` instance of
 `InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`.
-The emitted event will trigger the
-`propertyChange` function of `ModelManager`. `ModelManager` can then retrieve the new reference from the event and update its
-`filteredInternshipApplications` accordingly.
+The emitted event will trigger the `propertyChange` function of `ModelManager`.
+`ModelManager` can then retrieve the new reference from the event and update its `filteredInternshipApplications` accordingly.
 It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
 `filteredInternshipApplications` property.
+
+The following activity diagram gives a high-level overview of the above event-driven process.
+
+image::ActivityDiagramObserverPattern.png[align="center"]
 
 ====
 [NOTE]
@@ -570,7 +576,7 @@ This forms a layer of abstraction as users would not be allowed to call the the 
 
 ===== Design Considerations
 
-===== Aspect: How to implement the Archival view system on the backend
+====== Aspect: How to implement the Archival view system on the backend
 
 * **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`.
 `displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
@@ -589,7 +595,7 @@ This will easily help us determine which internship application should be render
 No need to implement observer pattern as there will be no reference updates.
 ** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
 
-===== Aspect: How to implement the Observer Pattern
+====== Aspect: How to implement the Observer Pattern
 
 * **Alternative 1 (current choice)**: Use `PropertyChangeSupport` class and `PropertyChangeListener` interface from the `java.beans` package to support our implementation.
 ** Pros: Easy and intuitive to use.
@@ -716,7 +722,7 @@ image::CreateCommandResultSequenceDiagram.png[width="500",align="center"]
 
 ==== Design Considerations
 
-===== Aspect: How to implement multiple execution types for removal-based commands
+===== Aspect: How to implement Multiple Execution Types for Removal-Based Commands
 
 * **Alternative 1 (current choice)**: Use encapsulation to hold the appropriate command word, which will then be used to generate the removal-based command that will execute based on the execute type provided.
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when

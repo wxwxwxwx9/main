@@ -1,4 +1,4 @@
-= My Internship Diary
+= Internship Diary
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S2-CS2103T-F10-2/main[image:https://travis-ci.com/AY1920S2-CS2103T-F10-2/main.svg?branch=master[Build Status]]
@@ -15,17 +15,17 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-Have you ever sent out an internship application, only to find out that you have already applied to that company already?
-Have you ever wondered which stage of an internship application you need to work on?
+Have you ever sent out an internship application only to find out that you have already applied to that company already?
+Have you ever wondered which stage of an internship application you should put more effort into?
 As you send internship applications to many different sites and companies, it may be hard or troublesome to keep track of all your applications.
 We want to make it easier for you -- by helping you to track your internship applications.
 
 Internship Diary is a desktop internship application tracker that simplifies the process of tracking your internship applications, so that you can focus
-on landing your dream internship. If you are a computer science student who loves dabbling with a Command Line Interface (CLI), then this application is definitely for you.
+on landing your dream internship. If you are a computer science student who loves dabbling with a Command Line Interface (CLI), then this application is for you.
 
-Does this sound interesting to you? Head over to our User Guide to get started!
+Does this sound interesting? Head over to our User Guide to get started!
 
-Internship Diary is an open source project and we welcome any contributions from the community. If you are interested in contributing, feel free to head over to our Developer Guide to find out how!
+Internship Diary is an open source project and we welcome any contributions from the community. If you are interested in contributing, feel free to head over to our Developer Guide to find out more!
 
 == Site Map
 
