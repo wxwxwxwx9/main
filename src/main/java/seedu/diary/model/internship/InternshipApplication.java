@@ -85,8 +85,8 @@ public class InternshipApplication {
      * Overloaded constructor to set isArchived, lastStage and interviews fields.
      */
     public InternshipApplication(Company company, Role role, Address address, Phone phone, Email email,
-                                 ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
-                                 List<Interview> interviews) {
+        ApplicationDate applicationDate, Priority priority, Status status, Boolean isArchived,
+        List<Interview> interviews) {
         requireAllNonNull(company, phone, email, address, status);
         this.company = company;
         this.role = role;
@@ -228,19 +228,25 @@ public class InternshipApplication {
             ? Optional.of(earliestInterview) : Optional.empty();
     }
 
-    /** Adds given interview into interview list. Will fire property change event */
+    /**
+     * Adds given interview into interview list. Will fire property change event
+     */
     public void addInterview(Interview interview) {
         interviews.add(interview);
         firePropertyChange(DISPLAYED_INTERVIEWS, interviews);
     }
 
-    /** Deletes given interview from interview list. Will fire property change event */
+    /**
+     * Deletes given interview from interview list. Will fire property change event
+     */
     public void deleteInterview(Interview interview) {
         interviews.remove(interview);
         firePropertyChange(DISPLAYED_INTERVIEWS, interviews);
     }
 
-    /** Sets given interview into specified index in the interview list. Will fire property change event */
+    /**
+     * Sets given interview into specified index in the interview list. Will fire property change event
+     */
     public void setInterview(Index index, Interview interview) {
         interviews.set(index.getZeroBased(), interview);
         firePropertyChange(DISPLAYED_INTERVIEWS, interviews);
@@ -270,17 +276,17 @@ public class InternshipApplication {
      */
     public InternshipApplication archive() {
         return new InternshipApplication(
-                this.company,
-                this.role,
-                this.address,
-                this.phone,
-                this.email,
-                this.applicationDate,
-                this.priority,
-                this.status,
-                true,
-                this.lastStage,
-                this.interviews
+            this.company,
+            this.role,
+            this.address,
+            this.phone,
+            this.email,
+            this.applicationDate,
+            this.priority,
+            this.status,
+            true,
+            this.lastStage,
+            this.interviews
         );
     }
 
@@ -290,17 +296,17 @@ public class InternshipApplication {
      */
     public InternshipApplication unarchive() {
         return new InternshipApplication(
-                this.company,
-                this.role,
-                this.address,
-                this.phone,
-                this.email,
-                this.applicationDate,
-                this.priority,
-                this.status,
-                false,
-                this.lastStage,
-                this.interviews
+            this.company,
+            this.role,
+            this.address,
+            this.phone,
+            this.email,
+            this.applicationDate,
+            this.priority,
+            this.status,
+            false,
+            this.lastStage,
+            this.interviews
         );
     }
 
@@ -333,10 +339,12 @@ public class InternshipApplication {
         changes.addPropertyChangeListener(propertyType.toString(), l);
     }
 
-    /** Removes all property change listeners from Internship Application. */
+    /**
+     * Removes all property change listeners from Internship Application.
+     */
     public void removeAllPropertyChangeListener() {
         PropertyChangeListener[] propertyChangeListeners = changes.getPropertyChangeListeners();
-        for (PropertyChangeListener pcl: propertyChangeListeners) {
+        for (PropertyChangeListener pcl : propertyChangeListeners) {
             changes.removePropertyChangeListener(pcl);
         }
     }

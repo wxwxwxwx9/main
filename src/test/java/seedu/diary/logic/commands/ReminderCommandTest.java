@@ -40,52 +40,52 @@ class ReminderCommandTest {
         LocalDate currentDate = LocalDate.now();
         // old application which was rejected
         InternshipApplication applicationA = new InternshipApplicationBuilder()
-                .withApplicationDate(new ApplicationDate(currentDate.minus(2, ChronoUnit.DAYS)))
-                .withCompany("Company A")
-                .withStatus(Status.REJECTED)
-                .build();
+            .withApplicationDate(new ApplicationDate(currentDate.minus(2, ChronoUnit.DAYS)))
+            .withCompany("Company A")
+            .withStatus(Status.REJECTED)
+            .build();
         // application that has not been applied to yet, due in 7 days
         InternshipApplication applicationB = new InternshipApplicationBuilder()
-                .withApplicationDate(new ApplicationDate(currentDate.plus(5, ChronoUnit.DAYS)))
-                .withCompany("Company B")
-                .withStatus(Status.WISHLIST)
-                .build();
+            .withApplicationDate(new ApplicationDate(currentDate.plus(5, ChronoUnit.DAYS)))
+            .withCompany("Company B")
+            .withStatus(Status.WISHLIST)
+            .build();
         // application that has not been applied to yet, application date already over
         InternshipApplication applicationC = new InternshipApplicationBuilder()
-                .withApplicationDate(new ApplicationDate(currentDate.minus(10, ChronoUnit.DAYS)))
-                .withCompany("Company C")
-                .withStatus(Status.WISHLIST)
-                .build();
+            .withApplicationDate(new ApplicationDate(currentDate.minus(10, ChronoUnit.DAYS)))
+            .withCompany("Company C")
+            .withStatus(Status.WISHLIST)
+            .build();
         // application with Status.APPLIED, and has an interview in 7 days
         Interview interviewD = new InterviewBuilder()
-                .withDate(currentDate.plus(2, ChronoUnit.DAYS))
-                .build();
+            .withDate(currentDate.plus(2, ChronoUnit.DAYS))
+            .build();
         InternshipApplication applicationD = new InternshipApplicationBuilder()
-                .withApplicationDate(new ApplicationDate(currentDate.minus(1, ChronoUnit.DAYS)))
-                .withCompany("Company D")
-                .withStatus(Status.APPLIED)
-                .withInterview(interviewD)
-                .buildWithInterviews();
+            .withApplicationDate(new ApplicationDate(currentDate.minus(1, ChronoUnit.DAYS)))
+            .withCompany("Company D")
+            .withStatus(Status.APPLIED)
+            .withInterview(interviewD)
+            .buildWithInterviews();
         // application with Status.INTERVIEW, and has an interview in 7 days
         Interview interviewE = new InterviewBuilder()
-                .withDate(currentDate.plus(2, ChronoUnit.DAYS))
-                .build();
+            .withDate(currentDate.plus(2, ChronoUnit.DAYS))
+            .build();
         InternshipApplication applicationE = new InternshipApplicationBuilder()
-                .withApplicationDate(new ApplicationDate(currentDate.minus(1, ChronoUnit.DAYS)))
-                .withCompany("Company E")
-                .withStatus(Status.INTERVIEW)
-                .withInterview(interviewE)
-                .buildWithInterviews();
+            .withApplicationDate(new ApplicationDate(currentDate.minus(1, ChronoUnit.DAYS)))
+            .withCompany("Company E")
+            .withStatus(Status.INTERVIEW)
+            .withInterview(interviewE)
+            .buildWithInterviews();
         // application with Status.INTERVIEW, and does not have an interview in 7 days
         Interview interviewF = new InterviewBuilder()
-                .withDate(currentDate.plus(9, ChronoUnit.DAYS))
-                .build();
+            .withDate(currentDate.plus(9, ChronoUnit.DAYS))
+            .build();
         InternshipApplication applicationF = new InternshipApplicationBuilder()
-                .withApplicationDate(new ApplicationDate(currentDate.minus(3, ChronoUnit.DAYS)))
-                .withCompany("Company F")
-                .withStatus(Status.INTERVIEW)
-                .withInterview(interviewF)
-                .buildWithInterviews();
+            .withApplicationDate(new ApplicationDate(currentDate.minus(3, ChronoUnit.DAYS)))
+            .withCompany("Company F")
+            .withStatus(Status.INTERVIEW)
+            .withInterview(interviewF)
+            .buildWithInterviews();
         InternshipDiary internshipDiary = new InternshipDiary();
         internshipDiary.loadInternshipApplication(applicationA);
         internshipDiary.loadInternshipApplication(applicationB);
@@ -107,7 +107,7 @@ class ReminderCommandTest {
         InterviewDateDuePredicate interviewDateWithin7DaysPredicate = new InterviewDateDuePredicate();
         StatusIsInterviewPredicate statusIsInterviewPredicate = new StatusIsInterviewPredicate();
         Predicate<InternshipApplication> interviewPredicate = interviewDateWithin7DaysPredicate
-                .and(statusIsInterviewPredicate);
+            .and(statusIsInterviewPredicate);
 
         Predicate<InternshipApplication> datePredicate = wishlistPredicate.or(interviewPredicate);
 

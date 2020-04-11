@@ -72,7 +72,7 @@ public class InternshipApplicationDetail extends UiPart<Region> {
         priority.setText(internshipApplication.getPriority().fullPriority + "");
         applicationDate.setText(internshipApplication.getApplicationDate().printDate());
         status.setText(internshipApplication.getStatus().toString()
-                + internshipApplication.getLastStageMessage());
+            + internshipApplication.getLastStageMessage());
         interviewPreamble.setText("Interviews: ");
         interviewListPanel = new InterviewListPanel(
             FXCollections.observableArrayList(internshipApplication.getInterviews()));

@@ -25,7 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.diary.commons.core.Messages;
-
 import seedu.diary.commons.core.index.Index;
 import seedu.diary.model.Model;
 import seedu.diary.model.ModelManager;
@@ -354,15 +353,6 @@ public class RemovalBasedCommandTest {
         // different internship application predicate (invalid predicate) -> returns false
         assertFalse(firstRemovalBasedDeleteCommandByField.equals(invalidRemovalBasedDeleteCommandByField));
 
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show no applications.
-     */
-    private void showNoInternshipApplication(Model model) {
-        model.updateFilteredInternshipApplicationList(p -> false);
-
-        assertTrue(model.getFilteredInternshipApplicationList().isEmpty());
     }
 
 }

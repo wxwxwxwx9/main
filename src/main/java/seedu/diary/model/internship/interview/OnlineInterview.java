@@ -25,7 +25,7 @@ public class OnlineInterview extends Interview {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Online Interview on: ")
-                .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)));
+            .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)));
         return builder.toString();
     }
 }

@@ -32,6 +32,10 @@ Internship Diary uses https://coveralls.io/[Coveralls] to track code coverage.
 
 See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
+== Automated Code Review
+
+Internship Diary uses https://www.codacy.com//[Codacy] to automate code reviews.
+
 == Managing Dependencies
 
 Sometimes third-party libraries may be required (e.g. Jackson library for JSON parsing). You may include such dependencies into

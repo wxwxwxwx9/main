@@ -1,5 +1,6 @@
 package seedu.diary.logic.util;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.diary.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.diary.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.diary.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -33,14 +34,6 @@ import seedu.diary.model.status.Status;
 public class PrefixPredicateUtil {
 
     /**
-     * To execute a predicate lazily.
-     */
-    @FunctionalInterface
-    public interface PredicateFunction {
-        Predicate<InternshipApplication> apply(List<String> t) throws ParseException;
-    }
-
-    /**
      * Prefixes and their mapping to its appropriate predicates.
      */
     public static final Map<Prefix, PredicateFunction> PREDICATE_MAP = Map.of(
@@ -52,6 +45,14 @@ public class PrefixPredicateUtil {
         PREFIX_EMAIL, EmailContainsKeywordsPredicate::new,
         PREFIX_PHONE, PhoneContainsNumbersPredicate::new
     );
+
+    /**
+     * To execute a predicate lazily.
+     */
+    @FunctionalInterface
+    public interface PredicateFunction {
+        Predicate<InternshipApplication> apply(List<String> t) throws ParseException;
+    }
 
     /**
      * Retrieves the value of the prefix from argument multimap
@@ -74,6 +75,7 @@ public class PrefixPredicateUtil {
                 break;
             }
         }
+        requireNonNull(keywords);
         checkForValidStatuses(keywords);
         Predicate<InternshipApplication> predicate = PREDICATE_MAP.get(selectedPrefix).apply(keywords);
         return predicate;
