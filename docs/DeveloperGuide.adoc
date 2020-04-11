@@ -1257,7 +1257,7 @@ _{More to be added}_
 *Usability*
 
 . The application should be intuitive and easy-to-learn, such that users can become proficient within a day.
-. The application should prioritse displaying important and relevant information to users.
+. The application should prioritise displaying important and relevant information to users.
 . A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *Robustness*
@@ -1270,8 +1270,8 @@ _{More to be added}_
 
 *Maintainability*
 
-. The application should be compliant with the coding standard set forth by CS2103.
-. The application should be compliant with best coding practices highlighted in CS2103.
+. The application should be compliant with the coding standard set forth by CS2103T.
+. The application should be compliant with best coding practices highlighted in CS2103T.
 . The application should be designed and implemented elegantly such that any programmer with at least a year of experience should be able to read, maintain, and contribute to the source code easily.
 
 *Process*
@@ -1393,6 +1393,23 @@ _{ more test cases ... }_
 .. Test case: `interview 1 edit 0 o/false a/123 Kent Ridge Road` +
    Expected: No change to online interview. Error details shown in the result box as interview index is out of bounds.
 .. Other incorrect interview edit commands to try: `interview 1 edit`, `interview 1 edit x` (no change of interview fields will result in error).
+
+=== Sorting the list of internship applications
+. Sorting a list of internship applications.
+.. Prerequisites: List all internship applications using the `list`.  +
+Select any internship application by clicking one.
+... Test case: `sort c/`
+Expected: No change in displayed internship details. Internship application list sorted by company (Case insensitive).
+... Test case: `sort reverse c/` +
+Expected: No change in displayed internship details. Internship application list sorted by company in reverse alphabetical order.
+.. Prerequisites: Use `find` command to reduce size of internship application list without deleting any internship applications.
+... Test case: `sort c/` +
+Expected: No change to number of internship applications displayed.
+.. Prerequisites: Ensure current internship application list has multiple internship applications with fields of the same value.
+For example, multiple internship applications with `role` being `software developer`
+... Test case: `sort r/` +
+Expected: No change in order of internship applications with identical roles (Stable sort).
+
 
 === Saving data
 
