@@ -1,0 +1,69 @@
+@startuml
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+!define ABSTRACT &#123;abstract&#125;
+
+'Class Command as "{abstract}\nCommand" {
+'    + execute(Model model): CommandResult \t ABSTRACT
+'}
+
+Class InternshipDiaryParser {
+}
+
+note "generateLazyCommand() creates a lazy function\nthat will construct the appropriate command\n(e.g. DeleteCommand) based on the\ncommandWord attribute." as lazyCommandNote
+RemovalBasedCommand .. lazyCommandNote
+RemovalBasedCommand .[hidden]. lazyCommandNote
+
+class Parser <<interface>> {
+}
+
+Class ArchiveCommand {
+    {static} + COMMAND_WORD: String = "archive"
+}
+
+Class UnarchiveCommand {
+    {static} + COMMAND_WORD: String = "unarchive"
+}
+
+Class DeleteCommand {
+    {static} + COMMAND_WORD: String = "delete"
+}
+
+Class RemovalBasedCommand {
+    - commandWord: String
+    - executionType: RemovalBasedCommandExecutionType
+    + execute(Model model): CommandResult
+    - generateLazyCommand(): Function<Index, Command>
+    - executeByIndex(Model model, Function<Index, Command> lazyCommand): CommandResult
+    - executeByIndices(Model model, Function<Index, Command> lazyCommand): CommandResult
+    - executeByField(Model model, Function<Index, Command> lazyCommand): CommandResult
+}
+
+Class RemovalBasedCommandExecutionTypeParser implements Parser {
+    - commandWord: String
+    + parse(String args): RemovalBasedCommand
+    - commandByIndex(String args): RemovalBasedCommand
+    - commandByIndices(String args): RemovalBasedCommand
+    - commandByField(String args): RemovalBasedCommand
+}
+
+enum RemovalBasedCommandExecutionType <<enumeration>> {
+    BY_INDEX
+    BY_INDICES
+    BY_FIELD
+    getExecutionType(String args, ArgumentMultimap argMultimap)
+}
+
+InternshipDiaryParser .left.> RemovalBasedCommandExecutionTypeParser
+RemovalBasedCommandExecutionTypeParser .left.> RemovalBasedCommand
+RemovalBasedCommandExecutionTypeParser .down.> RemovalBasedCommandExecutionType
+RemovalBasedCommand .down.> RemovalBasedCommandExecutionType
+RemovalBasedCommand .up.> ArchiveCommand
+RemovalBasedCommand .up.> UnarchiveCommand
+RemovalBasedCommand .up.> DeleteCommand
+
+
+@enduml

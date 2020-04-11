@@ -95,8 +95,10 @@ public class InternshipDiaryParser {
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommand();
+
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
