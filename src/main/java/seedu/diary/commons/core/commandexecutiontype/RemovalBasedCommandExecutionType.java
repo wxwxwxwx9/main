@@ -4,8 +4,6 @@ import static seedu.diary.logic.parser.CliSyntax.ALL_PREFIXES;
 import static seedu.diary.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.diary.logic.util.PrefixUtil.areAnyPrefixesPresent;
 
-import java.util.function.Function;
-
 import seedu.diary.logic.parser.ArgumentMultimap;
 import seedu.diary.logic.parser.exceptions.ParseException;
 
