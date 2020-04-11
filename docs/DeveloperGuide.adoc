@@ -1527,6 +1527,12 @@ Details of the unarchived internship applications shown in the feedback box.
    Expected: No change to online interview. Error details shown in the result box as interview index is out of bounds.
 .. Other incorrect interview edit commands to try: `interview 1 edit`, `interview 1 edit x` (no change of interview fields will result in error).
 
+=== Showing Statistics Window
+
+. Display statistics window
+.. Test case: `stats`
+* Expected: A separate window will appear with graphical representation of the statistics.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
