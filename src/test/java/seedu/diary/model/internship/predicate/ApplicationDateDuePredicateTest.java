@@ -1,6 +1,8 @@
 package seedu.diary.model.internship.predicate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -18,13 +20,13 @@ class ApplicationDateDuePredicateTest {
         ApplicationDateDuePredicate applicationDateDuePredicate = new ApplicationDateDuePredicate();
 
         // same object -> returns true
-        assertTrue(applicationDateDuePredicate.equals(applicationDateDuePredicate));
+        assertEquals(applicationDateDuePredicate, applicationDateDuePredicate);
 
         // different types -> returns false
-        assertFalse(applicationDateDuePredicate.equals(1));
+        assertNotEquals(1, applicationDateDuePredicate);
 
         // null -> returns false
-        assertFalse(applicationDateDuePredicate.equals(null));
+        assertNotEquals(null, applicationDateDuePredicate);
     }
 
     @Test
