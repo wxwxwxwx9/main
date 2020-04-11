@@ -55,7 +55,7 @@ public class InterviewAddCommandTest {
     @Test
     public void execute_invalidDate_throwsInterviewCommandException() {
         ApplicationDate date = model.getFilteredInternshipApplicationList()
-                .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()).getApplicationDate();
+            .get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased()).getApplicationDate();
         Interview interview = new InterviewBuilder().withDate(date.fullApplicationDate.minusDays(3)).build();
         InterviewAddCommand command = new InterviewAddCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, interview);
         assertThrows(InterviewCommandException.class, () -> command.execute(model));

@@ -57,8 +57,6 @@ public class StorageManagerTest {
         InternshipDiary original = getTypicalInternshipDiary();
         storageManager.saveInternshipDiary(original);
         ReadOnlyInternshipDiary retrieved = storageManager.readInternshipDiary().get();
-        InternshipDiary retrievedDiary = new InternshipDiary(retrieved);
-        boolean isSame = original.equals(retrievedDiary);
         assertEquals(original, new InternshipDiary(retrieved));
     }
 

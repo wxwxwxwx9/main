@@ -25,7 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.diary.commons.core.Messages;
-
 import seedu.diary.commons.core.index.Index;
 import seedu.diary.model.Model;
 import seedu.diary.model.ModelManager;
