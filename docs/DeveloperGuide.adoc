@@ -1484,35 +1484,35 @@ _{ more test cases ... }_
 * At least one command has been executed
 * Tester is not already at the oldest executed command
 
-.. Test case: ↑ +
-* Expected: Previously executed command appears in the Command Box.
+... Test case: ↑ +
+Expected: Previously executed command appears in the Command Box.
 
 . Retrieving later commands
 
 .. Prerequisites:
 * Tester has retrieved at least one previous command
 
-.. Test case: ↓ +
-* Expected: A command that had been entered after the current retrieved command is retrieved into he Command Box.
+... Test case: ↓ +
+Expected: A command that was entered after the current retrieved command appears in the Command Box.
 
 === Main List View
 
 . Viewing the main list of internship application(s)
-.. Test case: "list"
-* All unarchived internship application(s) are displayed.
+... Test case: "list" +
+Expected: All unarchived internship application(s) are displayed.
 
 === Archival List View
 
 . Viewing the archival list of internship application(s)
-.. Test case: "archival"
-* All archived internship application(s) are displayed.
+... Test case: "archival" +
+Expected: All archived internship application(s) are displayed.
 
 === Adding an internship application
 
 . Adding an internship application
 
-.. Test case: `add c/Google r/Software Engineer d/17 04 2020 s/applied`
-* Expected: New internship application is added to the bottom of the list.
+... Test case: `add c/Google r/Software Engineer d/17 04 2020 s/applied` +
+Expected: New internship application is added to the bottom of the list.
 Details of the newly-added internship application shown in the feedback box.
 
 === Deleting internship application
@@ -1522,31 +1522,36 @@ Details of the newly-added internship application shown in the feedback box.
 .. Prerequisites:
 * At least one internship application displayed
 
-.. Test case: `delete 1`
-* Expected: First internship application is deleted from the list.
+... Test case: `delete 1` +
+Expected: First internship application is deleted from the list.
 Details of the deleted internship application shown in the feedback box.
 
-.. Test case: `delete 0`
-* Expected: No internship application is deleted.
+... Test case: `delete 0` +
+Expected: No internship application is deleted.
 Error details shown in feedback box.
 
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)
-* Expected: Similar to previous.
+... Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+Expected: Similar to previous.
 
 . Deleting internship applications by indices
 
+.. Prerequisites:
 * At least two internship applications displayed
 
-.. Test case: `delete 1, 2`
-* Expected: First and second internship applications are deleted from the list.
+... Test case: `delete 1, 2` +
+Expected: First and second internship applications are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
-.. Test case: `delete 2, 1`
-* Expected: First and second internship applications are deleted from the list.
+... Test case: `delete 2, 1` +
+Expected: First and second internship applications are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
-.. Test case: `delete 0, 2`
-* Expected: No internship application is deleted.
+... Test case: `delete 2, 2` +
+Expected: Second internship applications is deleted from the list.
+Details of the deleted internship application shown in the feedback box.
+
+... Test case: `delete 0, 2` +
+Expected: No internship application is deleted.
 Error details shown in feedback box.
 
 . Deleting internship application(s) by status field
@@ -1556,24 +1561,24 @@ Error details shown in feedback box.
 * at least one internship application with status "wishlist"
 * no internship applications with status "rejected"
 
-.. Test case: `delete s/applied`
-* Expected: All internship application(s) with status "applied" are deleted from the list.
+... Test case: `delete s/applied` +
+Expected: All internship application(s) with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
-.. Test case: `delete s/rejected`
-* Expected: No internship application(s) deleted.
+... Test case: `delete s/rejected` +
+Expected: No internship application(s) deleted.
 Feedback box will show blank list of internship applications deleted.
 
-.. Test case: `delete s/notvalidstatus`
-* Expected: No internship application deleted.
+... Test case: `delete s/notvalidstatus` +
+Expected: No internship application deleted.
 Error details shown in feedback box.
 
-.. Test case: `delete s/applied wishlist`
-* Expected: All internship application(s) with status "applied" and "wishlist" are deleted from the list.
+... Test case: `delete s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
-.. Test case: `delete s/applied notvalidstatus`
-* Expected: All internship application(s) with status "applied" are deleted from the list.
+... Test case: `delete s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 === Archiving internship application
@@ -1583,31 +1588,36 @@ Details of the deleted internship applications shown in the feedback box.
 .. Prerequisites:
 * At least one internship application displayed
 
-.. Test case: `archive 1`
-* Expected: First internship application is archived from the list.
+... Test case: `archive 1` +
+Expected: First internship application is archived from the list.
 Details of the archived internship application shown in the feedback box.
 
-.. Test case: `archive 0`
-* Expected: No internship application is archived.
+... Test case: `archive 0` +
+Expected: No internship application is archived.
 Error details shown in feedback box.
 
-.. Other incorrect archive commands to try: `archive`, `archive x` (where x is larger than the list size)
-* Expected: Similar to previous.
+... Other incorrect archive commands to try: `archive`, `archive x` (where x is larger than the list size) +
+Expected: Similar to previous.
 
 . Archiving internship applications by indices
 
+.. Prerequisites:
 * At least two internship applications displayed
 
-.. Test case: `archive 1, 2`
-* Expected: First and second internship applications are archived from the list.
+... Test case: `archive 1, 2` +
+Expected: First and second internship applications are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
-.. Test case: `archive 2, 1`
-* Expected: First and second internship applications are archived from the list.
+... Test case: `archive 2, 1` +
+Expected: First and second internship applications are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
-.. Test case: `archive 0, 2`
-* Expected: No internship application is archived.
+... Test case: `archive 2, 2` +
+Expected: Second internship applications is archived from the list.
+Details of the archived internship application shown in the feedback box.
+
+... Test case: `archive 0, 2` +
+Expected: No internship application is archived.
 Error details shown in feedback box.
 
 . Archiving internship application(s) by status field
@@ -1617,25 +1627,26 @@ Error details shown in feedback box.
 * at least one internship application with status "wishlist"
 * no internship applications with status "rejected"
 
-.. Test case: `archive s/applied`
-* Expected: All internship application(s) with status "applied" are archived from the list.
+... Test case: `archive s/applied` +
+Expected: All internship application(s) with status "applied" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
-.. Test case: `archive s/rejected`
-* Expected: No internship application(s) archived.
+... Test case: `archive s/rejected` +
+Expected: No internship application(s) archived.
 Feedback box will show blank list of internship applications archived.
 
-.. Test case: `archive s/notvalidstatus`
-* Expected: No internship application archived.
+... Test case: `archive s/notvalidstatus` +
+Expected: No internship application archived.
 Error details shown in feedback box.
 
-.. Test case: `archive s/applied wishlist`
-* Expected: All internship application(s) with status "applied" and "wishlist" are archived from the list.
+... Test case: `archive s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
-.. Test case: `archive s/applied notvalidstatus`
-* Expected: All internship application(s) with status "applied" are archived from the list.
+... Test case: `archive s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
+
 
 === Unarchiving internship application
 
@@ -1644,31 +1655,36 @@ Details of the archived internship applications shown in the feedback box.
 .. Prerequisites:
 * At least one internship application displayed
 
-.. Test case: `unarchive 1`
-* Expected: First internship application is unarchived from the list.
+... Test case: `unarchive 1` +
+Expected: First internship application is unarchived from the list.
 Details of the unarchived internship application shown in the feedback box.
 
-.. Test case: `unarchive 0`
-* Expected: No internship application is unarchived.
+... Test case: `unarchive 0` +
+Expected: No internship application is unarchived.
 Error details shown in feedback box.
 
-.. Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size)
-* Expected: Similar to previous.
+... Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size) +
+Expected: Similar to previous.
 
 . Unarchiving internship applications by indices
 
+.. Prerequisites:
 * At least two internship applications displayed
 
-.. Test case: `unarchive 1, 2`
-* Expected: First and second internship applications are unarchived from the list.
+... Test case: `unarchive 1, 2` +
+Expected: First and second internship applications are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
-.. Test case: `unarchive 2, 1`
-* Expected: First and second internship applications are unarchived from the list.
+... Test case: `unarchive 2, 1` +
+Expected: First and second internship applications are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
-.. Test case: `unarchive 0, 2`
-* Expected: No internship application is unarchived.
+... Test case: `unarchive 2, 2` +
+Expected: Second internship applications is unarchived from the list.
+Details of the unarchived internship application shown in the feedback box.
+
+... Test case: `unarchive 0, 2` +
+Expected: No internship application is unarchived.
 Error details shown in feedback box.
 
 . Unarchiving internship application(s) by status field
@@ -1678,25 +1694,26 @@ Error details shown in feedback box.
 * at least one internship application with status "wishlist"
 * no internship applications with status "rejected"
 
-.. Test case: `unarchive s/applied`
-* Expected: All internship application(s) with status "applied" are unarchived from the list.
+... Test case: `unarchive s/applied` +
+Expected: All internship application(s) with status "applied" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
-.. Test case: `unarchive s/rejected`
-* Expected: No internship application(s) unarchived.
+... Test case: `unarchive s/rejected` +
+Expected: No internship application(s) unarchived.
 Feedback box will show blank list of internship applications unarchived.
 
-.. Test case: `unarchive s/notvalidstatus`
-* Expected: No internship application unarchived.
+... Test case: `unarchive s/notvalidstatus` +
+Expected: No internship application unarchived.
 Error details shown in feedback box.
 
-.. Test case: `unarchive s/applied wishlist`
-* Expected: All internship application(s) with status "applied" and "wishlist" are unarchived from the list.
+... Test case: `unarchive s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
-.. Test case: `unarchive s/applied notvalidstatus`
-* Expected: All internship application(s) with status "applied" are unarchived from the list.
+... Test case: `unarchive s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
+
 
 === Adding an interview to an internship application
 
