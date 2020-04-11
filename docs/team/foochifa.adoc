@@ -2,8 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
 
-== PROJECT: My Internship Diary
+== PROJECT: Internship Diary
 
 ---
 
@@ -13,21 +14,53 @@ My Internship Diary is a desktop address book desktop internship tracking applic
 
 == Summary of contributions
 
-* *Major enhancement*:
+* *Major enhancement*: implemented interview classes and commands
+** **What it does:** This feature enables the user to add and modify interviews in an internship application, through the
+interview commands.
+** **Justification:** Interviews are important to an internship application. As interviews are almost always the next step
+towards a successful application, it is important for the user to be able to organise and view his interviews.
+Therefore, this features improves the product by allowing the user to add and modify interviews in an internship application.
+** **Highlights:**
 
-* *Minor enhancement*:
+* *Major enhancement*: implemented display of internship application details in the Graphical User Interface (GUI)
+** **What it does:** This feature enables the user to display the details of a selected internship application
+(all the fields and list of interviews) on the right panel of the internship application.
+** **Justification:** This feature improves the product as it allows the users to view all the details of the
+internship application. This is important because the user will need to refer to the details in order to plan or
+organise his internships.
+** **Highlights:** This enhancement uses property change listeners to react to any changes by the user
+to the displayed filtered list on the left panel and the internship application selected.
+This implementation will allow for better flexibility in future modifications to internship application.
+Additionally, it will also be less prone to bugs and errors.
+** **Credits:** link:gerhean.adoc[Ger Hean] for improving the implementation by using java property change.
 
-* *Code contributed*:
+* *Minor enhancement*: added select command to show Internship Application detail based on index.
 
-* *Other contributions*:
+* *Minor enhancement*: added parsers for new Internship Diary fields (status, priority, role).
 
-** Project management:
+* *Code contributed*: You can find all my code contributed here:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[Chi Fa's Reposense Report]
 
-** Documentation:
+*Other contributions*:
 
-** Community:
+* Project management:
+** Set up Tags on Github Issues
+** Created and managed Milestones on Github
+** Managed meeting agendas and features delegation, and translated them into issues on Github
+** Assigned issues and PRs to relevant Milestones (from v1.1 to v2.0)
+** Assigned relevant tags to issues
 
-** Tools:
+* Enhancement to existing features:
+** Added additional test cases to improve coverage from 74% to 77% (Pull Request: Pull Request link:{PrURL}83[#83])
+** Added builders to assist in tests (Pull Request link:{PrURL}64[#64], Pull Request link:{PrURL}83[#83])
+
+* Documentation:
+** Preliminary refactor of DG from AB3 to Internship Diary (Pull Request link:{PrURL}19[#19])
+** Refactor UG to reflect v1.3 Internship Diary features (Pull Request link:{PrURL}83[#83])
+
+* Community:
+** Pull Requests reviewed (with non-trivial comments): link:{PrURL}31[#31], link:{PrURL}77[#77], link:{PrURL}134[#134]
+, link:{PrURL}198[#198]
 
 == Contributions to the User Guide
 
