@@ -3,8 +3,8 @@ start
 
 while () is ([Application running])
 
-    while () is ([Else])
-        if () then ([key up pressed])
+    while () is ([other key pressed])
+        if () then ([key UP pressed])
             if () then ([no earlier history])
             else ([else])
                 :Set the text of
@@ -14,7 +14,7 @@ while () is ([Application running])
                 historyIterator by 1;
             endif
 
-        else if () then ([key down pressed])
+        else if () then ([key DOWN pressed])
             if () then ([no later history])
             else ([else])
                 :Decrease position of
@@ -23,13 +23,13 @@ while () is ([Application running])
                 CommandBox to be the
                 text at historyIterator;
             endif
-        else if () then ([key left or right pressed])
-        else ([else])
+        else if () then ([key LEFT or RIGHT pressed])
+        else ([other key pressed])
             :Set position of historyIterator
             to be the front of
             EnteredCommandHistory;
         endif
-    endwhile ([User presses enter])
+    endwhile ([key ENTER pressed])
 
   :Command is executed;
   if () then ([command successful])

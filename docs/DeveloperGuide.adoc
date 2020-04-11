@@ -358,6 +358,22 @@ This meant that the data structure has to support random access or have a `ListI
 `LinkedList` already provides a `ListIterator`. While this is potentially slower than an `ArrayDeque` with random access,
 for the sake of convenience, `LinkedList` was chosen.
 
+Currently, a size limit of 20 is imposed on CommandHistory. A limit is required as storing unlimited commands is not feasible.
+Also, it is highly unlikely that users would need to see their entered commands beyond a certain point.
+
+Although this feature is fairly simple and based off Windows Command Prompt, there were still a few design aspects worth considering.
+
+==== Design Considerations
+
+===== Aspect: Should invalid Commands be stored.
+* **Alternative 1 (current choice)**: No.
+** Pros:
+** Cons:
+
+* **Alternative 2**: Yes (Same as Windows Command Prompt).
+** Pros:
+** Cons:
+
 
 // end::command-history[]
 
