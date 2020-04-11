@@ -52,7 +52,7 @@ public class Role implements Comparable<Role> {
 
     @Override
     public int compareTo(Role other) {
-        return fullRole.compareTo(other.fullRole);
+        return fullRole.compareToIgnoreCase(other.fullRole);
     }
 
     @Override
