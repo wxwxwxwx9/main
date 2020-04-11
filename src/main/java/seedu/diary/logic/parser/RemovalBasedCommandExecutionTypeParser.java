@@ -59,7 +59,7 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
         default:
             // this should never happen
             assert false;
-            throw new RuntimeException("unreachable");
+            throw new IllegalStateException("unreachable");
         }
 
     }
