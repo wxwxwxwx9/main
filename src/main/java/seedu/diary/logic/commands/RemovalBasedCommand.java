@@ -100,7 +100,7 @@ public class RemovalBasedCommand extends Command {
         default:
             // this should never happen
             assert false;
-            throw new RuntimeException("unreachable");
+            throw new IllegalStateException("unreachable");
         }
 
     }
@@ -189,7 +189,7 @@ public class RemovalBasedCommand extends Command {
         default:
             // this should never happen
             assert false;
-            throw new RuntimeException("unreachable");
+            throw new IllegalStateException("unreachable");
         }
     }
 

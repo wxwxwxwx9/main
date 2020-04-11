@@ -279,10 +279,26 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 
 ==== Design Considerations
 
-===== Aspect: Should invalid Commands be stored.
+===== Aspect: What should happen when DOWN is pressed when the latest history is being shown.
+* **Alternative 1 (current choice)**: Blank the CommandBox.
+** Pros: Provides users an easy way to clear the CommandBox.
+** Cons: Users are unable to view their command history without losing the command they have typed.
+
+* **Alternative 2**: Nothing (Same as Windows Command Prompt).
+** Pros: Easy to implement.
+** Cons: Users are unable to view their command history without losing the command they have typed. +
+No easy way to clear the CommandBox.
+
+* **Alternative 2**: Store and display the last modified text.
+** Pros: Users can view their command history without losing the command they have typed.
+** Cons: No easy way to clear the CommandBox. +
+Harder to implement.
+
+===== Aspect: Should invalid commands be stored.
 * **Alternative 1 (current choice)**: No.
 ** Pros: Reduces clutter in the Command History.
-** Cons:
+** Cons: Users would not be able to see their failed attempts. +
+Users are unable to look at their command history without losing the command they have typed (due to above decision).
 
 * **Alternative 2**: Yes (Same as Windows Command Prompt).
 ** Pros: User can store an incomplete draft command in the Command History.
@@ -290,6 +306,20 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 through all the failed attempts. This is especially so as our application does not have
 an autocomplete feature.
 
+===== Aspect: When should the position of historyIterator reset.
+* **Alternative 1 (current choice)**: Whenever user modifies the text in the CommandBox
+and when command executed successfully.
+** Pros: Less confusing for users.
+** Cons: More key presses to repeat a series of commands.
+
+* **Alternative 2**: Never (Same as Windows Command Prompt).
+** Pros: Users can easily repeat a series of commands.
+** Cons: Potentially confusing for users. Harder to implement as underlying data structure is linked list.
+
+==== Proposed Feature
+
+There are plans to save the Command History in the hard drive, so that it may be accessed across sessions.
+However, due to the complexity and difficulty of implementation, it will only be rolled out in a future version.
 
 // end::command-history[]
 
@@ -1352,7 +1382,7 @@ Use case ends.
 *Usability*
 
 . The application should be intuitive and easy-to-learn, such that users can become proficient within a day.
-. The application should prioritse displaying important and relevant information to users.
+. The application should prioritise displaying important and relevant information to users.
 . A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *Robustness*
@@ -1365,8 +1395,8 @@ Use case ends.
 
 *Maintainability*
 
-. The application should be compliant with the coding standard set forth by CS2103.
-. The application should be compliant with best coding practices highlighted in CS2103.
+. The application should be compliant with the coding standard set forth by CS2103T.
+. The application should be compliant with best coding practices highlighted in CS2103T.
 . The application should be designed and implemented elegantly such that any programmer with at least a year of experience should be able to read, maintain, and contribute to the source code easily.
 
 *Process*
@@ -1425,6 +1455,12 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Using Internship Diary with Sample Internship Application List
+. Close Internship Diary.
+. Delete the file `./internshipdiary.json` (if applicable).
+. Launch Internship Diary. +
+  Expected: A sample internship application list with 6 internship applications should be displayed.
 
 === Launch and Shutdown
 
@@ -1698,6 +1734,37 @@ Details of the unarchived internship applications shown in the feedback box.
 . Display statistics window
 .. Test case: `stats`
 * Expected: A separate window will appear with graphical representation of the statistics.
+
+=== Sorting the list of internship applications
+. Sorting a list of internship applications.
+.. Prerequisites: List all internship applications using `list`.  +
+Select any internship application by clicking one.
+... Test case: `sort c/`
+Expected: No change in displayed internship details. Internship application list sorted by company (case insensitive).
+Sort order displayed in footer.
+... Test case: `sort reverse c/` +
+Expected: No change in displayed internship details. Internship application list sorted by company in
+reverse alphabetical order (case insensitive). Sort order displayed in footer.
+... Test case: `sort reversed c/` +
+Expected: Internship application list not sorted. Error details shown in the result box as invalid command format.
+No change in footer display.
+... Test case: `sort c/ a` +
+Expected: Internship application list not sorted. Error details shown in the result box as invalid command format.
+No change in footer display.
+... Test case: `sort c/ r/` +
+Expected: Internship application list not sorted. Error details shown in the result box as invalid command format.
+No change in footer display.
+.. Prerequisites: Use `find` command to reduce size of internship application list without deleting any internship applications. +
+For example, `find r/software`
+... Test case: `sort c/` +
+Expected: No change to number of internship applications displayed.
+.. Prerequisites: Ensure current internship application list has multiple internship applications with fields of the same value.
+For example, multiple internship applications with `role` being `software developer`
+... Test case: `sort r/` +
+Expected: No change in order of internship applications with identical roles (stable sort).
+. Sorting a list of internship applications in `archival` mode.
+.. Repeat the above steps, but list all internship applications using `archival`.
+
 
 === Saving data
 
