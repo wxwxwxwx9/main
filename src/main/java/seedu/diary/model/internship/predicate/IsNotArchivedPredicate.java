@@ -17,7 +17,7 @@ public class IsNotArchivedPredicate implements Predicate<InternshipApplication> 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof IsNotArchivedPredicate); // instanceof handles nulls
+            || (other instanceof IsNotArchivedPredicate); // instanceof handles nulls
     }
 }
 
