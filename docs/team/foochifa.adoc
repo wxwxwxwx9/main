@@ -49,7 +49,7 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[C
 * Project management:
 ** Set up Tags on Github Issues
 ** Created and managed Milestones on Github
-** Managed meeting agendas and features delegation, and translated them into issues on Github
+** Managed meeting agendas and delegation of features, and translated them into issues on Github
 ** Assigned issues and PRs to relevant Milestones (from v1.1 to v2.0)
 ** Assigned relevant tags to issues
 
@@ -59,7 +59,7 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[C
 
 * Documentation:
 ** Preliminary refactor of DG from AB3 to Internship Diary (Pull Request link:{PrURL}19[#19])
-** Refactor UG to reflect v1.3 Internship Diary features (Pull Request link:{PrURL}83[#83])
+** Refactor UG to reflect v1.2 Internship Diary features (Pull Request link:{PrURL}83[#83])
 
 * Community:
 ** Pull Requests reviewed (with non-trivial comments): link:{PrURL}31[#31], link:{PrURL}77[#77], link:{PrURL}134[#134]
