@@ -339,15 +339,25 @@ This command will display to you all internship application(s) that:
 * have status `wishlist` and need to be submitted in 7 days
 * have status `interview` and interviews scheduled in 7 days
 
-[cols="1,20"]
-|===
-|💡|Applications are displayed in order of earliest application date or scheduled interview date followed by those with later dates.
-|===
+The applications will be displayed in order of earliest application date or scheduled interview date followed by those with later dates.
+
+This command helps to remind you of applications which you might want to focus on first, so that you do not miss submission deadlines or any upcoming interviews.
 
 [cols="1a,1"]
 |===
 2.1+|*Format*
 2.1+|`reminder`
+|===
+
+[cols="1,20"]
+|===
+|💡|`reminder` can be used anytime, but it does not work on archived applications.
+|===
+
+[cols="1,20"]
+|===
+|💡|Any command after `reminder` will be ignored. +
+e.g. `reminder dummy variable` be just be treated as `reminder`
 |===
 //end::reminder[]
 
