@@ -446,7 +446,7 @@ However, such implementation brings about issues with reactivity -- where elemen
 Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
 In order to resolve this issue, we need to employ the observer pattern.
-The idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
+The general idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
 Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
 
 To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
@@ -466,7 +466,10 @@ The class diagram above showcases our implementation of a two-tier observer-obse
 
 [NOTE]
 ====
-* `InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport`.
+* `InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport` to manage their listeners respectively.
+* `PropertyChangeSupport` serves as the intermediary and an abstraction between the *observables* and *observers*.
+* Observers are generalized (polymorphism) as they implement the `PropertyChangeListener` interface; these observers are managed by `PropertyChangeSupport`.
+* There is *no coupling* between the observables and observers.
 * `ModelManager` serves as an abstraction between `StatisticsWindow` and `InternshipDiary`.
 * All the UI elements in our implementation follow the above class diagram -- `StatisticsWindow` just happens to be the UI element that we chose to illustrate our diagram.
 ====
@@ -484,11 +487,14 @@ The process is similar for any UI element that wants to observe the `filteredInt
 
 As a result, whenever there is a change to the property `displayedInternships` in `InternshipDiary`, the `PropertyChangeSupport` instance of
 `InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`.
-The emitted event will trigger the
-`propertyChange` function of `ModelManager`. `ModelManager` can then retrieve the new reference from the event and update its
-`filteredInternshipApplications` accordingly.
+The emitted event will trigger the `propertyChange` function of `ModelManager`.
+`ModelManager` can then retrieve the new reference from the event and update its `filteredInternshipApplications` accordingly.
 It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
 `filteredInternshipApplications` property.
+
+The following activity diagram gives a high-level overview of the above event-driven process.
+
+image::ActivityDiagramObserverPattern.png[align="center"]
 
 ====
 [NOTE]
