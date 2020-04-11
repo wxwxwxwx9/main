@@ -24,7 +24,7 @@ Internship Diary is a desktop application that assists university students in ma
 With the Internship Diary, you can leave behind your troubling times trying to to organize, track, and review all your past and upcoming internship applications.
 The application is designed and optimized for users who can type quickly, and provides an elegant design which is easy on the eyes.
 
-== Quick Start
+== Quick start
 
 Here are the steps to get you started on using Internship Diary:
 
@@ -40,13 +40,19 @@ image::Ui.png[width="790"]
 +
 image::help_window.png[width="790"]
 +
-. Refer to <<Features>> to find out what other commands you can use on Internship Diary.
+. Refer to <<Commands>> to find out what other commands you can use on Internship Diary.
 
-== Preface
+== Before you start
 
-Before you proceed, here are some important information you should know.
+Here are some important information you should know.
 
-=== Structure of Internship Application
+=== Graphical user interface
+
+image::internship_diary_label.png[align="center", width="790"]
+
+The image illustrates the major graphical components of *Internship Diary*.
+
+=== Structure of internship application
 
 [%header,cols="1a, 1, 1, 1, 5"]
 |===
@@ -59,25 +65,25 @@ Before you proceed, here are some important information you should know.
 | Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. ` ` and `/` are also supported
 separators. If year is not given, will default to the current year.
 | Priority | w/ | No | 1 | Must be an integer from 0 to 10 (inclusive).
-| Status | s/ | No | 1 | Possible values listed in <<Valid Status>>. The first letter of the Status can be
+| Status | s/ | No | 1 | Possible values listed in <<Valid status>>. The first letter of the Status can be
 used to input the respective Status values.
 | Interviews | Not applicable | Yes | No limits | See <<Modifying an interview in an internship application : `interview`>>
 |===
 
 //image::internshipDetailsExample.png[width="790"]
 
-=== Valid Status
+=== Valid status
 
 The valid Status values for internship applications listed in sort order:
 
-. `wishlist`
-. `applied`
-. `interview`
-. `offered`
+. `wishlist` - image:wishlist_card.png[align="center", width="60"]
+. `applied` - image:applied_card.png[align="center", width="60"]
+. `interview` - image:interview_card.png[align="center", width="60"]
+. `offered` - image:offered_card.png[align="center", width="60"]
 . `rejected`
 . `ghosted`
 
-=== Command Format
+=== Command format
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 (e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a parameter which can be used as `add c/Google`)
@@ -91,11 +97,27 @@ The valid Status values for internship applications listed in sort order:
 (e.g. for `add c/Google r/Software Engineer d/20 04 2020 s/applied s/wishlist`, the newly-added internship application will have `wishlist` as its status)
 * An input consisting of only spaces is considered empty.
 
+=== Other important information
 
-[[Features]]
-== Features
+* We will use `INDEX` to refer to a particular internship application.
+** `INDEX` can be found on the left side of an internship application card.
+** `INDEX` will always be a *positive integer*.
+** `INDEX` is not unique to a particular internship application -- it will change as the list is updated.
+*** `INDEX` only serves as a reference for you to choose the correct internship application.
 
-=== Viewing help : `help`
+image::sample_index.png[align="center", width="600"]
+
+* For any command that uses `INDEX`:
+** `INDEX` must be among those displayed in the current list.
+*** For example, if the current list displays `INDEX` *1 to 10*, `INDEX` 11 will not be considered valid.
+** `INDEX` must be a *positive integer*.
+* All the commands will work on both *main list* and *archival list*.
+** The only exceptions are: `Reminder`
+
+[[Commands]]
+== Commands
+
+=== Viewing offline user guide: `help`
 
 Format: `help`
 
@@ -105,30 +127,40 @@ Displays *unarchived* internship applications. This is known as your *main list*
 
 Format: `list`
 
+image::main_list.png[align="center", width="800"]
+
 === Viewing archived internship applications: `archival`
 
 Displays *archived* internship applications. This is known as your *archival list*.
 
 Format: `archival`
 
+image::archival_list.png[align="center", width="800"]
+
 === Selecting an internship application to display: `select`
 
-Selects an internship application to display on the right panel of the internship diary. +
+Selects an internship application to display on the right panel of the internship diary.
+
+Only one internship application may be selected at any point in time.
 
 [TIP]
 Alternatively, you may use your mouse to click on a specific internship application on the left panel of the internship diary.
 
 Format: `select INDEX`
 
-Examples:
+Example(s):
 
 * `select 1`
 
+image::select_internship.png[align="center", width="790"]
+
 === Adding an internship application: `add`
 
-Adds an internship application to the internship diary +
-Format: `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]` +
-Refer to <<Structure of Internship Application>> for valid values.
+Adds an internship application to the current list.
+
+Format: `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]`
+
+Refer to <<Structure of Internship Application>> for details about the input constraints.
 
 Examples:
 
@@ -137,114 +169,133 @@ Examples:
 
 === Deleting an internship application : `delete`
 
-Deletes the specified internship application from the current list (main or archival). +
+Delete specified internship applications from the current list. +
 
 Formats:
 
 * `delete INDEX`
-* `delete INDEX, [INDEX], [INDEX], ...`
+* `delete INDEX, [INDEX]...`
 * `delete s/STATUS`
 
 ****
-* Deletes the application at the specified `INDEX`.
-* The index refers to the index number shown in the displayed internship application.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The index can be entered in any order.
-* The status has to be a valid one.
-* The command will work on both the main and archival list.
-* Note that status holds a higher priority than index.
-** For example, the application will delete according to status instead of index for the following command: `delete s/applied 1, 2, 3`
-* Note that duplicated index will be ignored and not affect the execution.
-** For example, the duplicated index will not affect the execution for the following command: `delete 2, 2, 3`
+* Deleting by `INDEX`:
+** Deletes the internship application at `INDEX` (*must be a positive integer*).
+** `INDEX` may be entered in any order.
+*** e.g. `delete 3, 1, 2`.
+** Duplicated `INDEX` will be ignored.
+*** e.g. `delete 1, 2, 2` has the same effect as `delete 1, 2`.
+* Deleting by `STATUS`:
+** There must be at least one valid `STATUS`.
+** There can be multiple `STATUS`.
+*** e.g. the command will delete internship application(s) with status `applied` or `wishlist` for `delete s/applied wishlist`
+//** `STATUS` precedes `INDEX`.
+//*** e.g. the command will delete according to `STATUS` instead of `INDEX` for `delete s/applied 1, 2, 3`.
+** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+*** e.g. the command will delete internship application(s) with status `rejected` for `delete s/ somethinginvalid rejected`.
+*** e.g. the command will delete internship application(s) with status `applied` or `wishlist` for `delete s/applied somethinginvalid wishlist`.
 ****
 
-Examples:
+Example(s):
 
 * `list` +
 `delete 2` +
-Deletes the 2nd internship application in the main list.
+Deletes the 2nd internship application from the main list.
 
 * `archival` +
 `delete s/applied` +
-Deletes all the internship applications with the `applied` status in the archival list.
+Deletes all the internship applications with the `applied` status from the archival list.
 
-* `find Google` +
+* `list` +
+ `find Google` +
 `delete 2, 1, 3` +
-Deletes the 1st, 2nd, and 3rd internship application in the results of the `find` command.
+Deletes the 1st, 2nd, and 3rd internship applications from the results of the `find` command (in main list).
 
-=== Archiving your internship applications: `archive`
+=== Archiving an internship application : `archive`
 
-Moves your internship applications from the main list to the archival list. +
+Archive specified internship applications from the main list. +
 
 Formats:
 
 * `archive INDEX`
-* `archive INDEX, [INDEX], [INDEX], ...`
+* `archive INDEX, [INDEX]...`
 * `archive s/STATUS`
 
 ****
-* Archives the application at the specified `INDEX`.
-* The index refers to the index number shown in the displayed internship application.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The index can be entered in any order.
-* The status has to be a valid one.
-* The command will only work on the main list.
-* Note that status holds a higher priority than index.
-** For example, the application will archive according to status instead of index for the following command: `archive s/applied 1, 2, 3`
-* Note that duplicated index will be ignored and not affect the execution.
-** For example, the duplicated index will not affect the execution for the following command: `archive 2, 2, 3`
+* Archiving by `INDEX`:
+** Archives the internship application at `INDEX` (*must be a positive integer*).
+** `INDEX` may be entered in any order.
+*** e.g. `archive 3, 1, 2`.
+** Duplicated `INDEX` will be ignored.
+*** e.g. `archive 1, 2, 2` has the same effect as `archive 1, 2`.
+* Archiving by `STATUS`:
+** There must be at least one valid `STATUS`.
+** There can be multiple `STATUS`.
+*** e.g. the command will archive internship application(s) with status `applied` or `wishlist` for `archive s/applied wishlist`
+** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+*** e.g. the command will archive internship application(s) with status `rejected` for `archive s/ somethinginvalid rejected`.
+*** e.g. the command will archive internship application(s) with status `applied` or `wishlist` for `archive s/applied somethinginvalid wishlist`.
 ****
 
-Examples:
+Example(s):
 
 * `list` +
-`archive 3` +
-Archives the 3rd internship application in the main list.
+`archive 2` +
+Archives the 2nd internship application in the main list.
 
-* `find Google` +
+* `list` +
+`find Google` +
 `archive 2, 1, 3` +
-Archives the 1st, 2nd, and 3rd internship application in the results of the `find` command.
+Archives the 1st, 2nd, and 3rd internship application in the results of the `find` command (in main list).
 
-* `find Van` +
+* `list` +
+ `find Google` +
 `archive s/rejected` +
-Archives all the internship applications with the `rejected` status in the results of the `find` command.
+Archives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
 
-=== Unarchiving your internship applications: `unarchive`
+=== Unarchiving an internship application : `unarchive`
 
-Moves your internship applications from the archival list to the main list. +
+Unarchive specified internship applications from the main list. +
 
 Formats:
 
 * `unarchive INDEX`
-* `unarchive INDEX, [INDEX], [INDEX], ...`
+* `unarchive INDEX, [INDEX]...`
 * `unarchive s/STATUS`
 
 ****
-* Unarchives the application at the specified `INDEX`.
-* The index refers to the index number shown in the displayed internship application.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The index can be entered in any order.
-* The status has to be a valid one.
-* The command will only work on the archival list.
-* Note that status holds a higher priority than index.
-** For example, the application will unarchive according to status instead of index for the following command: `unarchive s/applied 1, 2, 3`
-* Note that duplicated index will be ignored and not affect the execution.
-** For example, the duplicated index will not affect the execution for the following command: `unarchive 2, 2, 3`
+* Unarchiving by `INDEX`:
+** Unarchives the internship application at `INDEX` (*must be a positive integer*).
+** `INDEX` may be entered in any order.
+*** e.g. `unarchive 3, 1, 2`.
+** Duplicated `INDEX` will be ignored.
+*** e.g. `unarchive 1, 2, 2` has the same effect as `unarchive 1, 2`.
+* Unarchiving by `STATUS`:
+** There must be at least one valid `STATUS`.
+** There can be multiple `STATUS`.
+*** e.g. the command will unarchive internship application(s) with status `applied` or `wishlist` for `unarchive s/applied wishlist`
+** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+*** e.g. the command will unarchive internship application(s) with status `rejected` for `unarchive s/ somethinginvalid rejected`.
+*** e.g. the command will unarchive internship application(s) with status `applied` or `wishlist` for `unarchive s/applied somethinginvalid wishlist`.
 ****
 
-Examples:
+Example(s):
 
-* `archival` +
+* `list` +
 `unarchive 2` +
-Unarchives the 2nd internship application in the archival list.
+Unarchives the 2nd internship application in the main list.
 
-* `find IBM` +
+* `list` +
+`find Google` +
 `unarchive 2, 1, 3` +
-Unarchives the 1st, 2nd, and 3rd internship application in the results of the `find` command.
+Unarchives the 1st, 2nd, and 3rd internship application in the results of the `find` command (in main list).
 
-* `find Van` +
-`unarchive s/interview` +
-Unarchives all the internship applications with the `interview` status in the results of the `find` command.
+* `list` +
+ `find Google` +
+`unarchive s/rejected` +
+Unarchives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
 
 === Editing an internship application : `edit`
 
@@ -401,21 +452,24 @@ e.g. `reminder dummy variable` be just be treated as `reminder`
 Clears all entries from the Internship Diary. +
 Format: `clear`
 
-=== Getting statistics about internship applications: `stats`
+=== Retrieving statistics: `stats`
 
-Displays the current statistics regarding your internship application on the current list. +
+Displays the statistics about your internship application(s) on the current list.
 
-It will open a new window that contains a bar chart and a pie chart.
+The statistics will dynamically update as you modify the current list (e.g. switching between main and archival list).
+
+It will open a separate window that contains a bar chart and a pie chart.
 
 Format: `stats`
 
+image::internship_diary_stats.png[align="center", width="500"]
+
 ****
 * The bar chart showcases:
-** the amount of internship application(s) under each status (wishlist, applied, interview, offered, rejected, ghosted)
+** the count of internship application(s) under each `STATUS`
 * The pie chart showcases:
-** the percentage of internship application(s) under a status (wishlist, applied, interview, offered, rejected, ghosted)
-* The statistics window will dynamically update the statistics as you refine the view of your list of internship applications
-** this includes any command that modifies your view (e.g. `add`, `delete`, `archive`, `unarchive`, `find`, `edit`, `list`, `archival`)
+** the percentage of internship application(s) under each `STATUS`
+** percentages are rounded off to two decimal places
 ****
 
 === Exiting the program : `exit`
@@ -446,11 +500,11 @@ There is no need to save manually.
 * *Add* `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​` +
 e.g. `add c/Google r/Software engineer s/wishlist d/10 10 2010`
 * *Delete* : `delete INDEX` +
-e.g. `delete 3`
+e.g. `delete 1`
 * *Archive* : `archive INDEX` +
-e.g. `archive 3`
+e.g. `archive 1`
 * *Unarchive* : `unarchive INDEX` +
-e.g. `unarchive 3`
+e.g. `unarchive 1`
 * *Edit* : `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]` +
 e.g. `edit 2 c/Google s/applied`
 * *Find* : `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]` +
