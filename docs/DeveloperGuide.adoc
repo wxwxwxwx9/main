@@ -894,6 +894,11 @@ the predicate obtained from the previous `OR` operation and the `IsNotArchivedPr
 is used to make sure that archived internship applications do not appear when `reminder` is used. The final predicate
 produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
 
+The activity diagram below summarises how each internship application is checked by the predicates mentioned above:
+
+.Activity Diagram of `ReminderCommand` filtering out applications to display
+image::ReminderActivityDiagram.png[]
+
 A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
 passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
 applications in terms of which application is more urgent. For each internship application, its `ApplicationDate` field
