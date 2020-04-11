@@ -61,6 +61,6 @@ public class Company implements Comparable<Company> {
      */
     @Override
     public int compareTo(Company other) {
-        return fullCompany.compareTo(other.fullCompany); // String comparison.
+        return fullCompany.compareToIgnoreCase(other.fullCompany); // String comparison.
     }
 }
