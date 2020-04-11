@@ -1530,6 +1530,6 @@ Details of the unarchived internship applications shown in the feedback box.
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
+any commands.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-_{ more test cases ... }_
