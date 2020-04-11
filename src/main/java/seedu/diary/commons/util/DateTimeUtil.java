@@ -41,7 +41,7 @@ public class DateTimeUtil {
                 .withResolverStyle(ResolverStyle.STRICT);
         default:
             // default should never be triggered but just in case.
-            throw new RuntimeException("DateTimeUtil illegal case.");
+            throw new IllegalStateException("DateTimeUtil illegal case.");
         }
     }
 
