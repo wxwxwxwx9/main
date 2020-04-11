@@ -70,8 +70,8 @@ Role:
 * Developer
 
 Responsibilities:
-
-* TBA
+* Implementing Reminder Command
+* Documentation
 
 '''
 

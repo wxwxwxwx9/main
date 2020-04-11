@@ -918,34 +918,62 @@ interviews` of an internship application that has a date of the current date or 
 * `IsNotArchivedPredicate` -- Predicate to check whether an internship application is not archived.
 
 Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
-`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed.
-Next, an `OR`
-operation is performed on the predicates from the previous two `AND` operations.
-An 'AND' operation is then performed on the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`.
-The final predicate produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
+`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
+operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
+the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The `IsNotArchivedPredicate`
+is used to make sure that archived internship applications do not appear when `reminder` is used. The final predicate
+produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship applications in terms of which application is more urgent.
-It compares internship applications by their
-`ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the applications, in order of either date being closer to current date.
-If two internship applications have the same date in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
-interviews` of the applications in order of which application has an interview that comes first.
+The activity diagram below summarises how each internship application is checked by the predicates mentioned above:
+
+.Activity Diagram of `ReminderCommand` filtering out applications to display
+image::ReminderActivityDiagram.png[]
+
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
+passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
+applications in terms of which application is more urgent. For each internship application, its `ApplicationDate` field
+as well as the earliest interview date in the `List<Interview> interviews` are compared to current date and the
+earlier date out of the two is used for the sorting.
 
 ==== Design considerations
 
 ====== Aspect: The order to display the internship applications
 
-* **Alternative 1 (current choice)**: Display the internship applications in the order of either their `ApplicationDate`
-or `interviewDate` of the earliest interview scheduled in `ArrayList<Interview> interviews` is closer to current date.
+* **Alternative 1 (current choice)**: Display the internship applications in the order of either their `applicationDate`
+or `interviewDate` of the earliest interview scheduled in `List<Interview> interviews` is closer to current date.
 
-** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
-** Cons: Longer code.
+** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless
+of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
+** Cons: Longer code as both the earliest `interviewDate` and the `applicationDate` of an application needs to be compared
+to current date to see which date is closer and that date will then be used to sort the internship applications.
 
-* **Alternative 2**: Display the internship applications in the order of which application's `ApplicationDate` is closer to current date.
+* **Alternative 2**: Display the internship applications in the order of which application's `applicationDate` is closer
+to current date.
 
-** Pros: Cleaner code.
-** Cons: Has the assumption that an internship application with a earlier `ApplicationDate` will have an interview scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`.
-User might miss out on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in to check `interviewDate`.
-// end::reminder[]
+** Pros: Cleaner code as the applications can just be sorted by their `applicationDate`.
+** Cons: Has the assumption that an internship application with a earlier `applicationDate` will have an interview
+scheduled at an earlier `interviewDate` as compared to an application with later `applicationDate`. User might miss out
+on a earlier `interviewDate` for an application with later `applicationDate` and additional commands have to be typed in
+to check `interviewDate`.
+
+====== Aspect: The filtering of internship applications to be shown
+
+* **Alternative 1 (current choice)**: Using separate predicates(`ApplicationDateDuePredicate`, `StatusIsWishlistPredicate`,
+`InterviewDateDuePredicate`, `StatusIsInterviewPredicate`) to filter out internship applications with `ApplicationDate`
+or earliest `interviewDate` within 7 days from current date.
+
+** Pros: Cleaner code and each Predicate class only needs to check for one field. Easier to test as well.
+
+** Cons: Longer code as more predicates instantiated and used.
+
+* **Alternative 2**: Using just one predicate to filter out internship applications with `ApplicationDate`
+or earliest `interviewDate` within 7 days from current date.
+
+** Pros: Reduce the number of predicates to be instantiated and to be used.
+
+** Cons: More conditions to check for in one predicate which could lead to potential bugs.
+
+//end::reminder[]
 
 === Logging
 
@@ -1782,6 +1810,16 @@ Expected: No change in order of internship applications with identical roles (st
 . Sorting a list of internship applications in `archival` mode.
 .. Repeat the above steps, but list all internship applications using `archival`.
 
+=== Getting reminders for internship applications
+. Getting reminders for internship applications which are due or have interviews scheduled in 7 days
+
+Test case: `reminder` +
+Expected: Only applications which are due or have interviews scheduled in 7 days will be shown. They should be displayed
+in order of earliest application date or scheduled interview date followed by those with later dates.
+
+. Getting reminders for internship applications which are due or have interviews scheduled in 7 days in `archival` mode
+Test case: `reminder` +
+Expected: No applications should be shown.
 
 === Saving data
 
