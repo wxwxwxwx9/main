@@ -24,11 +24,6 @@ import seedu.diary.testutil.TypicalInterviews;
 public class InternshipApplicationTest {
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        InternshipApplication ia = new InternshipApplicationBuilder().build();
-    }
-
-    @Test
     public void setInterviews_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> FACEBOOK.setInterviews(null));
     }
