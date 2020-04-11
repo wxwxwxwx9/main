@@ -459,6 +459,10 @@ numbers)`..
 * `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
 
+The following class diagram show the relationship of the `Predicates`, `FindCommandParser` and `FindCommand`:
+
+image::FindClassDiagram.png[align="center"]
+
 ==== Find Any Match
 
 This version of the command is invoked when the user enters the command with preamble text in the parameter, e.g.
@@ -482,6 +486,12 @@ The searching and displaying of the internship application is done by performing
 `AddressContainsKeywordsPredicate`, `PhoneContainsNumbersPredicate`, `EmailContainsKeywordsPredicate`,
 `ApplicationDateIsDatePredicate`, `PriorityContainsNumbersPredicate` and `StatusContainsKeywordsPredicate` to get a single predicate and passing that into the method `updateFilteredInternshipApplicationList()` of the `ModelManager`
 instance.
+
+==== Determine which Find to Invoke
+
+The following activity diagram summarises how which type of find to invoke is determined:
+
+image::FindCommandActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 
