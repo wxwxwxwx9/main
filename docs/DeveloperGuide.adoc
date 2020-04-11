@@ -1575,7 +1575,7 @@ Expected: First and second internship applications are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 ... Test case: `delete 2, 2` +
-Expected: Second internship applications is deleted from the list.
+Expected: Second internship application is deleted from the list.
 Details of the deleted internship application shown in the feedback box.
 
 ... Test case: `delete 0, 2` +
@@ -1641,7 +1641,7 @@ Expected: First and second internship applications are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
 ... Test case: `archive 2, 2` +
-Expected: Second internship applications is archived from the list.
+Expected: Second internship application is archived from the list.
 Details of the archived internship application shown in the feedback box.
 
 ... Test case: `archive 0, 2` +
@@ -1708,7 +1708,7 @@ Expected: First and second internship applications are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
 ... Test case: `unarchive 2, 2` +
-Expected: Second internship applications is unarchived from the list.
+Expected: Second internship application is unarchived from the list.
 Details of the unarchived internship application shown in the feedback box.
 
 ... Test case: `unarchive 0, 2` +
