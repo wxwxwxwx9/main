@@ -1196,7 +1196,7 @@ Use case ends.
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to edit the fields of the Internship Application.
 3. Internship Diary updates the new fields of the Internship Application.
 +
@@ -1219,7 +1219,7 @@ Use case resumes at step 1
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to prioritise the Internship Application.
 3. Internship Diary updates the priority level of the Internship Application.
 +
