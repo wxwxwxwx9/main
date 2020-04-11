@@ -1811,13 +1811,11 @@ Expected: No change in order of internship applications with identical roles (st
 .. Repeat the above steps, but list all internship applications using `archival`.
 
 === Getting reminders for internship applications
-. Getting reminders for internship applications which are due or have interviews scheduled in 7 days
-
+. Getting reminders for internship applications which are due or have interviews scheduled in 7 days +
 Test case: `reminder` +
 Expected: Only applications which are due or have interviews scheduled in 7 days will be shown. They should be displayed
 in order of earliest application date or scheduled interview date followed by those with later dates.
-
-. Getting reminders for internship applications which are due or have interviews scheduled in 7 days in `archival` mode
+. Getting reminders for internship applications which are due or have interviews scheduled in 7 days in `archival` mode +
 Test case: `reminder` +
 Expected: No applications should be shown.
 
