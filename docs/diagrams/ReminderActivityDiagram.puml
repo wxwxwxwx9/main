@@ -1,0 +1,29 @@
+@startuml
+start
+:Checks whether internship application is of status 'wishlist' and
+has application date within 7 days of current date ;
+
+if () then ([yes])
+
+else ([no])
+    :Checks whether internship application is of status 'interview' and
+    has an interview date within 7 days from current date;
+
+    if () then ([yes])
+
+    else ([no])
+    :Remove internship application from list to be shown;
+    stop
+    endif
+endif
+
+:Checks whether internship application is archived;
+if () then ([no])
+
+
+else ([yes])
+:Remove internship application from list to be shown;
+endif
+
+stop
+@enduml
