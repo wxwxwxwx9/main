@@ -18,6 +18,6 @@ public class StatusIsInterviewPredicate implements Predicate<InternshipApplicati
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof StatusIsInterviewPredicate); // instanceof handles nulls
+            || (other instanceof StatusIsInterviewPredicate); // instanceof handles nulls
     }
 }

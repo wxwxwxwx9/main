@@ -14,7 +14,7 @@ public class ClearCommandConfirmationParser extends InternshipDiaryParser {
 
     @Override
     public Command parseCommand(String userInput) throws ParseException {
-        if (userInput.trim().toLowerCase().equals(CONFIRMATION_COMMAND_WORD)) {
+        if (userInput.trim().equalsIgnoreCase(CONFIRMATION_COMMAND_WORD)) {
             return new ClearCommand();
         } else {
             throw new ClearCommandConfirmationParseException(CANCEL_CLEAR_COMMAND);

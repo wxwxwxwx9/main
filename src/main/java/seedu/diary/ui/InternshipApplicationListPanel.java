@@ -90,9 +90,9 @@ public class InternshipApplicationListPanel extends UiPart<Region> implements Pr
          */
         private boolean isUpcoming(InternshipApplication internshipApplication) {
             Predicate<InternshipApplication> applicationDateDuePredicate =
-                    new ApplicationDateDuePredicate().and(new StatusIsWishlistPredicate());
+                new ApplicationDateDuePredicate().and(new StatusIsWishlistPredicate());
             Predicate<InternshipApplication> upcomingInterviewDatePredicate =
-                    new InterviewDateDuePredicate().and(new StatusIsInterviewPredicate());
+                new InterviewDateDuePredicate().and(new StatusIsInterviewPredicate());
             return applicationDateDuePredicate.or(upcomingInterviewDatePredicate).test(internshipApplication);
         }
     }

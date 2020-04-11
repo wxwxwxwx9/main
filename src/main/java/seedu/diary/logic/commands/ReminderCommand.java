@@ -36,7 +36,7 @@ public class ReminderCommand extends Command {
         InterviewDateDuePredicate interviewDateWithin7DaysPredicate = new InterviewDateDuePredicate();
         StatusIsInterviewPredicate statusIsInterviewPredicate = new StatusIsInterviewPredicate();
         Predicate<InternshipApplication> interviewPredicate = interviewDateWithin7DaysPredicate
-                .and(statusIsInterviewPredicate);
+            .and(statusIsInterviewPredicate);
 
         Predicate<InternshipApplication> datePredicate = wishlistPredicate.or(interviewPredicate);
 

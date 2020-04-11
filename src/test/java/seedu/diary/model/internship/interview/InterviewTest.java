@@ -22,10 +22,10 @@ public class InterviewTest {
         Interview interview = CENTRAL_LIBRARY;
         // Null date
         assertThrows(NullPointerException.class, () -> Interview.createInterview(false, null,
-                interview.getInterviewAddress()));
+            interview.getInterviewAddress()));
         // Null address
         assertThrows(NullPointerException.class, () -> Interview.createInterview(false,
-                interview.getDate(), null));
+            interview.getDate(), null));
     }
 
     @Test

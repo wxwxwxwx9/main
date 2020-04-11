@@ -2,6 +2,7 @@ package seedu.diary.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -272,25 +273,25 @@ public class ModelManagerTest {
         // same values -> returns true
         modelManager = new ModelManager(diary, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(diary, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(modelManager, modelManager);
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertNotEquals(null, modelManager);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertNotEquals(5, modelManager);
 
         // different internshipDiary -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentDiary, userPrefs)));
+        assertNotEquals(modelManager, new ModelManager(differentDiary, userPrefs));
 
         // different filteredList -> returns false
         String[] keywords = GOOGLE.getCompany().fullCompany.split("\\s+");
         modelManager.updateFilteredInternshipApplicationList(
             new CompanyContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(diary, userPrefs)));
+        assertNotEquals(modelManager, new ModelManager(diary, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredInternshipApplicationList(PREDICATE_SHOW_ALL_INTERNSHIPS);
@@ -298,6 +299,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setInternshipDiaryFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(diary, differentUserPrefs)));
+        assertNotEquals(modelManager, new ModelManager(diary, differentUserPrefs));
     }
 }

@@ -66,7 +66,7 @@ public class CustomToStringPredicateTest {
         class MockPredicate implements Predicate<Object> {
             @Override
             public boolean test(Object o) {
-                return o == someObject;
+                return o.equals(someObject);
             }
         }
 
