@@ -3,7 +3,6 @@ package seedu.diary.logic.commands.interviewsubcommands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.diary.testutil.Assert.assertThrows;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_FIRST_INTERVIEW;

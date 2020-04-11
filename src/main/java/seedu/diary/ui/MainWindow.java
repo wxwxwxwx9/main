@@ -185,7 +185,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    protected void fillInnerParts() {
         internshipApplicationListPanel = new InternshipApplicationListPanel(
             logic.getFilteredInternshipApplicationList());
         internshipApplicationListPanelPlaceholder.getChildren().add(internshipApplicationListPanel.getRoot());
@@ -262,7 +262,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    protected void show() {
         primaryStage.show();
     }
 
