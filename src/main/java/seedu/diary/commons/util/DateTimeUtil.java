@@ -55,16 +55,16 @@ public class DateTimeUtil {
     public static LocalDate parseDate(String dateString) throws DateTimeParseException {
         requireNonNull(dateString);
         int currentYear = LocalDate.now().getYear();
-        dateString = dateString.replaceAll("[\\\\/\\- ]+", " ");
+        String formattedDateString = dateString.replaceAll("[\\\\/\\- ]+", " ");
         for (int i = 0; i < 4; i++) {
             try {
-                return LocalDate.parse(dateString, getDateTimeFormatter(i, currentYear));
+                return LocalDate.parse(formattedDateString, getDateTimeFormatter(i, currentYear));
             } catch (DateTimeParseException e) {
                 // It's fine if DateTimeParseException is thrown now, it's only used to check format of date.
                 // DateTimeParseException will be thrown if all cases fail.
             }
         }
         // This throws a DateTimeParseException
-        return LocalDate.parse(dateString, getDateTimeFormatter(1, currentYear));
+        return LocalDate.parse(formattedDateString, getDateTimeFormatter(1, currentYear));
     }
 }

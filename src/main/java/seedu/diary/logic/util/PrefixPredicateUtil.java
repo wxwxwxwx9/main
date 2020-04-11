@@ -60,7 +60,7 @@ public class PrefixPredicateUtil {
      *
      * @param argMultimap argument multimap to extract the prefix for predicate creation.
      * @throws ParseException if the user input does not conform the expected format.
-     * @returns predicate to filter internship application list.
+     * @return predicate to filter internship application list.
      */
     public static Predicate<InternshipApplication> getFieldPredicate(ArgumentMultimap argMultimap,
         Prefix[] acceptedPrefixes) throws ParseException {
@@ -86,10 +86,10 @@ public class PrefixPredicateUtil {
      * @throws ParseException if the user input does not conform the expected format.
      */
     private static void checkForValidStatuses(List<String> keywords) throws ParseException {
-        keywords = keywords.stream()
-            .filter(keyword -> Status.isValidStatus(keyword))
+        List<String> validKeywords = keywords.stream()
+            .filter(Status::isValidStatus)
             .collect(Collectors.toList());
-        if (keywords.isEmpty()) {
+        if (validKeywords.isEmpty()) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
     }
