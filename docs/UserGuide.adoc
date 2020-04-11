@@ -42,24 +42,58 @@ image::help_window.png[width="790"]
 +
 . Refer to <<Features>> to find out what other commands you can use on Internship Diary.
 
+== Preface
+
+Before you proceed, here are some important information you should know.
+
+=== Structure of Internship Application
+
+[%header,cols="1a, 1, 1, 1, 5"]
+|===
+|*Field* | *Prefix* | Can Be Empty? | Max Number of Values | Remarks
+| Company | c/ | No | 1 | No restrictions on input.
+| Role | c/ | No | 1 | No restrictions on input.
+| Address | a/ | Yes | 1 | No restrictions on input.
+| Phone | c/ | Yes | 1 | "+" at the start is optional. Must have between 4 and 15 digits if not empty.
+| Email | e/ | Yes | 1 | Must contain symbol "@" if not empty. Does not ensure validity of email.
+| Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. ` ` and `/` are also supported
+separators. If year is not given, will default to the current year.
+| Priority | w/ | No | 1 | Must be an integer from 0 to 10 (inclusive).
+| Status | s/ | No | 1 | Possible values listed in <<Valid Status>>. The first letter of the Status can be
+used to input the respective Status values.
+| Interviews | Not applicable | Yes | No limits | See <<Modifying an interview in an internship application : `interview`>>
+|===
+
+//image::internshipDetailsExample.png[width="790"]
+
+=== Valid Status
+
+The valid Status values for internship applications listed in sort order:
+
+. `wishlist`
+. `applied`
+. `interview`
+. `offered`
+. `rejected`
+. `ghosted`
+
+=== Command Format
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+(e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a parameter which can be used as `add c/Google`)
+* Items in square brackets are optional. +
+(e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`)
+* Items with `…`​ after them can be used multiple times including zero times. +
+(e.g. `delete INDEX, [INDEX]...` can be used as `delete 1,` or `delete 1, 2, 3`)
+* Parameters can be entered in any order. +
+(e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable)
+* You may enter the same prefixes multiple times for a command. But the command will only take the last prefix and its value (unless specified otherwise). +
+(e.g. for `add c/Google r/Software Engineer d/20 04 2020 s/applied s/wishlist`, the newly-added internship application will have `wishlist` as its status)
+* An input consisting of only spaces is considered empty.
+
+
 [[Features]]
 == Features
-
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a parameter which can be used as `add c/Google`.
-* Items in square brackets are optional e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}`
-(i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable.
-====
-
-====
-*Important Information*
-
-* Priority levels can range from 1 to 10 (inclusive).
-====
 
 === Viewing help : `help`
 
@@ -67,15 +101,13 @@ Format: `help`
 
 === Viewing unarchived internship applications : `list`
 
-Displays internship applications in your unarchived list.
-
-This is also known as your "Main" list. +
+Displays *unarchived* internship applications. This is known as your *main list*.
 
 Format: `list`
 
 === Viewing archived internship applications: `archival`
 
-Displays internship applications in your archived list. +
+Displays *archived* internship applications. This is known as your *archival list*.
 
 Format: `archival`
 
@@ -84,7 +116,7 @@ Format: `archival`
 Selects an internship application to display on the right panel of the internship diary. +
 
 [TIP]
-Alternatively, you could use your mouse and click on a specific internship application in the left panel of the internship diary
+Alternatively, you may use your mouse to click on a specific internship application on the left panel of the internship diary.
 
 Format: `select INDEX`
 
@@ -105,7 +137,7 @@ Examples:
 
 === Deleting an internship application : `delete`
 
-Deletes the specified internship application from the current list. +
+Deletes the specified internship application from the current list (main or archival). +
 
 Formats:
 
@@ -446,37 +478,5 @@ e.g. `interview 1 delete 1`
 
 == Appendix
 
-=== Valid Values of Status
 
-The valid values of Status as listed in sort order:
-
-1. WISHLIST
-2. APPLIED
-3. INTERVIEW
-4. OFFERED
-5. REJECTED
-6. GHOSTED
-
-=== Structure of Internship Application
-
-image::internshipDetailsExample.png[width="790"]
-
-[TIP]
-An input consisting of only spaces is also considered empty.
-
-[%header,cols="1a, 1, 1, 1, 5"]
-|===
-|*Field Name* | *Prefix* | Can Be Empty? | Max Number of Values | Remarks
-| Company | c/ | No | 1 | No restrictions on input.
-| Role | c/ | No | 1 | No restrictions on input.
-| Address | a/ | Yes | 1 | No restrictions on input.
-| Phone | c/ | Yes | 1 | "+" at the start is optional. Must have between 4 and 15 digits if not empty.
-| Email | e/ | Yes | 1 | Must contain symbol "@" if not empty. Does not ensure validity of email.
-| Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. ` ` and `/` are also supported
-separators. If year is not given, will default to the current year.
-| Priority | w/ | No | 1 | Must be an integer from 0 to 10.
-| Status | s/ | No | 1 | Possible values listed in <<Valid Values of Status>>. The first letter of the Status can be
-used to input the respective Status values.
-| Interviews | Not applicable | Yes | No limits | See <<Modifying an interview in an internship application : `interview`>>
-|===
 
