@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
 
 == PROJECT: My Internship Diary
 
@@ -9,31 +10,61 @@
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+Internship Diary is a desktop-based internship application tracking software.
+The idea for this software came about when we realised that the nature of a computer science degree is internship-driven; in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good job as a fresh graduate.
+Essentially, your first big internship will serve as a pivotal moment for your future career.
+Having said that, internship application is often a tedious and messy process, with companies having different hiring processes and requirements.
+We set out to tackle this pain point -- by coming up with a solution to help computer science students manage and streamline their internship application journey Ultimately, we aim to make every student's internship hunt during their four years as a computer science undergraduate a pleasant one, and hopefully maximise their chances of landing the best possible internship.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to sort internship applications*.
+* *Major enhancement*: Added *the ability to sort internship applications*.
+(PR link:{prURL}71[#71], link:{prURL}113[#113], link:{prURL}199[#199]])
 ** What it does: Sorts internship applications by field.
 ** Justification: This feature improves the product significantly as users can better manage their internship application list.
+This is a basic feature which every organizer app need to have.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-* *Minor enhancement*: added display of what the current list is sorted or filtered by.
+* *Minor enhancement*: Added a history command that allows the user to navigate to previous commands using up/down keys.
+(PR link:{prURL}101[#101])
+** Justification: Allows users to access similar past commands.
+Also speeds up testing considerably.
+
+* *Minor enhancement*: Added display of what the current list is sorted or filtered by.
+(PR link:{prURL}114[#114]])
+
+* *Minor enhancement*: Added DateTimeUtil to better parse dates.
+(PR link:{prURL}104[#104])
+** What it does: Allows application to parse date inputs formatted in different formats.
+** Justification: Gives users more freedom as to how they want to enter dates.
 
 * *Code contributed*:
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP Code Dashboard]
 
 * *Other contributions*:
 
 ** Project management:
+*** Standardised the Intellij IDEA code formatter, in order to make the code base more uniform and to meet the checkstyle requirements (PR https://github.com/AY1920S2-CS2103T-F10-2/main/pull/221[#221]).
+
+** Review/mentoring contributions:
+*** Was the main technical adviser, and suggested implementation methods for several features.
+(PR link:{prURL}82[#82], link:{prURL}118[#118], link:{prURL}216[#216])
 
 ** Enhancements to existing features:
-*** Added confirmation prompt for clear command.
+*** Reformat Storage to fit our app.
+(PR link:{prURL}33[#33], link:{prURL}50[#50])
 *** Prettified the help window.
-
-** Documentation:
+(PR link:{prURL}73[#73])
+*** Allowed certain prefixes to be optional.
+(PR link:{prURL}84[#84])
+*** Added confirmation prompt for clear command.
+(PR link:{prURL}98[#98])
+*** Implemented Enums for Listener System.
+(PR link:{prURL}125[#125])
 
 ** Community:
-*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1])
+*** Contributed to forum discussions (examples:
+https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1]
+)
 
 ** Tools:
 **** Set up Travis CI and Coveralls
@@ -46,7 +77,6 @@ My Internship Diary is a desktop address book desktop internship tracking applic
 
 include::../UserGuide.adoc[tag=sort]
 
-
 == Contributions to the Developer Guide
 
 |===
@@ -54,3 +84,4 @@ include::../UserGuide.adoc[tag=sort]
 |===
 
 include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=clear]
