@@ -30,14 +30,17 @@ Here are the steps to get you started on using Internship Diary:
 
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `internshipdiary.jar` link:{repoURL}/releases[here].
-. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Copy the file to the folder you want to use as the home folder for your Internship Diary.
 . Double-click the file to start the app.
 The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-. Type the command *`help`* in the command box and press kbd:[Enter] to execute it and open the help window. +
-. Refer to <<Features>> for details of each command.
+. Test the application by typing the command *`help`* in the command box and pressing kbd:[Enter] to execute it. This should open the help window. +
++
+image::help_window.png[width="790"]
++
+. Refer to <<Features>> to find out what other commands you can use on Internship Diary.
 
 [[Features]]
 == Features
