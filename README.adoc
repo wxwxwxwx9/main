@@ -1,4 +1,4 @@
-= My Internship Diary
+= Internship Diary
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S2-CS2103T-F10-2/main[image:https://travis-ci.com/AY1920S2-CS2103T-F10-2/main.svg?branch=master[Build Status]]
