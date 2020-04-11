@@ -1351,6 +1351,37 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Adding an interview to an internship application
+
+. Adding an interview while an internship application is displayed.
+.. Prerequisites: List all internship applications using the `list`.  +
+   Select the first internship application using the `select 1` command.
+.. Test case: `interview 1 add o/true d/(internship application date)` +
+   As the interview relies on the date of application, use the application date in the internship application displayed. +
+   Expected: Online interview added to the internship application. Details of the interview displayed in the list inside the displayed internship application.
+.. Test case: `interview 1 add o/false d/(internship application date) a/123 Kent Ridge Road` +
+   Expected: Offline interview added to the internship application. Details of the interview displayed in the list inside the displayed internship application.
+.. Test case: `interview 1 add o/true d/(internship application date - 1 )` +
+   Expected: No interview is added. Error details shown in the result box.
+.. Other incorrect interview add commands to try: `interview 1 add`, `interview 0 add`, `interview 1 add o/false d/(valid date)` (offline interview must have address).
+
+=== Editing an interview in an internship application
+
+. Editing an interview while an internship application is displayed.
+.. Prerequisites: List all internship applications using the `list`.  +
+   Select the first internship application using the `select 1` command. +
+   Add an online interview to the first internship application using the `interview 1 add o/true d/(internship application date)` command. +
+   Let x be the index number of the new online interview as displayed inside the internship application displayed.
+.. Test case: `interview 1 edit x d/(internship application date + 1)`
+   Expected: The online interview's date has been successfully changed.
+.. Test case: `interview 1 edit x o/false a/123 Kent Ridge Road` +
+   Expected: The online interview has been edited into an offline interview.
+.. Test case: `interview 1 edit x o/false` +
+   Expected: No change to online interview. Error details shown in the result box as address field is mandatory when editing an online into an offline interview.
+.. Test case: `interview 1 edit 0 o/false a/123 Kent Ridge Road` +
+   Expected: No change to online interview. Error details shown in the result box as interview index is out of bounds.
+.. Other incorrect interview edit commands to try: `interview 1 edit`, `interview 1 edit x` (no change of interview fields will result in error).
+
 === Saving data
 
 . Dealing with missing/corrupted data files
