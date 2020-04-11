@@ -75,7 +75,7 @@ public class InterviewCommandParser implements Parser<InterviewCommand> {
 
         boolean isOnline = Boolean.parseBoolean(argMultimap.getValue(PREFIX_IS_ONLINE).get());
         // check if parseBoolean mistakenly parsed an invalid value as false
-        if (!isOnline && !argMultimap.getValue(PREFIX_IS_ONLINE).get().toUpperCase().equals("FALSE")) {
+        if (!isOnline && !argMultimap.getValue(PREFIX_IS_ONLINE).get().equalsIgnoreCase("FALSE")) {
             throw new ParseException(BooleanUtil.INVALID_BOOLEAN);
         }
 
