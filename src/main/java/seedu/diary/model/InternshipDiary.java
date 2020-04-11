@@ -169,10 +169,11 @@ public class InternshipDiary implements ReadOnlyInternshipDiary {
      * The internship application must not already exist in the internship diary.
      */
     public void addInternshipApplication(InternshipApplication internshipApplication) {
+        InternshipApplication internshipApplicationToAdd = internshipApplication;
         if (currentView.equals(InternshipApplicationViewType.ARCHIVED)) {
-            internshipApplication = internshipApplication.archive();
+            internshipApplicationToAdd = internshipApplication.archive();
         }
-        displayedInternships.add(internshipApplication);
+        displayedInternships.add(internshipApplicationToAdd);
     }
 
     /**
