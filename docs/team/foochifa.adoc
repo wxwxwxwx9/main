@@ -5,12 +5,12 @@
 :prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
 
 == PROJECT: Internship Diary
-
----
+This portfolio provides an overview of my contributions to the Internship Diary project.
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+**Internship Diary** is a command line interface (CLI) and desktop-based internship tracking application.
+
 
 == Summary of contributions
 
