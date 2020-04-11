@@ -1,9 +1,11 @@
 = Internship Diary - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -18,8 +20,8 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-This developer guide is for software developers or designers who want to understand the system design and implementation
-of InternshipDiary.
+This developer guide is written for software developers or designers who wish to contribute to the project.
+However, you may also use it if you wish to gain deeper insight into the system design and implementation of *Internship Diary*.
 
 == Setting up
 
@@ -33,13 +35,11 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/diary/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/diary/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/diary/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/diary/MainApp.java[`MainApp`].
+It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -84,9 +84,12 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/diary/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `InternshipApplicationListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `InternshipApplicationListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/diary/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/diary/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -103,18 +106,18 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/diary/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `InternshipDiaryParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding an internship application).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+. `Logic` uses the `InternshipDiaryParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding an internship application).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("select 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `select 1` Command
+image::SelectSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `SelectCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -132,7 +135,9 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Status` list in `Internship Diary`, which `Internship Application` can reference. This would allow `Internship Diary` to only require one `Status` object per unique `Status`, instead of each `Internship Application` needing their own `Status` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Status` list in `Internship Diary`, which `Internship Application` can reference.
+This would allow `Internship Diary` to only require one `Status` object per unique `Status`, instead of each `Internship Application` needing their own `Status` object.
+An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -146,8 +151,8 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Internship Diary data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save the `InternshipDiary` data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -158,133 +163,45 @@ Classes used by multiple components are in the `seedu.diary.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedInternshipDiary`.
-It extends `InternshipDiary` with an undo/redo history, stored internally as an `internshipDiaryStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedInternshipDiary#commit()` -- Saves the current internship diary state in its history.
-* `VersionedInternshipDiary#undo()` -- Restores the previous internship diary state from its history.
-* `VersionedInternshipDiary#redo()` -- Restores a previously undone internship diary state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitInternshipDiary()`, `Model#undoInternshipDiary()` and `Model#redoInternshipDiary()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedInternshipDiary` will be initialized with the initial internship diary state, and the `currentStatePointer` pointing to that single internship diary state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th internship application in the internship diary. The `delete` command calls `Model#commitInternshipDiary()`, causing the modified state of the internship diary after the `delete 5` command executes to be saved in the `internshipDiaryStateList`, and the `currentStatePointer` is shifted to the newly inserted internship diary state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add c/Google ...` to add a new internship application. The `add` command also calls `Model#commitInternshipDiary()`, causing another modified internship diary state to be saved into the `internshipDiaryStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitInternshipDiary()`, so the internship diary state will not be saved into the `internshipDiaryStateList`.
-
-Step 4. The user now decides that adding the internship application was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoInternshipDiary()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous internship diary state, and restores the internship diary to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial internship diary state, then there are no previous internship diary states to restore. The `undo` command uses `Model#canUndoInternshipDiary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoInternshipDiary()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the internship diary to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `internshipDiaryStateList.size() - 1`, pointing to the latest internship diary state, then there are no undone internship diary states to restore. The `redo` command uses `Model#canRedoInternshipDiary()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the internship diary, such as `list`, will usually not call `Model#commitInternshipDiary()`, `Model#undoInternshipDiary()` or `Model#redoInternshipDiary()`. Thus, the `internshipDiaryStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitInternshipDiary()`. Since the `currentStatePointer` is not pointing at the end of the `internshipDiaryStateList`, all internship diary states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add c/Google ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire internship diary.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the internship application being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of internship diary states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedInternshipDiary`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
 // tag::sort[]
 === Sort command
 
-The find command allows the user to sort the currently visible list of internship applications. The following sequence
-diagram will illustrate the process of invocation for the command:
+The find command allows the user to sort the currently visible list of internship applications.
+The following sequence diagram will illustrate the process of invocation for the command:
 
 image::SortSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the sort command.
 
 ==== Implementation
-The find command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the
-arguments for the command.
+
+The find command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the arguments for the command.
 
 To facilitate the sort command, several comparator classes implementing `Comparator<InternshipApplication>` are used:
 
-* `ApplicationDateComparator` -- Comparator to compare internship applications by their `ApplicationDate` field
-in chronological order.
-* `CompanyComparator` -- Comparator to compare internship applications by their `Company` field
-in lexicographical order.
-* `PriorityComparator` -- Comparator to compare internship applications by their `Priority` field
-in ascending order.
-* `RoleComparator` -- Comparator to compare internship applications by their `Role` field
-in lexicographical order.
-* `StatusComparator` -- Comparator to compare internship applications by their `Status` field
-by the order which they are declared in the Status Enum class.
+* `ApplicationDateComparator` -- Comparator to compare internship applications by their `ApplicationDate` field in chronological order.
+* `CompanyComparator` -- Comparator to compare internship applications by their `Company` field in lexicographical order.
+* `PriorityComparator` -- Comparator to compare internship applications by their `Priority` field in ascending order.
+* `RoleComparator` -- Comparator to compare internship applications by their `Role` field in lexicographical order.
+* `StatusComparator` -- Comparator to compare internship applications by their `Status` field by the order which they are declared in the Status Enum class.
 
 The `SortCommandParser` looks for a acceptable prefix in the command, and passes the corresponding comparator to `SortCommand`.
 If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
 
 ==== Reverse sort
 
-This version of the command is invoked when the user enters the command with `reverse` as the
-preamble text in the parameter, e.g. `sort reverse c/`. After retrieving the correct `comparator` to use,
-the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
+This version of the command is invoked when the user enters the command with `reverse` as the preamble text in the parameter, e.g. `sort reverse c/`.
+After retrieving the correct `comparator` to use, the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
 This would reverse the order in which the currently visible list of internship applications is sorted in.
 
 ==== Design Considerations
 
 ===== Aspect: How to sort by multiple fields
+
 * **Alternative 1 (current choice)**: Accept only one field to sort by when using SortCommand.
 This works as the list uses stable sort.
 ** Pros: More streamlined, less complex. +
-`EnteredCommandsHistory` allows the user to get the sort command template back
-in just one press of the up arrow key so there is little hassle. +
+`EnteredCommandsHistory` allows the user to get the sort command template back in just one press of the up arrow key so there is little hassle. +
 Users do not have to remember the order to place the arguments to get the sort they want.
 ** Cons: Hard to explain the concept of stable sort in the User Guide.
 
@@ -294,39 +211,37 @@ Users do not have to remember the order to place the arguments to get the sort t
 Users has to remember the order to place the arguments to get the sort they want. +
 Users are highly unlikely to use this feature, as sorting one field by one feels more natural. +
 Harder to implement reverse sorting.
-
 // end::sort[]
 
 // tag::clear[]
 === Clear command
 
-The clear command allows the user to delete all internship applications. The following sequence
-diagram will illustrate the process of invocation for the command:
+The clear command allows the user to delete all internship applications.
+The following sequence diagram will illustrate the process of invocation for the command:
 
 image::ClearSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the clear command.
 
 ==== Implementation
+
 The find command is implemented in the class `InitClearCommand`, `ClearCommand` and uses the
 `ClearCommandConfirmationParser` class to parse the arguments for the command.
 
-The implementation for this command is unique as it causes 'LogicManager' to use `ClearCommandConfirmationParser`,
-which is a subclass of `InternshipDiaryParser`, as the main parser to parse the next user input.
+The implementation for this command is unique as it causes 'LogicManager' to use `ClearCommandConfirmationParser`, which is a subclass of `InternshipDiaryParser`, as the main parser to parse the next user input.
 
 ==== Design Considerations
 
 ===== Aspect: How to prompt for confirmation.
+
 * **Alternative 1 (current choice)**: Implement an abstract method `getNextParser` for all commands.
 ** Pros: Easy to extend. +
-New commands which require a prompt or alternative parsing do not need to further
-modify the `InternshipDiaryParser` or `LogicManager` class.
-** Cons: All commands will have to implement a `getNextParser` method. As `getNextParser` returns `null` for most
-commands, an abstract class is used. However, this means that commands cannot extend other abstract classes in
-the future.
+New commands which require a prompt or alternative parsing do not need to further modify the `InternshipDiaryParser` or `LogicManager` class.
+** Cons: All commands will have to implement a `getNextParser` method.
+As `getNextParser` returns `null` for most commands, an abstract class is used.
+However, this means that commands cannot extend other abstract classes in the future.
 
-* **Alternative 2**: Have `InternshipDiaryParser` have different modes depending
-on what command was last executed.
+* **Alternative 2**: Have `InternshipDiaryParser` have different modes depending on what command was last executed.
 ** Pros: Simple to understand.
 ** Cons: `InternshipDiaryParser` has no access to the next mode the command leads into, `LogicManager`
 needs to pass it into `InternshipDiaryParser`. +
@@ -335,11 +250,11 @@ As the different modes do not share code, they are better off as separate classe
 * **Alternative 3**: Make a confirmation window which freeze the main window.
 ** Pros: The `InternshipDiaryParser` or `LogicManager` class may not need to be modified.
 ** Cons: Relies on global static methods which may lead to bugs in the future.
-
 // end::clear[]
 
 // tag::interview[]
 === Interview and Interview Commands
+
 ==== Implementation
 The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
 which is associated to an `InternshipApplication` (see Model Diagram <<Design-Model>> ) and the Logic Classes `InterviewCommandParser` and `InterviewCommand`.
@@ -396,9 +311,12 @@ The execution sequence will first modify the `InternshipApplication` based on th
 Then followed by creating a CommandResult, and returning it.
 
 ==== Interview Commands Parser
-`InterviewCommandParser` is the entry point to all sub-commands of `InterviewCommand`. It will be invoked from `InternshipDiaryParser`
-which is the primary logic parser for user input. The following sequence diagram will illustrate the process of invocation for
- `InterviewAddCommand`. All other sub-commands will follow similar a invocation format.
+`InterviewCommandParser` is the entry point to all `interview` sub-command.
+It will be invoked from `InternshipDiaryParser`
+which is the primary logic parser for user input.
+The following sequence diagram will illustrate the process of invocation for
+`InterviewAddCommand`.
+All other sub-commands will follow the same invocation format.
 
 image::InterviewCommandSequenceDiagram.png[]
 
@@ -427,6 +345,7 @@ Interview types.
 ** Cons: Increasing number of variables if more interview types will be added.
 
 ===== Aspect: How to implement different interview commands
+
 * **Alternative 1 (current choice)**: Use a standardized command with sub-command type parsed as user input.
 ** Pros: More streamlined, only one command. +
 Able to use polymorphism to share operations between commands.
@@ -441,51 +360,40 @@ Create a lot of repetition in code.
 // tag::find[]
 === Find command
 
-The find command allows the user to get a filtered list of internship applications. The following sequence
-diagram will illustrate the process of invocation for the command:
+The find command allows the user to get a filtered list of internship applications.
+The following sequence diagram will illustrate the process of invocation for the command:
 
 image::FindSequenceDiagram.png[]
 
-The following subsections will go through the general implementations of the find command, as well as the 2
-versions of the command, find any match, and find match by fields.
+The following subsections will go through the general implementations of the find command, as well as the 2 versions of the command, find any match, and find match by fields.
 
 ==== Implementation
-The find command is implemented in the class `FindCommand` and uses the `FindCommandParser` class to parse the
-arguments for the command.
+
+The find command is implemented in the class `FindCommand` and uses the `FindCommandParser` class to parse the arguments for the command.
 
 To facilitate the find command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
 
-* `CompanyContainsKeywordsPredicate` -- Predicate to check if an internship application's `Company` field contains any
-substring matching any words in the list supplied by its constructor `CompanyContainsKeywordsPredicate(List<String>
+* `CompanyContainsKeywordsPredicate` -- Predicate to check if an internship application's `Company` field contains any substring matching any words in the list supplied by its constructor `CompanyContainsKeywordsPredicate(List<String>
 keywords)`.
-* `RoleContainsKeywordsPredicate` -- Predicate to check if an internship application's `Role` field contains any
-substring matching any words in the list supplied by its constructor `RoleContainsKeywordsPredicate(List<String>
+* `RoleContainsKeywordsPredicate` -- Predicate to check if an internship application's `Role` field contains any substring matching any words in the list supplied by its constructor `RoleContainsKeywordsPredicate(List<String>
 keywords)`.
-* `AddressContainsKeywordsPredicate` -- Predicate to check if an internship application's `Address` field contains any
-substring matching any words in the list supplied by its constructor `AddressContainsKeywordsPredicate(List<String>
+* `AddressContainsKeywordsPredicate` -- Predicate to check if an internship application's `Address` field contains any substring matching any words in the list supplied by its constructor `AddressContainsKeywordsPredicate(List<String>
 keywords)`.
-* `PhoneContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any
-substring matching any words in the list supplied by its constructor `PhoneContainsNumbersPredicate(List<String>
+* `PhoneContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any substring matching any words in the list supplied by its constructor `PhoneContainsNumbersPredicate(List<String>
 numbers)`.
-* `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any
-substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
+* `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
 keywords)`.
-* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any
-substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
+* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
 numbers)`..
-* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is
-exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
-* `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any
-substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
+* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
+* `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
 
 ==== Find Any Match
 
 This version of the command is invoked when the user enters the command with preamble text in the parameter, e.g.
-`find google facebook` or `find google r/software`. The command will perform search for any internship application
-where any of the fields `Company`, `Role`, `Address`, `Phone`, `Email`, `Priority` or `Status` contains a substring
-matching at least one word in the preamble and display them, e.g. `find google facebook` will look for internship
-applications whose any of the above fields contains the substring `google` or `facebook`.
+`find google facebook` or `find google r/software`.
+The command will perform search for any internship application where any of the fields `Company`, `Role`, `Address`, `Phone`, `Email`, `Priority` or `Status` contains a substring matching at least one word in the preamble and display them, e.g. `find google facebook` will look for internship applications whose any of the above fields contains the substring `google` or `facebook`.
 
 The searching and displaying of the internship application is done by performing an `OR` operation on all the predicates
 `CompanyContainsKeywordsPredicate`, `RoleContainsKeywordsPredicate`, `AddressContainsKeywordsPredicate`,
@@ -496,24 +404,20 @@ The searching and displaying of the internship application is done by performing
 ==== Find Match by Fields
 
 This version of the command is invoked when the user enters the command without any preamble text in the parameter, e.g.
-`find c/google r/software`. The command will perform a search for any internship application where the fields
-`Company`, `Role`, `Address`, `Phone`, `Email`, `ApplicationDate`, `Priority` and `Status` match any of the supplied
-word after their respective prefixes (if a field's prefix is not specified, the field is not checked),
-e.g. `find c/google facebook d/01 02 2020` will look for internship applications where the `Company` field contains
-a substring `google` or `facebook` and the `ApplicationDate` field matching the date 1st February 2020.
+`find c/google r/software`.
+The command will perform a search for any internship application where the fields
+`Company`, `Role`, `Address`, `Phone`, `Email`, `ApplicationDate`, `Priority` and `Status` match any of the supplied word after their respective prefixes (if a field's prefix is not specified, the field is not checked), e.g. `find c/google facebook d/01 02 2020` will look for internship applications where the `Company` field contains a substring `google` or `facebook` and the `ApplicationDate` field matching the date 1st February 2020.
 
-The searching and displaying of the internship application is done by performing an `AND` operation on the
-required predicates that is any of `CompanyContainsKeywordsPredicate`, `RoleContainsKeywordsPredicate`,
+The searching and displaying of the internship application is done by performing an `AND` operation on the required predicates that is any of `CompanyContainsKeywordsPredicate`, `RoleContainsKeywordsPredicate`,
 `AddressContainsKeywordsPredicate`, `PhoneContainsNumbersPredicate`, `EmailContainsKeywordsPredicate`,
-`ApplicationDateIsDatePredicate`, `PriorityContainsNumbersPredicate` and `StatusContainsKeywordsPredicate` to get a
-single predicate and passing that into the method `updateFilteredInternshipApplicationList()` of the `ModelManager`
+`ApplicationDateIsDatePredicate`, `PriorityContainsNumbersPredicate` and `StatusContainsKeywordsPredicate` to get a single predicate and passing that into the method `updateFilteredInternshipApplicationList()` of the `ModelManager`
 instance.
 
 ==== Design Considerations
 
 ===== Aspect: How to implement the different versions of find command
-* **Alternative 1 (current choice)**: Use a standardized command with the version to invoke determined by the type of
-user input parameters.
+
+* **Alternative 1 (current choice)**: Use a standardized command with the version to invoke determined by the type of user input parameters.
 ** Pros: More streamlined, only one command. +
 This ensures that the user dont have to remember multiple command to use the different versions.
 ** Cons: Longer and less specific execute method.
@@ -528,6 +432,7 @@ This still requires user to remember the right words to invoke the different ver
 ** Cons: Longer and less specific execution method.
 // end::find[]
 
+// tag::archival[]
 === Archival System
 
 This feature allows users to store chosen internship application(s) into the archival.
@@ -546,8 +451,7 @@ To handle the ability for a user to switch views, we implemented the commands `l
 * `list` allows the user to view the unarchived internship application(s)
 * `archival` allows the user to view the archived internship application(s)
 
-From here on, we will refer to the list of unarchived internship application(s) as the *main list*, and the list of
-archived internship application(s) as the *archival list*.
+From here on, we will refer to the list of unarchived internship application(s) as the *main list*, and the list of archived internship application(s) as the *archival list*.
 
 Beyond the primary purpose of allowing users to switch between their view of main and archived list of internship application(s),
 `list` and `archival` also helps to verify that the `archive` and `unarchive` commands are used appropriately.
@@ -557,10 +461,9 @@ This is identical for the `unarchive` command in the main list as well.
 
 ===== Implementation
 
-The class diagram below depicts the important methods and variables that provide us the ability to switch
-views between the main list and the archival list.
+The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
 
-image::InternshipDiaryAndModelManagerClassDiagram.png[width="800", align="center"]
+image::InternshipDiaryAndModelManagerClassDiagram.png[width="800",align="center"]
 
 The object diagram below illustrates the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`:
 
@@ -568,7 +471,7 @@ The object diagram below illustrates the three `UniqueInternshipApplicationList`
 * `archivedInternships`
 * `unarchivedInternships`
 
-image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800", align="center"]
+image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800",align="center"]
 
 As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
 `archivedInternships` or `unarchivedInternships` at any one time.
@@ -576,12 +479,14 @@ As the name suggests, `displayedInternships` is the list that is shown to the us
 When a user is viewing the main list, `displayedInternships` references `unarchivedInternships`.
 And when a user is viewing the archival list, `displayedInternships` references `archivedInternships`.
 
-The following sequence diagram illustrates how an `archival` command is executed. The `list` command is similar to `archival`.
+The following sequence diagram illustrates how an `archival` command is executed.
+The `list` command is similar to `archival`.
 You may use the same sequence diagram for the `list` command.
 
 image::ArchivalSequenceDiagram.png[align="center"]
 
-The following code snippet is retrieved from the InternshipDiary class. It illustrates the internal workings of how we switch the view between the archived list and the main list.
+The following code snippet is retrieved from the InternshipDiary class.
+It illustrates the internal workings of how we switch the view between the archived list and the main list.
 
     public void viewArchivedInternshipApplicationList() {
         this.displayedInternships = archivedInternships;
@@ -590,16 +495,17 @@ The following code snippet is retrieved from the InternshipDiary class. It illus
     }
 
 It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
-However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the
-reference update in `displayedInternships` whenever the user executes `archival` or `list`. Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
+However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the reference update in `displayedInternships` whenever the user executes `archival` or `list`.
+Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
-In order to resolve this issue, we need to employ the observer pattern. The idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
+In order to resolve this issue, we need to employ the observer pattern.
+The idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
 Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
 
 To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
-`PropertyChangeSupport` is a utility class to support the observer pattern by managing a list of listeners (observers) and firing `PropertyChangeEvent` to
-the listeners. A class that contains an instance of `PropertyChangeSupport` is an observable. On the other hand, a class
-that implements the `PropertyChangeListener` interface is an observer.
+`PropertyChangeSupport` is a utility class to support the observer pattern by managing a list of listeners (observers) and firing `PropertyChangeEvent` to the listeners.
+A class that contains an instance of `PropertyChangeSupport` is an observable.
+On the other hand, a class that implements the `PropertyChangeListener` interface is an observer.
 
 image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
 
@@ -611,42 +517,45 @@ The class diagram above showcases our implementation of a two-tier observer-obse
 * `StatisticsWindow` is an observer
 ** It observes any changes to `filteredInternshipApplications` contained in `ModelManager`
 
+[NOTE]
 ====
-Do note the following:
-
 * `InternshipDiary` and `ModelManager` each contains an instance of `PropertyChangeSupport`.
 * `ModelManager` serves as an abstraction between `StatisticsWindow` and `InternshipDiary`.
 * All the UI elements in our implementation follow the above class diagram -- `StatisticsWindow` just happens to be the UI element that we chose to illustrate our diagram.
 ====
 
-From here on, we will briefly discuss how the observer pattern works in our implementation.
+We will briefly discuss how the observer pattern works in our implementation.
 
-Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function
-of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe. It will also have to specify which property
-of that object it wants to observe.
+Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe.
+It will also have to specify which property of that object it wants to observe.
 
-In our case, when ModelManager is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance
-belonging to `InternshipDiary`. The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
+In our case, when ModelManager is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
+The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
 is a reference to `ModelManager` itself (so that it can be registered as a listener of the `displayedInternships` property).
 
-The process is similar for any UI element that wants to observe the `filteredInternshipApplications` attribute (property) of `ModelManager`.
+The process is similar for any UI element that wants to observe the `filteredInternshipApplications` property of `ModelManager`.
 
 As a result, whenever there is a change to the property `displayedInternships` in `InternshipDiary`, the `PropertyChangeSupport` instance of
-`InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`. The emitted event will trigger the
+`InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`.
+The emitted event will trigger the
 `propertyChange` function of `ModelManager`. `ModelManager` can then retrieve the new reference from the event and update its
-`filteredInternshipApplications` accordingly. It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
+`filteredInternshipApplications` accordingly.
+It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
 `filteredInternshipApplications` property.
 
 ====
 [NOTE]
-This two-tier observer-observable structure is necessary because `list` and `archival` only changes the reference of `displayedInternships`. +
+The two-tier observer-observable structure is *necessary*.
+This is because `list` and `archival` only changes the reference of `displayedInternships`. +
 
 When 'ModelManager' updates its property `filteredInternshipApplications` with the new reference, UI elements that reference `filteredInternshipApplications`
-will not be aware of the reference update to `filteredInternshipApplications`. Thus, `ModelManager` has to notify and update the UI elements as well.
+will not be aware of the reference update to `filteredInternshipApplications`.
+Thus, `ModelManager` has to notify and update the UI elements as well.
 ====
 
-As an extension, our team also implemented enumeration for each property that is being observed. This modification ensures type safety and a way for us
-to track what properties are observed. This is especially important when many properties are being observed.
+As an extension, our team also implemented enumeration for each property that is being observed.
+This modification ensures type safety and a way for us to track what properties are observed.
+This is especially important when many properties are being observed.
 
 Below is the updated class diagram with the implementation of `ListenerPropertyType` enumeration.
 
@@ -657,61 +566,82 @@ As seen from the diagram above, each observable will implement two additional me
 . `addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l)`
 . `firePropertyChange(ListenerPropertyType propertyType, Object newValue)`
 
-This forms an abstraction as users would not be allowed to call the the `addPropertyChangeListener` and `firePropertyChange` methods of
+This forms a layer of abstraction as users would not be allowed to call the the `addPropertyChangeListener` and `firePropertyChange` methods of
 `PropertyChangeSupport` directly.
 
 ===== Design Considerations
 
-===== Aspect: How to implement the Archiving system on the backend
-* **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`. +
-`displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
-Whenever the user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships`.
-In terms of storage, we will use only one list. This means that whenever we load the list of internship application(s) from the JSON save file,
-we will filter the internship application(s) appropriately into `archivedInternships` and `unarchivedInternships` in `InternshipDiary`.
-When saving, we will combine both `archivedInternships` and `unarchivedInternships` into a single list for storage.
-** Pros: No need to modify the storage and its relevant test cases. This provides some stability in the refactoring process.
-** Cons: Potentially expensive in terms of computation. Furthermore, we will have to implement observer pattern to handle the reference changes.
+===== Aspect: How to implement the Archival view system on the backend
 
-* **Alternative 2**: Manipulate the current view of the internship application list by using Predicate and FilteredList,
-along with the boolean isArchived variable in `InternshipApplication`. This will easily help us determine which internship application should be rendered.
-** Pros: Very easy to implement and less expensive in terms of memory and computation. No need to implement observer pattern as there will be no reference updates.
+* **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`.
+`displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
+Whenever the user executes `archival`, we will update the reference of `displayedInternships` to `archivedInternships` and vice-versa.
+In terms of storage, we will use only one list.
+This means that whenever we load the list of internship application(s) from the JSON save file, we will filter the internship application(s) appropriately into `archivedInternships` and `unarchivedInternships` in `InternshipDiary`.
+When saving, we will combine both `archivedInternships` and `unarchivedInternships` into a single list for storage.
+** Pros: No need to modify the storage and its relevant test cases.
+This provides stability in the refactoring process.
+** Cons: Potentially expensive in terms of computation.
+Furthermore, we will have to implement observer pattern to handle the reference changes.
+
+* **Alternative 2**: Manipulate the current view of the internship application list by using Predicate and FilteredList, along with the boolean isArchived variable in `InternshipApplication`.
+This will easily help us determine which internship application should be rendered.
+** Pros: Very easy to implement and less expensive in terms of memory and computation.
+No need to implement observer pattern as there will be no reference updates.
 ** Cons: Potentially unsustainable as conflicts are likely to arise with commands that make heavy use of predicates (e.g. `Find` command).
 
-===== Aspect: How to implement the observer pattern
+===== Aspect: How to implement the Observer Pattern
+
 * **Alternative 1 (current choice)**: Use `PropertyChangeSupport` class and `PropertyChangeListener` interface from the `java.beans` package to support our implementation.
-** Pros: Easy and intuitive to use. Good built-in support. Seems to be highly recommended by other users.
+** Pros: Easy and intuitive to use.
+Good built-in support.
+Seems to be highly recommended by other users.
 ** Cons: Seemingly negligible for our usage.
 * **Alternative 2**: Use Java's `Observable` class and `Observer` interface.
 ** Pros: Seemingly negligible for our usage.
-** Cons: The package is deprecated. Harder to understand and implement.
+** Cons: The package is deprecated.
+Harder to understand and implement.
 
 ==== Archive & Unarchive
 
-To allow users to move internship application(s) between the main and archival list of internship application(s),
-we implemented the commands `archive` and `unarchive`:
+To allow users to move internship application(s) between the main and archival list of internship application(s), we implemented the commands `archive` and `unarchive`:
 
 * `archive` allows a user to move internship application(s) from the main list to the archival list.
 * `unarchive` allows a user to move internship application(s) from the archival list to the main list.
 
-The following activity diagram depicts the behaviour of an `archive` command. You may use it as a reference for `unarchive` as well. The activity diagrams for both are very similar.
+The following activity diagram depicts the behaviour of an `archive` command.
+You may use it as a reference for `unarchive` as well.
+The activity diagrams for both are very similar.
 
-image::ActivityDiagramArchiveCommand.png[align="center", width="700"]
+image::ActivityDiagramArchiveCommand.png[align="center",width="700"]
 
 While implementing the `archive` and `unarchive` commands, we realised that users may sometimes want to cherry-pick multiple internship application(s) to execute on or mass-execute on certain types of internship application(s).
 For example, a user may want to archive all the internship application(s) that have the status of "rejected".
 
-Commands like `archive`, `unarchive`, and `delete` can be seen as *removal-based commands*. This is because the utility
-of such functions are very similar; in that they serve to modify the list by removing items.
+Commands like `archive`, `unarchive`, and `delete` can be seen as *removal-based commands*.
+This is because the utility of such functions are very similar; in that they serve to modify the list by removing items.
 
 Therefore, we specifically created a new class, `RemovalBasedCommand`, to extend the functionality of *removal-based commands* like `archive`, `unarchive`, and `delete`.
 Through this new class, users will be able to execute the commands on multiple internship applications.
 
+In the following section, we will delve slightly deeper and discuss about the lower-level implementation of the extended functionality.
+
 ===== Implementation
+
+The following class diagram depicts our implementation of the extended functionality.
+
+image::RemovalBasedClassDiagram.png[align="center"]
+
+The idea of the implementation can be summarized as follows:
+
+. The purpose of `RemovalBasedCommandExecutionTypeParser` is solely to determine the execution type of the command by parsing the user input and calling `RemovalBasedCommandExecutionType#getExecutionType`.
+
+. On the other hand, `RemovalBasedCommand` is responsible for creating and executing the appropriate command based on the `commandWord` that was generated from the user input and passed down from `InternshipDiaryParser`.
 
 Users are able to execute removal-based commands like `archive` according to the execution types we have in the enumeration class `RemovalBasedCommandExecutionType`.
 
-We have implemented the following execution types: `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`. For the execution type `BY_FIELD`, users can only
-execute by the status field of an internship application currently.
+We have implemented the following execution types: `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`.
+For the execution type `BY_FIELD`, users can only execute by the `Status` field of an internship application currently.
 
 ====
 The format of a removal-based command can take on any of the following forms:
@@ -725,7 +655,8 @@ The format of a removal-based command can take on any of the following forms:
 Note that `command` can be any one of the removal-based commands.
 ====
 
-It is important to note that each execution type works similarly. At the core, all of them involves retrieving the index of a internship application to execute on.
+It is important to note that each execution type works similarly.
+At the core, all of them involves retrieving the index of a internship application to execute on.
 The difference lies in the pre-processing stage -- the steps an execution type takes to retrieve all the required indices.
 
 Therefore, to ensure succinctness, we will only be illustrating the usage of the command `archive` with the execution type `BY_FIELD`.
@@ -735,19 +666,17 @@ The following sequence diagram provides a high-level overview of how the `archiv
 
 image::ArchiveSequenceDiagram.png[align="center"]
 
-As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the
-internship applications and then converting these internship applications to their respective index. This will provide us with required indices.
+As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the internship applications and then converting these internship applications to their respective index.
+This provides us with required indices that we will execute the removal-based command on.
 
 ====
 [NOTE]
 We have implemented the mechanism to be reusable and extensible for new commands and execution types.
 
-This is evident in the sequence diagram above, where the different kinds of *removal-based commands* are abstracted from the diagram and
-referred to simply as `RemovalBasedCommand`. This means that the above diagram is applicable to `archive`, `unarchive`, `delete`, and any other
-*removal-based commands* that we may wish to introduce in the future.
+This is evident in the sequence diagram above, where the different kinds of *removal-based commands* are abstracted from the diagram and referred to simply as `RemovalBasedCommand`.
+This means that the above diagram is applicable to `archive`, `unarchive`, `delete`, and any other *removal-based commands* that we may wish to introduce in the future.
 
-Furthermore, if we ever wish to create a *new* `RemovalBasedCommandExecutionType` (on top of `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`), we may simply
-add a new alternative path to the diagram (or a new switch condition in terms of code).
+Furthermore, if we ever wish to create a *new* `RemovalBasedCommandExecutionType` (on top of `BY_INDEX`, `BY_INDICES`, and `BY_FIELD`), we may simply add a new alternative path to the diagram (or a new switch condition in terms of code).
 ====
 
 The following sequence diagram captures how `RemovalBasedCommandExecuteTypeParser` parses the input and determines the *execution type* of the command.
@@ -755,56 +684,57 @@ It also shows how a `RemovalBasedCommand` is created with the appropriate `Remov
 
 image::RemovalBasedCommandExecutionTypeParserSequenceDiagram.png[align="center"]
 
-As seen from the diagram above, the parser determined the execution type to be `BY_FIELD` and generated the appropriate predicate to
-construct a `RemovalBasedCommand` instance.
+As seen from the diagram above, the parser determined the execution type to be `BY_FIELD` and generated the appropriate predicate to construct a `RemovalBasedCommand` instance.
 
-Based on the command word passed in to construct the `RemovalBasedCommand` instance, `RemovalBasedCommand` creates a lazy lambda function
-that can be called to construct the appropriate *removal-based command* for execution.
+Based on the command word passed in to construct the `RemovalBasedCommand` instance, `RemovalBasedCommand` creates a lazy lambda function that can be called to construct the appropriate *removal-based command* for execution.
 
 The following sequence diagram depicts the above behaviour.
 
-image::GenerateLazyCommandSequenceDiagram.png[width="500", align="center"]
+image::GenerateLazyCommandSequenceDiagram.png[width="500",align="center"]
 
 As the command word is `archive`, a lazy lambda function to construct an `ArchiveCommand` is returned.
 
-The following sequence diagram captures the process of executing a removal-based command on one index.
+The following sequence diagram captures the process of executing the lazy removal-based command on one index.
 This particular index allows us to retrieve the appropriate internship application.
 
-image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center", width="800"]
+image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center",width="800"]
 
 It can be seen that the previously-generated lazy command is executed in the above sequence diagram.
 
-`ArchiveCommand` is constructed and subsequently executed on the index provided, by making the
-appropriate function call to the model to execute on the internship application. In this case, `archiveInternshipApplication` is called.
+`ArchiveCommand` is constructed and subsequently executed on the index provided, by making the appropriate function call to the model to execute on the internship application.
+In this case, `archiveInternshipApplication` is called.
 
 The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices.
 
-image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500", align="center"]
+image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500",align="center"]
 
-As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram)
-by running it on every index provided.
+As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram) by running it on every index provided.
+The feedback from each execution is cumulatively concatenated to form a single feedback.
 
-The following sequence diagram captures the process of re-creating the command result in `RemovalBasedCommand` by
-using the feedback obtained from the specific command execution, which is `ArchiveCommand` in our example.
+The following sequence diagram captures the process of re-creating the command result in `RemovalBasedCommand` by using the feedback obtained from the specific command execution, which is `ArchiveCommand` in our example.
 
-image::CreateCommandResultSequenceDiagram.png[width="500", align="center"]
+image::CreateCommandResultSequenceDiagram.png[width="500",align="center"]
 
 ==== Design Considerations
 
 ===== Aspect: How to implement multiple execution types for removal-based commands
-* **Alternative 1 (current choice)**: Use encapsulation to hold the appropriate command word, which will then be used to
-generate the removal-based command that will execute based on the execute type provided.
+
+* **Alternative 1 (current choice)**: Use encapsulation to hold the appropriate command word, which will then be used to generate the removal-based command that will execute based on the execute type provided.
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when
-`RemovalBasedCommand` is executed. This removal-based command will then be used on the index/indices provided according to the execution type.
+`RemovalBasedCommand` is executed.
+This removal-based command will then be used on the index/indices provided according to the execution type.
 ** Pros: Easier to implement and convey the idea to team members.
-** Cons: Will require many case handling (e.g. switch cases). Polymorphism may be a better solution in terms of code extensibility and elegance.
+** Cons: Will require multiple case handlings (e.g. switch cases).
+Polymorphism may be a better solution in terms of code extensibility and elegance.
 
 * **Alternative 2**: Use polymorphism where each removal-based command extends the class `RemovalBasedCommand` and inherit the appropriate execution type methods. +
 ** Pros: Code will likely be more extensible and elegant.
 ** Cons: Likely to require major redesigning and refactoring of existing logic codebase because we will have to modify `Command` class.
-Furthermore, the changes may affect areas that we may not have considered. This is risky and will take a lot of time, effort, and team discussion.
+Furthermore, the changes may affect areas that we may not have considered.
+This is risky and will take a lot of time, effort, and team discussion.
+// end::archival[]
 
-
+// tag::statistics[]
 === Statistics Feature
 
 This feature allows users to view relevant metrics about their internship application(s).
@@ -818,7 +748,7 @@ Currently, the tracked metrics include:
 
 The following class diagram gives an overview of our implementation of the statistics feature.
 
-image::StatisticsClassDiagram.png[width="800", align="center"]
+image::StatisticsClassDiagram.png[width="800",align="center"]
 
 Users will be able to view the metrics from two areas:
 
@@ -831,59 +761,55 @@ Users will be able to view the metrics from two areas:
 (currently in the form of a bar chart and a pie chart)
 
 The `Statistics` object is used to generate statistics for any internship application list that it is given.
-`StatisticsWindow` and `StatisticsBarFooter` each contains an instance of `Statistics` that helps them compute the relevant statistics
-whenever there is any update to the internship application list.
+`StatisticsWindow` and `StatisticsBarFooter` each contains an instance of `Statistics` that helps them compute the relevant statistics whenever there is any update to the internship application list.
 
-The internship application list can be updated either due to a change in reference in `displayedInternships` from `InternshipDiary` (e.g. `archival` and `list`) or any modifications to the
-current internship application list (e.g. adding, deleting, editing of internship applications).
+The internship application list can be updated either due to a change in reference in `displayedInternships` from `InternshipDiary` (e.g. `archival` and `list`) or any modifications to the current internship application list (e.g. adding, deleting, editing of internship applications).
 
-The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` shares the same workflow) is notified of the updates
-in the internship application list and how it subsequently updates the statistics.
+The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` shares the same workflow) is notified of the updates in the internship application list and how it subsequently updates the statistics.
 
-image::ActivityDiagramStatistics.png[width="700", align="center"]
+image::ActivityDiagramStatistics.png[width="700",align="center"]
 
-Upon creation of the `StatisticsWindow` and `StatisticsBarFooter`, each of them will attach an event listener to the internship application list
-that it was given. This event listener will notify them of any internal modifications to the internship application list.
+Upon creation of the `StatisticsWindow` and `StatisticsBarFooter`, each of them will attach an event listener to the internship application list that it was given.
+This event listener will notify them of any internal modifications to the internship application list.
 
-On the other hand, both `StatisticsWindow` and `StatisticsBarFooter` will register themselves as *observers* as well. This is so that
-the implemented observer pattern can notify them of any changes in the internship application list reference and update them with the new reference
-accordingly.
+On the other hand, both `StatisticsWindow` and `StatisticsBarFooter` will register themselves as *observers* as well.
+This is so that the implemented observer pattern can notify them of any changes in the internship application list reference and update them with the new reference accordingly.
 
 Any of the two updates above will trigger the `Statistics` to recompute with the updated internship application list.
-`StatisticsWindow` and `StatisticsBarFooter` will then retrieve the required computed metrics from `Statistics` and re-binds the
-them to the UI accordingly.
+`StatisticsWindow` and `StatisticsBarFooter` will then retrieve the required computed metrics from `Statistics` and re-binds the them to the UI accordingly.
 
 ==== Design Considerations
 
 ===== Aspect: Which list to retrieve data from to generate statistics
-* **Alternative 1 (current choice)**: Using filtered ObservableList +
-The filtered list is dynamically updated by `find` and `sort` command. The statistics model will generate statistics based
-on the dynamic filtering changes that occur in either the main list or archival list (the current view selected by user).
+
+* **Alternative 1 (current choice)**: Use filtered ObservableList.
+The filtered list is dynamically updated by `find` and `sort` command.
+The statistics model will generate statistics based on the dynamic filtering changes that occur in either the main list or archival list (the current view selected by user).
 ** Pros: Users will be choose which list they want to view the relevant statistics for.
 Works well with `archival`, `list`, and `find` commands that dynamically changes the list.
 ** Cons: Often re-computation upon changes in the filtered list may cause some performance bottleneck.
 
-* **Alternative 2**: Using the base list that contains all of the internship application(s)
+* **Alternative 2**: Use the base list that contains all of the internship application(s).
 The base list is not filtered according to predicate(s) set by users.
-** Pros: Require less re-computation compared to using filtered ObservableList, as it only recomputes upon addition(s), deletion(s), or changes
-in an internship application stored in the list.
+** Pros: Require less re-computation compared to using filtered ObservableList, as it only recomputes upon addition(s), deletion(s), or changes in an internship application stored in the list.
 ** Cons: May be unintuitive to some extent for users when the statistics do not tally with the current view of the list.
 
 ===== Aspect: How to store the statistics generated from data
-A list of internship application(s) will be passed into the statistics model and upon function call,
-the statistics model will iterate through the list and generate/update the latest statistics accordingly.
 
-* **Alternative 1 (current choice)**: Storing the mapping between each status and count using a HashMap +
-The idea is to retrieve all the statuses available from the enum (whenever the statistics model is created)
-and creating a HashMap with those status as the key and respective count as the value.
-** Pros: Extensible and reusable. Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses.
+A list of internship application(s) will be passed into the statistics model and upon function call, the statistics model will iterate through the list and generate/update the latest statistics accordingly.
+
+* **Alternative 1 (current choice)**: Store the mapping between each status and count using a HashMap.
+The idea is to retrieve all the statuses available from the enum (whenever the statistics model is created) and create a HashMap with those status as the key and respective count as the value.
+** Pros: Extensible and reusable.
+Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses.
 ** Cons: Seemingly negligible cons for our usage.
 
 * **Alternative 2**: Store each status count in separate variables that are initialized upon the creation of statistics model.
 ** Pros: Straightforward and very easy to understand for future developers.
 ** Cons: Very inextensible.
+// end::statistics[]
 
-//tag::reminder[]
+// tag::reminder[]
 === Reminder Command
 
 The reminder command displays to users a list of internship applications which:
@@ -897,12 +823,12 @@ The following sequence diagram shows how the command is executed:
 image::ReminderSequenceDiagram.png[]
 
 ==== Implementation
+
 The reminder command is implemented in the class `ReminderCommand`.
 
 To facilitate the reminder command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
 
-* `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application
-has a date of the current date or within 7 days of the current date.
+* `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application has a date of the current date or within 7 days of the current date.
 
 * `StatusIsWishlistPredicate` -- Predicate to check whether the `Status` field of an internship application is
 `wishlist`.
@@ -916,42 +842,39 @@ interviews` of an internship application that has a date of the current date or 
 * `IsNotArchivedPredicate` -- Predicate to check whether an internship application is not archived.
 
 Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
-`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
-operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
-the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The final predicate produced is
-then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
+`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed.
+Next, an `OR`
+operation is performed on the predicates from the previous two `AND` operations.
+An 'AND' operation is then performed on the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`.
+The final predicate produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
-passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
-applications in terms of which application is more urgent. It compares internship applications by their
-`ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the
-applications, in order of either date being closer to current date. If two internship applications have the same date
-in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship applications in terms of which application is more urgent.
+It compares internship applications by their
+`ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the applications, in order of either date being closer to current date.
+If two internship applications have the same date in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
 interviews` of the applications in order of which application has an interview that comes first.
 
 ==== Design considerations
 
 ====== Aspect: The order to display the internship applications
+
 * **Alternative 1 (current choice)**: Display the internship applications in the order of either their `ApplicationDate`
 or `interviewDate` of the earliest interview scheduled in `ArrayList<Interview> interviews` is closer to current date.
 
-** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless
-of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
+** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
 ** Cons: Longer code.
 
-* **Alternative 2**: Display the internship applications in the order of which application's `ApplicationDate` is closer
-to current date.
+* **Alternative 2**: Display the internship applications in the order of which application's `ApplicationDate` is closer to current date.
 
 ** Pros: Cleaner code.
-** Cons: Has the assumption that an internship application with a earlier `ApplicationDate` will have an interview
-scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`. User might miss out
-on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in
-to check `interviewDate`.
-//end::reminder[]
+** Cons: Has the assumption that an internship application with a earlier `ApplicationDate` will have an interview scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`.
+User might miss out on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in to check `interviewDate`.
+// end::reminder[]
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -971,15 +894,15 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+You may refer to the guide <<Documentation#, here>>.
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+You may refer to the guide <<Testing#, here>>.
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+You may refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
@@ -987,12 +910,13 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * is a Computer Science student
-* is looking for an internship
-* has a need to organise internship application
+* is actively looking for internships
+* has a need to organise internship applications
 * is a fast typist
 * is comfortable using CLI apps
+* prefers desktop applications
 
-*Value proposition*: An easy to use CLI program that can help students to organise and plan for their internship
+*Value proposition*: An easy-to-use CLI program that can help students to organise and plan for their internship
 
 [appendix]
 == User Stories
@@ -1030,22 +954,23 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Internship Diary` (InternDiary) and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: UC1 - Find Internship Application
 
 *MSS*
 
-1.  User requests to find a specific Internship Application by company name.
-2.  InternDiary shows the Internship Application with all its corresponding fields.
+1. User requests to find a specific Internship Application by company name.
+2. Internship Diary shows the Internship Application with all its corresponding fields.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. No Internship Application is shown.
+* 2a.
+No Internship Application is shown.
 +
 Use case ends.
 
@@ -1056,27 +981,30 @@ Use case ends.
 
 1. User pass:q[<u>find Internship Application UC1</u>].
 2. User requests to edit the fields of the Internship Application.
-3. InternDiary updates the new fields of the Internship Application.
+3. Internship Diary updates the new fields of the Internship Application.
 +
 Use case ends
 
 *Extensions*
 
 [none]
-* 2a. The given index is invalid.
+* 2a.
+The given index is invalid.
+
 [none]
-** 2a1. InternDiary shows an error message
+** 2a1. Internship Diary shows an error message
 +
 Use case resumes at step 1
 
 [discrete]
+
 === Use case: UC3 - Prioritise Internship Application
 
 *MSS*
 
 1. User pass:q[<u>find Internship Application UC1</u>].
 2. User requests to prioritise the Internship Application.
-3. InternDiary updates the priority level of the Internship Application.
+3. Internship Diary updates the priority level of the Internship Application.
 +
 Use case ends
 
@@ -1086,8 +1014,8 @@ Use case ends
 *MSS*
 
 1. User requests to sort the list.
-2. InternDiary sorts the list.
-3. InternDiary displays the sorted list.
+2. Internship Diary sorts the list.
+3. Internship Diary displays the sorted list.
 4. Footer displays the field which list is sorted by.
 +
 Use case ends
@@ -1095,9 +1023,11 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a. InternDiary detects invalid syntax.
+* 1a.
+Internship Diary detects invalid syntax.
+
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case ends
 
@@ -1222,59 +1152,59 @@ _{More to be added}_
 
 *Accessibility*
 
-.  The source code should be open source.
+. The source code should be open source.
 
 *Availability*
 
-.  The application is available around the clock and free-of-charge to the public.
-.  The application is available for download on our GitHub release page in the form of a JAR file.
+. The application is available around the clock and free-of-charge to the public.
+. The application is available for download on our GitHub release page in the form of a JAR file.
 
 *Capacity*
 
-.  The application should be able to store up to 1000 internship applications.
+. The application should be able to store up to 1000 internship applications.
 
 *Performance*
 
-.  Response time to any user action is within 3 seconds (including application start-up).
-.  The application should be able to contain and handle up to 300 internship applications before facing any form of performance bottleneck issues.
+. Response time to any user action is within 3 seconds (including application start-up).
+. The application should be able to contain and handle up to 300 internship applications before facing any form of performance bottleneck issues.
 
 *Reliability*
 
-.  The application should never fail if user actions are appropriate according to the user guide.
-.  The application should warn the user if it is unable to execute any of the user actions for various reasons.
+. The application should never fail if user actions are appropriate according to the user guide.
+. The application should warn the user if it is unable to execute any of the user actions for various reasons.
 
 *Compatibility*
 
-.  The application should work as intended on any popular operating systems.
-.  The application is guaranteed to work on Java version 11.
+. The application should work as intended on any popular operating systems.
+. The application is guaranteed to work on Java version 11.
 
 *Usability*
 
-.  The application should be intuitive and easy-to-learn, such that users can become proficient within a day.
-.  The application should prioritse displaying important and relevant information to users.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The application should be intuitive and easy-to-learn, such that users can become proficient within a day.
+. The application should prioritse displaying important and relevant information to users.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *Robustness*
 
-.  The application should be designed in a timeless manner, such that it would remain highly relevant to internship application at any point in the future.
+. The application should be designed in a timeless manner, such that it would remain highly relevant to internship application at any point in the future.
 
 *Integrity*
 
-.  The application should require periodical user updates to the data to ensure its integrity and that it is up-to-date and relevant.
+. The application should require periodical user updates to the data to ensure its integrity and that it is up-to-date and relevant.
 
 *Maintainability*
 
-.  The application should be compliant with the coding standard set forth by CS2103.
-.  The application should be compliant with best coding practices highlighted in CS2103.
-.  The application should be designed and implemented elegantly such that any programmer with at least a year of experience should be able to read, maintain, and contribute to the source code easily.
+. The application should be compliant with the coding standard set forth by CS2103.
+. The application should be compliant with best coding practices highlighted in CS2103.
+. The application should be designed and implemented elegantly such that any programmer with at least a year of experience should be able to read, maintain, and contribute to the source code easily.
 
 *Process*
 
-.  The project is expected to deliver a feature when necessary and feasible.
+. The project is expected to deliver a feature when necessary and feasible.
 
 *Project Scope*
 
-.  The application is not required to trace or detect internship application and add to the system automatically.
+. The application is not required to trace or detect internship application and add to the system automatically.
 
 Accessibility, Capacity, Compliance with regulations, Documentation, Disaster recovery, Efficiency, Extensibility, Fault tolerance, Interoperability, Maintainability, Privacy, Portability, Quality, Reliability, Response time, Robustness, Scalability, Security, Stability, Testability, and more ...
 
@@ -1283,16 +1213,20 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[internship-application]] Internship application::
+[[internship-application]]
+Internship application::
 An application made by the user to a company offering an internship position
 
-[[fields]] Fields::
+[[fields]]
+Fields::
 A list of descriptions for an internship application grouped by type
 
-[[window-preferences]] Window preferences::
+[[window-preferences]]
+Window preferences::
 The last application window size and location the user used before shutdown
 
 [appendix]
@@ -1328,13 +1262,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
 _{ more test cases ... }_
 
 === Deleting an internship application
@@ -1343,9 +1275,13 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all internship applications using the `list` command. Multiple internship applications in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First contact is deleted from the list.
+Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No internship application is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No internship application is deleted.
+Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
@@ -1387,5 +1323,4 @@ _{ more test cases ... }_
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
 _{ more test cases ... }_

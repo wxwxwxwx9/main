@@ -110,7 +110,7 @@ public class RemovalBasedCommand extends Command {
      * @param lazyCommand a function that creates the command.
      * @throws CommandException if the index is out of range.
      */
-    public CommandResult executeByIndex(Model model, Function<Index, Command> lazyCommand) throws CommandException {
+    private CommandResult executeByIndex(Model model, Function<Index, Command> lazyCommand) throws CommandException {
         requireNonNull(model);
 
         Index index = targetIndex.get();
@@ -131,10 +131,10 @@ public class RemovalBasedCommand extends Command {
      * @param lazyCommand a function that creates the command.
      * @throws CommandException if the indices are out of range.
      */
-    public CommandResult executeByIndices(Model model, Function<Index, Command> lazyCommand) throws CommandException {
+    private CommandResult executeByIndices(Model model, Function<Index, Command> lazyCommand) throws CommandException {
         requireNonNull(model);
 
-        List<Index> indices = this.targetIndices.get();
+        List<Index> indices = targetIndices.get();
 
         checkValidIndices(model, indices);
 
@@ -154,7 +154,7 @@ public class RemovalBasedCommand extends Command {
      * @param lazyCommand a function that creates the command.
      * @throws CommandException if the indices are out of range.
      */
-    public CommandResult executeByField(Model model, Function<Index, Command> lazyCommand) throws CommandException {
+    private CommandResult executeByField(Model model, Function<Index, Command> lazyCommand) throws CommandException {
         requireNonNull(model);
 
         List<InternshipApplication> internshipApplicationsToExecuteOn =

@@ -71,7 +71,7 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
      * @param args the argument to be parsed into an Index object.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    public RemovalBasedCommand commandByIndex(String args) throws ParseException {
+    private RemovalBasedCommand commandByIndex(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new RemovalBasedCommand(index, RemovalBasedCommandExecutionType.BY_INDEX, commandWord);
@@ -89,7 +89,7 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
      * @param args the argument to be parsed into an a set of Index object.
      * @throws ParseException if the user input does not conform to the expected format.
      */
-    public RemovalBasedCommand commandByIndices(String args) throws ParseException {
+    private RemovalBasedCommand commandByIndices(String args) throws ParseException {
         try {
             List<Index> indicesList = ParserUtil.parseIndices(args, RemovalBasedCommandExecutionType.INDICES_DELIMITER);
             return new RemovalBasedCommand(indicesList, RemovalBasedCommandExecutionType.BY_INDICES, commandWord);
@@ -107,7 +107,7 @@ public class RemovalBasedCommandExecutionTypeParser implements Parser<RemovalBas
      * @param args the argument to be parsed into a predicate.
      * @throws ParseException if the user input does not conform to the expected format.
      */
-    public RemovalBasedCommand commandByField(String args) throws ParseException {
+    private RemovalBasedCommand commandByField(String args) throws ParseException {
         Predicate<InternshipApplication> predicate = generatePredicate(args);
         return new RemovalBasedCommand(predicate, RemovalBasedCommandExecutionType.BY_FIELD, commandWord);
     }
