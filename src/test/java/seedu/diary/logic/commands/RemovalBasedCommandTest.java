@@ -2,17 +2,20 @@ package seedu.diary.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.diary.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType.BY_FIELD;
+import static seedu.diary.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType.BY_INDEX;
+import static seedu.diary.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType.BY_INDICES;
 import static seedu.diary.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.diary.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.diary.logic.commands.CommandTestUtil.showInternshipApplicationAtIndex;
 import static seedu.diary.logic.commands.CommandTestUtil.showInternshipApplicationAtIndices;
-import static seedu.diary.testutil.PredicateUtil.prepareCompanyPredicate;
 import static seedu.diary.testutil.PredicateUtil.prepareEmailPredicate;
-import static seedu.diary.testutil.PredicateUtil.prepareRolePredicate;
+import static seedu.diary.testutil.PredicateUtil.prepareStatusPredicate;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_LIST_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_LIST_SECOND_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalIndexes.INDEX_SECOND_INTERNSHIP_APPLICATION;
+import static seedu.diary.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +25,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.diary.commons.core.Messages;
-import seedu.diary.commons.core.commandexecutiontype.RemovalBasedCommandExecutionType;
+
 import seedu.diary.commons.core.index.Index;
-import seedu.diary.model.InternshipDiary;
 import seedu.diary.model.Model;
 import seedu.diary.model.ModelManager;
 import seedu.diary.model.UserPrefs;
 import seedu.diary.model.internship.InternshipApplication;
-import seedu.diary.testutil.InternshipApplicationBuilder;
+import seedu.diary.model.status.Status;
 
 /**
  * Contains integration tests (interaction with the Model, DeleteCommand) and unit tests for
@@ -39,61 +41,39 @@ import seedu.diary.testutil.InternshipApplicationBuilder;
  */
 public class RemovalBasedCommandTest {
 
-    private static final String GOOGLE = "google";
-    private static final String FACEBOOK = "facebook";
+    private final Predicate<InternshipApplication> validPredicate = prepareStatusPredicate(Status.APPLIED.toString());
+    private final Predicate<InternshipApplication> secondValidPredicate =
+        prepareStatusPredicate(Status.WISHLIST.toString());
+    private final Predicate<InternshipApplication> invalidPredicate = prepareEmailPredicate(Status.APPLIED.toString());
 
-    private Index index;
-    private Index secondIndex;
     private List<Index> indices;
     private List<Index> secondIndices;
-    private Predicate<InternshipApplication> validPredicate;
-    private Predicate<InternshipApplication> secondValidPredicate;
-    private Predicate<InternshipApplication> invalidPredicate;
 
-    private RemovalBasedCommandExecutionType executionTypeIndex;
-    private RemovalBasedCommandExecutionType executionTypeIndices;
-    private RemovalBasedCommandExecutionType executionTypeField;
+    private final String commandWord = DeleteCommand.COMMAND_WORD;
 
-    private String commandWord = DeleteCommand.COMMAND_WORD;
-
-    private Model model;
-    private Model expectedModel;
+    private final Model model = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalInternshipDiary(), new UserPrefs());
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getNewInternshipDiary(), new UserPrefs());
-        expectedModel = new ModelManager(getNewInternshipDiary(), new UserPrefs());
-        index = INDEX_FIRST_INTERNSHIP_APPLICATION;
-        secondIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
+        // to prevent leakage between test cases, where the list is mutated
         indices = new ArrayList<>(INDEX_LIST_FIRST_INTERNSHIP_APPLICATION);
         secondIndices = new ArrayList<>(INDEX_LIST_SECOND_INTERNSHIP_APPLICATION);
-        validPredicate = prepareCompanyPredicate(GOOGLE);
-        secondValidPredicate = prepareRolePredicate(GOOGLE);
-        invalidPredicate = prepareEmailPredicate(GOOGLE);
-        executionTypeIndex = RemovalBasedCommandExecutionType.BY_INDEX;
-        executionTypeIndices = RemovalBasedCommandExecutionType.BY_INDICES;
-        executionTypeField = RemovalBasedCommandExecutionType.BY_FIELD;
-    }
-
-    private InternshipDiary getNewInternshipDiary() {
-        InternshipDiary mockInternshipDiary = new InternshipDiary();
-        mockInternshipDiary.loadInternshipApplication(new InternshipApplicationBuilder().withCompany(GOOGLE).build());
-        mockInternshipDiary.loadInternshipApplication(new InternshipApplicationBuilder().withCompany(FACEBOOK).build());
-        return mockInternshipDiary;
     }
 
     @Test
     public void execute_byIndexValidIndexUnfilteredListDeleteCommand_success() {
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(index, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, BY_INDEX, commandWord);
 
         InternshipApplication internshipApplicationToExecuteOn =
             model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
         String expectedMessage = String.format(
             RemovalBasedCommand.MESSAGE_COMMAND_INTERNSHIP_SUCCESS.apply(commandWord),
-            internshipApplicationToExecuteOn + "\n");
+            internshipApplicationToExecuteOn + "\n"
+        );
 
         expectedModel.deleteInternshipApplication(internshipApplicationToExecuteOn);
 
@@ -105,7 +85,7 @@ public class RemovalBasedCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredInternshipApplicationList().size() + 1);
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(outOfBoundIndex, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(outOfBoundIndex, BY_INDEX, commandWord);
 
         assertCommandFailure(removalBasedDeleteCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
@@ -115,14 +95,15 @@ public class RemovalBasedCommandTest {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(index, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, BY_INDEX, commandWord);
 
         InternshipApplication internshipApplicationToExecuteOn =
             model.getFilteredInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
         String expectedMessage = String.format(
             RemovalBasedCommand.MESSAGE_COMMAND_INTERNSHIP_SUCCESS.apply(commandWord),
-            internshipApplicationToExecuteOn + "\n");
+            internshipApplicationToExecuteOn + "\n"
+        );
 
         showInternshipApplicationAtIndex(expectedModel, INDEX_FIRST_INTERNSHIP_APPLICATION);
         expectedModel.deleteInternshipApplication(internshipApplicationToExecuteOn);
@@ -135,11 +116,11 @@ public class RemovalBasedCommandTest {
         showInternshipApplicationAtIndex(model, INDEX_FIRST_INTERNSHIP_APPLICATION);
 
         Index outOfBoundIndex = INDEX_SECOND_INTERNSHIP_APPLICATION;
-        // ensures that outOfBoundIndex is still in bounds of diary book list
+        // ensures that outOfBoundIndex is still in bounds of unfiltered diary book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInternshipDiary().getDisplayedInternshipList().size());
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(outOfBoundIndex, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(outOfBoundIndex, BY_INDEX, commandWord);
 
         assertCommandFailure(removalBasedDeleteCommand, model, Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX);
     }
@@ -163,7 +144,7 @@ public class RemovalBasedCommandTest {
 
         // create command
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(indices, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(indices, BY_INDICES, commandWord);
 
         assertCommandSuccess(removalBasedDeleteCommand, model, expectedMessage, expectedModel);
     }
@@ -175,7 +156,7 @@ public class RemovalBasedCommandTest {
         mockIndexes.add(outOfBoundIndex);
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(mockIndexes, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(mockIndexes, BY_INDICES, commandWord);
 
         String expectedMessage =
             Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX + ": " + List.of(outOfBoundIndex.getOneBased());
@@ -209,7 +190,7 @@ public class RemovalBasedCommandTest {
             deletedInternshipApplications);
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(indices, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(indices, BY_INDICES, commandWord);
 
         assertCommandSuccess(removalBasedDeleteCommand, model, expectedMessage, expectedModel);
     }
@@ -223,7 +204,7 @@ public class RemovalBasedCommandTest {
         mockIndexes.add(outOfBoundIndex);
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(mockIndexes, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(mockIndexes, BY_INDICES, commandWord);
 
         String expectedMessage =
             Messages.MESSAGE_INVALID_INTERNSHIP_DISPLAYED_INDEX + ": " + List.of(outOfBoundIndex.getOneBased());
@@ -252,7 +233,7 @@ public class RemovalBasedCommandTest {
         }
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(validPredicate, executionTypeField, commandWord);
+            new RemovalBasedCommand(validPredicate, BY_FIELD, commandWord);
 
         String expectedMessage = String.format(
             RemovalBasedCommand.MESSAGE_COMMAND_INTERNSHIP_SUCCESS.apply(commandWord),
@@ -284,7 +265,7 @@ public class RemovalBasedCommandTest {
         }
 
         RemovalBasedCommand removalBasedDeleteCommand =
-            new RemovalBasedCommand(validPredicate, executionTypeField, commandWord);
+            new RemovalBasedCommand(validPredicate, BY_FIELD, commandWord);
 
         String expectedMessage = String.format(
             RemovalBasedCommand.MESSAGE_COMMAND_INTERNSHIP_SUCCESS.apply(commandWord),
@@ -299,16 +280,16 @@ public class RemovalBasedCommandTest {
 
         // BY INDEX
         RemovalBasedCommand firstRemovalBasedDeleteCommandByIndex =
-            new RemovalBasedCommand(index, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, BY_INDEX, commandWord);
         RemovalBasedCommand secondRemovalBasedDeleteCommandByIndex =
-            new RemovalBasedCommand(secondIndex, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(INDEX_SECOND_INTERNSHIP_APPLICATION, BY_INDEX, commandWord);
 
         // same object -> returns true
         assertTrue(firstRemovalBasedDeleteCommandByIndex.equals(firstRemovalBasedDeleteCommandByIndex));
 
         // same values -> returns true
         RemovalBasedCommand firstRemovalBasedDeleteCommandByIndexCopy =
-            new RemovalBasedCommand(index, executionTypeIndex, commandWord);
+            new RemovalBasedCommand(INDEX_FIRST_INTERNSHIP_APPLICATION, BY_INDEX, commandWord);
         assertTrue(firstRemovalBasedDeleteCommandByIndex.equals(firstRemovalBasedDeleteCommandByIndexCopy));
 
         // different types -> returns false
@@ -323,16 +304,16 @@ public class RemovalBasedCommandTest {
 
         // BY INDICES
         RemovalBasedCommand firstRemovalBasedDeleteCommandByIndices =
-            new RemovalBasedCommand(indices, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(indices, BY_INDICES, commandWord);
         RemovalBasedCommand secondRemovalBasedDeleteCommandByIndices =
-            new RemovalBasedCommand(secondIndices, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(secondIndices, BY_INDICES, commandWord);
 
         // same object -> returns true
         assertTrue(firstRemovalBasedDeleteCommandByIndices.equals(firstRemovalBasedDeleteCommandByIndices));
 
         // same values -> returns true
         RemovalBasedCommand firstRemovalBasedDeleteCommandByIndicesCopy =
-            new RemovalBasedCommand(indices, executionTypeIndices, commandWord);
+            new RemovalBasedCommand(indices, BY_INDICES, commandWord);
         assertTrue(firstRemovalBasedDeleteCommandByIndices.equals(firstRemovalBasedDeleteCommandByIndicesCopy));
 
         // different types -> returns false
@@ -341,22 +322,24 @@ public class RemovalBasedCommandTest {
         // null -> returns false
         assertFalse(firstRemovalBasedDeleteCommandByIndices.equals(null));
 
-        // different internship application index -> returns false
+        // different internship application indices -> returns false
         assertFalse(firstRemovalBasedDeleteCommandByIndices.equals(secondRemovalBasedDeleteCommandByIndices));
 
 
         // BY FIELD
         RemovalBasedCommand firstRemovalBasedDeleteCommandByField =
-            new RemovalBasedCommand(validPredicate, executionTypeField, commandWord);
+            new RemovalBasedCommand(validPredicate, BY_FIELD, commandWord);
         RemovalBasedCommand secondRemovalBasedDeleteCommandByField =
-            new RemovalBasedCommand(secondValidPredicate, executionTypeField, commandWord);
+            new RemovalBasedCommand(secondValidPredicate, BY_FIELD, commandWord);
+        RemovalBasedCommand invalidRemovalBasedDeleteCommandByField =
+            new RemovalBasedCommand(invalidPredicate, BY_FIELD, commandWord);
 
         // same object -> returns true
         assertTrue(firstRemovalBasedDeleteCommandByField.equals(firstRemovalBasedDeleteCommandByField));
 
         // same values -> returns true
         RemovalBasedCommand firstRemovalBasedDeleteCommandByFieldCopy =
-            new RemovalBasedCommand(validPredicate, executionTypeField, commandWord);
+            new RemovalBasedCommand(validPredicate, BY_FIELD, commandWord);
         assertTrue(firstRemovalBasedDeleteCommandByField.equals(firstRemovalBasedDeleteCommandByFieldCopy));
 
         // different types -> returns false
@@ -365,8 +348,11 @@ public class RemovalBasedCommandTest {
         // null -> returns false
         assertFalse(firstRemovalBasedDeleteCommandByField.equals(null));
 
-        // different internship application index -> returns false
+        // different internship application predicate -> returns false
         assertFalse(firstRemovalBasedDeleteCommandByField.equals(secondRemovalBasedDeleteCommandByField));
+
+        // different internship application predicate (invalid predicate) -> returns false
+        assertFalse(firstRemovalBasedDeleteCommandByField.equals(invalidRemovalBasedDeleteCommandByField));
 
     }
 

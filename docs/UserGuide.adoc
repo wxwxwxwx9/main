@@ -1,9 +1,11 @@
 = Internship Diary - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -255,6 +257,7 @@ being `Software Engineer` but not company that is `Facebook` and role being `Sof
 |`find c/Google s/applied`|Displays internship application(s) with company `Google` AND status `APPLIED`
 |===
 
+// tag::sort[]
 === Sorting internship companies by field : `sort`
 
 Sort displayed internship companies based on a given FIELD. +
@@ -276,6 +279,8 @@ Examples:
 
 * `Sort c/` +
 Returns a list of currently displayed companies sorted by company name.
+
+// end::sort[]
 
 === Modifying an interview in an internship application : `interview`
 

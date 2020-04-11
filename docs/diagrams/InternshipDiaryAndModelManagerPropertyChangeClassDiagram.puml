@@ -3,6 +3,30 @@
 hide circle
 skinparam classAttributeIconSize 0
 
+'package Model <<Rectangle>> {
+'    class InternshipDiary
+'    class ModelManager
+'}
+'
+'package UI <<Rectangle>> {
+'    class StatisticsWindow
+'}
+
+note "PropertyChangeSupport manages a list of listeners" as manageListeners
+PropertyChangeSupport .up[hidden]. manageListeners
+PropertyChangeSupport .up. manageListeners
+
+note "ModelManager observes (listens to)\ndisplayedInternships attribute\nof InternshipDiary" as modelManagerObserves
+modelManagerObserves .up[hidden]. ModelManager
+modelManagerObserves .up. ModelManager
+
+note "StatisticsWindow observes (listens to)\nfilteredInternshipApplications attribute\nof ModelManager" as statisticsWindowObserves
+statisticsWindowObserves .up[hidden]. StatisticsWindow
+statisticsWindowObserves .up. StatisticsWindow
+
+note "Notice that there is no coupling between the\n observables and observers" as N1
+
+
 Class InternshipDiary {
     - displayedInternships: \nUniqueInternshipApplicationList
 '    - changes: PropertyChangeSupport
@@ -25,7 +49,7 @@ Class StatisticsWindow implements PropertyChangeListener {
     + propertyChange(PropertyChangeEvent e): void
 }
 
-interface PropertyChangeListener <<interface>> {
+class PropertyChangeListener <<interface>> {
     propertyChange(PropertyChangeEvent e): void
 }
 
@@ -51,9 +75,9 @@ PropertyChangeSupport .right.> PropertyChangeListener
 'InternshipDiary ..> ListenerPropertyType
 'ModelManager ..> ListenerPropertyType
 
-StatisticsWindow -left- ModelManager: observes\n (listens to) >
-
-ModelManager -left- InternshipDiary: observes\n (listens to) >
+'StatisticsWindow -left- ModelManager: observes\n (listens to) >
+'
+'ModelManager -left- InternshipDiary: observes\n (listens to) >
 
 '        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, internshipApplicationListPanel);
 '        logic.addPropertyChangeListener(FILTERED_INTERNSHIP_APPLICATIONS, statisticsWindow);
