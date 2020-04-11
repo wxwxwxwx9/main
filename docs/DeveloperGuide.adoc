@@ -1000,10 +1000,123 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise.
+Furthermore, any references made to the `list` refers to the *main list* (unarchived internship applications), unless specified otherwise.
 
 [discrete]
-=== Use case: UC1 - Find Internship Application
+=== Use case: UC1 - View Main List
+
+*MSS*
+
+1. User requests to view the main list.
+2. Internship Diary displays the main list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC2 - View Archival List
+
+*MSS*
+
+1. User requests to view the archival list.
+2. Internship Diary displays the archival list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC3 - Add Internship Application
+
+*MSS*
+
+1. User requests to add an internship application to the list.
+2. Internship Diary adds the internship application to the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an error in the input.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC4 - Delete Internship Application
+
+*MSS*
+
+1. User requests to delete an internship application from the list.
+2. Internship Diary deletes the internship application from the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC5 - Archive Internship Application
+
+*Precondition(s)*
+
+* Internship Diary is displaying the main list.
+
+*Guarantee(s)*
+
+* Internship Application appears in the archival list.
+
+*MSS*
+
+1. User requests to archive an internship application from the list.
+2. Internship Diary archives the internship application.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC6 - Unarchive Internship Application
+
+*Precondition(s)*
+
+* Internship Diary is displaying the archival list.
+
+*Guarantee(s)*
+
+* Internship Application appears in the main list.
+
+*MSS*
+
+1. User requests to unarchive an internship application from the archival list.
+2. Internship Diary unarchives the internship application.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC7 - Find Internship Application
 
 *MSS*
 
@@ -1021,7 +1134,7 @@ No Internship Application is shown.
 Use case ends.
 
 [discrete]
-=== Use case: UC2 - Edit Internship Application
+=== Use case: UC8 - Edit Internship Application
 
 *MSS*
 
@@ -1044,7 +1157,7 @@ Use case resumes at step 1
 
 [discrete]
 
-=== Use case: UC3 - Prioritise Internship Application
+=== Use case: UC9 - Prioritise Internship Application
 
 *MSS*
 
@@ -1055,7 +1168,7 @@ Use case resumes at step 1
 Use case ends
 
 [discrete]
-=== Use case: UC4 - Sort Internship Application
+=== Use case: UC10 - Sort Internship Application
 
 *MSS*
 
@@ -1078,12 +1191,12 @@ Internship Diary detects invalid syntax.
 Use case ends
 
 [discrete]
-=== Use case: UC5 - Select Internship Application
+=== Use case: UC11 - Select Internship Application
 
 *MSS*
 
 1. User requests to select an Internship Application.
-2. InternDiary displays selected Internship Application.
+2. Internship Diary displays selected Internship Application.
 +
 Use case ends
 
@@ -1092,19 +1205,19 @@ Use case ends
 [none]
 * 1a. The Internship Application to be selected does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 1
 
 [discrete]
-=== Use case: UC6 - Add Interview
+=== Use case: UC12 - Add Interview
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to add an Interview to a specific Internship Application.
-3. InternDiary creates an Interview.
-4. InternDiary adds Interview into Internship Application.
+3. Internship Diary creates an Interview.
+4. Internship Diary adds Interview into Internship Application.
 +
 Use case ends
 
@@ -1113,32 +1226,32 @@ Use case ends
 [none]
 * 2a. The Internship Application does not exist.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 3a. The Interview to be created has invalid fields.
 [none]
-** 3a.1. InternDiary shows an error message.
+** 3a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 4a. The Interview to be added already exists in the Internship Application.
 [none]
-** 4a.1 InternDiary shows an error message.
+** 4a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC7 - Edit Interview
+=== Use case: UC13 - Edit Interview
 
 *MSS*
 
 1. User requests to edit a specific Interview in a specific Internship Application.
-2. InternDiary creates a new Interview with edited fields.
-3. InternDiary replaces old Interview with new Interview in Internship Application.
+2. Internship Diary creates a new Interview with edited fields.
+3. Internship Diary replaces old Interview with new Interview in Internship Application.
 +
 Use case ends
 
@@ -1147,31 +1260,31 @@ Use case ends
 [none]
 * 1a. The Internship Application does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 2a. The new Interview to be created has invalid fields.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 3a. The Interview to be added already exists in the Internship Application.
 [none]
-** 3a.1 InternDiary shows an error message.
+** 3a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC8 - Delete Interview
+=== Use case: UC14 - Delete Interview
 
 *MSS*
 
 1. User requests to delete a specific Interview in a specific Internship Application.
-2. InternDiary removes Interview in Internship Application.
+2. Internship Diary removes Interview in Internship Application.
 +
 Use case ends
 
@@ -1180,18 +1293,30 @@ Use case ends
 [none]
 * 1a. The Internship Application does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 2a. The Interview to be deleted does not exist.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
-_{More to be added}_
+[discrete]
+=== Use case: UC15 - View Statistics
+
+*Guarantee(s)*
+
+* Separate window that contains the statistics appears.
+
+*MSS*
+
+1. User requests to view the statistics of his internship application(s).
+2. Internship Diary displays the statistics.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
