@@ -1,6 +1,7 @@
 package seedu.diary.model.internship.predicate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class PriorityContainsNumbersPredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertNotEquals(null, firstPredicate);
 
         // different numbers -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
