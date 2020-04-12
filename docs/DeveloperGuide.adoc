@@ -1918,3 +1918,40 @@ Expected: No applications should be shown.
 .. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
 any commands.
 
+[appendix]
+== Effort
+
+A lot of time and effort were channeled into designing and implementing a set of robust, easy-to-use, and cohesive features for our users.
+To help users *organise* their internship applications, we designed and implemented `find`, `sort`, `archive` and `unarchive`. On the other hand, to help users *track*
+their internship applications, we designed and implemented `reminder`, `interview`, and `stats`.
+
+=== Challenges Faced
+
+==== Designing `find`, `sort`, and `reminder`
+
+There was a need to plan how `find`, `sort`, and `reminder` command should behave and how we can extend such commands with new behaviours easily in the future.
+This required a lot of team discussion and effort in terms of coming up with drafts for our intended implementation. For `find`, we had to ensure that
+when a new field is added, or if an existing field is changed, we can simply add/edit predicate classes accordingly and make changes only in the `FindCommandParser`.
+For `sort`, we had to ensure that adding or removing a sort comparator only required very minimal changes to the `SortCommandParser` (which requires only a single line in our final implementation).
+On top of that, we also had to ensure that it is easy to pass a description of the predicate and comparator used to the `PredicateDisplayFooter` and `SortDisplayFooter` respectively.
+For `reminder`, there was a need to plan the conditions to decide which internship applications to show when the reminder command is used for the implementation of the corresponding predicates to use.
+
+==== Implementing interview classes and commands
+The interview classes must be highly extensible as new interview types could be added in the future. Therefore, extra effort was made to ensure new interviews could be easily integrated into the current logic and model structure of interviews.
+
+==== Enabling multiple execution type functionality for removal-based commands
+
+We wanted to make the application as user-friendly as possible for the users. Being able to execute removal-based commands like `delete`, `archive`, and `unarchive` is therefore a good feature to include.
+However, there are many ways to extend our commands to accommodate multiple execution type. The only question is: at what cost? As a team, we had to conduct multiple online team meetings during *milestone v1.4*
+to discuss about the most suitable, time-effective, and extensible implementation considering that the deadline is around the corner.
+
+==== Modifying GUI
+The GUI must be made easily readable and understandable by the user. Research and effort was made to ensure a well organised and consistent application layout.
+
+==== Integrating the features
+Due to the cohesive nature of our features, it resulted in extensive interaction between the components -- ensuring a smooth integration was therefore a significant challenge.
+For example, as our features introduced many new UI elements and backend implementation, we ran into UI / data reactivity issue where ObservableList was no longer an adequate and sustainable solution.
+
+We needed a more robust solution to help us keep the UI in sync with the state of our data. This required the team to look into how we can implement the observer pattern design into our system and the best options we have
+to implement the structure. There were various constraints that we had to be mindful of as we incorporated the observer pattern, mainly due to the way we implemented certain features (as reactivity issue was something we did
+not foresee). As this is our first time dealing with the observer pattern, we had to spend a good amount of time to understand and implement it properly.
