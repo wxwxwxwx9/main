@@ -11,7 +11,7 @@ public class ArchivalCommand extends Command {
 
     public static final String COMMAND_WORD = "archival";
 
-    public static final String MESSAGE_SUCCESS = "Listed all archived internship applications";
+    public static final String MESSAGE_SUCCESS = "Listed all archived internship application(s)";
 
     @Override
     public CommandResult execute(Model model) {

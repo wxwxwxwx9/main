@@ -38,9 +38,22 @@ it "de-clutters" their main list. This allows them to focus on the internship ap
 * *Highlights*: The archival feature seems trivial as it is usually a staple feature in many tracking applications.
 However, it was challenging to decide on a design implementation for our use case such that the feature is sustainable and extensible.
 Due to the chosen design, there was a need to implement a form of observer pattern to handle reactivity issues -- this became another important design consideration.
-Furthermore, for the `archive` and `unarchive` commands, the concept of enabling multiple execution types (e.g. by index, indices, and status) was
-not trivial to design and implement as well.
 
+. Implemented the Observer Pattern Design
+* *What it does*: Provides a robust solution to keep UI in sync with the state of backend data.
+* *Justification*: As we started to introduce many UI elements that require various data and reference from the backend, it became difficult to manage the delivery of such data to the UI.
+To prevent coupling between the elements with our backend, and to ensure the UI can be updated with the latest data changes, we needed to implement the observer pattern.
+* *Highlights*: Researching about and implementing the observer pattern design. I had to find out exactly how the mechanism works and the options out there for us to
+integrate it into our project. There was also quite a bit of trial-and-error involved in testing out the options so that we can find the best implementation / library
+for our situation.
+
+. Implemented Multi-Execution Type functionality for Removal-Based Commands
+* *What it does*: Allows users to execute removal-based commands like `archive`, `unarchive`, `delete` on multiple internship applications (by index, indices, or field).
+* *Justification*: This would greatly aid users in organising their internship applications. Imagine having to archive your internship applications one-by-one. This would not be a pleasant experience for the user.
+Users can now archive / unarchive / delete internship applications with a certain `status` or by multiple index-es.
+* *Highlights*: This feature seems trivial to implement. However, to design and implement it well is not easy. I had to discuss extensively with the team regarding the *most suitable*
+implementation (not the best) to go ahead with. This is because we have to consider aspects like timeline, amount of refactoring, conflicts with existing implementations, and other issues.
+We had to carefully weigh the amount of effort required and the benefit this feature would bring to the user as well.
 
 . Implemented the Statistics feature
 
@@ -59,6 +72,7 @@ link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=g
 
 * Project Management:
 ** Actively managed team repository's issue panel by adding, assigning, labeling, and closing issues.
+** Ensured that the team is heading in the right direction by monitoring the development progress and bringing up important issues.
 
 * Documentation
 ** Contributed to both the User Guide (UG) and Developer Guide (DG).
@@ -79,9 +93,31 @@ link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/65[#65]
 link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118]
 link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/124[#124]
 
-
 == Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=archival]
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=archive]
+
+include::../UserGuide.adoc[tag=unarchive]
+
+include::../UserGuide.adoc[tag=stats]
 
 
 == Contributions to the Developer Guide
 
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=archival]
+
+include::../DeveloperGuide.adoc[tag=statistics]
