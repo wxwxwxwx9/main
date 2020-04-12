@@ -58,7 +58,9 @@ public abstract class Interview {
         return interviewAddress;
     }
 
-    /** Returns a boolean on whether the interview is to be conducted online.*/
+    /**
+     * Returns a boolean on whether the interview is to be conducted online.
+     */
     public abstract boolean getIsOnline();
 
     @Override

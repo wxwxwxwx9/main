@@ -35,9 +35,11 @@ public abstract class InterviewCommand extends Command {
         return lastShownList.get(index.getZeroBased());
     }
 
-    /** Checks if interviewDate is before applicationDate */
+    /**
+     * Checks if interviewDate is before applicationDate
+     */
     protected boolean isInterviewBeforeApplication(InternshipApplication internshipApplication, Interview interview) {
         return interview.getInterviewDate()
-                .compareTo(internshipApplication.getApplicationDate().fullApplicationDate) < 0;
+            .compareTo(internshipApplication.getApplicationDate().fullApplicationDate) < 0;
     }
 }

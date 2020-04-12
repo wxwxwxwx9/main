@@ -18,7 +18,7 @@ public class StatusIsWishlistPredicate implements Predicate<InternshipApplicatio
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof StatusIsWishlistPredicate); // instanceof handles nulls
+            || (other instanceof StatusIsWishlistPredicate); // instanceof handles nulls
     }
 }
 

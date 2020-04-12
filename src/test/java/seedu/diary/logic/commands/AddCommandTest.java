@@ -8,7 +8,7 @@ import static seedu.diary.testutil.Assert.assertThrows;
 import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -44,7 +44,7 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validInternshipApplication),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validInternshipApplication), modelStub.internshipsAdded);
+        assertEquals(Collections.singletonList(validInternshipApplication), modelStub.internshipsAdded);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class AddCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    private static class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -210,7 +210,7 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single internship application.
      */
-    private class ModelStubWithInternshipApplication extends ModelStub {
+    private static class ModelStubWithInternshipApplication extends ModelStub {
         private final InternshipApplication internshipApplication;
 
         ModelStubWithInternshipApplication(InternshipApplication internshipApplication) {
@@ -227,8 +227,8 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the internship application being added.
      */
-    private class ModelStubAcceptingInternshipAdded extends ModelStub {
-        final ArrayList<InternshipApplication> internshipsAdded = new ArrayList<>();
+    private static class ModelStubAcceptingInternshipAdded extends ModelStub {
+        private final ArrayList<InternshipApplication> internshipsAdded = new ArrayList<>();
 
         @Override
         public boolean hasInternshipApplication(InternshipApplication internshipApplication) {

@@ -1,6 +1,7 @@
 package seedu.diary.model.internship.predicate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ class InterviewDateDuePredicateTest {
         assertFalse(interviewDateDuePredicate.equals(1));
 
         // null -> returns false
-        assertFalse(interviewDateDuePredicate.equals(null));
+        assertNotEquals(null, interviewDateDuePredicate);
     }
 
     @Test

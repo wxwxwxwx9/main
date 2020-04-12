@@ -1,6 +1,7 @@
 package seedu.diary.model.internship.predicate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ class StatusIsWishlistPredicateTest {
         assertFalse(predicate.equals(1));
 
         // null -> returns false
-        assertFalse(predicate.equals(null));
+        assertNotEquals(null, predicate);
     }
 
     @Test

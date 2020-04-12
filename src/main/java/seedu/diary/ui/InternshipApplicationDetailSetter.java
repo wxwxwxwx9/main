@@ -47,7 +47,7 @@ public class InternshipApplicationDetailSetter implements PropertyChangeListener
                 updateInternshipDetail(null);
             }
         } else {
-            throw new RuntimeException("InternshipApplicationDetailSetter listening to unhandled property name");
+            throw new IllegalStateException("InternshipApplicationDetailSetter listening to unhandled property name");
         }
     }
 

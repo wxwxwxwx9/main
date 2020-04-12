@@ -9,11 +9,6 @@ import seedu.diary.model.internship.InternshipApplication;
  * Comparator for sorting InternshipApplication by application date and interview date.
  */
 public class ApplicationDateAndInterviewDateComparator implements Comparator<InternshipApplication> {
-    private final LocalDate todayDate;
-
-    public ApplicationDateAndInterviewDateComparator() {
-        todayDate = LocalDate.now();
-    }
 
     @Override
     public int compare(InternshipApplication internship1, InternshipApplication internship2) {

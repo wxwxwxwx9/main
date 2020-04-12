@@ -1,8 +1,8 @@
 package seedu.diary.model.internship.predicate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.diary.testutil.TypicalIndexes.INDEX_FIRST_INTERNSHIP_APPLICATION;
 import static seedu.diary.testutil.TypicalInternshipApplications.getTypicalInternshipDiary;
 
@@ -29,7 +29,7 @@ class IsNotArchivedPredicateTest {
         assertFalse(predicate.equals(1));
 
         // null -> returns false
-        assertFalse(predicate.equals(null));
+        assertNotEquals(null, predicate);
     }
 
     @Test
@@ -55,7 +55,7 @@ class IsNotArchivedPredicateTest {
         }
 
         InternshipApplication archivedInternshipApplication =
-                model.getAllInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
+            model.getAllInternshipApplicationList().get(INDEX_FIRST_INTERNSHIP_APPLICATION.getZeroBased());
 
         assertFalse(predicate.test(archivedInternshipApplication));
     }

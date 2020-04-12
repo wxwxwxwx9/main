@@ -25,25 +25,27 @@ import seedu.diary.model.internship.InternshipApplication;
 public class RemovalBasedCommand extends Command {
 
     public static final Function<String, String> MESSAGE_USAGE_BY_INDEX = (commandWord) -> commandWord.toUpperCase()
-        + "s the internship application.\n"
+        + "S the internship application.\n"
         + "Identified by the index number used in the displayed internship list.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
         + "Example: " + commandWord + " 1\n";
 
     public static final Function<String, String> MESSAGE_USAGE_BY_INDICES = (commandWord) -> commandWord.toUpperCase()
-        + "s the internship application.\n"
+        + "S the internship application.\n"
         + "Identified by the index number used in the displayed internship list.\n"
         + "Parameters: INDEX, [INDEX], [INDEX], ... (all index must be positive integer with comma as separator)\n"
         + "Note that INDEX enclosed in bracket is optional.\n"
         + "Example: " + commandWord + " 3, 1, 5";
 
     public static final Function<String, String> MESSAGE_USAGE_BY_FIELD = (commandWord) -> commandWord.toUpperCase()
-        + "s all internship applications with the specified status."
-        + "The specified field keywords (case-insensitive).\n"
-        + "There must be only one specified status.\n"
+        + "S all internship applications with the specified status.\n"
+        + "Note that you can only execute based on Status field!\n"
+        + "You may archive based on any number of valid status field (but there must be at least one valid status)\n"
+        + "As long as there is one valid status, the command will execute.\n"
         + "Parameters: "
-        + PREFIX_STATUS + "STATUS"
-        + "Example: " + commandWord + " s/rejected";
+        + PREFIX_STATUS + "STATUS" + "\n"
+        + "Example: " + commandWord + " s/rejected\n"
+        + "Example: " + commandWord + " s/sss rejected";
 
     public static final Function<String, String> MESSAGE_COMMAND_INTERNSHIP_SUCCESS = (commandWord) ->
         commandWord.toUpperCase() + "D internship application(s) — \n\n%1$s";
@@ -98,7 +100,7 @@ public class RemovalBasedCommand extends Command {
         default:
             // this should never happen
             assert false;
-            throw new RuntimeException("unreachable");
+            throw new IllegalStateException("unreachable");
         }
 
     }
@@ -187,7 +189,7 @@ public class RemovalBasedCommand extends Command {
         default:
             // this should never happen
             assert false;
-            throw new RuntimeException("unreachable");
+            throw new IllegalStateException("unreachable");
         }
     }
 

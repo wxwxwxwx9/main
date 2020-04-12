@@ -22,7 +22,7 @@ We want to make it easier for you -- by helping you to track your internship app
 Internship Diary is a desktop internship application tracker that simplifies the process of tracking your internship applications, so that you can focus
 on landing your dream internship. If you are a computer science student who loves dabbling with a Command Line Interface (CLI), then this application is for you.
 
-Does this sound interesting? Head over to our User Guide to get started!
+Sounds interesting? Head over to our User Guide to get started!
 
 Internship Diary is an open source project and we welcome any contributions from the community. If you are interested in contributing, feel free to head over to our Developer Guide to find out more!
 

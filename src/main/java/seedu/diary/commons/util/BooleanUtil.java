@@ -13,8 +13,7 @@ public class BooleanUtil {
      * @param str
      */
     public static boolean isValidBoolean(String str) {
-        str = str.toLowerCase();
-        return str.equals("true") || str.equals("false");
+        return "true".equalsIgnoreCase(str) || "false".equalsIgnoreCase(str);
     }
 
 }

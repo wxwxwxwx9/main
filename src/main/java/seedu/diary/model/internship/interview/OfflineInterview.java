@@ -23,9 +23,9 @@ public class OfflineInterview extends Interview {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Offline Interview on: ")
-                .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)))
-                .append(" at: ")
-                .append(getInterviewAddress());
+            .append(getInterviewDate().format(DateTimeFormatter.ofPattern(ApplicationDate.DATE_PATTERN)))
+            .append(" at: ")
+            .append(getInterviewAddress());
         return builder.toString();
     }
 }

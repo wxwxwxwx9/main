@@ -453,11 +453,15 @@ keywords)`.
 numbers)`.
 * `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
 keywords)`.
-* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
+* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Priority` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
 numbers)`..
 * `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
 * `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
+
+The following class diagram show the relationship of the `Predicates`, `FindCommandParser` and `FindCommand`:
+
+image::FindClassDiagram.png[align="center"]
 
 ==== Find Any Match
 
@@ -482,6 +486,12 @@ The searching and displaying of the internship application is done by performing
 `AddressContainsKeywordsPredicate`, `PhoneContainsNumbersPredicate`, `EmailContainsKeywordsPredicate`,
 `ApplicationDateIsDatePredicate`, `PriorityContainsNumbersPredicate` and `StatusContainsKeywordsPredicate` to get a single predicate and passing that into the method `updateFilteredInternshipApplicationList()` of the `ModelManager`
 instance.
+
+==== Determine which Find to Invoke
+
+The following activity diagram summarises how which type of find to invoke is determined:
+
+image::FindCommandActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 
@@ -918,34 +928,62 @@ interviews` of an internship application that has a date of the current date or 
 * `IsNotArchivedPredicate` -- Predicate to check whether an internship application is not archived.
 
 Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
-`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed.
-Next, an `OR`
-operation is performed on the predicates from the previous two `AND` operations.
-An 'AND' operation is then performed on the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`.
-The final predicate produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
+`AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
+operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
+the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The `IsNotArchivedPredicate`
+is used to make sure that archived internship applications do not appear when `reminder` is used. The final predicate
+produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship applications in terms of which application is more urgent.
-It compares internship applications by their
-`ApplicationDate` field as well as the earliest interview date in the `ArrayList<Interview> interviews` of the applications, in order of either date being closer to current date.
-If two internship applications have the same date in their `ApplicationDate` field, it compares them by the earliest interview date in the `ArrayList<Interview>
-interviews` of the applications in order of which application has an interview that comes first.
+The activity diagram below summarises how each internship application is checked by the predicates mentioned above:
+
+.Activity Diagram of `ReminderCommand` filtering out applications to display
+image::ReminderActivityDiagram.png[]
+
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
+passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
+applications in terms of which application is more urgent. For each internship application, its `ApplicationDate` field
+as well as the earliest interview date in the `List<Interview> interviews` are compared to current date and the
+earlier date out of the two is used for the sorting.
 
 ==== Design considerations
 
 ====== Aspect: The order to display the internship applications
 
-* **Alternative 1 (current choice)**: Display the internship applications in the order of either their `ApplicationDate`
-or `interviewDate` of the earliest interview scheduled in `ArrayList<Interview> interviews` is closer to current date.
+* **Alternative 1 (current choice)**: Display the internship applications in the order of either their `applicationDate`
+or `interviewDate` of the earliest interview scheduled in `List<Interview> interviews` is closer to current date.
 
-** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
-** Cons: Longer code.
+** Pros: More useful to the user as the user can directly know which internship application to focus on more, regardless
+of whether it is to prepare for the submission of the application, or to prepare for an interview scheduled.
+** Cons: Longer code as both the earliest `interviewDate` and the `applicationDate` of an application needs to be compared
+to current date to see which date is closer and that date will then be used to sort the internship applications.
 
-* **Alternative 2**: Display the internship applications in the order of which application's `ApplicationDate` is closer to current date.
+* **Alternative 2**: Display the internship applications in the order of which application's `applicationDate` is closer
+to current date.
 
-** Pros: Cleaner code.
-** Cons: Has the assumption that an internship application with a earlier `ApplicationDate` will have an interview scheduled at an earlier `interviewDate` as compared to an application with later `ApplicationDate`.
-User might miss out on a earlier `interviewDate` for an application with later `ApplicationDate` and additional commands have to be typed in to check `interviewDate`.
-// end::reminder[]
+** Pros: Cleaner code as the applications can just be sorted by their `applicationDate`.
+** Cons: Has the assumption that an internship application with a earlier `applicationDate` will have an interview
+scheduled at an earlier `interviewDate` as compared to an application with later `applicationDate`. User might miss out
+on a earlier `interviewDate` for an application with later `applicationDate` and additional commands have to be typed in
+to check `interviewDate`.
+
+====== Aspect: The filtering of internship applications to be shown
+
+* **Alternative 1 (current choice)**: Using separate predicates(`ApplicationDateDuePredicate`, `StatusIsWishlistPredicate`,
+`InterviewDateDuePredicate`, `StatusIsInterviewPredicate`) to filter out internship applications with `ApplicationDate`
+or earliest `interviewDate` within 7 days from current date.
+
+** Pros: Cleaner code and each Predicate class only needs to check for one field. Easier to test as well.
+
+** Cons: Longer code as more predicates instantiated and used.
+
+* **Alternative 2**: Using just one predicate to filter out internship applications with `ApplicationDate`
+or earliest `interviewDate` within 7 days from current date.
+
+** Pros: Reduce the number of predicates to be instantiated and to be used.
+
+** Cons: More conditions to check for in one predicate which could lead to potential bugs.
+
+//end::reminder[]
 
 === Logging
 
@@ -1030,32 +1068,180 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the `Internship Diary` (Internship Diary) and the *Actor* is the `user`, unless specified otherwise.
+Furthermore, any references made to the `list` refers to the *main list* (unarchived internship applications), unless specified otherwise.
 
 [discrete]
-=== Use case: UC1 - Find Internship Application
+=== Use case: UC1 - View Main List
 
 *MSS*
 
-1. User requests to find a specific Internship Application by company name.
-2. Internship Diary shows the Internship Application with all its corresponding fields.
+1. User requests to view the main list.
+2. Internship Diary displays the main list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC2 - View Archival List
+
+*MSS*
+
+1. User requests to view the archival list.
+2. Internship Diary displays the archival list.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC3 - Add Internship Application
+
+*MSS*
+
+1. User requests to add an internship application to the list.
+2. Internship Diary adds the internship application to the list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.
-No Internship Application is shown.
+* 1a. Internship Diary detects an error in the input.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC4 - Delete Internship Application
+
+*MSS*
+
+1. User requests to delete an internship application from the list.
+2. Internship Diary deletes the internship application from the list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC5 - Archive Internship Application
+
+*Precondition(s)*
+
+* Internship Diary is displaying the main list.
+
+*Guarantee(s)*
+
+* Internship Application appears in the archival list.
+
+*MSS*
+
+1. User requests to archive an internship application from the list.
+2. Internship Diary archives the internship application.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC6 - Unarchive Internship Application
+
+*Precondition(s)*
+
+* Internship Diary is displaying the archival list.
+
+*Guarantee(s)*
+
+* Internship Application appears in the main list.
+
+*MSS*
+
+1. User requests to unarchive an internship application from the archival list.
+2. Internship Diary unarchives the internship application.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Internship Diary detects an invalid index.
+[none]
+** 1a1. Internship Diary shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: UC7 - Find Internship Application
+
+*MSS*
+
+1. User pass:q[<u>views main list UC1</u>].
+2. User requests to find a list of Internship Application based on given keywords.
+3. Internship Diary shows the list of Internship Application with any of the fields `Company`, `Role`, `Address`, `Phone`, `Email`, `Priority` or `Status` matching any of the keywords.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User pass:q[<u>views archival list UC2</u>].
++
+Use case resumes from step 2.
+[none]
+* 3a. No Internship Application is shown.
 +
 Use case ends.
 
 [discrete]
-=== Use case: UC2 - Edit Internship Application
+=== Use case: UC8 - Find Internship Application by Specific Field(s)
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>views main list UC1</u>].
+2. User requests to find a list of Internship Application based on given keywords for specific field(s).
+3. Internship Diary shows the list of Internship Application with the specified field(s) matching the any of the given keywords for each field.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User pass:q[<u>views archival list UC2</u>].
++
+Use case resumes from step 2.
+[none]
+* 2a. Internship Diary detects an invalid date given for the `Date` field.
+[none]
+** 2a1. Internship Diary shows an error message.
+** 2a2. User enters command with a different date.
++
+Steps 2a1-2a2 are repeated until the date entered is valid.
++
+Use case resumes from step 3.
+[none]
+* 3a. No Internship Application is shown.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC9 - Edit Internship Application
+
+*MSS*
+
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to edit the fields of the Internship Application.
 3. Internship Diary updates the new fields of the Internship Application.
 +
@@ -1074,18 +1260,18 @@ Use case resumes at step 1
 
 [discrete]
 
-=== Use case: UC3 - Prioritise Internship Application
+=== Use case: UC10 - Prioritise Internship Application
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to prioritise the Internship Application.
 3. Internship Diary updates the priority level of the Internship Application.
 +
 Use case ends
 
 [discrete]
-=== Use case: UC4 - Sort Internship Application
+=== Use case: UC11 - Sort Internship Application
 
 *MSS*
 
@@ -1108,12 +1294,12 @@ Internship Diary detects invalid syntax.
 Use case ends
 
 [discrete]
-=== Use case: UC5 - Select Internship Application
+=== Use case: UC12 - Select Internship Application
 
 *MSS*
 
 1. User requests to select an Internship Application.
-2. InternDiary displays selected Internship Application.
+2. Internship Diary displays selected Internship Application.
 +
 Use case ends
 
@@ -1122,19 +1308,19 @@ Use case ends
 [none]
 * 1a. The Internship Application to be selected does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 1
 
 [discrete]
-=== Use case: UC6 - Add Interview
+=== Use case: UC13 - Add Interview
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to add an Interview to a specific Internship Application.
-3. InternDiary creates an Interview.
-4. InternDiary adds Interview into Internship Application.
+3. Internship Diary creates an Interview.
+4. Internship Diary adds Interview into Internship Application.
 +
 Use case ends
 
@@ -1143,32 +1329,32 @@ Use case ends
 [none]
 * 2a. The Internship Application does not exist.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 3a. The Interview to be created has invalid fields.
 [none]
-** 3a.1. InternDiary shows an error message.
+** 3a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 4a. The Interview to be added already exists in the Internship Application.
 [none]
-** 4a.1 InternDiary shows an error message.
+** 4a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC7 - Edit Interview
+=== Use case: UC14 - Edit Interview
 
 *MSS*
 
 1. User requests to edit a specific Interview in a specific Internship Application.
-2. InternDiary creates a new Interview with edited fields.
-3. InternDiary replaces old Interview with new Interview in Internship Application.
+2. Internship Diary creates a new Interview with edited fields.
+3. Internship Diary replaces old Interview with new Interview in Internship Application.
 +
 Use case ends
 
@@ -1177,31 +1363,31 @@ Use case ends
 [none]
 * 1a. The Internship Application does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 2a. The new Interview to be created has invalid fields.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 3a. The Interview to be added already exists in the Internship Application.
 [none]
-** 3a.1 InternDiary shows an error message.
+** 3a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC8 - Delete Interview
+=== Use case: UC15 - Delete Interview
 
 *MSS*
 
 1. User requests to delete a specific Interview in a specific Internship Application.
-2. InternDiary removes Interview in Internship Application.
+2. Internship Diary removes Interview in Internship Application.
 +
 Use case ends
 
@@ -1210,18 +1396,30 @@ Use case ends
 [none]
 * 1a. The Internship Application does not exist.
 [none]
-** 1a.1. InternDiary shows an error message.
+** 1a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
 * 2a. The Interview to be deleted does not exist.
 [none]
-** 2a.1. InternDiary shows an error message.
+** 2a.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
-_{More to be added}_
+[discrete]
+=== Use case: UC16 - View Statistics
+
+*Guarantee(s)*
+
+* Separate window that contains the statistics appears.
+
+*MSS*
+
+1. User requests to view the statistics of his internship application(s).
+2. Internship Diary displays the statistics.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1351,23 +1549,244 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 _{ more test cases ... }_
 
-=== Deleting an internship application
+=== Command Box
 
-. Deleting an internship application while all internship applications are listed
+. Retrieving previous commands
 
-.. Prerequisites: List all internship applications using the `list` command. Multiple internship applications in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
-Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No internship application is deleted.
-Error details shown in the status message.
-Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites:
+* At least one command has been executed
+* Tester is not already at the oldest executed command
 
-_{ more test cases ... }_
+... Test case: ↑ +
+Expected: Previously executed command appears in the Command Box.
+
+. Retrieving later commands
+
+.. Prerequisites:
+* Tester has retrieved at least one previous command
+
+... Test case: ↓ +
+Expected: A command that was entered after the current retrieved command appears in the Command Box.
+
+=== Main List View
+
+. Viewing the main list of internship application(s)
+... Test case: "list" +
+Expected: All unarchived internship application(s) are displayed.
+
+=== Archival List View
+
+. Viewing the archival list of internship application(s)
+... Test case: "archival" +
+Expected: All archived internship application(s) are displayed.
+
+=== Adding an internship application
+
+. Adding an internship application
+
+... Test case: `add c/Google r/Software Engineer d/17 04 2020 s/applied` +
+Expected: New internship application is added to the bottom of the list.
+Details of the newly-added internship application shown in the feedback box.
+
+=== Deleting internship application
+
+. Deleting an internship application by index
+
+.. Prerequisites:
+* At least one internship application displayed
+
+... Test case: `delete 1` +
+Expected: First internship application is deleted from the list.
+Details of the deleted internship application shown in the feedback box.
+
+... Test case: `delete 0` +
+Expected: No internship application is deleted.
+Error details shown in feedback box.
+
+... Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+. Deleting internship applications by indices
+
+.. Prerequisites:
+* At least two internship applications displayed
+
+... Test case: `delete 1, 2` +
+Expected: First and second internship applications are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete 2, 1` +
+Expected: First and second internship applications are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete 2, 2` +
+Expected: Second internship application is deleted from the list.
+Details of the deleted internship application shown in the feedback box.
+
+... Test case: `delete 0, 2` +
+Expected: No internship application is deleted.
+Error details shown in feedback box.
+
+. Deleting internship application(s) by status field
+
+.. Prerequisites:
+* at least one internship application with status "applied"
+* at least one internship application with status "wishlist"
+* no internship applications with status "rejected"
+
+... Test case: `delete s/applied` +
+Expected: All internship application(s) with status "applied" are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete s/rejected` +
+Expected: No internship application(s) deleted.
+Feedback box will show blank list of internship applications deleted.
+
+... Test case: `delete s/notvalidstatus` +
+Expected: No internship application deleted.
+Error details shown in feedback box.
+
+... Test case: `delete s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+... Test case: `delete s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are deleted from the list.
+Details of the deleted internship applications shown in the feedback box.
+
+=== Archiving internship application
+
+. Archiving an internship application by index
+
+.. Prerequisites:
+* At least one internship application displayed
+
+... Test case: `archive 1` +
+Expected: First internship application is archived from the list.
+Details of the archived internship application shown in the feedback box.
+
+... Test case: `archive 0` +
+Expected: No internship application is archived.
+Error details shown in feedback box.
+
+... Other incorrect archive commands to try: `archive`, `archive x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+. Archiving internship applications by indices
+
+.. Prerequisites:
+* At least two internship applications displayed
+
+... Test case: `archive 1, 2` +
+Expected: First and second internship applications are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive 2, 1` +
+Expected: First and second internship applications are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive 2, 2` +
+Expected: Second internship application is archived from the list.
+Details of the archived internship application shown in the feedback box.
+
+... Test case: `archive 0, 2` +
+Expected: No internship application is archived.
+Error details shown in feedback box.
+
+. Archiving internship application(s) by status field
+
+.. Prerequisites:
+* at least one internship application with status "applied"
+* at least one internship application with status "wishlist"
+* no internship applications with status "rejected"
+
+... Test case: `archive s/applied` +
+Expected: All internship application(s) with status "applied" are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive s/rejected` +
+Expected: No internship application(s) archived.
+Feedback box will show blank list of internship applications archived.
+
+... Test case: `archive s/notvalidstatus` +
+Expected: No internship application archived.
+Error details shown in feedback box.
+
+... Test case: `archive s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+... Test case: `archive s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are archived from the list.
+Details of the archived internship applications shown in the feedback box.
+
+
+=== Unarchiving internship application
+
+. Unarchiving an internship application by index
+
+.. Prerequisites:
+* At least one internship application displayed
+
+... Test case: `unarchive 1` +
+Expected: First internship application is unarchived from the list.
+Details of the unarchived internship application shown in the feedback box.
+
+... Test case: `unarchive 0` +
+Expected: No internship application is unarchived.
+Error details shown in feedback box.
+
+... Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size) +
+Expected: Similar to previous.
+
+. Unarchiving internship applications by indices
+
+.. Prerequisites:
+* At least two internship applications displayed
+
+... Test case: `unarchive 1, 2` +
+Expected: First and second internship applications are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive 2, 1` +
+Expected: First and second internship applications are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive 2, 2` +
+Expected: Second internship application is unarchived from the list.
+Details of the unarchived internship application shown in the feedback box.
+
+... Test case: `unarchive 0, 2` +
+Expected: No internship application is unarchived.
+Error details shown in feedback box.
+
+. Unarchiving internship application(s) by status field
+
+.. Prerequisites:
+* at least one internship application with status "applied"
+* at least one internship application with status "wishlist"
+* no internship applications with status "rejected"
+
+... Test case: `unarchive s/applied` +
+Expected: All internship application(s) with status "applied" are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive s/rejected` +
+Expected: No internship application(s) unarchived.
+Feedback box will show blank list of internship applications unarchived.
+
+... Test case: `unarchive s/notvalidstatus` +
+Expected: No internship application unarchived.
+Error details shown in feedback box.
+
+... Test case: `unarchive s/applied wishlist` +
+Expected: All internship application(s) with status "applied" and "wishlist" are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
+... Test case: `unarchive s/applied notvalidstatus` +
+Expected: All internship application(s) with status "applied" are unarchived from the list.
+Details of the unarchived internship applications shown in the feedback box.
+
 
 === Adding an interview to an internship application
 
@@ -1400,6 +1819,12 @@ _{ more test cases ... }_
    Expected: No change to online interview. Error details shown in the result box as interview index is out of bounds.
 .. Other incorrect interview edit commands to try: `interview 1 edit`, `interview 1 edit x` (no change of interview fields will result in error).
 
+=== Showing Statistics Window
+
+. Display statistics window
+.. Test case: `stats`
+* Expected: A separate window will appear with graphical representation of the statistics.
+
 === Sorting the list of internship applications
 . Sorting a list of internship applications.
 .. Prerequisites: List all internship applications using `list`.  +
@@ -1430,10 +1855,40 @@ Expected: No change in order of internship applications with identical roles (st
 . Sorting a list of internship applications in `archival` mode.
 .. Repeat the above steps, but list all internship applications using `archival`.
 
+=== Getting reminders for internship applications
+. Getting reminders for internship applications which are due or have interviews scheduled in 7 days +
+Test case: `reminder` +
+Expected: Only applications which are due or have interviews scheduled in 7 days will be shown. They should be displayed
+in order of earliest application date or scheduled interview date followed by those with later dates.
+. Getting reminders for internship applications which are due or have interviews scheduled in 7 days in `archival` mode +
+Test case: `reminder` +
+Expected: No applications should be shown.
+
+=== Finding internship applications
+
+. Finding a list of internship application.
+.. Prerequisites: Starting from an empty list, +
+    add 3 internship applications into the list using the following commands: +
+    `add c/Google r/Software Engineer a/123 Kent Ridge Road p/98765432 e/hr@google.com d/02-12-2019 w/10 s/applied` +
+    `add c/Facebook r/Software Developer a/Singapore p/87654321 e/joinus@facebook.com d/20-04-2020 w/9 s/wishlist` +
+    `add c/Shopee r/Product Developer a/5 Science Park Dr p/99999999 e/shopee@google.com d/10-03-2020 w/1 s/rejected`
+.. Test case: `find` +
+    Expected: No change in list. Error details shown in the result box as at least one of the optional parameters must be entered.
+.. Test case: `find google` +
+    Expected: Only the internship applications with company names `Google` and `Shopee` will be listed (google can be found in the email of Shopee)
+.. Test case: `find r/software developer` +
+    Expected: All 3 internship applications are listed.
+.. Test case: `find 02-12-2019` +
+    Expected: No internship applications are listed as general find don't work with dates.
+.. Test case: `find d/02-12-2019` +
+    Expected: Only the internship applications with company names `Google` is listed as it matches the application date.
+.. Test case: `find w/1` +
+    Expected: Only the internship applications with company names `Shopee` will be listed (search for priority is not based on substring so `Google` is not listed)
+
 
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
+any commands.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-_{ more test cases ... }_
