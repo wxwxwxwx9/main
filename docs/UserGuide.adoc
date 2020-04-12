@@ -350,33 +350,35 @@ Examples:
 * `edit 1 s/applied r/Product Management` +
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
+// tag::find[]
 === Locating an internship application by fields: `find`
 
 Finds all internship application(s) with the specified fields containing any of the given keywords.
 
-[cols="1,20"]
-|===
-|💡|The find parameters will appear at the bottom left of the internship diary
-|===
+[TIP]
+The find parameters will appear at the bottom left of the internship diary
 
-[cols="1a,1"]
-|===
-2.1+|*Format*
-2.1+|`find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
-2.1+|*More Information*
-2.1+|
-* The search is case insensitive. e.g `google` will match `Google`
-* The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`
-* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`
-* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS`, regardless of whether other fields are specified.
-* When fields are specified, only applications where all the specified fields match are returned (i.e. `AND` search).
+Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
+
+****
+* At least one of the optional parameter must be provided.
+* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS` (i.e. `OR` search), regardless of whether other fields are specified.
+* When fields are specified without [KEYWORD], only applications where all the specified fields match are returned (i.e. `AND` search).
 e.g. `find c/google r/software engineer` will return application with company being `Google` and role
-being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`
-|*Usage Example(s)* | *Outcome*
-|`find Google`|Displays internship application(s) with company `Google` OR `Google Deepmind` OR with email `alice@google.com`
-|`find c/Google s/applied`|Displays internship application(s) with company `Google` AND status `APPLIED`
-|===
+being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`.
+* The search is case insensitive. e.g `google` will match `Google`.
+* The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`.
+* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`.
+* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`.
+****
+
+Example(s):
+
+* `find Google` +
+Displays internship application(s) with company `Google` OR `Google Deepmind` OR with email `alice@google.com`
+
+* `find c/Google s/applied` +
+Displays internship application(s) with company `Google` AND status `APPLIED`
 
 // tag::sort[]
 === Sorting internship companies by field : `sort`
