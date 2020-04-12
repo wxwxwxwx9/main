@@ -61,10 +61,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+For example, the `Logic` component (refer to <<fig-LogicClassDiagram,*`Logic Class Diagram`*>>) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -676,7 +673,7 @@ This is especially important when many properties are being observed.
 
 Below is the updated class diagram with the implementation of `ListenerPropertyType` enumeration.
 
-.Updated class diagram to showcase our implementation of the two-tier observer-observable structure with `ListenerPropertyType` enumeration
+.Updated class diagram to showcase our implementation of the two-tier observer-observable structure with `ListenerPropertyType`
 image::InternshipDiaryAndModelManagerPropertyChangeEnumClassDiagram.png[align="center"]
 
 As seen from the diagram above, each observable will implement two additional methods to use `ListenerPropertyType` enumeration as parameters:
@@ -784,7 +781,7 @@ Other variations of *removal-based commands* and *execution types* are similar.
 
 The following sequence diagram provides a high-level overview of how the `archive` command with the execution type of `BY_FIELD` is executed in our application.
 
-.Interactions inside the Logic Component for the `archive s/rejected` Command
+.Interactions inside the Logic Component for the `archive s/rejected` command
 image::ArchiveSequenceDiagram.png[align="center"]
 
 As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the internship applications and then converting these internship applications to their respective index.
@@ -1067,7 +1064,7 @@ You may refer to the guide <<DevOps#, here>>.
 
 * is a Computer Science student
 * is actively looking for internships
-* has a need to organise internship applications
+* has a need to organise and track internship applications
 * is a fast typist
 * is comfortable using CLI apps
 * prefers desktop applications
@@ -1647,7 +1644,7 @@ These instructions only provide a starting point for testers to work on; testers
 * At least one command has been executed
 * Tester is not already at the oldest executed command
 
-... Test case: ↑ +
+... Test case: press up key +
 Expected: Previously executed command appears in the Command Box.
 
 . Retrieving later commands
@@ -1655,19 +1652,19 @@ Expected: Previously executed command appears in the Command Box.
 .. Prerequisites:
 * Tester has retrieved at least one previous command
 
-... Test case: ↓ +
+... Test case: press down key +
 Expected: A command that was entered after the current retrieved command appears in the Command Box.
 
 === Main List View
 
 . Viewing the main list of internship application(s)
-... Test case: "list" +
+... Test case: `list` +
 Expected: All unarchived internship application(s) are displayed.
 
 === Archival List View
 
 . Viewing the archival list of internship application(s)
-... Test case: "archival" +
+... Test case: `archival` +
 Expected: All archived internship application(s) are displayed.
 
 === Adding an Internship Application
@@ -2021,7 +2018,7 @@ to discuss about the most suitable, time-effective, and extensible implementatio
 ==== Modifying GUI
 The GUI must be made easily readable and understandable by the user. Research and effort was made to ensure a well organised and consistent application layout.
 
-==== Integrating the Features
+==== Integrating the Implemented Features
 Due to the cohesive nature of our features, it resulted in extensive interaction between the components -- ensuring a smooth integration was therefore a significant challenge.
 For example, as our features introduced many new UI elements and backend implementation, we ran into UI / data reactivity issue where ObservableList was no longer an adequate and sustainable solution.
 
