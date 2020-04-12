@@ -1592,6 +1592,7 @@ A list of descriptions for an internship application grouped by type
 Window preferences::
 The last application window size and location the user used before shutdown
 
+// tag::productSurvey[]
 [appendix]
 == Product Survey
 
@@ -1626,6 +1627,8 @@ Cons:
 * Cannot easily go straight to managing internship applications, steep learning curve
 * Can get messy quickly, no inbuilt filter and archive functions
 * Does not include inbuilt statistics and reminder functions
+
+// end::productSurvey[]
 
 [appendix]
 == Instructions for Manual Testing
