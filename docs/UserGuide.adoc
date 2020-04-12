@@ -209,7 +209,7 @@ Adds an internship application to the current list.
 
 Format: `add c/COMPANY r/ROLE d/DATE s/STATUS [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]`
 
-Refer to <<Structure of Internship Application>> for details about the input constraints.
+Refer to <<Structure of internship application>> for details about the input constraints.
 
 Examples:
 
@@ -401,8 +401,15 @@ being `Software Engineer` but not company that is `Facebook` and role being `Sof
 // tag::sort[]
 === Sorting internship companies by field : `sort`
 
-Sort displayed internship companies based on a given FIELD. +
-Type `reverse` before `FIELD` to sort in the reverse order. +
+Sort displayed internship companies based on a given FIELD.
+
+[cols="1,20"]
+|===
+|💡|The sort parameters will appear at the bottom left of the internship diary
+|===
+
+Type `reverse` before `FIELD` to sort in the reverse order.
+
 Format: `sort [reverse] FIELD`.
 
 Available values for `FIELD`: +
@@ -420,6 +427,17 @@ Examples:
 
 * `Sort c/` +
 Returns a list of currently displayed companies sorted by company name.
+
+[cols="2", frame="none", grid="none"]
+|===
+a|
+.Before sorting the diary.
+image::beforeSort.png[]
+a|
+.After sorting the diary.
+image::afterSort.png[]
+|===
+
 // tag::sort[]
 
 === Modifying an interview in an internship application : `interview`
@@ -584,6 +602,11 @@ e.g. `interview 1 delete 1`
 * *Statistics* : `stats`
 * *Exit* : `exit`
 
+== Glossary
 
+* Chronological order
+** The order of events in which events which occurred earlier would be placed before
+events which occurred later.
 
-
+* Dictionary order:
+** The order which words would be ordered in a dictionary.
