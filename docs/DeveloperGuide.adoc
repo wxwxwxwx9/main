@@ -1286,10 +1286,19 @@ Use case ends
 
 [none]
 * 1a.
+Internship Diary detects the keyword reverse.
+
+[none]
+** 1a.1. Internship Diary sorts the list in reverse order.
++
+Use case resumes from step 3.
+
+[none]
+* 1b.
 Internship Diary detects invalid syntax.
 
 [none]
-** 1a.1. Internship Diary shows an error message.
+** 1b.1. Internship Diary shows an error message.
 +
 Use case ends
 
