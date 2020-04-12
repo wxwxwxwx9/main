@@ -1243,7 +1243,7 @@ Use case ends.
 +
 Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2a. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1268,13 +1268,10 @@ Use case resumes from step 2.
 * 2a. Internship Diary detects an invalid date given for the `Date` field.
 [none]
 ** 2a1. Internship Diary shows an error message.
-** 2a2. User enters command with a different date.
 +
-Steps 2a1-2a2 are repeated until the date entered is valid.
-+
-Use case resumes from step 3.
+Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2b. No Internship Application is shown.
 +
 Use case ends.
 
