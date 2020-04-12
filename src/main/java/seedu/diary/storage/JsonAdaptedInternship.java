@@ -28,8 +28,6 @@ class JsonAdaptedInternship {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Internship's %s field is missing!";
     public static final String MESSAGE_DUPLICATE_INTERVIEW = "Interviews list contains duplicate interview!";
-    public static final String MESSAGE_INTERVIEW_BEFORE_INTERNSHIP =
-        "Interviews list contains interview that is scheduled before internship application date.";
 
     private final String company;
     private final String role;
@@ -177,9 +175,6 @@ class JsonAdaptedInternship {
             if (internshipApplication.hasInterview(interview)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INTERVIEW);
             }
-            if (isInterviewBeforeApplication(internshipApplication, interview)) {
-                throw new IllegalValueException(MESSAGE_INTERVIEW_BEFORE_INTERNSHIP);
-            }
             internshipApplication.addInterview(interview);
         }
 
@@ -188,15 +183,6 @@ class JsonAdaptedInternship {
         }
 
         return internshipApplication;
-    }
-
-    /**
-     * Checks if interviewDate is before applicationDate. Method is copied from and identical to the method in
-     * {@code InterviewCommand}
-     */
-    protected boolean isInterviewBeforeApplication(InternshipApplication internshipApplication, Interview interview) {
-        return interview.getInterviewDate()
-            .compareTo(internshipApplication.getApplicationDate().fullApplicationDate) < 0;
     }
 
 }
