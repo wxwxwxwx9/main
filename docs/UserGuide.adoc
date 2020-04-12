@@ -21,10 +21,11 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 == Introduction
 
 Internship Diary is a desktop application that assists university students in managing their internship applications.
+
 With the Internship Diary, you can leave behind your troubling times trying to to organize, track, and review all your past and upcoming internship applications.
 The application is designed and optimized for users who can type quickly, and provides an elegant design which is easy on the eyes.
 
-== Quick start
+== Quick Start
 
 Here are the steps to get you started on using Internship Diary:
 
@@ -35,7 +36,7 @@ Here are the steps to get you started on using Internship Diary:
 The Graphical User Interface (GUI) should appear in a few seconds.
 +
 
-.GUI of Internship Diary
+.Graphical User Interface of Internship Diary
 image::Ui.png[width="790"]
 
 +
@@ -56,7 +57,7 @@ Here are some important information you should know.
 .Major graphical components of Internship Diary
 image::internship_diary_label.png[align="center", width="790"]
 
-The image illustrates the major graphical components of *Internship Diary*.
+The above image illustrates the major graphical components of *Internship Diary* to help you navigate our application.
 
 [[fields]]
 === Structure of internship application
@@ -83,15 +84,15 @@ used to input the respective Status values.
 
 The valid Status values for internship applications listed in sort order:
 
-. `wishlist` - image:wishlist_card.png[align="center", width="60"]
-. `applied` - image:applied_card.png[align="center", width="60"]
-. `interview` - image:interview_card.png[align="center", width="60"]
-. `offered` - image:offered_card.png[align="center", width="60"]
+. `wishlist`
+. `applied`
+. `interview`
+. `offered`
 . `rejected`
 . `ghosted`
 
 [[interview]]
-=== Structure of Interview
+=== Structure of interview
 * `Interview` represents an interview that you have been given by the company you are applying to.
 It exists within an `InternshipApplication`
 * Currently there are two types of `Interview` provided by the Internship Diary:
@@ -129,32 +130,36 @@ separators. If year is not given, will default to the current year.
 (e.g. for `add c/Google r/Software Engineer d/20 04 2020 s/applied s/wishlist`, the newly-added internship application will have `wishlist` as its status)
 * An input consisting of only spaces is considered empty.
 
+=== Viewing command history
+
+Use the `up` and `down` arrow keys while the command box is being focused to scroll through your command history.
+
 === Other important information
 
-==== Index
+==== Index of an internship application
 
 * We will use `INDEX` to refer to a particular internship application.
 ** `INDEX` can be found on the left side of an internship application card.
-** `INDEX` has to start from **1** (inclusive).
+** `INDEX` will start from **1** (inclusive).
 ** `INDEX` is not unique to a particular internship application -- it will change as the list is updated.
-*** `INDEX` only serves as a reference for you to choose the correct internship application.
+** `INDEX` only serves as a reference for you to choose the correct internship application.
 
-.Example of internship application seen on the Internship Application List
+.Example of an internship application card seen on the Internship Application List
 image::sample_index.png[align="center", width="600"]
 
 * For any command that uses `INDEX`:
 ** `INDEX` must be among those displayed in the current list.
 *** For example, if the current list displays `INDEX` *1 to 10*, `INDEX` 11 will not be considered valid.
 * All the commands will work on both *main list* and *archival list*.
-** The only exceptions are: `Reminder`, `Archive`, `Unarchive`
+** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
-==== Multiple Fields
+==== Multiple fields
 
 * Commands that contain fields (see: <<fields>>) will be able to take in multiple
 entry of each field (except `sort` which only allows one field).
 * However, when multiple fields are inputted, eg. `c/Google c/Facebook`, only the last field will be recognised
 by the application. In the example above, only `c/Facebook` will be registered, `c/Google`
-will be ignored by the application
+will be ignored by the application.
 
 [[Commands]]
 == Commands
@@ -164,7 +169,7 @@ will be ignored by the application
 Format: `help`
 
 // tag::list[]
-=== Viewing unarchived internship applications : `list`
+=== Viewing unarchived internship applications: `list`
 
 Displays *unarchived* internship applications. This is known as your *main list*.
 
@@ -217,9 +222,9 @@ Examples:
 * `add c/Google r/Software Engineer d/20 02 2020 s/applied p/91234567 e/google@google.com a/123 Orchard Road`
 
 // tag::delete[]
-=== Deleting an internship application : `delete`
+=== Deleting internship application: `delete`
 
-Delete specified internship applications from the current list. +
+Delete specific internship applications from the current list. +
 
 Formats:
 
@@ -263,9 +268,9 @@ Deletes the 1st, 2nd, and 3rd internship applications from the results of the `f
 // end::delete[]
 
 // tag::archive[]
-=== Archiving an internship application : `archive`
+=== Archiving internship application: `archive`
 
-Archive specified internship applications from the main list. +
+Archive specific internship applications in the main list. +
 
 Formats:
 
@@ -308,9 +313,9 @@ Archives all the internship applications with the `rejected` status in the resul
 // end::archive[]
 
 // tag::unarchive[]
-=== Unarchiving an internship application : `unarchive`
+=== Unarchiving internship application: `unarchive`
 
-Unarchive specified internship applications from the archival list. +
+Unarchive specific internship applications in the archival list. +
 
 Formats:
 
@@ -352,7 +357,7 @@ Unarchives the 1st, 2nd, and 3rd internship application in the results of the `f
 Unarchives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
 // end::unarchive[]
 
-=== Editing an internship application : `edit`
+=== Editing an internship application: `edit`
 
 Edits an internship application in the internship diary. +
 Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL] [a/ADDRESS] [w/PRIORITY]​`
@@ -399,7 +404,7 @@ being `Software Engineer` but not company that is `Facebook` and role being `Sof
 |===
 
 // tag::sort[]
-=== Sorting internship companies by field : `sort`
+=== Sorting internship companies by field: `sort`
 
 Sort displayed internship companies based on a given FIELD. +
 Type `reverse` before `FIELD` to sort in the reverse order. +
@@ -422,7 +427,7 @@ Examples:
 Returns a list of currently displayed companies sorted by company name.
 // tag::sort[]
 
-=== Modifying an interview in an internship application : `interview`
+=== Modifying an interview in an internship application: `interview`
 
 Add, list, edit or delete interviews within an internship application +
 
@@ -473,7 +478,7 @@ Edits the date of the 1st interview in the 2nd internship application in the lis
 Deletes the 1st interview in the 1st internship application in the list.
 
 //tag::reminder[]
-=== Getting applications due or have interviews in 7 days : `reminder`
+=== Getting applications due or have interviews in 7 days: `reminder`
 
 Displays all internship application(s) that:
 
@@ -498,7 +503,7 @@ Any command after `reminder` will be ignored. +
 e.g. `reminder dummy variable` be just be treated as `reminder`
 //end::reminder[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries: `clear`
 
 Clears all entries from the Internship Diary. +
 Format: `clear`
@@ -514,7 +519,7 @@ It will open a separate window that contains a bar chart and a pie chart.
 
 Format: `stats`
 
-.Statistics window which will be opened when `stats` is executed
+.Statistics window which opens when `stats` is executed
 image::internship_diary_stats.png[align="center", width="500"]
 
 ****
@@ -524,16 +529,18 @@ image::internship_diary_stats.png[align="center", width="500"]
 ** the percentage of internship application(s) under each `STATUS`
 ** percentages are rounded off to two decimal places
 ****
+
+[TIP]
+Alternatively, you may use your mouse to click on "Statistics" and then "View Statistics" to bring up the statistics window.
+
+.Opening statistics window via mouse click
+image::click_statistics.png[align="center", width="790"]
 // end::stats[]
 
-=== Exiting the program : `exit`
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
-
-=== Viewing command history
-
-Use the `up` and `down` arrow keys while the command box is being focused to scroll through your command history.
 
 === Saving the data
 
@@ -565,6 +572,7 @@ e.g. `edit 2 c/Google s/applied`
 e.g. `find c/google r/engineer`
 * *Sort* : `sort FIELD` +
 e.g. `sort c/`
+
 * *Interview* :
 
 ** Add:
@@ -579,6 +587,7 @@ e.g. `interview 1 edit 1 d/10 10 2020`
 ** Delete:
 `interview INTERNSHIP_INDEX delete INTERVIEW_INDEX` +
 e.g. `interview 1 delete 1`
+
 * *Reminder* : `reminder`
 * *Clear* : `clear`
 * *Statistics* : `stats`

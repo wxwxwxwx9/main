@@ -16,6 +16,7 @@ image::ongch00.png[width="150", align="left"]
 
 Role:
 
+* Product Management
 * Developer
 
 Responsibilities:
@@ -30,6 +31,7 @@ image::wxwxwxwx9.png[width="150", align="left"]
 
 Role:
 
+* Quality Assurance
 * Developer
 
 Responsibilities:
@@ -48,8 +50,8 @@ image::female_student_happy.png[width="150", align="left"]
 
 Role:
 
+* Technical Lead
 * Developer
-* Tech Adviser
 
 Responsibilities:
 
@@ -66,6 +68,7 @@ image::feliciatay.png[width="150", align="left"]
 
 Role:
 
+* Documentation Lead
 * Developer
 
 Responsibilities:
@@ -80,6 +83,7 @@ image::foochifa.png[width="150", align="left"]
 
 Role:
 
+* Project Management
 * Developer
 
 Responsibilities:
