@@ -384,7 +384,7 @@ commands in checking whether the interview occurs before the internship applicat
 Lastly, as the commands inherit from `Command` interface, the commands will implement `execute(Model)`.
 All the sub-commands follow roughly the same execution sequence as seen in the diagram below.
 
-.Interactions Inside the Logic Component for `InterviewAddCommand`
+.Sequence Diagram to show execution of `InterviewAddCommand`
 image::InterviewAddCommandExecuteSequenceDiagram.png[]
 
 The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
@@ -800,7 +800,7 @@ Based on the command word passed in to construct the `RemovalBasedCommand` insta
 
 The following sequence diagram depicts the above behaviour.
 
-.Sequence Diagram for creation of lambda function by `RemovalBasedCommand` instance
+.Creation of lambda function by `RemovalBasedCommand` instance
 image::GenerateLazyCommandSequenceDiagram.png[width="500",align="center"]
 
 As the command word is `archive`, a lazy lambda function to construct an `ArchiveCommand` is returned.
@@ -818,7 +818,7 @@ In this case, `archiveInternshipApplication` is called.
 
 The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices.
 
-.Executing `ArchiveCommand` on indices
+.Execution of `ArchiveCommand` on indices
 image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500",align="center"]
 
 As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram) by running it on every index provided.
@@ -942,7 +942,13 @@ image::ReminderSequenceDiagram.png[]
 
 The reminder command is implemented in the class `ReminderCommand`.
 
-To facilitate the reminder command, several predicates classes implementing `Predicate<InternshipApplication>` are used:
+The following class diagram shows the relationship between `ReminderCommand`, the `Predicate` classes as well as the
+`Comparator` class it uses to display relevant applications:
+
+.Class diagram to show relationship between `ReminderCommand` and the `Predicate` and `Comparator` classes used
+image::ReminderClassDiagram.png[]
+
+Included in the diagram above, the several predicates classes implementing `Predicate<InternshipApplication>` used are:
 
 * `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application has a date of the current date or within 7 days of the current date.
 
@@ -966,11 +972,11 @@ produced is then passed into the method `updateFilteredInternshipApplicationList
 
 The activity diagram below summarises how each internship application is checked by the predicates mentioned above:
 
-.Activity Diagram of `ReminderCommand` filtering out applications to display
+.Activity Diagram on how `ReminderCommand` filters out applications to display
 image::ReminderActivityDiagram.png[]
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also
-passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>`, also included in Figure,
+is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
 applications in terms of which application is more urgent. For each internship application, its `ApplicationDate` field
 as well as the earliest interview date in the `List<Interview> interviews` are compared to current date and the
 earlier date out of the two is used for the sorting.
