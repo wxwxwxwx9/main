@@ -93,7 +93,6 @@ link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/65[#65]
 link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118]
 link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/124[#124]
 
-
 == Contributions to the User Guide
 
 |===
