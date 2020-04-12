@@ -36,7 +36,7 @@ Here are the steps to get you started on using Internship Diary:
 The Graphical User Interface (GUI) should appear in a few seconds.
 +
 
-.GUI of Internship Diary
+.Graphical User Interface of Internship Diary
 image::Ui.png[width="790"]
 
 +
@@ -57,7 +57,7 @@ Here are some important information you should know.
 .Major graphical components of Internship Diary
 image::internship_diary_label.png[align="center", width="790"]
 
-The above image illustrates the major graphical components of *Internship Diary*.
+The above image illustrates the major graphical components of *Internship Diary* to help you navigate our application.
 
 [[fields]]
 === Structure of internship application
@@ -144,7 +144,7 @@ Use the `up` and `down` arrow keys while the command box is being focused to scr
 ** `INDEX` is not unique to a particular internship application -- it will change as the list is updated.
 ** `INDEX` only serves as a reference for you to choose the correct internship application.
 
-.Example of internship application seen on the Internship Application List
+.Example of an internship application card seen on the Internship Application List
 image::sample_index.png[align="center", width="600"]
 
 * For any command that uses `INDEX`:
@@ -222,9 +222,9 @@ Examples:
 * `add c/Google r/Software Engineer d/20 02 2020 s/applied p/91234567 e/google@google.com a/123 Orchard Road`
 
 // tag::delete[]
-=== Deleting an internship application: `delete`
+=== Deleting internship application: `delete`
 
-Delete specified internship applications from the current list. +
+Delete specific internship applications from the current list. +
 
 Formats:
 
@@ -268,9 +268,9 @@ Deletes the 1st, 2nd, and 3rd internship applications from the results of the `f
 // end::delete[]
 
 // tag::archive[]
-=== Archiving an internship application: `archive`
+=== Archiving internship application: `archive`
 
-Archive specified internship applications from the main list. +
+Archive specific internship applications in the main list. +
 
 Formats:
 
@@ -313,9 +313,9 @@ Archives all the internship applications with the `rejected` status in the resul
 // end::archive[]
 
 // tag::unarchive[]
-=== Unarchiving an internship application: `unarchive`
+=== Unarchiving internship application: `unarchive`
 
-Unarchive specified internship applications from the archival list. +
+Unarchive specific internship applications in the archival list. +
 
 Formats:
 
@@ -519,7 +519,7 @@ It will open a separate window that contains a bar chart and a pie chart.
 
 Format: `stats`
 
-.Statistics window which will be opened when `stats` is executed
+.Statistics window which opens when `stats` is executed
 image::internship_diary_stats.png[align="center", width="500"]
 
 ****
@@ -533,6 +533,7 @@ image::internship_diary_stats.png[align="center", width="500"]
 [TIP]
 Alternatively, you may use your mouse to click on "Statistics" and then "View Statistics" to bring up the statistics window.
 
+.Opening statistics window via mouse click
 image::click_statistics.png[align="center", width="790"]
 // end::stats[]
 
@@ -571,6 +572,7 @@ e.g. `edit 2 c/Google s/applied`
 e.g. `find c/google r/engineer`
 * *Sort* : `sort FIELD` +
 e.g. `sort c/`
+
 * *Interview* :
 
 ** Add:
@@ -585,6 +587,7 @@ e.g. `interview 1 edit 1 d/10 10 2020`
 ** Delete:
 `interview INTERNSHIP_INDEX delete INTERVIEW_INDEX` +
 e.g. `interview 1 delete 1`
+
 * *Reminder* : `reminder`
 * *Clear* : `clear`
 * *Statistics* : `stats`
