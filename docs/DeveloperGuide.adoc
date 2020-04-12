@@ -1035,7 +1035,7 @@ You may refer to the guide <<DevOps#, here>>.
 * is comfortable using CLI apps
 * prefers desktop applications
 
-*Value proposition*: An easy-to-use CLI program that can help students to organise and plan for their internship
+*Value proposition*: An easy-to-use CLI program that can help students to organise and track their internship applications
 
 [appendix]
 == User Stories
@@ -1068,7 +1068,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |first-time internship seeker |use the program as a guide to internship applications |learn how to start applying for an internship
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1257,7 +1256,6 @@ Use case ends
 [none]
 * 2a.
 The given index is invalid.
-
 [none]
 ** 2a1. Internship Diary shows an error message
 +
@@ -1346,16 +1344,16 @@ Use case ends
 Use case resumes at step 2
 
 [none]
-* 3a. The Interview to be created has invalid fields.
+* 2b. The Interview to be created has invalid fields.
 [none]
-** 3a.1. Internship Diary shows an error message.
+** 2b.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
-* 4a. The Interview to be added already exists in the Internship Application.
+* 3a. The Interview created already exists in the Internship Application.
 [none]
-** 4a.1 Internship Diary shows an error message.
+** 3a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
@@ -1380,16 +1378,16 @@ Use case ends
 Use case resumes at step 2
 
 [none]
-* 2a. The new Interview to be created has invalid fields.
+* 1b. The new Interview to be created has invalid fields.
 [none]
-** 2a.1. Internship Diary shows an error message.
+** 1b.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
 [none]
-* 3a. The Interview to be added already exists in the Internship Application.
+* 2a. The edited Interview already exists in the Internship Application.
 [none]
-** 3a.1 Internship Diary shows an error message.
+** 2a.1 Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
@@ -1413,9 +1411,9 @@ Use case ends
 Use case resumes at step 2
 
 [none]
-* 2a. The Interview to be deleted does not exist.
+* 1b. The Interview to be deleted does not exist.
 [none]
-** 2a.1. Internship Diary shows an error message.
+** 1b.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
