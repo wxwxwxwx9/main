@@ -23,7 +23,7 @@ By: `CS2103T-F10-2`      Since: `Feb 2020`      Licence: `MIT`
 This developer guide is written for software developers or designers who wish to contribute to the project.
 However, you may also use it if you wish to gain deeper insight into the system design and implementation of *Internship Diary*.
 
-== Setting up
+== Setting Up
 
 Refer to the guide <<SettingUp#, here>>.
 
@@ -61,10 +61,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+For example, the `Logic` component (refer to <<fig-LogicClassDiagram,*`Logic Class Diagram`*>>) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -77,7 +74,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -97,7 +94,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -120,7 +117,7 @@ image::SelectSequenceDiagram.png[]
 NOTE: The lifeline for `SelectCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -142,7 +139,7 @@ An example of how such a model may look like is given below. +
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -155,7 +152,7 @@ The `Storage` component,
 * can save the `InternshipDiary` data in JSON format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.diary.commons` package.
 
@@ -164,12 +161,12 @@ Classes used by multiple components are in the `seedu.diary.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::sort[]
-=== Sort command
+=== Sort Command
 
 The sort command allows the user to sort the currently visible list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
-.Interactions Inside the Logic Component for the `sort c/` Command
+.Interactions inside the Logic Component for the `sort c/` command
 image::SortSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the sort command.
@@ -201,7 +198,7 @@ The following class diagram will illustrate the structure of SortCommand:
 .Structure of SortCommand
 image::ComparatorClassDiagram.png[]
 
-==== Reverse sort
+==== Reverse Sort
 
 This version of the command is invoked when the user enters the command with `reverse` as the preamble text in the parameter, e.g. `sort reverse c/`.
 After retrieving the correct `comparator` to use, the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
@@ -227,12 +224,12 @@ Harder to implement reverse sorting.
 // end::sort[]
 
 // tag::clear[]
-=== Clear command
+=== Clear Command
 
 The clear command allows the user to delete all internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
-.Interactions Inside the Logic Component for the `clear` Command
+.Interactions inside the Logic Component for the `clear` command
 image::ClearSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the clear command.
@@ -246,7 +243,7 @@ The implementation for this command is unique as it causes 'LogicManager' to use
 
 ==== Design Considerations
 
-===== Aspect: How to prompt for confirmation.
+===== Aspect: How to prompt for confirmation
 
 * **Alternative 1 (current choice)**: Implement an abstract method `getNextParser` for all commands.
 ** Pros: Easy to extend. +
@@ -298,7 +295,7 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 
 ==== Design Considerations
 
-===== Aspect: What should happen when DOWN is pressed when the latest history is being shown.
+===== Aspect: What should happen when down key is pressed when the latest history is being shown
 * **Alternative 1 (current choice)**: Blank the CommandBox.
 ** Pros: Provides users an easy way to clear the CommandBox.
 ** Cons: Users are unable to view their command history without losing the command they have typed.
@@ -313,7 +310,7 @@ No easy way to clear the CommandBox.
 ** Cons: No easy way to clear the CommandBox. +
 Harder to implement.
 
-===== Aspect: Should invalid commands be stored.
+===== Aspect: Should invalid commands be stored
 * **Alternative 1 (current choice)**: No.
 ** Pros: Reduces clutter in the Command History.
 ** Cons: Users would not be able to see their failed attempts. +
@@ -325,7 +322,7 @@ Users are unable to look at their command history without losing the command the
 through all the failed attempts. This is especially so as our application does not have
 an autocomplete feature.
 
-===== Aspect: When should the position of historyIterator reset.
+===== Aspect: When should the position of historyIterator reset
 * **Alternative 1 (current choice)**: Whenever user modifies the text in the CommandBox
 and when command executed successfully.
 ** Pros: Less confusing for users.
@@ -335,7 +332,7 @@ and when command executed successfully.
 ** Pros: Users can easily repeat a series of commands.
 ** Cons: Potentially confusing for users. Harder to implement as underlying data structure is linked list.
 
-==== Proposed Feature
+==== [Proposed Improvements] Command History Storage
 
 There are plans to save the Command History in the hard drive, so that it may be accessed across sessions.
 However, due to the complexity and difficulty of implementation, it will only be rolled out in a future version.
@@ -410,7 +407,7 @@ The following sequence diagram will illustrate the process of invocation for
 `InterviewAddCommand`.
 All other sub-commands will follow the same invocation format.
 
-.Interactions Inside the Logic Component for `InterviewAddCommand`
+.Interactions inside the Logic Component for `InterviewAddCommand`
 image::InterviewCommandSequenceDiagram.png[]
 
 [[InterviewListCommand-Improvements]]
@@ -437,7 +434,8 @@ Interview types.
 ** Pros: Easy to implement.
 ** Cons: Increasing number of variables if more interview types will be added.
 
-===== Aspect: How to implement different interview commands
+===== Aspect: How to implement different Interview Commands
+
 * **Alternative 1 (current choice)**: Use a standardized command with sub-command type parsed as user input.
 ** Pros: More streamlined, only one command. +
 Able to use polymorphism to share operations between commands.
@@ -450,12 +448,12 @@ Create a lot of repetition in code.
 // end::interview[]
 
 // tag::find[]
-=== Find command
+=== Find Command
 
 The find command allows the user to get a filtered list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
-.Interactions Inside the Logic Component for the `find c/google r/software` Command
+.Interactions inside the Logic Component for the `find c/google r/software` command
 image::FindSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the find command, as well as the 2 versions of the command, find any match, and find match by fields.
@@ -520,7 +518,7 @@ image::FindCommandActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 
-===== Aspect: How to implement the different versions of find command
+===== Aspect: How to implement the different versions of Find command
 
 * **Alternative 1 (current choice)**: Use a standardized command with the version to invoke determined by the type of user input parameters.
 ** Pros: More streamlined, only one command. +
@@ -568,7 +566,7 @@ This is identical for the `unarchive` command in the main list as well.
 
 The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
 
-.Structure of InternshipDiary
+.Structure of `InternshipDiary` that showcases the methods and attributes required for view-switching
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="700",align="center"]
 
 The object diagram below illustrates the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`:
@@ -590,7 +588,7 @@ The following sequence diagram illustrates how an `archival` command is executed
 The `list` command is similar to `archival`.
 You may use the same sequence diagram for the `list` command.
 
-.Interactions Inside the Logic Component for `archival` Command
+.Sequence diagram for `archival` Command
 image::ArchivalSequenceDiagram.png[align="center"]
 
 The following code snippet is retrieved from the `InternshipDiary` class.
@@ -615,7 +613,7 @@ To achieve this observer pattern, we made use of the `PropertyChangeSupport` cla
 A class that contains an instance of `PropertyChangeSupport` is an observable.
 On the other hand, a class that implements the `PropertyChangeListener` interface is an observer.
 
-.Implementation of a two-tier observer-observable structure
+.Implementation of a two-tier observer-observable structure for `InternshipDiary`
 image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
 
 The class diagram above showcases our implementation of a two-tier observer-observable structure: +
@@ -656,7 +654,7 @@ It will then repeat the event emission process to any UI element (e.g. `Statisti
 
 The following activity diagram gives a high-level overview of the above event-driven process.
 
-.Activity diagram for Observer Pattern for `archival` Command
+.Activity diagram to illustrate the Observer Pattern using `archival` command
 image::ActivityDiagramObserverPattern.png[align="center"]
 
 ====
@@ -675,7 +673,7 @@ This is especially important when many properties are being observed.
 
 Below is the updated class diagram with the implementation of `ListenerPropertyType` enumeration.
 
-.Updated class diagram for the implementation of two-tier observer-observable structure with `ListenerPropertyType` enumeration
+.Updated class diagram to showcase our implementation of the two-tier observer-observable structure with `ListenerPropertyType`
 image::InternshipDiaryAndModelManagerPropertyChangeEnumClassDiagram.png[align="center"]
 
 As seen from the diagram above, each observable will implement two additional methods to use `ListenerPropertyType` enumeration as parameters:
@@ -748,7 +746,7 @@ In the following section, we will delve slightly deeper and discuss about the lo
 
 The following class diagram depicts our implementation of the extended functionality.
 
-.Structure of `RemovalBasedCommand` with its associated classes
+.Structure of `RemovalBasedCommand` and `RemovalBasedCommandExecutionTypeParser` with its associated classes
 image::RemovalBasedClassDiagram.png[align="center"]
 
 The idea of the implementation can be summarized as follows:
@@ -783,7 +781,7 @@ Other variations of *removal-based commands* and *execution types* are similar.
 
 The following sequence diagram provides a high-level overview of how the `archive` command with the execution type of `BY_FIELD` is executed in our application.
 
-.Interactions Inside the Logic Component for the `archive s/rejected` Command
+.Interactions inside the Logic Component for the `archive s/rejected` command
 image::ArchiveSequenceDiagram.png[align="center"]
 
 As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the internship applications and then converting these internship applications to their respective index.
@@ -802,7 +800,7 @@ Furthermore, if we ever wish to create a *new* `RemovalBasedCommandExecutionType
 The following sequence diagram captures how `RemovalBasedCommandExecuteTypeParser` parses the input and determines the *execution type* of the command.
 It also shows how a `RemovalBasedCommand` is created with the appropriate `RemovalBasedCommandExecutionType` and command word.
 
-.Sequence Diagram of how `RemovalBasedCommandExecuteTypeParser` parses input and determines execution type of command
+.Sequence Diagram of how `RemovalBasedCommandExecuteTypeParser` parses input and determines the execution type of command
 image::RemovalBasedCommandExecutionTypeParserSequenceDiagram.png[align="center"]
 
 As seen from the diagram above, the parser determined the execution type to be `BY_FIELD` and generated the appropriate predicate to construct a `RemovalBasedCommand` instance.
@@ -811,7 +809,7 @@ Based on the command word passed in to construct the `RemovalBasedCommand` insta
 
 The following sequence diagram depicts the above behaviour.
 
-.Creation of lambda function by `RemovalBasedCommand` instance
+.Creation of lazy lambda function by `RemovalBasedCommand` instance
 image::GenerateLazyCommandSequenceDiagram.png[width="500",align="center"]
 
 As the command word is `archive`, a lazy lambda function to construct an `ArchiveCommand` is returned.
@@ -819,7 +817,7 @@ As the command word is `archive`, a lazy lambda function to construct an `Archiv
 The following sequence diagram captures the process of executing the lazy removal-based command on one index.
 This particular index allows us to retrieve the appropriate internship application.
 
-.Execution of removal-based command on one index
+.Sequence diagram to illustrate the execution of the removal-based command, `archive`, on one index
 image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center",width="800"]
 
 It can be seen that the previously-generated lazy command is executed in the above sequence diagram.
@@ -829,7 +827,7 @@ In this case, `archiveInternshipApplication` is called.
 
 The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices.
 
-.Execution of `ArchiveCommand` on indices
+.Sequence diagram to illustrate the execution of the removal-based command, `archive`, on indices
 image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500",align="center"]
 
 As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram) by running it on every index provided.
@@ -837,12 +835,12 @@ The feedback from each execution is cumulatively concatenated to form a single f
 
 The following sequence diagram captures the process of re-creating the command result in `RemovalBasedCommand` by using the feedback obtained from the specific command execution, which is `ArchiveCommand` in our example.
 
-.Re-creating command result in `RemovalBasedCommand`
+.Re-creating the command result in `RemovalBasedCommand`
 image::CreateCommandResultSequenceDiagram.png[width="500",align="center"]
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: How to implement Multiple Execution Types for Removal-Based Commands
+====== Aspect: How to implement Multiple Execution Types for Removal-Based Commands
 
 * **Alternative 1 (current choice)**: Use encapsulation to hold the appropriate command word, which will then be used to generate the removal-based command that will execute based on the execute type provided.
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when
@@ -893,7 +891,7 @@ The internship application list can be updated either due to a change in referen
 
 The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` shares the same workflow) is notified of the updates in the internship application list and how it subsequently updates the statistics.
 
-.Activity Diagram of how `StatisticsWindow` is notified of updates list and statistics is updated
+.Activity Diagram to show how `StatisticsWindow` is notified of updates in the internship application list and how statistics is updated accordingly
 image::ActivityDiagramStatistics.png[align="center"]
 
 Upon creation of the `StatisticsWindow` and `StatisticsBarFooter`, each of them will attach an event listener to the internship application list that it was given.
@@ -986,7 +984,7 @@ applications in terms of which application is more urgent. For each internship a
 as well as the earliest interview date in the `List<Interview> interviews` are compared to current date and the
 earlier date out of the two is used for the sorting. The most urgent application will be at the top.
 
-==== Design considerations
+==== Design Considerations
 
 ====== Aspect: The order to display the internship applications
 
@@ -1066,7 +1064,7 @@ You may refer to the guide <<DevOps#, here>>.
 
 * is a Computer Science student
 * is actively looking for internships
-* has a need to organise internship applications
+* has a need to organise and track internship applications
 * is a fast typist
 * is comfortable using CLI apps
 * prefers desktop applications
@@ -1619,25 +1617,24 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Using Internship Diary with Sample Internship Application List
-. Close Internship Diary.
-. Delete the file `./internshipdiary.json` (if applicable).
-. Launch Internship Diary. +
-  Expected: A sample internship application list with 6 internship applications should be displayed.
-
 === Launch and Shutdown
 
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-_{ more test cases ... }_
+
+=== Using Internship Diary with Sample Internship Application List
+. Close Internship Diary.
+. Delete the file `./internshipdiary.json` (if applicable).
+. Launch Internship Diary. +
+  Expected: A sample internship application list with 6 internship applications should be displayed.
 
 === Command Box
 
@@ -1647,7 +1644,7 @@ _{ more test cases ... }_
 * At least one command has been executed
 * Tester is not already at the oldest executed command
 
-... Test case: ↑ +
+... Test case: press up key +
 Expected: Previously executed command appears in the Command Box.
 
 . Retrieving later commands
@@ -1655,22 +1652,22 @@ Expected: Previously executed command appears in the Command Box.
 .. Prerequisites:
 * Tester has retrieved at least one previous command
 
-... Test case: ↓ +
+... Test case: press down key +
 Expected: A command that was entered after the current retrieved command appears in the Command Box.
 
 === Main List View
 
 . Viewing the main list of internship application(s)
-... Test case: "list" +
+... Test case: `list` +
 Expected: All unarchived internship application(s) are displayed.
 
 === Archival List View
 
 . Viewing the archival list of internship application(s)
-... Test case: "archival" +
+... Test case: `archival` +
 Expected: All archived internship application(s) are displayed.
 
-=== Adding an internship application
+=== Adding an Internship Application
 
 . Adding an internship application
 
@@ -1678,7 +1675,11 @@ Expected: All archived internship application(s) are displayed.
 Expected: New internship application is added to the bottom of the list.
 Details of the newly-added internship application shown in the feedback box.
 
-=== Deleting internship application
+... Test case: `add c/Google r/Software Engineer d/17 04 2020` +
+Expected: Internship application is not added.
+Error details shown in feedback box.
+
+=== Deleting Internship Application
 
 . Deleting an internship application by index
 
@@ -1744,11 +1745,12 @@ Details of the deleted internship applications shown in the feedback box.
 Expected: All internship application(s) with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
-=== Archiving internship application
+=== Archiving Internship Application
 
 . Archiving an internship application by index
 
 .. Prerequisites:
+* Current view is the main list
 * At least one internship application displayed
 
 ... Test case: `archive 1` +
@@ -1765,6 +1767,7 @@ Expected: Similar to previous.
 . Archiving internship applications by indices
 
 .. Prerequisites:
+* Current view is the main list
 * At least two internship applications displayed
 
 ... Test case: `archive 1, 2` +
@@ -1786,6 +1789,7 @@ Error details shown in feedback box.
 . Archiving internship application(s) by status field
 
 .. Prerequisites:
+* current view is the main list
 * at least one internship application with status "applied"
 * at least one internship application with status "wishlist"
 * no internship applications with status "rejected"
@@ -1811,11 +1815,12 @@ Expected: All internship application(s) with status "applied" are archived from 
 Details of the archived internship applications shown in the feedback box.
 
 
-=== Unarchiving internship application
+=== Unarchiving Internship Application
 
 . Unarchiving an internship application by index
 
 .. Prerequisites:
+* current view is the archival list
 * At least one internship application displayed
 
 ... Test case: `unarchive 1` +
@@ -1832,6 +1837,7 @@ Expected: Similar to previous.
 . Unarchiving internship applications by indices
 
 .. Prerequisites:
+* current view is the archival list
 * At least two internship applications displayed
 
 ... Test case: `unarchive 1, 2` +
@@ -1853,6 +1859,7 @@ Error details shown in feedback box.
 . Unarchiving internship application(s) by status field
 
 .. Prerequisites:
+* current view is the archival list
 * at least one internship application with status "applied"
 * at least one internship application with status "wishlist"
 * no internship applications with status "rejected"
@@ -1878,7 +1885,7 @@ Expected: All internship application(s) with status "applied" are unarchived fro
 Details of the unarchived internship applications shown in the feedback box.
 
 
-=== Adding an interview to an internship application
+=== Adding an Interview to an Internship Application
 
 . Adding an interview while an internship application is displayed.
 .. Prerequisites: List all internship applications using the `list`.  +
@@ -1892,7 +1899,7 @@ Details of the unarchived internship applications shown in the feedback box.
    Expected: No interview is added. Error details shown in the result box.
 .. Other incorrect interview add commands to try: `interview 1 add`, `interview 0 add`, `interview 1 add o/false d/(valid date)` (offline interview must have address).
 
-=== Editing an interview in an internship application
+=== Editing an Interview in an Internship Application
 
 . Editing an interview while an internship application is displayed.
 .. Prerequisites: List all internship applications using the `list`.  +
@@ -1915,7 +1922,7 @@ Details of the unarchived internship applications shown in the feedback box.
 .. Test case: `stats`
 * Expected: A separate window will appear with graphical representation of the statistics.
 
-=== Sorting the list of internship applications
+=== Sorting the List of Internship Applications
 . Sorting a list of internship applications.
 .. Prerequisites: List all internship applications using `list`.  +
 Select any internship application by clicking one.
@@ -1945,7 +1952,7 @@ Expected: No change in order of internship applications with identical roles (st
 . Sorting a list of internship applications in `archival` mode.
 .. Repeat the above steps, but list all internship applications using `archival`.
 
-=== Getting reminders for internship applications
+=== Getting Reminders for Internship Applications
 . Getting reminders for internship applications which are due or have interviews scheduled in 7 days +
 Test case: `reminder` +
 Expected: Only applications which are due or have interviews scheduled in 7 days will be shown. They should be displayed
@@ -1954,7 +1961,7 @@ in order of earliest application date or scheduled interview date followed by th
 Test case: `reminder` +
 Expected: No applications should be shown.
 
-=== Finding internship applications
+=== Finding Internship Applications
 
 . Finding a list of internship application.
 .. Prerequisites: Starting from an empty list, +
@@ -1975,8 +1982,7 @@ Expected: No applications should be shown.
 .. Test case: `find w/1` +
     Expected: Only the internship applications with company names `Shopee` will be listed (search for priority is not based on substring so `Google` is not listed)
 
-
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 .. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
@@ -1991,19 +1997,19 @@ their internship applications, we designed and implemented `reminder`, `intervie
 
 === Challenges Faced
 
-==== Designing `find`, `sort`, and `reminder`
+==== Designing Find, Sort, and Reminder
 
-There was a need to plan how `find`, `sort`, and `reminder` command should behave and how we can extend such commands with new behaviours easily in the future.
+There was a need to plan how `find`, `sort`, and `reminder` should behave and how we can extend such commands with new behaviours easily in the future.
 This required a lot of team discussion and effort in terms of coming up with drafts for our intended implementation. For `find`, we had to ensure that
-when a new field is added, or if an existing field is changed, we can simply add/edit predicate classes accordingly and make changes only in the `FindCommandParser`.
+when a new field is added, or if an existing field is changed, we can simply add / edit predicate classes accordingly and make changes only in the `FindCommandParser`.
 For `sort`, we had to ensure that adding or removing a sort comparator only required very minimal changes to the `SortCommandParser` (which requires only a single line in our final implementation).
 On top of that, we also had to ensure that it is easy to pass a description of the predicate and comparator used to the `PredicateDisplayFooter` and `SortDisplayFooter` respectively.
 For `reminder`, there was a need to plan the conditions to decide which internship applications to show when the reminder command is used for the implementation of the corresponding predicates to use.
 
-==== Implementing interview classes and commands
+==== Implementing Interview Classes and Commands
 The interview classes must be highly extensible as new interview types could be added in the future. Therefore, extra effort was made to ensure new interviews could be easily integrated into the current logic and model structure of interviews.
 
-==== Enabling multiple execution type functionality for removal-based commands
+==== Enabling Multiple Execution Type Functionality for Removal-Based Commands
 
 We wanted to make the application as user-friendly as possible for the users. Being able to execute removal-based commands like `delete`, `archive`, and `unarchive` is therefore a good feature to include.
 However, there are many ways to extend our commands to accommodate multiple execution type. The only question is: at what cost? As a team, we had to conduct multiple online team meetings during *milestone v1.4*
@@ -2012,10 +2018,10 @@ to discuss about the most suitable, time-effective, and extensible implementatio
 ==== Modifying GUI
 The GUI must be made easily readable and understandable by the user. Research and effort was made to ensure a well organised and consistent application layout.
 
-==== Integrating the features
+==== Integrating the Implemented Features
 Due to the cohesive nature of our features, it resulted in extensive interaction between the components -- ensuring a smooth integration was therefore a significant challenge.
 For example, as our features introduced many new UI elements and backend implementation, we ran into UI / data reactivity issue where ObservableList was no longer an adequate and sustainable solution.
 
 We needed a more robust solution to help us keep the UI in sync with the state of our data. This required the team to look into how we can implement the observer pattern design into our system and the best options we have
 to implement the structure. There were various constraints that we had to be mindful of as we incorporated the observer pattern, mainly due to the way we implemented certain features (as reactivity issue was something we did
-not foresee). As this is our first time dealing with the observer pattern, we had to spend a good amount of time to understand and implement it properly.
+not foresee). As this was our first time dealing with the observer pattern, we had to spend a good amount of time to research, understand, and implement it properly.
