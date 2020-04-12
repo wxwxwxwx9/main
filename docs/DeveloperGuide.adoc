@@ -399,7 +399,7 @@ image::InterviewAddCommandExecuteSequenceDiagram.png[]
 The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
 Then followed by creating a CommandResult, and returning it.
 
-==== Interview Commands Parser
+==== Interview commands parser
 `InterviewCommandParser` is the entry point to all `interview` sub-commands.
 It will be called from `InternshipDiaryParser`which is the primary logic parser for user input.
 
