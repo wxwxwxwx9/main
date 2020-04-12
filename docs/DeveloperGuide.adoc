@@ -579,12 +579,12 @@ It illustrates the internal workings of how we switch the view between the archi
         firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());
     }
 
-It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
+It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archival and main list.
 However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the reference change in `displayedInternships` whenever the user executes `archival` or `list`.
 Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
-In order to resolve this issue, we need to employ the observer pattern.
-The general idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
+In order to resolve this issue, we need to employ the *observer pattern design*.
+The broad idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
 Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
 
 To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
@@ -617,7 +617,7 @@ We will briefly discuss how the observer pattern works in our implementation.
 Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe.
 It will also have to specify which property of that object it wants to observe.
 
-In our case, when ModelManager is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
+In our case, when `ModelManager` is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
 The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
 is a reference to `ModelManager` itself (so that it can be registered as a listener of the `displayedInternships` property of `InternshipDiary`).
 
@@ -627,7 +627,7 @@ As a result, whenever there is a change to the property `displayedInternships` i
 `InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`.
 The emitted event will trigger the `propertyChange` function of `ModelManager`.
 `ModelManager` can then retrieve the new reference from the event and update its `filteredInternshipApplications` accordingly.
-It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
+It will then repeat the event emission process to any UI element (e.g. `StatisticsWindow`) that is observing the
 `filteredInternshipApplications` property.
 
 The following activity diagram gives a high-level overview of the above event-driven process.
