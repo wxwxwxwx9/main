@@ -3,6 +3,7 @@
 hide circle
 hide empty members
 skinparam classAttributeIconSize 0
+skinparam linetype ortho
 
 Class FindCommandParser {
 
@@ -13,7 +14,10 @@ Class FindCommand {
 }
 
 Class Predicate <<interface>> {
-
+    + test(internshipApplication : InternshipApplication) : boolean
+    + and(other : Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + or(other : Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + toString(): String
 }
 
 Class XYZPredicate {
@@ -21,7 +25,7 @@ Class XYZPredicate {
 }
 
 note as N1
-         The Predicate interface is the default
+         This Predicate interface is the default
   java.util.function.Predicate functional interface
 end note
 
@@ -32,12 +36,12 @@ note as N2
     StatusIsInterviewPredicate and StatusIsWishlistPredicate
 end note
 
-N1 .. Predicate
+N1 .left. Predicate
 N2 .. XYZPredicate
-FindCommandParser ...> XYZPredicate
-FindCommandParser ...> Predicate
-FindCommandParser ...> FindCommand
-FindCommand ---> "*" Predicate
-XYZPredicate ...|> Predicate
+FindCommandParser .right.> XYZPredicate : creates >
+FindCommandParser ..> Predicate
+FindCommandParser .left.> FindCommand : creates >
+FindCommand ---> "*" Predicate : uses >
+XYZPredicate ..|> Predicate
 
 @enduml
