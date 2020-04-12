@@ -979,7 +979,7 @@ produced is then passed into the method `updateFilteredInternshipApplicationList
 The activity diagram below summarises how each internship application is checked by the predicates mentioned above:
 
 .Activity Diagram on how `ReminderCommand` filters out applications to display
-image::ReminderActivityDiagram.png[]
+image::ReminderActivityDiagram.png[Reminder, 200]
 
 A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also created and
 then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
