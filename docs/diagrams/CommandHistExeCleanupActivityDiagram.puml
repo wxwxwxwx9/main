@@ -1,0 +1,18 @@
+@startuml
+start
+
+:Queue command at front of
+EnteredCommandHistory;
+
+if () then ([size of \nEnteredCommandHistory\nexceeds 20])
+    :Dequeue command at back of
+    EnteredCommandHistory;
+else ([else])
+endif
+
+:Move historyIterator
+to the front of
+EnteredCommandHistory;
+:Clear command in CommandBox;
+stop
+@enduml
