@@ -676,7 +676,7 @@ This is especially important when many properties are being observed.
 
 Below is the updated class diagram with the implementation of `ListenerPropertyType` enumeration.
 
-.Updated class diagram to showcase our implementation of the two-tier observer-observable structure with `ListenerPropertyType` enumeration
+.Updated class diagram to showcase our implementation of the two-tier observer-observable structure with `ListenerPropertyType`
 image::InternshipDiaryAndModelManagerPropertyChangeEnumClassDiagram.png[align="center"]
 
 As seen from the diagram above, each observable will implement two additional methods to use `ListenerPropertyType` enumeration as parameters:
@@ -2021,7 +2021,7 @@ to discuss about the most suitable, time-effective, and extensible implementatio
 ==== Modifying GUI
 The GUI must be made easily readable and understandable by the user. Research and effort was made to ensure a well organised and consistent application layout.
 
-==== Integrating the Features
+==== Integrating the Implemented Features
 Due to the cohesive nature of our features, it resulted in extensive interaction between the components -- ensuring a smooth integration was therefore a significant challenge.
 For example, as our features introduced many new UI elements and backend implementation, we ran into UI / data reactivity issue where ObservableList was no longer an adequate and sustainable solution.
 
