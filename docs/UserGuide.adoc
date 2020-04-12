@@ -162,6 +162,15 @@ entry of each field (except `sort` which only allows one field).
 by the application. In the example above, only `c/Facebook` will be registered, `c/Google`
 will be ignored by the application.
 
+==== Colored Internship Applications
+* Some internship applications in the list may be colored green or red. This is what each color means:
+
+** Internship applications colored green indicates that there is an upcoming application deadline or interviews for that internship application.
+** Internship applications colored red indicates that the internship application's status is `ghosted` and you might want to take action to keep the list relevant.
+
+.Example of colored internship applications
+image::ColoredCards.png[align="center", width="600"]
+
 [[Commands]]
 == Commands
 
