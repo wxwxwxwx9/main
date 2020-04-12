@@ -1376,6 +1376,7 @@ Use case resumes at step 2
 +
 Use case ends.
 
+
 [appendix]
 == Non Functional Requirements
 

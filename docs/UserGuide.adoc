@@ -343,11 +343,7 @@ The applications will be displayed in order of earliest application date or sche
 
 This command helps to remind you of applications which you might want to focus on first, so that you do not miss submission deadlines or any upcoming interviews.
 
-[cols="1a,1"]
-|===
-2.1+|*Format*
-2.1+|`reminder`
-|===
+Format: `reminder`
 
 [cols="1,20"]
 |===
