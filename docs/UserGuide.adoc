@@ -42,7 +42,7 @@ image::help_window.png[width="790"]
 +
 . Refer to <<Commands>> to find out what other commands you can use on Internship Diary.
 
-== Before you start
+== Key Information
 
 Here are some important information you should know.
 
@@ -52,22 +52,23 @@ image::internship_diary_label.png[align="center", width="790"]
 
 The image illustrates the major graphical components of *Internship Diary*.
 
+[[fields]]
 === Structure of internship application
 
 [%header,cols="1a, 1, 1, 1, 5"]
 |===
 |*Field* | *Prefix* | Can Be Empty? | Max Number of Values | Remarks
 | Company | c/ | No | 1 | No restrictions on input.
-| Role | c/ | No | 1 | No restrictions on input.
+| Role | r/ | No | 1 | No restrictions on input.
 | Address | a/ | Yes | 1 | No restrictions on input.
-| Phone | c/ | Yes | 1 | "+" at the start is optional. Must have between 4 and 15 digits if not empty.
-| Email | e/ | Yes | 1 | Must contain symbol "@" if not empty. Does not ensure validity of email.
-| Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. ` ` and `/` are also supported
+| Phone | p/ | Yes | 1 | "+" at the start is optional. Must have between 4 and 15 digits if not empty.
+| Email | e/ | Yes | 1 | Email should be of type "example@example.com". The application will not ensure the validity of email.
+| Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. Whitespace and `/` are also supported
 separators. If year is not given, will default to the current year.
-| Priority | w/ | No | 1 | Must be an integer from 0 to 10 (inclusive).
+| Priority | w/ | No | 1 | Must be an integer from 0 to 10 (inclusive). If left empty, default to 5.
 | Status | s/ | No | 1 | Possible values listed in <<Valid status>>. The first letter of the Status can be
 used to input the respective Status values.
-| Interviews | Not applicable | Yes | No limits | See <<Modifying an interview in an internship application : `interview`>>
+| Interviews | Not applicable | Yes | No limits | See below, <<interview>>
 |===
 
 //image::internshipDetailsExample.png[width="790"]
@@ -82,6 +83,31 @@ The valid Status values for internship applications listed in sort order:
 . `offered` - image:offered_card.png[align="center", width="60"]
 . `rejected`
 . `ghosted`
+
+[[interview]]
+=== Structure of Interview
+* `Interview` represents an interview that you have been given by the company you are applying to.
+It exists within an `InternshipApplication`
+* Currently there are two types of `Interview` provided by the Internship Diary:
+** Online Interview -- No address is needed.
+** Offline Interview -- Address must be provided when interview is added or modified from online to offline.
+* You can specify what type of interview you want to add by using the `o/IS_ONLINE` prefix.
+* In order to facilitate your tracking of interviews, there are no restriction to what `InternshipApplication`
+you can add your interview to. +
+Therefore, it is possible for you to add an interview to an `InternshipApplication` with any status.
+** This is so that just in case you forgot to record an interview after you already got offered or rejected,
+you could still add it into the Internship Diary for your personal tracking.
+** In v2.0, we will create a prompt on whether you want to automatically change your `InternshipApplication` status
+to 'interview'.
+
+[%header,cols="1a, 1, 1, 1, 5"]
+|===
+|*Field* | *Prefix* | Can Be Empty? | Max Number of Values | Remarks
+| isOnline | o/ | No | 1 | Can only be `true` or `false`
+| Interview Date | d/ | No | 1 | Must be a valid date of the form `day-month-year`. Whitespace and `/` are also supported
+separators. If year is not given, will default to the current year.
+| Interview Address | a/ | Yes | 1 | No restrictions on input.
+|===
 
 === Command format
 
@@ -99,9 +125,11 @@ The valid Status values for internship applications listed in sort order:
 
 === Other important information
 
+==== Index
+
 * We will use `INDEX` to refer to a particular internship application.
 ** `INDEX` can be found on the left side of an internship application card.
-** `INDEX` will always be a *positive integer*.
+** `INDEX` has to start from **1** (inclusive).
 ** `INDEX` is not unique to a particular internship application -- it will change as the list is updated.
 *** `INDEX` only serves as a reference for you to choose the correct internship application.
 
@@ -110,9 +138,16 @@ image::sample_index.png[align="center", width="600"]
 * For any command that uses `INDEX`:
 ** `INDEX` must be among those displayed in the current list.
 *** For example, if the current list displays `INDEX` *1 to 10*, `INDEX` 11 will not be considered valid.
-** `INDEX` must be a *positive integer*.
 * All the commands will work on both *main list* and *archival list*.
-** The only exceptions are: `Reminder`
+** The only exceptions are: `Reminder`, `Archive`, `Unarchive`
+
+==== Multiple Fields
+
+* Commands that contain fields (see: <<fields>>) will be able to take in multiple
+entry of each field (except `sort` which only allows one field).
+* However, when multiple fields are inputted, eg. `c/Google c/Facebook`, only the last field will be recognised
+by the application. In the example above, only `c/Facebook` will be registered, `c/Google`
+will be ignored by the application
 
 [[Commands]]
 == Commands
@@ -256,7 +291,7 @@ Archives all the internship applications with the `rejected` status in the resul
 
 === Unarchiving an internship application : `unarchive`
 
-Unarchive specified internship applications from the main list. +
+Unarchive specified internship applications from the archival list. +
 
 Formats:
 
@@ -354,7 +389,7 @@ Available values for `FIELD`: +
 `c/`: Sorts by company name (Dictionary Order). +
 `d/`: Sorts by application date (Chronological Order). +
 `r/`: Sorts by role (Dictionary Order). +
-`s/`: Sorts by status (Refer to <<Valid Values of Status>>). +
+`s/`: Sorts by status (Refer to <<Valid status>>). +
 `w/`: Sorts by priority level (Ascending Order). +
 
 ****
@@ -373,8 +408,9 @@ Returns a list of currently displayed companies sorted by company name.
 Add, list, edit or delete interviews within an internship application +
 
 [TIP]
-An interview must contain a date and a boolean that represents whether an interview is conducted online or not. +
+An interview must contain a date and a boolean (true or false) that represents whether an interview is conducted online or not. +
 If the interview is not conducted online, an additional address field must be provided.
+See <<interview>> for more information.
 
 Format:
 
@@ -384,9 +420,9 @@ Format:
 ****
 * A `COMMAND_WORD` can be: `add list edit delete` +
 The command will behave identically to their internship application counterparts
+** `list` is currently functionally similar to `select`, additional features will be added in v2.0.
 * The `INTERNSHIP_INDEX` corresponds to the index of the internship in the displayed internship list.
-Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the interview list. +
-Both indexes must be positive integer 1, 2, 3, ...
+Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the interview list.
 ****
 
 * Specific format of each `COMMAND_WORD`:
@@ -526,7 +562,6 @@ e.g. `interview 1 delete 1`
 * *Statistics* : `stats`
 * *Exit* : `exit`
 
-== Appendix
 
 
 

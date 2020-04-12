@@ -19,7 +19,7 @@ of such students, we came up with the idea of the Internship Diary.
 == Summary of contributions
 
 * *Major enhancement*: Added *the ability to sort internship applications*.
-(PR link:{prURL}71[#71], link:{prURL}113[#113], link:{prURL}199[#199]])
+(PR link:{prURL}71[#71], link:{prURL}113[#113], link:{prURL}199[#199])
 ** What it does: Sorts internship applications by field.
 ** Justification: This feature improves the product significantly as users can better manage their internship application list.
 This is a basic feature which every organizer app need to have.
@@ -50,8 +50,6 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP
 (PR link:{prURL}82[#82], link:{prURL}118[#118], link:{prURL}216[#216])
 
 ** Enhancements to existing features:
-*** Reformat Storage to fit our app.
-(PR link:{prURL}33[#33], link:{prURL}50[#50])
 *** Prettified the help window.
 (PR link:{prURL}73[#73])
 *** Allowed certain prefixes to be optional.
@@ -60,6 +58,10 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP
 (PR link:{prURL}98[#98])
 *** Implemented Enums for Listener System.
 (PR link:{prURL}125[#125])
+
+** Helped with refactoring of Internship Diary from Address Book by updating the storage classes
+(PR link:{prURL}33[#33], link:{prURL}50[#50])
+and updating DG diagrams and text.
 
 ** Community:
 *** Contributed to forum discussions (examples:
