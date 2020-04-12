@@ -13,9 +13,13 @@ Class SortCommandParser {
 Interface Comparator <<Interface>> {
     + compare(InternshipApplication ia1, InternshipApplication ia2): int
     + toString(): String
+    + reversed(): Comparator
 }
 
 Class XYZComparator {
+}
+
+Class ReversedComparator {
 }
 
 note as N1
@@ -26,12 +30,15 @@ end note
 Comparator .. N1
 
 SortCommandParser .left.> SortCommand : creates >
-
-XYZComparator .down.|> Comparator
+SortCommandParser .right.> XYZComparator
+SortCommandParser ..> Comparator
 
 SortCommand --> "1" Comparator
-SortCommandParser .right.> XYZComparator
 
+XYZComparator .down.|> Comparator
+XYZComparator ..> ReversedComparator
+
+ReversedComparator ..|> Comparator
 
 
 @enduml
