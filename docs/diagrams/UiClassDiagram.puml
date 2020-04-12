@@ -11,19 +11,23 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class StatisticsWindow
-Class StatisticsBarFooter
-Class ComparatorDisplayFooter
-Class PredicateDisplayFooter
 Class ResultDisplay
 Class InternshipApplicationListPanel
 Class InternshipApplicationCard
-Class StatusBarFooter
 Class CommandBox
 Class EnteredCommandsHistory
+package "Internship Application Detail" <<Rectangle>> {
 Class InternshipApplicationDetail
 Class InternshipApplicationDetailSetter
 Class InterviewListPanel
 Class InterviewCard
+}
+package "Display Footer" <<Rectangle>> {
+Class StatisticsBarFooter
+Class ComparatorDisplayFooter
+Class PredicateDisplayFooter
+Class StatusBarFooter
+}
 }
 
 package Model <<Rectangle>> {
