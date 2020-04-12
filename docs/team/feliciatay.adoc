@@ -20,7 +20,7 @@ applications. Hence, Internship Diary was created.
 
 * *Major enhancement*: Adding Reminder feature (PR: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/82[#82], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/152[#152], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/201[#201], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/215[#215])
 ** *What it does:* This feature enables the user to view applications that need to be submitted or have interviews scheduled in 7 days.
-** *Justification:*: It aims to help the user keep track of his internship applications, to avoid missing submission deadlines or interview dates. It can also
+** *Justification:* It aims to help the user keep track of his internship applications, to avoid missing submission deadlines or interview dates. It can also
 give the user an idea of the applications to focus on more first.
 
 * *Minor enhancement*: Implement the display of the last stage where an application failed (PR: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/115[#115], https://github.com/AY1920S2-CS2103T-F10-2/main/pull/134[#134])

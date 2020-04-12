@@ -23,14 +23,29 @@ of such students, we came up with the idea of the Internship Diary.
 ** What it does: Sorts internship applications by field.
 ** Justification: This feature improves the product significantly as users can better manage their internship application list.
 This is a basic feature which every organizer app need to have.
+** **Highlights:** This enhancement was not very hard to implement, but a lot of effort went into thinking about how
+to make it more extendable.
+** **What could be improved:** CliSyntax should have been refactored into an Enum. This would have allowed for
+a very simple switch statement implementation.
 
-* *Minor enhancement*: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Added CommandBox history.
 (PR link:{prURL}101[#101])
+** What it does: Users can navigate to previous commands using up and down keys.
 ** Justification: Allows users to access similar past commands.
 Also speeds up testing considerably.
+** **Highlights:** The motivation of this enhancement was originally to make manual testing much simpler. At first the command history
+was done directly on the CommandBox class, but I ended up abstracting the code into its own class. I also spent some time
+on deciding the data structure to store the command history, but i realised that a lot of my worries was over constant time
+performance differences, so I simply used the data structure (Linked List) which was already implemented in Java default libraries with
+all the functionality I needed.
 
 * *Minor enhancement*: Added display of what the current list is sorted or filtered by.
 (PR link:{prURL}114[#114]])
+** Justification: This feature is a nice visual indication as to what a list is sorted or filtered by.
+** **Highlights:** Thought very long about how to best pass the description of the comparator or predicate without
+adding too many new methods. In the end I just settled on overriding the `toString` method, directly or by using a wrapper class.
+Although it feels very crude, but it is simple and easy to extend to future commands which may involve changing the
+Comparator or Predicate.
 
 * *Minor enhancement*: Added DateTimeUtil to better parse dates.
 (PR link:{prURL}104[#104])
@@ -43,7 +58,7 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP
 * *Other contributions*:
 
 ** Project management:
-*** Standardised the Intellij IDEA code formatter, in order to make the code base more uniform and to meet the checkstyle requirements (PR https://github.com/AY1920S2-CS2103T-F10-2/main/pull/221[#221]).
+*** Standardised the Intellij IDEA code formatter, in order to make the code base more uniform and to meet the checkstyle requirements (PR link:{prURL}221[#221]).
 
 ** Review/mentoring contributions:
 *** Was the main technical adviser, and suggested implementation methods for several features.
@@ -58,6 +73,8 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gerhean[tP
 (PR link:{prURL}98[#98])
 *** Implemented Enums for Listener System.
 (PR link:{prURL}125[#125])
+*** Change Implementation of DisplayInternshipDetails to Listener System.
+(PR link:{prURL}198[#198])
 
 ** Helped with refactoring of Internship Diary from Address Book by updating the storage classes
 (PR link:{prURL}33[#33], link:{prURL}50[#50])
@@ -68,8 +85,9 @@ and updating DG diagrams and text.
 https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1]
 )
 
-** Tools:
-**** Set up Travis CI and Coveralls
+** Contributions to team-based tasks :
+*** Renamed project folder from `address` to `diary`.
+*** Set up GitHub, Travis CI, Coveralls and Codacy
 
 == Contributions to the User Guide
 
