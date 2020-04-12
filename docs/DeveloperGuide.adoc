@@ -400,15 +400,28 @@ The execution sequence will first modify the `InternshipApplication` based on th
 Then followed by creating a CommandResult, and returning it.
 
 ==== Interview Commands Parser
-`InterviewCommandParser` is the entry point to all `interview` sub-command.
-It will be invoked from `InternshipDiaryParser`
-which is the primary logic parser for user input.
-The following sequence diagram will illustrate the process of invocation for
-`InterviewAddCommand`.
-All other sub-commands will follow the same invocation format.
+`InterviewCommandParser` is the entry point to all `interview` sub-commands.
+It will be called from `InternshipDiaryParser`which is the primary logic parser for user input.
 
-.Interactions inside the Logic Component for `InterviewAddCommand`
-image::InterviewCommandSequenceDiagram.png[]
+`InterviewCommandParser` will support the parsing of all four types of `InterviewCommand` sub-commands.
+The following activity diagram will show how `InterviewCommandParser` reads and interpret user input to
+return the expected sub-command.
+
+.Process of `InterviewCommandParser` when reading user input
+image::InterviewCommandParserActivityDiagram.png[]
+
+Additionally, `InterviewCommandParser` will only be invoked within the `Logic` component, with the only exception being
+InterviewAddCommand.
+Figure 18 will show the general invocation format within the `Logic` component using `InterviewDeleteCommand`
+as an example.
+While Figure 19 will show the invocation of `InterviewAddCommand` which is the only sub-command that will utilise the
+`Model component`.
+
+.Interactions inside the Logic Component for `InterviewDeleteCommand`
+image::InterviewDeleteCommandSequenceDiagram.png[]
+
+.Interactions inside the Logic and Model Component for `InterviewAddCommand`
+image::InterviewAddCommandSequenceDiagram.png[]
 
 [[InterviewListCommand-Improvements]]
 ==== [Proposed Improvements] InterviewListCommand
