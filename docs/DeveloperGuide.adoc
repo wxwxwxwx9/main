@@ -1670,7 +1670,7 @@ Expected: All unarchived internship application(s) are displayed.
 ... Test case: "archival" +
 Expected: All archived internship application(s) are displayed.
 
-=== Adding an internship application
+=== Adding an Internship Application
 
 . Adding an internship application
 
@@ -1682,7 +1682,7 @@ Details of the newly-added internship application shown in the feedback box.
 Expected: Internship application is not added.
 Error details shown in feedback box.
 
-=== Deleting internship application
+=== Deleting Internship Application
 
 . Deleting an internship application by index
 
@@ -1748,7 +1748,7 @@ Details of the deleted internship applications shown in the feedback box.
 Expected: All internship application(s) with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
-=== Archiving internship application
+=== Archiving Internship Application
 
 . Archiving an internship application by index
 
@@ -1818,7 +1818,7 @@ Expected: All internship application(s) with status "applied" are archived from 
 Details of the archived internship applications shown in the feedback box.
 
 
-=== Unarchiving internship application
+=== Unarchiving Internship Application
 
 . Unarchiving an internship application by index
 
@@ -1888,7 +1888,7 @@ Expected: All internship application(s) with status "applied" are unarchived fro
 Details of the unarchived internship applications shown in the feedback box.
 
 
-=== Adding an interview to an internship application
+=== Adding an Interview to an Internship Application
 
 . Adding an interview while an internship application is displayed.
 .. Prerequisites: List all internship applications using the `list`.  +
@@ -1902,7 +1902,7 @@ Details of the unarchived internship applications shown in the feedback box.
    Expected: No interview is added. Error details shown in the result box.
 .. Other incorrect interview add commands to try: `interview 1 add`, `interview 0 add`, `interview 1 add o/false d/(valid date)` (offline interview must have address).
 
-=== Editing an interview in an internship application
+=== Editing an Interview in an Internship Application
 
 . Editing an interview while an internship application is displayed.
 .. Prerequisites: List all internship applications using the `list`.  +
@@ -1925,7 +1925,7 @@ Details of the unarchived internship applications shown in the feedback box.
 .. Test case: `stats`
 * Expected: A separate window will appear with graphical representation of the statistics.
 
-=== Sorting the list of internship applications
+=== Sorting the List of Internship Applications
 . Sorting a list of internship applications.
 .. Prerequisites: List all internship applications using `list`.  +
 Select any internship application by clicking one.
@@ -1955,7 +1955,7 @@ Expected: No change in order of internship applications with identical roles (st
 . Sorting a list of internship applications in `archival` mode.
 .. Repeat the above steps, but list all internship applications using `archival`.
 
-=== Getting reminders for internship applications
+=== Getting Reminders for Internship Applications
 . Getting reminders for internship applications which are due or have interviews scheduled in 7 days +
 Test case: `reminder` +
 Expected: Only applications which are due or have interviews scheduled in 7 days will be shown. They should be displayed
@@ -1964,7 +1964,7 @@ in order of earliest application date or scheduled interview date followed by th
 Test case: `reminder` +
 Expected: No applications should be shown.
 
-=== Finding internship applications
+=== Finding Internship Applications
 
 . Finding a list of internship application.
 .. Prerequisites: Starting from an empty list, +
@@ -1985,8 +1985,7 @@ Expected: No applications should be shown.
 .. Test case: `find w/1` +
     Expected: Only the internship applications with company names `Shopee` will be listed (search for priority is not based on substring so `Google` is not listed)
 
-
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 .. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
@@ -2001,7 +2000,7 @@ their internship applications, we designed and implemented `reminder`, `intervie
 
 === Challenges Faced
 
-==== Designing `find`, `sort`, and `reminder`
+==== Designing Find, Sort, and Reminder
 
 There was a need to plan how `find`, `sort`, and `reminder` should behave and how we can extend such commands with new behaviours easily in the future.
 This required a lot of team discussion and effort in terms of coming up with drafts for our intended implementation. For `find`, we had to ensure that
@@ -2010,10 +2009,10 @@ For `sort`, we had to ensure that adding or removing a sort comparator only requ
 On top of that, we also had to ensure that it is easy to pass a description of the predicate and comparator used to the `PredicateDisplayFooter` and `SortDisplayFooter` respectively.
 For `reminder`, there was a need to plan the conditions to decide which internship applications to show when the reminder command is used for the implementation of the corresponding predicates to use.
 
-==== Implementing interview classes and commands
+==== Implementing Interview Classes and Commands
 The interview classes must be highly extensible as new interview types could be added in the future. Therefore, extra effort was made to ensure new interviews could be easily integrated into the current logic and model structure of interviews.
 
-==== Enabling multiple execution type functionality for removal-based commands
+==== Enabling Multiple Execution Type Functionality for Removal-Based Commands
 
 We wanted to make the application as user-friendly as possible for the users. Being able to execute removal-based commands like `delete`, `archive`, and `unarchive` is therefore a good feature to include.
 However, there are many ways to extend our commands to accommodate multiple execution type. The only question is: at what cost? As a team, we had to conduct multiple online team meetings during *milestone v1.4*
@@ -2022,7 +2021,7 @@ to discuss about the most suitable, time-effective, and extensible implementatio
 ==== Modifying GUI
 The GUI must be made easily readable and understandable by the user. Research and effort was made to ensure a well organised and consistent application layout.
 
-==== Integrating the features
+==== Integrating the Features
 Due to the cohesive nature of our features, it resulted in extensive interaction between the components -- ensuring a smooth integration was therefore a significant challenge.
 For example, as our features introduced many new UI elements and backend implementation, we ran into UI / data reactivity issue where ObservableList was no longer an adequate and sustainable solution.
 

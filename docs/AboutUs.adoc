@@ -40,7 +40,6 @@ Responsibilities:
 * Observer Pattern
 * Multi-Execution Types for Removal-Based Commands
 * Statistics / Metrics Dashboard
-* Deliverables & Deadlines
 
 '''
 
@@ -72,6 +71,7 @@ Role:
 * Developer
 
 Responsibilities:
+
 * Implementing Reminder Command
 * Documentation
 
