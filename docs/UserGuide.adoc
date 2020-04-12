@@ -402,10 +402,31 @@ being `Software Engineer` but not company that is `Facebook` and role being `Sof
 Example(s):
 
 * `find Google` +
-Displays internship application(s) with company `Google` OR `Google Deepmind` OR with email `alice@google.com`
+Displays internship application(s) with company `Google` OR with email `alice@google.com`.
+
+[cols="2", frame="none", grid="none"]
+|===
+a|
+.Before executing `find Google`.
+image::BeforeFind1.png[]
+a|
+.After executing `find Google`.
+image::AfterFind1.png[]
+|===
 
 * `find c/Google s/applied` +
-Displays internship application(s) with company `Google` AND status `APPLIED`
+Displays internship application(s) with company `Google` AND status `APPLIED`.
+
+[cols="2", frame="none", grid="none"]
+|===
+a|
+.Before executing `find c/Google s/applied`.
+image::BeforeFind2.png[]
+a|
+.After executing `find c/Google s/applied`.
+image::AfterFind2.png[]
+|===
+
 // end::find[]
 
 // tag::sort[]
