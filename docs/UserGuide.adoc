@@ -85,7 +85,7 @@ The valid Status values for internship applications listed in sort order:
 . `ghosted`
 
 [[interview]]
-=== Structure of Interview
+=== Structure of interview
 * `Interview` represents an interview that you have been given by the company you are applying to.
 It exists within an `InternshipApplication`
 * Currently there are two types of `Interview` provided by the Internship Diary:
@@ -141,7 +141,7 @@ image::sample_index.png[align="center", width="600"]
 * All the commands will work on both *main list* and *archival list*.
 ** The only exceptions are: `Reminder`, `Archive`, `Unarchive`
 
-==== Multiple Fields
+==== Multiple fields
 
 * Commands that contain fields (see: <<fields>>) will be able to take in multiple
 entry of each field (except `sort` which only allows one field).
