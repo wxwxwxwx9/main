@@ -173,7 +173,7 @@ Format: `archival`
 image::archival_list.png[align="center", width="800"]
 
 // tag::find[]
-=== Locating an internship application by fields: `find`
+=== Locating internship applications by fields: `find`
 
 Finds all internship application(s) with the specified fields containing any of the given keywords.
 
