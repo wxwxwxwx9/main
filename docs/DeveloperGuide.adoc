@@ -954,13 +954,7 @@ image::ReminderSequenceDiagram.png[]
 
 The reminder command is implemented in the class `ReminderCommand`.
 
-The following class diagram shows the relationship between `ReminderCommand`, the `Predicate` classes as well as the
-`Comparator` class it uses to display relevant applications:
-
-.Class diagram to show relationship between `ReminderCommand` and the `Predicate` and `Comparator` classes used
-image::ReminderClassDiagram.png[]
-
-Included in the diagram above, the several predicates classes implementing `Predicate<InternshipApplication>` used are:
+When the `execute()` method of the `ReminderCommand` is called, several predicates classes implementing `Predicate<InternshipApplication>` are created:
 
 * `ApplicationDateDuePredicate` -- Predicate to check whether the `ApplicationDate` field of an internship application has a date of the current date or within 7 days of the current date.
 
@@ -987,11 +981,11 @@ The activity diagram below summarises how each internship application is checked
 .Activity Diagram on how `ReminderCommand` filters out applications to display
 image::ReminderActivityDiagram.png[]
 
-A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>`, also included in Figure,
-is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
+A comparator `ApplicationDateAndInterviewDateComparator` implementing `Comparator<InternshipApplication>` is also created and
+then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance to sort internship
 applications in terms of which application is more urgent. For each internship application, its `ApplicationDate` field
 as well as the earliest interview date in the `List<Interview> interviews` are compared to current date and the
-earlier date out of the two is used for the sorting.
+earlier date out of the two is used for the sorting. The most urgent application will be at the top.
 
 ==== Design considerations
 
