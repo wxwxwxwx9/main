@@ -5,6 +5,7 @@
 :prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
 
 == PROJECT: Internship Diary
+
 This portfolio provides an overview of my contributions to the Internship Diary project.
 
 == Overview
@@ -66,6 +67,20 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[C
 , link:{PrURL}198[#198]
 
 == Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=interviewStructure]
+
+include::../UserGuide.adoc[tag=select]
+
+include::../UserGuide.adoc[tag=interview]
 
 
 == Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=interview]
