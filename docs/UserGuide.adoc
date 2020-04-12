@@ -32,13 +32,18 @@ Here are the steps to get you started on using Internship Diary:
 . Download the latest `internshipdiary.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your Internship Diary.
 . Double-click the file to start the app.
-The GUI should appear in a few seconds.
+The Graphical User Interface (GUI) should appear in a few seconds.
 +
+
+.GUI of Internship Diary
 image::Ui.png[width="790"]
+
 +
 . Test the application by typing the command *`help`* in the command box and pressing kbd:[Enter] to execute it. This should open the help window. +
 +
+.Help window that appears when `help` is executed
 image::help_window.png[width="790"]
+
 +
 . Refer to <<Commands>> to find out what other commands you can use on Internship Diary.
 
@@ -48,6 +53,7 @@ Here are some important information you should know.
 
 === Graphical user interface
 
+.Major graphical components of Internship Diary
 image::internship_diary_label.png[align="center", width="790"]
 
 The image illustrates the major graphical components of *Internship Diary*.
@@ -135,6 +141,7 @@ separators. If year is not given, will default to the current year.
 ** `INDEX` is not unique to a particular internship application -- it will change as the list is updated.
 *** `INDEX` only serves as a reference for you to choose the correct internship application.
 
+.Example of internship application seen on the Internship Application List
 image::sample_index.png[align="center", width="600"]
 
 * For any command that uses `INDEX`:
@@ -165,6 +172,7 @@ Displays *unarchived* internship applications. This is known as your *main list*
 
 Format: `list`
 
+.Display of main list
 image::main_list.png[align="center", width="800"]
 // end::list[]
 
@@ -175,6 +183,7 @@ Displays *archived* internship applications. This is known as your *archival lis
 
 Format: `archival`
 
+.Display of archival list
 image::archival_list.png[align="center", width="800"]
 // end::archival[]
 
@@ -195,6 +204,7 @@ Example(s):
 * `select 1`
 
 //end::select[]
+.Display of internship application details when selected
 image::select_internship.png[align="center", width="790"]
 
 === Adding an internship application: `add`
@@ -458,30 +468,34 @@ Examples:
 `interview 2 list` +
 Lists all interviews in the 2nd internship application in the list
 
+.Display of interview list in internship application details panel
 image::InterviewListExample.png[align="center", width="800"]
 
 * `interview 2 add o/false d/05 02 2020 a/Raffles City #02-22` +
 Adds an interview to the 2nd internship application in the list.
 
+.Display of change in interview list after a new interview is added
 image::InterviewAddExample.png[align="center", width="800"]
 
 * `interview 2 list` +
 `interview 2 edit 1 d/05 05 2020` +
 Edits the date of the 1st interview in the 2nd internship application in the list to `05 05 2020`.
 
+.Display of change of interview field after an interview is edited
 image::InterviewEditExample.png[align="center", width="800"]
 
 * `interview 2 list` +
 `interview 2 delete 3` +
 Deletes the 3rd interview in the 2nd internship application in the list.
 
+.Display of change in interview list after an interview is deleted
 image::InterviewDeleteExample.png[align="center", width="800"]
 // end::interview[]
 
 //tag::reminder[]
 === Getting applications due or have interviews in 7 days : `reminder`
 
-This command will display to you all internship application(s) that:
+Displays all internship application(s) that:
 
 * have status `wishlist` and need to be submitted in 7 days
 * have status `interview` and interviews scheduled in 7 days
@@ -490,22 +504,18 @@ The applications will be displayed in order of earliest application date or sche
 
 This command helps to remind you of applications which you might want to focus on first, so that you do not miss submission deadlines or any upcoming interviews.
 
-[cols="1a,1"]
-|===
-2.1+|*Format*
-2.1+|`reminder`
-|===
+Format: `reminder`
 
-[cols="1,20"]
-|===
-|💡|`reminder` can be used anytime, but it does not work on archived applications.
-|===
+.Example display of Internship Diary when `reminder` is executed
+image::reminder_example.png[align="center", width="800"]
 
-[cols="1,20"]
-|===
-|💡|Any command after `reminder` will be ignored. +
+[TIP]
+`reminder` can be used anytime, but it does not work on archived applications.
+
+
+[TIP]
+Any command after `reminder` will be ignored. +
 e.g. `reminder dummy variable` be just be treated as `reminder`
-|===
 //end::reminder[]
 
 === Clearing all entries : `clear`
@@ -524,6 +534,7 @@ It will open a separate window that contains a bar chart and a pie chart.
 
 Format: `stats`
 
+.Statistics window which will be opened when `stats` is executed
 image::internship_diary_stats.png[align="center", width="500"]
 
 ****
