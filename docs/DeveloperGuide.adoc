@@ -1430,6 +1430,25 @@ Use case resumes at step 2
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC17 - Clear Command
+
+*MSS*
+
+1. User requests to delete all internship application(s).
+2. Internship Diary prompts the user for confirmation.
+3. User confirms.
+4. Internship Diary deletes all internship application(s).
++
+Use case ends.
+
+[none]
+* 3a. The user does not confirm.
+[none]
+** 3a.1. Internship Diary does not delete any internship application(s).
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 

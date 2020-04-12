@@ -10,11 +10,11 @@
 
 == Overview
 
-Internship Diary is a desktop-based internship application tracking software.
-The idea for this software came about when we realised that the nature of a computer science degree is internship-driven; in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good job as a fresh graduate.
-Essentially, your first big internship will serve as a pivotal moment for your future career.
-Having said that, internship application is often a tedious and messy process, with companies having different hiring processes and requirements.
-We set out to tackle this pain point -- by coming up with a solution to help computer science students manage and streamline their internship application journey Ultimately, we aim to make every student's internship hunt during their four years as a computer science undergraduate a pleasant one, and hopefully maximise their chances of landing the best possible internship.
+Internship Diary is a desktop-based internship application tracking software. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+
+The fact that the graduation requirements for Computer Science is at least 6 months of internship continuously haunts
+the minds of every Computer Science student yet to complete this requirement. In order to aid in reducing the stress
+of such students, we came up with the idea of the Internship Diary.
 
 == Summary of contributions
 
