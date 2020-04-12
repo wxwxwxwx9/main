@@ -784,7 +784,7 @@ Other variations of *removal-based commands* and *execution types* are similar.
 
 The following sequence diagram provides a high-level overview of how the `archive` command with the execution type of `BY_FIELD` is executed in our application.
 
-.Interactions inside the Logic Component for the `archive s/rejected` Command
+.Interactions inside the Logic Component for the `archive s/rejected` command
 image::ArchiveSequenceDiagram.png[align="center"]
 
 As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the internship applications and then converting these internship applications to their respective index.
@@ -1067,7 +1067,7 @@ You may refer to the guide <<DevOps#, here>>.
 
 * is a Computer Science student
 * is actively looking for internships
-* has a need to organise internship applications
+* has a need to organise and track internship applications
 * is a fast typist
 * is comfortable using CLI apps
 * prefers desktop applications
