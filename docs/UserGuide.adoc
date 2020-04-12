@@ -84,6 +84,7 @@ The valid Status values for internship applications listed in sort order:
 . `rejected`
 . `ghosted`
 
+// tag::interviewStructure[]
 [[interview]]
 === Structure of interview
 * `Interview` represents an interview that you have been given by the company you are applying to.
@@ -108,6 +109,7 @@ to 'interview'.
 separators. If year is not given, will default to the current year.
 | Interview Address | a/ | Yes | 1 | No restrictions on input.
 |===
+// end::interviewStructure[]
 
 === Command format
 
@@ -176,6 +178,7 @@ Format: `archival`
 image::archival_list.png[align="center", width="800"]
 // end::archival[]
 
+// tag::select[]
 === Selecting an internship application to display: `select`
 
 Selects an internship application to display on the right panel of the internship diary.
@@ -191,6 +194,7 @@ Example(s):
 
 * `select 1`
 
+//end::select[]
 image::select_internship.png[align="center", width="790"]
 
 === Adding an internship application: `add`
@@ -412,6 +416,7 @@ Examples:
 Returns a list of currently displayed companies sorted by company name.
 // tag::sort[]
 
+// tag::interview[]
 === Modifying an interview in an internship application : `interview`
 
 Add, list, edit or delete interviews within an internship application +
@@ -437,11 +442,13 @@ Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the i
 * Specific format of each `COMMAND_WORD`:
 
 ** Add interview +
-`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]`
+`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]` +
+*** Address field `a/ADDRESS` is listed as optional here as online interview do not require an address but offline interview does.
 ** List interview +
 `interview INTERNSHIP_INDEX list`
 ** Edit interview +
 `interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE] [o/IS_ONLINE]`
+*** If you are editing an online interview into an offline interview, Address field `a/ADDRESS` is a requirement.
 ** Delete interview +
 `interview INTERNSHIP_INDEX delete INTERVIEW_INDEX`
 
@@ -450,17 +457,26 @@ Examples:
 * `list` +
 `interview 2 list` +
 Lists all interviews in the 2nd internship application in the list
-* `list` +
-`interview 1 add o/false d/05 02 2020 a/123 Kent Ridge Road` +
-Adds an interview to the 1st internship application in the list.
-* `list` +
-`interview 2 list` +
-`interview 2 edit 1 d/05 01 2020` +
-Edits the date of the 1st interview in the 2nd internship application in the list to `05 01 2020`.
-* `list` +
-`interview 1 list` +
-`interview 1 delete 1` +
-Deletes the 1st interview in the 1st internship application in the list.
+
+image::InterviewListExample.png[align="center", width="800"]
+
+* `interview 2 add o/false d/05 02 2020 a/Raffles City #02-22` +
+Adds an interview to the 2nd internship application in the list.
+
+image::InterviewAddExample.png[align="center", width="800"]
+
+* `interview 2 list` +
+`interview 2 edit 1 d/05 05 2020` +
+Edits the date of the 1st interview in the 2nd internship application in the list to `05 05 2020`.
+
+image::InterviewEditExample.png[align="center", width="800"]
+
+* `interview 2 list` +
+`interview 2 delete 3` +
+Deletes the 3rd interview in the 2nd internship application in the list.
+
+image::InterviewDeleteExample.png[align="center", width="800"]
+// end::interview[]
 
 //tag::reminder[]
 === Getting applications due or have interviews in 7 days : `reminder`
