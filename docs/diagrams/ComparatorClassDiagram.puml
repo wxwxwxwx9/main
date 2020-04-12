@@ -1,0 +1,37 @@
+@startuml
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+Class SortCommand {
+}
+
+Class SortCommandParser {
+}
+
+Interface Comparator <<Interface>> {
+    + compare(InternshipApplication ia1, InternshipApplication ia2): int
+    + toString(): String
+}
+
+Class XYZComparator {
+}
+
+note as N1
+  The Comparator interface is the default
+  java.util.function.Comparator functional interface
+end note
+
+Comparator .. N1
+
+SortCommandParser .left.> SortCommand : creates >
+
+XYZComparator .down.|> Comparator
+
+SortCommand --> "1" Comparator
+SortCommandParser .right.> XYZComparator
+
+
+
+@enduml
