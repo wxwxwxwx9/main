@@ -1020,7 +1020,7 @@ You may refer to the guide <<DevOps#, here>>.
 * is comfortable using CLI apps
 * prefers desktop applications
 
-*Value proposition*: An easy-to-use CLI program that can help students to organise and plan for their internship
+*Value proposition*: An easy-to-use CLI program that can help students to organise and track their internship applications
 
 [appendix]
 == User Stories
@@ -1053,7 +1053,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |first-time internship seeker |use the program as a guide to internship applications |learn how to start applying for an internship
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
