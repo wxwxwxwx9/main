@@ -76,7 +76,7 @@ public class PrefixPredicateUtil {
             }
         }
         requireNonNull(keywords);
-        checkForValidStatuses(keywords);
+        keywords = filterValidStatuses(keywords);
         Predicate<InternshipApplication> predicate = PREDICATE_MAP.get(selectedPrefix).apply(keywords);
         return predicate;
     }
@@ -87,13 +87,14 @@ public class PrefixPredicateUtil {
      * @param keywords to check for valid statuses.
      * @throws ParseException if the user input does not conform the expected format.
      */
-    private static void checkForValidStatuses(List<String> keywords) throws ParseException {
+    private static List<String> filterValidStatuses(List<String> keywords) throws ParseException {
         List<String> validKeywords = keywords.stream()
             .filter(Status::isValidStatus)
             .collect(Collectors.toList());
         if (validKeywords.isEmpty()) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
+        return validKeywords;
     }
 
 }
