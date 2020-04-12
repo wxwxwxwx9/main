@@ -1206,7 +1206,6 @@ Use case ends
 [none]
 * 2a.
 The given index is invalid.
-
 [none]
 ** 2a1. Internship Diary shows an error message
 +
