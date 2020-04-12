@@ -166,7 +166,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::sort[]
 === Sort command
 
-The find command allows the user to sort the currently visible list of internship applications.
+The sort command allows the user to sort the currently visible list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
 image::SortSequenceDiagram.png[]
@@ -175,7 +175,7 @@ The following subsections will go through the general implementations of the sor
 
 ==== Implementation
 
-The find command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the arguments for the command.
+The sort command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the arguments for the command.
 
 To facilitate the sort command, several comparator classes implementing `Comparator<InternshipApplication>` are used:
 
@@ -185,8 +185,20 @@ To facilitate the sort command, several comparator classes implementing `Compara
 * `RoleComparator` -- Comparator to compare internship applications by their `Role` field in lexicographical order.
 * `StatusComparator` -- Comparator to compare internship applications by their `Status` field by the order which they are declared in the Status Enum class.
 
+The `SortCommandParser` stores all of these Comparators in an immutable static Map mapping a prefix to each Comparator object.
+As the Comparators are all immutable, we can treat the Map as completely immutable.
+
 The `SortCommandParser` looks for a acceptable prefix in the command, and passes the corresponding comparator to `SortCommand`.
 If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
+
+The `toString()` method of all Comparators have also been overridden with a description of the comparator, so as
+to allow the DisplayComparatorFooter to retrieve information of the current Comparator without passing a separate `String`
+to it.
+
+The following class diagram will illustrate the structure of SortCommand:
+
+.Structure of SortCommand
+image::ComparatorClassDiagram.png[]
 
 ==== Reverse sort
 
@@ -262,7 +274,7 @@ The following activity diagram depicts the behaviour of the `CommandBox` while t
 .Execution of CommandHistory
 image::CommandHistoryActivityDiagram.png[CommandHistory,200]
 .Handle other key pressed
-image::CommandHistKeypessActivityDiagram.png[CommandHistory2,400]
+image::CommandHistKeypessActivityDiagram.png[CommandHistory2,600]
 .Execution cleanup
 image::CommandHistExeCleanupActivityDiagram.png[CommandHistory2,200]
 
