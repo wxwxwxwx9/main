@@ -88,6 +88,8 @@ Role:
 
 Responsibilities:
 
-* TBA
+* Interview Classes and Interview Command
+* Internship Application Detail Panel and Select Command
+* Milestone and Issues Coordination
 
 '''
