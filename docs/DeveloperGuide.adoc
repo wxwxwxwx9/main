@@ -555,7 +555,7 @@ You may use the same sequence diagram for the `list` command.
 
 image::ArchivalSequenceDiagram.png[align="center"]
 
-The following code snippet is retrieved from the InternshipDiary class.
+The following code snippet is retrieved from the `InternshipDiary` class.
 It illustrates the internal workings of how we switch the view between the archived list and the main list.
 
     public void viewArchivedInternshipApplicationList() {
@@ -565,7 +565,7 @@ It illustrates the internal workings of how we switch the view between the archi
     }
 
 It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
-However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the reference update in `displayedInternships` whenever the user executes `archival` or `list`.
+However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the reference change in `displayedInternships` whenever the user executes `archival` or `list`.
 Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
 In order to resolve this issue, we need to employ the observer pattern.
@@ -604,7 +604,7 @@ It will also have to specify which property of that object it wants to observe.
 
 In our case, when ModelManager is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
 The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
-is a reference to `ModelManager` itself (so that it can be registered as a listener of the `displayedInternships` property).
+is a reference to `ModelManager` itself (so that it can be registered as a listener of the `displayedInternships` property of `InternshipDiary`).
 
 The process is similar for any UI element that wants to observe the `filteredInternshipApplications` property of `ModelManager`.
 
@@ -642,12 +642,12 @@ As seen from the diagram above, each observable will implement two additional me
 . `addPropertyChangeListener(ListenerPropertyType propertyType, PropertyChangeListener l)`
 . `firePropertyChange(ListenerPropertyType propertyType, Object newValue)`
 
-This forms a layer of abstraction as users would not be allowed to call the the `addPropertyChangeListener` and `firePropertyChange` methods of
+This forms a layer of abstraction as we would not be allowed to call the `addPropertyChangeListener` and `firePropertyChange` methods of
 `PropertyChangeSupport` directly.
 
 ===== Design Considerations
 
-====== Aspect: How to implement the Archival view system on the backend
+====== Aspect: How to implement the Archival View system on the backend
 
 * **Alternative 1 (current choice)**: Maintain three `UniqueInternshipApplicationList`: `displayedInternships`, `unarchivedInternships`, and `archivedInternships`.
 `displayedInternships` will be used as the reference for other elements to retrieve the list of internship application(s) for usage.
@@ -660,7 +660,7 @@ This provides stability in the refactoring process.
 ** Cons: Potentially expensive in terms of computation.
 Furthermore, we will have to implement observer pattern to handle the reference changes.
 
-* **Alternative 2**: Manipulate the current view of the internship application list by using Predicate and FilteredList, along with the boolean isArchived variable in `InternshipApplication`.
+* **Alternative 2 (previous choice)**: Manipulate the current view of the internship application list by using Predicate and FilteredList, along with the boolean isArchived variable in `InternshipApplication`.
 This will easily help us determine which internship application should be rendered.
 ** Pros: Very easy to implement and less expensive in terms of memory and computation.
 No need to implement observer pattern as there will be no reference updates.
@@ -731,8 +731,8 @@ The format of a removal-based command can take on any of the following forms:
 Note that `command` can be any one of the removal-based commands.
 ====
 
-It is important to note that each execution type works similarly.
-At the core, all of them involves retrieving the index of a internship application to execute on.
+It is important to note that each `RemovalBasedCommandExecutionType` works similarly.
+At the core, all of them involves retrieving the index of an internship application to execute on.
 The difference lies in the pre-processing stage -- the steps an execution type takes to retrieve all the required indices.
 
 Therefore, to ensure succinctness, we will only be illustrating the usage of the command `archive` with the execution type `BY_FIELD`.
@@ -743,7 +743,7 @@ The following sequence diagram provides a high-level overview of how the `archiv
 image::ArchiveSequenceDiagram.png[align="center"]
 
 As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the internship applications and then converting these internship applications to their respective index.
-This provides us with required indices that we will execute the removal-based command on.
+This provides us with required indices that we will execute the removal-based command `archive` on.
 
 ====
 [NOTE]
@@ -798,9 +798,9 @@ image::CreateCommandResultSequenceDiagram.png[width="500",align="center"]
 * **Alternative 1 (current choice)**: Use encapsulation to hold the appropriate command word, which will then be used to generate the removal-based command that will execute based on the execute type provided.
 `RemovalBasedCommand` will store the command word of the appropriate removal-based command and create the command when
 `RemovalBasedCommand` is executed.
-This removal-based command will then be used on the index/indices provided according to the execution type.
+This removal-based command will then be executed on the index/indices provided according to the execution type.
 ** Pros: Easier to implement and convey the idea to team members.
-** Cons: Will require multiple case handlings (e.g. switch cases).
+** Cons: Will require multiple case handling (e.g. switch cases).
 Polymorphism may be a better solution in terms of code extensibility and elegance.
 
 * **Alternative 2**: Use polymorphism where each removal-based command extends the class `RemovalBasedCommand` and inherit the appropriate execution type methods. +
@@ -839,11 +839,11 @@ Users will be able to view the metrics from two areas:
 The `Statistics` object is used to generate statistics for any internship application list that it is given.
 `StatisticsWindow` and `StatisticsBarFooter` each contains an instance of `Statistics` that helps them compute the relevant statistics whenever there is any update to the internship application list.
 
-The internship application list can be updated either due to a change in reference in `displayedInternships` from `InternshipDiary` (e.g. `archival` and `list`) or any modifications to the current internship application list (e.g. adding, deleting, editing of internship applications).
+The internship application list can be updated either due to a change in reference in `displayedInternships` from `InternshipDiary` (e.g. `archival` and `list`) or any modifications to the current internship application list (e.g. `add`, `delete`, `edit`, `archive`, `unarchive`, `find`).
 
 The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` shares the same workflow) is notified of the updates in the internship application list and how it subsequently updates the statistics.
 
-image::ActivityDiagramStatistics.png[width="700",align="center"]
+image::ActivityDiagramStatistics.png[align="center"]
 
 Upon creation of the `StatisticsWindow` and `StatisticsBarFooter`, each of them will attach an event listener to the internship application list that it was given.
 This event listener will notify them of any internal modifications to the internship application list.
@@ -852,7 +852,7 @@ On the other hand, both `StatisticsWindow` and `StatisticsBarFooter` will regist
 This is so that the implemented observer pattern can notify them of any changes in the internship application list reference and update them with the new reference accordingly.
 
 Any of the two updates above will trigger the `Statistics` to recompute with the updated internship application list.
-`StatisticsWindow` and `StatisticsBarFooter` will then retrieve the required computed metrics from `Statistics` and re-binds the them to the UI accordingly.
+`StatisticsWindow` and `StatisticsBarFooter` will then retrieve the required computed metrics from `Statistics` and re-bind the them to the UI accordingly.
 
 ==== Design Considerations
 
@@ -861,13 +861,13 @@ Any of the two updates above will trigger the `Statistics` to recompute with the
 * **Alternative 1 (current choice)**: Use filtered ObservableList.
 The filtered list is dynamically updated by `find` and `sort` command.
 The statistics model will generate statistics based on the dynamic filtering changes that occur in either the main list or archival list (the current view selected by user).
-** Pros: Users will be choose which list they want to view the relevant statistics for.
+** Pros: Users will be able to choose which list they want to view the relevant statistics for.
 Works well with `archival`, `list`, and `find` commands that dynamically changes the list.
 ** Cons: Often re-computation upon changes in the filtered list may cause some performance bottleneck.
 
 * **Alternative 2**: Use the base list that contains all of the internship application(s).
 The base list is not filtered according to predicate(s) set by users.
-** Pros: Require less re-computation compared to using filtered ObservableList, as it only recomputes upon addition(s), deletion(s), or changes in an internship application stored in the list.
+** Pros: Require less re-computation compared to using filtered ObservableList, as it only re-computes upon addition(s), deletion(s), or changes in an internship application stored in the list.
 ** Cons: May be unintuitive to some extent for users when the statistics do not tally with the current view of the list.
 
 ===== Aspect: How to store the statistics generated from data
@@ -880,9 +880,9 @@ The idea is to retrieve all the statuses available from the enum (whenever the s
 Regardless of any changes, this system can dynamically handle the addition, deletion, or changes in statuses.
 ** Cons: Seemingly negligible cons for our usage.
 
-* **Alternative 2**: Store each status count in separate variables that are initialized upon the creation of statistics model.
+* **Alternative 2 (previous choice)**: Store each status count in separate variables that are initialized upon the creation of statistics model.
 ** Pros: Straightforward and very easy to understand for future developers.
-** Cons: Very inextensible.
+** Cons: Very inextensible as we need to create new variables for new statuses each time.
 // end::statistics[]
 
 // tag::reminder[]
