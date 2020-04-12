@@ -126,7 +126,7 @@ separators. If year is not given, will default to the current year.
 * Items in square brackets are optional. +
 (e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`)
 * Items with `…`​ after them can be used multiple times including zero times. +
-(e.g. `delete INDEX, [INDEX]...` can be used as `delete 1,` or `delete 1, 2, 3`)
+(e.g. `delete INDEX, [INDEX],...` can be used as `delete 1,` or `delete 1, 2, 3`)
 * Parameters can be entered in any order. +
 (e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable)
 * An input consisting of only spaces is considered empty.
@@ -151,8 +151,6 @@ image::sample_index.png[align="center", width="600"]
 * For any command that uses `INDEX`:
 ** `INDEX` must be among those displayed in the current list.
 *** For example, if the current list displays `INDEX` *1 to 10*, `INDEX` 11 will not be considered valid.
-* All the commands will work on both *main list* and *archival list*.
-** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
 ==== Multiple fields
 
@@ -161,6 +159,11 @@ entry of each field (except `sort` which only allows one field).
 * However, when multiple fields are inputted, eg. `c/Google c/Facebook`, only the last field will be recognised
 by the application. In the example above, only `c/Facebook` will be registered, `c/Google`
 will be ignored by the application.
+
+==== Command availability
+
+* All the commands will work on both *main list* and *archival list*.
+** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
 [[Commands]]
 == Commands
@@ -230,12 +233,12 @@ Delete specific internship applications from the current list. +
 Formats:
 
 * `delete INDEX`
-* `delete INDEX, [INDEX]...`
-* `delete s/STATUS`
+* `delete INDEX, [INDEX],...`
+* `delete s/STATUS [STATUS]...`
 
 ****
 * Deleting by `INDEX`:
-** Deletes the internship application at `INDEX` (*must be a positive integer*).
+** Deletes the internship application at `INDEX`.
 ** `INDEX` may be entered in any order.
 *** e.g. `delete 3, 1, 2`.
 ** Duplicated `INDEX` will be ignored.
@@ -258,13 +261,13 @@ Example(s):
 `delete 2` +
 Deletes the 2nd internship application from the main list.
 
-* `archival` +
-`delete s/applied` +
-Deletes all the internship applications with the `applied` status from the archival list.
-
 * `list` +
 `delete 2, 1, 3` +
 Deletes the 1st, 2nd, and 3rd internship applications from the main list.
+
+* `archival` +
+`delete s/applied` +
+Deletes all the internship applications with the `applied` status from the archival list.
 // end::delete[]
 
 // tag::archive[]
@@ -275,12 +278,12 @@ Archive specific internship applications in the *main list*. +
 Formats:
 
 * `archive INDEX`
-* `archive INDEX, [INDEX]...`
-* `archive s/STATUS`
+* `archive INDEX, [INDEX],...`
+* `archive s/STATUS [STATUS]...`
 
 ****
 * Archiving by `INDEX`:
-** Archives the internship application at `INDEX` (*must be a positive integer*).
+** Archives the internship application at `INDEX`.
 ** `INDEX` may be entered in any order.
 *** e.g. `archive 3, 1, 2`.
 ** Duplicated `INDEX` will be ignored.
@@ -318,12 +321,12 @@ Unarchive specific internship applications in the *archival list*. +
 Formats:
 
 * `unarchive INDEX`
-* `unarchive INDEX, [INDEX]...`
-* `unarchive s/STATUS`
+* `unarchive INDEX, [INDEX],...`
+* `unarchive s/STATUS [STATUS]...`
 
 ****
 * Unarchiving by `INDEX`:
-** Unarchives the internship application at `INDEX` (*must be a positive integer*).
+** Unarchives the internship application at `INDEX`.
 ** `INDEX` may be entered in any order.
 *** e.g. `unarchive 3, 1, 2`.
 ** Duplicated `INDEX` will be ignored.
@@ -360,8 +363,6 @@ Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL]
 
 ****
 * Edits the internship application at the specified `INDEX`.
-The index refers to the index number shown in the displayed list.
-The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
