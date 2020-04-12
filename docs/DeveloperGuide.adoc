@@ -1927,9 +1927,9 @@ their internship applications, we designed and implemented `reminder`, `intervie
 
 ==== Designing `find`, `sort`, and `reminder`
 
-There was a need to plan how `find`, `sort`, and `reminder` command should behave and how we can extend such commands with new behaviours easily in the future.
+There was a need to plan how `find`, `sort`, and `reminder` should behave and how we can extend such commands with new behaviours easily in the future.
 This required a lot of team discussion and effort in terms of coming up with drafts for our intended implementation. For `find`, we had to ensure that
-when a new field is added, or if an existing field is changed, we can simply add/edit predicate classes accordingly and make changes only in the `FindCommandParser`.
+when a new field is added, or if an existing field is changed, we can simply add / edit predicate classes accordingly and make changes only in the `FindCommandParser`.
 For `sort`, we had to ensure that adding or removing a sort comparator only required very minimal changes to the `SortCommandParser` (which requires only a single line in our final implementation).
 On top of that, we also had to ensure that it is easy to pass a description of the predicate and comparator used to the `PredicateDisplayFooter` and `SortDisplayFooter` respectively.
 For `reminder`, there was a need to plan the conditions to decide which internship applications to show when the reminder command is used for the implementation of the corresponding predicates to use.
@@ -1952,4 +1952,4 @@ For example, as our features introduced many new UI elements and backend impleme
 
 We needed a more robust solution to help us keep the UI in sync with the state of our data. This required the team to look into how we can implement the observer pattern design into our system and the best options we have
 to implement the structure. There were various constraints that we had to be mindful of as we incorporated the observer pattern, mainly due to the way we implemented certain features (as reactivity issue was something we did
-not foresee). As this is our first time dealing with the observer pattern, we had to spend a good amount of time to understand and implement it properly.
+not foresee). As this was our first time dealing with the observer pattern, we had to spend a good amount of time to research, understand, and implement it properly.
