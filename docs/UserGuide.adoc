@@ -263,15 +263,14 @@ Deletes the 2nd internship application from the main list.
 Deletes all the internship applications with the `applied` status from the archival list.
 
 * `list` +
- `find Google` +
 `delete 2, 1, 3` +
-Deletes the 1st, 2nd, and 3rd internship applications from the results of the `find` command (in main list).
+Deletes the 1st, 2nd, and 3rd internship applications from the main list.
 // end::delete[]
 
 // tag::archive[]
 === Archiving internship application: `archive`
 
-Archive specific internship applications in the main list. +
+Archive specific internship applications in the *main list*. +
 
 Formats:
 
@@ -303,20 +302,18 @@ Example(s):
 Archives the 2nd internship application in the main list.
 
 * `list` +
-`find Google` +
 `archive 2, 1, 3` +
-Archives the 1st, 2nd, and 3rd internship application in the results of the `find` command (in main list).
+Archives the 1st, 2nd, and 3rd internship application in the main list.
 
 * `list` +
- `find Google` +
 `archive s/rejected` +
-Archives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
+Archives all the internship applications with the `rejected` status in the main list.
 // end::archive[]
 
 // tag::unarchive[]
 === Unarchiving internship application: `unarchive`
 
-Unarchive specific internship applications in the archival list. +
+Unarchive specific internship applications in the *archival list*. +
 
 Formats:
 
@@ -343,19 +340,17 @@ specified `STATUS`, then the feedback box will not display any internship applic
 
 Example(s):
 
-* `list` +
+* `archival` +
 `unarchive 2` +
-Unarchives the 2nd internship application in the main list.
+Unarchives the 2nd internship application in the archival list.
 
-* `list` +
-`find Google` +
+* `archival` +
 `unarchive 2, 1, 3` +
-Unarchives the 1st, 2nd, and 3rd internship application in the results of the `find` command (in main list).
+Unarchives the 1st, 2nd, and 3rd internship application in the archival list.
 
-* `list` +
- `find Google` +
+* `archival` +
 `unarchive s/rejected` +
-Unarchives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
+Unarchives all the internship applications with the `rejected` status in the archival list.
 // end::unarchive[]
 
 === Editing an internship application: `edit`
