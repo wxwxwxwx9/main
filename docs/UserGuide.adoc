@@ -126,8 +126,6 @@ separators. If year is not given, will default to the current year.
 (e.g. `delete INDEX, [INDEX]...` can be used as `delete 1,` or `delete 1, 2, 3`)
 * Parameters can be entered in any order. +
 (e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable)
-* You may enter the same prefixes multiple times for a command. But the command will only take the last prefix and its value (unless specified otherwise). +
-(e.g. for `add c/Google r/Software Engineer d/20 04 2020 s/applied s/wishlist`, the newly-added internship application will have `wishlist` as its status)
 * An input consisting of only spaces is considered empty.
 
 === Viewing command history
