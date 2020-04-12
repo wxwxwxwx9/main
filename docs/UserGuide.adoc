@@ -61,7 +61,7 @@ The image illustrates the major graphical components of *Internship Diary*.
 | Role | c/ | No | 1 | No restrictions on input.
 | Address | a/ | Yes | 1 | No restrictions on input.
 | Phone | c/ | Yes | 1 | "+" at the start is optional. Must have between 4 and 15 digits if not empty.
-| Email | e/ | Yes | 1 | Must contain symbol "@" if not empty. Does not ensure validity of email.
+| Email | e/ | Yes | 1 | Email should be of type "example@example.com". The application will not ensure the validity of email.
 | Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. ` ` and `/` are also supported
 separators. If year is not given, will default to the current year.
 | Priority | w/ | No | 1 | Must be an integer from 0 to 10 (inclusive).
@@ -112,7 +112,7 @@ image::sample_index.png[align="center", width="600"]
 *** For example, if the current list displays `INDEX` *1 to 10*, `INDEX` 11 will not be considered valid.
 ** `INDEX` must be a *positive integer*.
 * All the commands will work on both *main list* and *archival list*.
-** The only exceptions are: `Reminder`
+** The only exceptions are: `Reminder`, `Archive`, `Unarchive`
 
 [[Commands]]
 == Commands
@@ -256,7 +256,7 @@ Archives all the internship applications with the `rejected` status in the resul
 
 === Unarchiving an internship application : `unarchive`
 
-Unarchive specified internship applications from the main list. +
+Unarchive specified internship applications from the archival list. +
 
 Formats:
 
