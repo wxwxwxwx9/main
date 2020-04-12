@@ -343,7 +343,7 @@ However, due to the complexity and difficulty of implementation, it will only be
 // end::command-history[]
 
 // tag::interview[]
-=== Interview and Interview Commands
+=== Interview and interview commands
 
 ==== Implementation
 The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
@@ -371,7 +371,7 @@ The class diagram below shows the classes associated to `Interview`.
 .Structure of `Interview` and its associated classes
 image::InterviewClassDiagram.png[]
 
-==== Interview Commands
+==== Interview commands
 Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes. +
 The `interview` command will encompass four types of sub-command:
 
@@ -414,18 +414,18 @@ All other sub-commands will follow the same invocation format.
 image::InterviewCommandSequenceDiagram.png[]
 
 [[InterviewListCommand-Improvements]]
-==== [Proposed Improvements] Interview List Command
+==== [Proposed Improvements] InterviewListCommand
 Currently, the `InterviewListCommand` is functionally similar to `SelectCommand`.
 In v2.0, there will be the following improvements to the `InterviewListCommand`:
 
-* Additional Parameters
+* Additional parameters to filter interviews
 ** New command format will be `interview INDEX list [o/IsOnline] [a/Address] [d/Date]`.
 ** The command will return the list of interviews consisting of only the interviews that contain the optional
 fields provided in the command.
 ** `FilteredList` from `javafx` will be used to implement this feature.
 
 ==== Design Considerations
-===== Aspect: How to implement Interview
+===== Aspect: How to implement interview
 * **Alternative 1 (current choice in v1.4)**: Use an abstract class as the primary reference to Interviews.
 Implement types of Interview as extending classes.
 ** Pros: More scalable, able to easily add new Interview types. +
@@ -434,11 +434,10 @@ Easier to debug and handle exceptions.
 
 * **Alternative 2 (previous choice in v1.3)**: Use a concrete Interview class with additional variables to differentiate
 Interview types.
-** Pros: Simple to implement.
+** Pros: Easy to implement.
 ** Cons: Increasing number of variables if more interview types will be added.
 
 ===== Aspect: How to implement different interview commands
-
 * **Alternative 1 (current choice)**: Use a standardized command with sub-command type parsed as user input.
 ** Pros: More streamlined, only one command. +
 Able to use polymorphism to share operations between commands.
