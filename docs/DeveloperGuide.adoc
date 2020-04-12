@@ -453,11 +453,15 @@ keywords)`.
 numbers)`.
 * `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
 keywords)`.
-* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Phone` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
+* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Priority` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
 numbers)`..
 * `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
 * `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
+
+The following class diagram show the relationship of the `Predicates`, `FindCommandParser` and `FindCommand`:
+
+image::FindClassDiagram.png[align="center"]
 
 ==== Find Any Match
 
@@ -482,6 +486,12 @@ The searching and displaying of the internship application is done by performing
 `AddressContainsKeywordsPredicate`, `PhoneContainsNumbersPredicate`, `EmailContainsKeywordsPredicate`,
 `ApplicationDateIsDatePredicate`, `PriorityContainsNumbersPredicate` and `StatusContainsKeywordsPredicate` to get a single predicate and passing that into the method `updateFilteredInternshipApplicationList()` of the `ModelManager`
 instance.
+
+==== Determine which Find to Invoke
+
+The following activity diagram summarises how which type of find to invoke is determined:
+
+image::FindCommandActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 
@@ -1178,25 +1188,60 @@ Use case resumes from step 1.
 
 *MSS*
 
-1. User requests to find a specific Internship Application by company name.
-2. Internship Diary shows the Internship Application with all its corresponding fields.
+1. User pass:q[<u>views main list UC1</u>].
+2. User requests to find a list of Internship Application based on given keywords.
+3. Internship Diary shows the list of Internship Application with any of the fields `Company`, `Role`, `Address`, `Phone`, `Email`, `Priority` or `Status` matching any of the keywords.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a.
-No Internship Application is shown.
+* 1a. User pass:q[<u>views archival list UC2</u>].
++
+Use case resumes from step 2.
+[none]
+* 3a. No Internship Application is shown.
 +
 Use case ends.
 
 [discrete]
-=== Use case: UC8 - Edit Internship Application
+=== Use case: UC8 - Find Internship Application by Specific Field(s)
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>views main list UC1</u>].
+2. User requests to find a list of Internship Application based on given keywords for specific field(s).
+3. Internship Diary shows the list of Internship Application with the specified field(s) matching the any of the given keywords for each field.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User pass:q[<u>views archival list UC2</u>].
++
+Use case resumes from step 2.
+[none]
+* 2a. Internship Diary detects an invalid date given for the `Date` field.
+[none]
+** 2a1. Internship Diary shows an error message.
+** 2a2. User enters command with a different date.
++
+Steps 2a1-2a2 are repeated until the date entered is valid.
++
+Use case resumes from step 3.
+[none]
+* 3a. No Internship Application is shown.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC9 - Edit Internship Application
+
+*MSS*
+
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to edit the fields of the Internship Application.
 3. Internship Diary updates the new fields of the Internship Application.
 +
@@ -1215,18 +1260,18 @@ Use case resumes at step 1
 
 [discrete]
 
-=== Use case: UC9 - Prioritise Internship Application
+=== Use case: UC10 - Prioritise Internship Application
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC1</u>].
+1. User pass:q[<u>find Internship Application UC7</u>].
 2. User requests to prioritise the Internship Application.
 3. Internship Diary updates the priority level of the Internship Application.
 +
 Use case ends
 
 [discrete]
-=== Use case: UC10 - Sort Internship Application
+=== Use case: UC11 - Sort Internship Application
 
 *MSS*
 
@@ -1241,15 +1286,24 @@ Use case ends
 
 [none]
 * 1a.
+Internship Diary detects the keyword reverse.
+
+[none]
+** 1a.1. Internship Diary sorts the list in reverse order.
++
+Use case resumes from step 3.
+
+[none]
+* 1b.
 Internship Diary detects invalid syntax.
 
 [none]
-** 1a.1. Internship Diary shows an error message.
+** 1b.1. Internship Diary shows an error message.
 +
 Use case ends
 
 [discrete]
-=== Use case: UC11 - Select Internship Application
+=== Use case: UC12 - Select Internship Application
 
 *MSS*
 
@@ -1268,7 +1322,7 @@ Use case ends
 Use case resumes at step 1
 
 [discrete]
-=== Use case: UC12 - Add Interview
+=== Use case: UC13 - Add Interview
 
 *MSS*
 
@@ -1303,7 +1357,7 @@ Use case resumes at step 2
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC13 - Edit Interview
+=== Use case: UC14 - Edit Interview
 
 *MSS*
 
@@ -1337,7 +1391,7 @@ Use case resumes at step 2
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC14 - Delete Interview
+=== Use case: UC15 - Delete Interview
 
 *MSS*
 
@@ -1363,7 +1417,7 @@ Use case resumes at step 2
 Use case resumes at step 2
 
 [discrete]
-=== Use case: UC15 - View Statistics
+=== Use case: UC16 - View Statistics
 
 *Guarantee(s)*
 
@@ -1373,6 +1427,25 @@ Use case resumes at step 2
 
 1. User requests to view the statistics of his internship application(s).
 2. Internship Diary displays the statistics.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC17 - Clear Command
+
+*MSS*
+
+1. User requests to delete all internship application(s).
+2. Internship Diary prompts the user for confirmation.
+3. User confirms.
+4. Internship Diary deletes all internship application(s).
++
+Use case ends.
+
+[none]
+* 3a. The user does not confirm.
+[none]
+** 3a.1. Internship Diary does not delete any internship application(s).
 +
 Use case ends.
 
@@ -1811,6 +1884,28 @@ in order of earliest application date or scheduled interview date followed by th
 . Getting reminders for internship applications which are due or have interviews scheduled in 7 days in `archival` mode +
 Test case: `reminder` +
 Expected: No applications should be shown.
+
+=== Finding internship applications
+
+. Finding a list of internship application.
+.. Prerequisites: Starting from an empty list, +
+    add 3 internship applications into the list using the following commands: +
+    `add c/Google r/Software Engineer a/123 Kent Ridge Road p/98765432 e/hr@google.com d/02-12-2019 w/10 s/applied` +
+    `add c/Facebook r/Software Developer a/Singapore p/87654321 e/joinus@facebook.com d/20-04-2020 w/9 s/wishlist` +
+    `add c/Shopee r/Product Developer a/5 Science Park Dr p/99999999 e/shopee@google.com d/10-03-2020 w/1 s/rejected`
+.. Test case: `find` +
+    Expected: No change in list. Error details shown in the result box as at least one of the optional parameters must be entered.
+.. Test case: `find google` +
+    Expected: Only the internship applications with company names `Google` and `Shopee` will be listed (google can be found in the email of Shopee)
+.. Test case: `find r/software developer` +
+    Expected: All 3 internship applications are listed.
+.. Test case: `find 02-12-2019` +
+    Expected: No internship applications are listed as general find don't work with dates.
+.. Test case: `find d/02-12-2019` +
+    Expected: Only the internship applications with company names `Google` is listed as it matches the application date.
+.. Test case: `find w/1` +
+    Expected: Only the internship applications with company names `Shopee` will be listed (search for priority is not based on substring so `Google` is not listed)
+
 
 === Saving data
 
