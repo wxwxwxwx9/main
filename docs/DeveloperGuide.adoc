@@ -169,6 +169,7 @@ This section describes some noteworthy details on how certain features are imple
 The find command allows the user to sort the currently visible list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
+.Interactions Inside the Logic Component for the `sort c/` Command
 image::SortSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the sort command.
@@ -219,6 +220,7 @@ Harder to implement reverse sorting.
 The clear command allows the user to delete all internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
+.Interactions Inside the Logic Component for the `clear` Command
 image::ClearSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the clear command.
@@ -354,6 +356,7 @@ In particular, `Interview` will rely on the `ApplicationDate` and `Address` clas
 `interviewDate` and `interviewAddress` +
 The class diagram below shows the classes associated to `Interview`.
 
+.Structure of `Interview` and its associated classes
 image::InterviewClassDiagram.png[]
 
 ==== Interview Commands
@@ -369,6 +372,7 @@ Currently `list` functions similarly to `select`, additional functions for list 
 Correspondingly, the `InterviewCommand`class will be made abstract with specific implementation
 of each sub-command in an inheriting class, this can be seen in the diagram below.
 
+.Structure of `InterviewCommand` class with its respective sub-commands
 image::InterviewCommandClassDiagram.png[]
 
 Additionally, `InterviewCommand` will implement the following static operations to facilitate sub-commands:
@@ -380,6 +384,7 @@ commands in checking whether the interview occurs before the internship applicat
 Lastly, as the commands inherit from `Command` interface, the commands will implement `execute(Model)`.
 All the sub-commands follow roughly the same execution sequence as seen in the diagram below.
 
+.Interactions Inside the Logic Component for `InterviewAddCommand`
 image::InterviewAddCommandExecuteSequenceDiagram.png[]
 
 The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
@@ -393,6 +398,7 @@ The following sequence diagram will illustrate the process of invocation for
 `InterviewAddCommand`.
 All other sub-commands will follow the same invocation format.
 
+.Interactions Inside the Logic Component for `InterviewAddCommand`
 image::InterviewCommandSequenceDiagram.png[]
 
 [[InterviewListCommand-Improvements]]
@@ -438,6 +444,7 @@ Create a lot of repetition in code.
 The find command allows the user to get a filtered list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
+.Interactions Inside the Logic Component for the `find c/google r/software` Command
 image::FindSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the find command, as well as the 2 versions of the command, find any match, and find match by fields.
@@ -466,6 +473,7 @@ keywords)`.
 
 The following class diagram show the relationship of the `Predicates`, `FindCommandParser` and `FindCommand`:
 
+.Class diagram to show relationship between `Predicates`, `FindCommandParser` and `FindCommand`
 image::FindClassDiagram.png[align="center"]
 
 ==== Find Any Match
@@ -496,6 +504,7 @@ instance.
 
 The following activity diagram summarises how which type of find to invoke is determined:
 
+.Activity Diagram to show how the type of find to invoke is determined
 image::FindCommandActivityDiagram.png[align="center"]
 
 ==== Design Considerations
@@ -548,6 +557,7 @@ This is identical for the `unarchive` command in the main list as well.
 
 The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
 
+.Structure of InternshipDiary
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="700",align="center"]
 
 The object diagram below illustrates the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`:
@@ -556,6 +566,7 @@ The object diagram below illustrates the three `UniqueInternshipApplicationList`
 * `archivedInternships`
 * `unarchivedInternships`
 
+.Object diagram of three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`
 image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800",align="center"]
 
 As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
@@ -568,6 +579,7 @@ The following sequence diagram illustrates how an `archival` command is executed
 The `list` command is similar to `archival`.
 You may use the same sequence diagram for the `list` command.
 
+.Interactions Inside the Logic Component for `archival` Command
 image::ArchivalSequenceDiagram.png[align="center"]
 
 The following code snippet is retrieved from the `InternshipDiary` class.
@@ -592,6 +604,7 @@ To achieve this observer pattern, we made use of the `PropertyChangeSupport` cla
 A class that contains an instance of `PropertyChangeSupport` is an observable.
 On the other hand, a class that implements the `PropertyChangeListener` interface is an observer.
 
+.Implementation of a two-tier observer-observable structure
 image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
 
 The class diagram above showcases our implementation of a two-tier observer-observable structure: +
@@ -632,6 +645,7 @@ It will then repeat the event emission process to any UI element (e.g. Statistic
 
 The following activity diagram gives a high-level overview of the above event-driven process.
 
+.Activity diagram for Observer Pattern for `archival` Command
 image::ActivityDiagramObserverPattern.png[align="center"]
 
 ====
@@ -650,6 +664,7 @@ This is especially important when many properties are being observed.
 
 Below is the updated class diagram with the implementation of `ListenerPropertyType` enumeration.
 
+.Updated class diagram for the implementation of two-tier observer-observable structure with `ListenerPropertyType` enumeration
 image::InternshipDiaryAndModelManagerPropertyChangeEnumClassDiagram.png[align="center"]
 
 As seen from the diagram above, each observable will implement two additional methods to use `ListenerPropertyType` enumeration as parameters:
@@ -704,6 +719,7 @@ The following activity diagram depicts the behaviour of an `archive` command.
 You may use it as a reference for `unarchive` as well.
 The activity diagrams for both are very similar.
 
+.Activity Diagram for `archive` Command
 image::ActivityDiagramArchiveCommand.png[align="center",width="700"]
 
 While implementing the `archive` and `unarchive` commands, we realised that users may sometimes want to cherry-pick multiple internship application(s) to execute on or mass-execute on certain types of internship application(s).
@@ -721,6 +737,7 @@ In the following section, we will delve slightly deeper and discuss about the lo
 
 The following class diagram depicts our implementation of the extended functionality.
 
+.Structure of `RemovalBasedCommand` with its associated classes
 image::RemovalBasedClassDiagram.png[align="center"]
 
 The idea of the implementation can be summarized as follows:
@@ -755,6 +772,7 @@ Other variations of *removal-based commands* and *execution types* are similar.
 
 The following sequence diagram provides a high-level overview of how the `archive` command with the execution type of `BY_FIELD` is executed in our application.
 
+.Interactions Inside the Logic Component for the `archive s/rejected` Command
 image::ArchiveSequenceDiagram.png[align="center"]
 
 As illustrated in the diagram above, the pre-processing steps of `BY_FIELD` involves applying the appropriate predicate to filter the internship applications and then converting these internship applications to their respective index.
@@ -773,6 +791,7 @@ Furthermore, if we ever wish to create a *new* `RemovalBasedCommandExecutionType
 The following sequence diagram captures how `RemovalBasedCommandExecuteTypeParser` parses the input and determines the *execution type* of the command.
 It also shows how a `RemovalBasedCommand` is created with the appropriate `RemovalBasedCommandExecutionType` and command word.
 
+.Sequence Diagram of how `RemovalBasedCommandExecuteTypeParser` parses input and determines execution type of command
 image::RemovalBasedCommandExecutionTypeParserSequenceDiagram.png[align="center"]
 
 As seen from the diagram above, the parser determined the execution type to be `BY_FIELD` and generated the appropriate predicate to construct a `RemovalBasedCommand` instance.
@@ -781,6 +800,7 @@ Based on the command word passed in to construct the `RemovalBasedCommand` insta
 
 The following sequence diagram depicts the above behaviour.
 
+.Sequence Diagram for creation of lambda function by `RemovalBasedCommand` instance
 image::GenerateLazyCommandSequenceDiagram.png[width="500",align="center"]
 
 As the command word is `archive`, a lazy lambda function to construct an `ArchiveCommand` is returned.
@@ -788,6 +808,7 @@ As the command word is `archive`, a lazy lambda function to construct an `Archiv
 The following sequence diagram captures the process of executing the lazy removal-based command on one index.
 This particular index allows us to retrieve the appropriate internship application.
 
+.Execution of removal-based command on one index
 image::ConstructAndExecuteLazyCommandByIndexSequenceDiagram.png[align="center",width="800"]
 
 It can be seen that the previously-generated lazy command is executed in the above sequence diagram.
@@ -797,6 +818,7 @@ In this case, `archiveInternshipApplication` is called.
 
 The following sequence diagram captures the process of executing the lazy `ArchiveCommand` on indices.
 
+.Executing `ArchiveCommand` on indices
 image::ConstructAndExecuteLazyCommandByIndicesSequenceDiagram.png[width="500",align="center"]
 
 As seen above, `executeLazyCommandOnIndices` merely reuses the function `executeLazyCommandOnIndex` (from the previous sequence diagram) by running it on every index provided.
@@ -804,6 +826,7 @@ The feedback from each execution is cumulatively concatenated to form a single f
 
 The following sequence diagram captures the process of re-creating the command result in `RemovalBasedCommand` by using the feedback obtained from the specific command execution, which is `ArchiveCommand` in our example.
 
+.Re-creating command result in `RemovalBasedCommand`
 image::CreateCommandResultSequenceDiagram.png[width="500",align="center"]
 
 ==== Design Considerations
@@ -839,6 +862,7 @@ Currently, the tracked metrics include:
 
 The following class diagram gives an overview of our implementation of the statistics feature.
 
+.Structure of `Statistics` and its associated classes
 image::StatisticsClassDiagram.png[width="800",align="center"]
 
 Users will be able to view the metrics from two areas:
@@ -858,6 +882,7 @@ The internship application list can be updated either due to a change in referen
 
 The following activity diagram illustrates how `StatisticsWindow` (`StatisticsBarFooter` shares the same workflow) is notified of the updates in the internship application list and how it subsequently updates the statistics.
 
+.Activity Diagram of how `StatisticsWindow` is notified of updates list and statistics is updated
 image::ActivityDiagramStatistics.png[align="center"]
 
 Upon creation of the `StatisticsWindow` and `StatisticsBarFooter`, each of them will attach an event listener to the internship application list that it was given.
@@ -910,7 +935,7 @@ The reminder command displays to users a list of internship applications which:
 
 The following sequence diagram shows how the command is executed:
 
-.Sequence Diagram of `ReminderCommand`
+.Interactions Inside the Logic Component for the `reminder` Command
 image::ReminderSequenceDiagram.png[]
 
 ==== Implementation
