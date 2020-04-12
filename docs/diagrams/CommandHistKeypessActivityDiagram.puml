@@ -1,0 +1,38 @@
+@startuml
+start
+
+        if () then ([key UP pressed])
+            if () then ([no earlier history])
+            else ([else])
+                :Copy the command at
+                historyIterator into
+                CommandBox;
+                :Increment position of
+                historyIterator by 1;
+            endif
+        else
+
+        if () then ([key DOWN pressed])
+            if () then ([no later history])
+            else ([else])
+                :Decrement position of
+                historyIterator by 1;
+                :Copy the command at
+                historyIterator into
+                CommandBox;
+            endif
+        else
+
+        if () then ([key LEFT or RIGHT pressed])
+        else ([other key pressed])
+            :Move historyIterator
+            to the front of
+            EnteredCommandHistory;
+            :Update CommandBox
+            accordingly;
+
+        endif
+        endif
+        endif
+stop
+@enduml

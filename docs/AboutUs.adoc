@@ -53,7 +53,6 @@ Role:
 
 Responsibilities:
 
-* Storage
 * Sort Command
 * Clear Command
 * Command History
