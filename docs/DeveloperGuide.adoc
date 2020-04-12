@@ -1661,13 +1661,13 @@ Expected: A command that was entered after the current retrieved command appears
 === Main List View
 
 . Viewing the main list of internship application(s)
-... Test case: "list" +
+... Test case: `list` +
 Expected: All unarchived internship application(s) are displayed.
 
 === Archival List View
 
 . Viewing the archival list of internship application(s)
-... Test case: "archival" +
+... Test case: `archival` +
 Expected: All archived internship application(s) are displayed.
 
 === Adding an Internship Application
