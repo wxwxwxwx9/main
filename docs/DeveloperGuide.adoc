@@ -1256,7 +1256,7 @@ Use case ends.
 +
 Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2a. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1281,13 +1281,10 @@ Use case resumes from step 2.
 * 2a. Internship Diary detects an invalid date given for the `Date` field.
 [none]
 ** 2a1. Internship Diary shows an error message.
-** 2a2. User enters command with a different date.
 +
-Steps 2a1-2a2 are repeated until the date entered is valid.
-+
-Use case resumes from step 3.
+Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2b. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1608,8 +1605,11 @@ A list of descriptions for an internship application grouped by type
 Window preferences::
 The last application window size and location the user used before shutdown
 
+// tag::productSurvey[]
 [appendix]
 == Product Survey
+
+Below are some of the programs currently available that could be used to manage internship applications, as well as their pros and cons
 
 *Huntr*
 
@@ -1625,6 +1625,23 @@ Cons:
 * Cannot use without signing up for an account
 * Cannot get filtered list, the whole board is always shown and can be disorganised
 * Cannot directly get reminders for deadlines, must add a new task
+
+*Excel*
+
+Pros:
+
+* Free for NUS students
+* Allows the user to define what to include
+* Allows the user to use it offline
+
+Cons:
+
+* Does not use CLI for interactions with the system
+* Cannot easily go straight to managing internship applications, steep learning curve
+* Can get messy quickly, no inbuilt filter and archive functions
+* Does not include inbuilt statistics and reminder functions
+
+// end::productSurvey[]
 
 [appendix]
 == Instructions for Manual Testing
