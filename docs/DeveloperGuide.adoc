@@ -1449,6 +1449,36 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC18 - Getting Internship Application due or has interviews in 7 days in main list
+
+*MSS*
+
+1. User pass:q[<u>views main list UC1</u>].
+2. Users request to get applications which are due or have interviews in 7 days.
+3. Internship Diary shows relevant applications.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a.
+No Internship Application is shown.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC19 - Getting Internship Application due or has interviews in 7 days in archival list
+
+*MSS*
+
+1. User pass:q[<u>views archival list UC2</u>].
+2. Users request to get applications which are due or have interviews in 7 days.
+3. No Internship Application is shown.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
