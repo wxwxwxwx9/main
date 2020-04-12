@@ -202,6 +202,7 @@ Displays internship application(s) with company `Google` OR `Google Deepmind` OR
 
 * `find c/Google s/applied` +
 Displays internship application(s) with company `Google` AND status `APPLIED`
+// end::find[]
 
 === Selecting an internship application to display: `select`
 
