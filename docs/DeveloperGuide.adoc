@@ -166,7 +166,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::sort[]
 === Sort command
 
-The find command allows the user to sort the currently visible list of internship applications.
+The sort command allows the user to sort the currently visible list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
 image::SortSequenceDiagram.png[]
@@ -175,7 +175,7 @@ The following subsections will go through the general implementations of the sor
 
 ==== Implementation
 
-The find command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the arguments for the command.
+The sort command is implemented in the class `SortCommand` and uses the `SortCommandParser` class to parse the arguments for the command.
 
 To facilitate the sort command, several comparator classes implementing `Comparator<InternshipApplication>` are used:
 
@@ -185,8 +185,20 @@ To facilitate the sort command, several comparator classes implementing `Compara
 * `RoleComparator` -- Comparator to compare internship applications by their `Role` field in lexicographical order.
 * `StatusComparator` -- Comparator to compare internship applications by their `Status` field by the order which they are declared in the Status Enum class.
 
+The `SortCommandParser` stores all of these Comparators in an immutable static Map mapping a prefix to each Comparator object.
+As the Comparators are all immutable, we can treat the Map as completely immutable.
+
 The `SortCommandParser` looks for a acceptable prefix in the command, and passes the corresponding comparator to `SortCommand`.
 If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
+
+The `toString()` method of all Comparators have also been overridden with a description of the comparator, so as
+to allow the DisplayComparatorFooter to retrieve information of the current Comparator without passing a separate `String`
+to it.
+
+The following class diagram will illustrate the structure of SortCommand:
+
+.Structure of SortCommand
+image::ComparatorClassDiagram.png[]
 
 ==== Reverse sort
 
@@ -262,7 +274,7 @@ The following activity diagram depicts the behaviour of the `CommandBox` while t
 .Execution of CommandHistory
 image::CommandHistoryActivityDiagram.png[CommandHistory,200]
 .Handle other key pressed
-image::CommandHistKeypessActivityDiagram.png[CommandHistory2,400]
+image::CommandHistKeypessActivityDiagram.png[CommandHistory2,600]
 .Execution cleanup
 image::CommandHistExeCleanupActivityDiagram.png[CommandHistory2,200]
 
@@ -579,12 +591,12 @@ It illustrates the internal workings of how we switch the view between the archi
         firePropertyChange(DISPLAYED_INTERNSHIPS, getDisplayedInternshipList());
     }
 
-It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archived and main list.
+It can be seen explicitly from the code snippet that we make use of referencing to switch between the views of archival and main list.
 However, such implementation brings about issues with reactivity -- where elements that reference `displayedInternships` will not be aware of the reference change in `displayedInternships` whenever the user executes `archival` or `list`.
 Therefore, in the above scenario, users would still see the main list after executing the `archival` command.
 
-In order to resolve this issue, we need to employ the observer pattern.
-The general idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
+In order to resolve this issue, we need to employ the *observer pattern design*.
+The broad idea is to assign each UI element to be an *observer* and `InternshipDiary` to be the *observable*.
 Consequently, whenever there is a state change to `InternshipDiary`, the list of observers will be notified and updated automatically.
 
 To achieve this observer pattern, we made use of the `PropertyChangeSupport` class and the `PropertyChangeListener` interface.
@@ -617,7 +629,7 @@ We will briefly discuss how the observer pattern works in our implementation.
 Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe.
 It will also have to specify which property of that object it wants to observe.
 
-In our case, when ModelManager is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
+In our case, when `ModelManager` is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
 The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
 is a reference to `ModelManager` itself (so that it can be registered as a listener of the `displayedInternships` property of `InternshipDiary`).
 
@@ -627,7 +639,7 @@ As a result, whenever there is a change to the property `displayedInternships` i
 `InternshipDiary` will call `firePropertyChange` to emit a `PropertyChangeEvent` to `ModelManager`.
 The emitted event will trigger the `propertyChange` function of `ModelManager`.
 `ModelManager` can then retrieve the new reference from the event and update its `filteredInternshipApplications` accordingly.
-It will then repeat the event emission process to any UI element (e.g. StatisticsWindow) that is observing the
+It will then repeat the event emission process to any UI element (e.g. `StatisticsWindow`) that is observing the
 `filteredInternshipApplications` property.
 
 The following activity diagram gives a high-level overview of the above event-driven process.
@@ -1916,3 +1928,40 @@ Expected: No applications should be shown.
 .. Internship Diary will load with an empty JSON file which will overwrite the existing corrupted data file upon the execution of
 any commands.
 
+[appendix]
+== Effort
+
+A lot of time and effort were channeled into designing and implementing a set of robust, easy-to-use, and cohesive features for our users.
+To help users *organise* their internship applications, we designed and implemented `find`, `sort`, `archive` and `unarchive`. On the other hand, to help users *track*
+their internship applications, we designed and implemented `reminder`, `interview`, and `stats`.
+
+=== Challenges Faced
+
+==== Designing `find`, `sort`, and `reminder`
+
+There was a need to plan how `find`, `sort`, and `reminder` command should behave and how we can extend such commands with new behaviours easily in the future.
+This required a lot of team discussion and effort in terms of coming up with drafts for our intended implementation. For `find`, we had to ensure that
+when a new field is added, or if an existing field is changed, we can simply add/edit predicate classes accordingly and make changes only in the `FindCommandParser`.
+For `sort`, we had to ensure that adding or removing a sort comparator only required very minimal changes to the `SortCommandParser` (which requires only a single line in our final implementation).
+On top of that, we also had to ensure that it is easy to pass a description of the predicate and comparator used to the `PredicateDisplayFooter` and `SortDisplayFooter` respectively.
+For `reminder`, there was a need to plan the conditions to decide which internship applications to show when the reminder command is used for the implementation of the corresponding predicates to use.
+
+==== Implementing interview classes and commands
+The interview classes must be highly extensible as new interview types could be added in the future. Therefore, extra effort was made to ensure new interviews could be easily integrated into the current logic and model structure of interviews.
+
+==== Enabling multiple execution type functionality for removal-based commands
+
+We wanted to make the application as user-friendly as possible for the users. Being able to execute removal-based commands like `delete`, `archive`, and `unarchive` is therefore a good feature to include.
+However, there are many ways to extend our commands to accommodate multiple execution type. The only question is: at what cost? As a team, we had to conduct multiple online team meetings during *milestone v1.4*
+to discuss about the most suitable, time-effective, and extensible implementation considering that the deadline is around the corner.
+
+==== Modifying GUI
+The GUI must be made easily readable and understandable by the user. Research and effort was made to ensure a well organised and consistent application layout.
+
+==== Integrating the features
+Due to the cohesive nature of our features, it resulted in extensive interaction between the components -- ensuring a smooth integration was therefore a significant challenge.
+For example, as our features introduced many new UI elements and backend implementation, we ran into UI / data reactivity issue where ObservableList was no longer an adequate and sustainable solution.
+
+We needed a more robust solution to help us keep the UI in sync with the state of our data. This required the team to look into how we can implement the observer pattern design into our system and the best options we have
+to implement the structure. There were various constraints that we had to be mindful of as we incorporated the observer pattern, mainly due to the way we implemented certain features (as reactivity issue was something we did
+not foresee). As this is our first time dealing with the observer pattern, we had to spend a good amount of time to understand and implement it properly.
