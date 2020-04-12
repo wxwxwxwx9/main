@@ -377,7 +377,7 @@ Examples:
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
 // tag::find[]
-=== Locating internship applications by fields: `find`
+=== Locating internship applications: `find`
 
 Finds all internship application(s) with the specified fields containing any of the given keywords.
 
@@ -402,7 +402,7 @@ being `Software Engineer` but not company that is `Facebook` and role being `Sof
 Example(s):
 
 * `find Google` +
-Displays internship application(s) with company `Google` OR with email `alice@google.com`.
+Lists internship application(s) with company `Google` OR with email `alice@google.com`.
 
 [cols="2", frame="none", grid="none"]
 |===
@@ -415,7 +415,7 @@ image::AfterFind1.png[]
 |===
 
 * `find c/Google s/applied` +
-Displays internship application(s) with company `Google` AND status `APPLIED`.
+Lists internship application(s) with company `Google` AND status `APPLIED`.
 
 [cols="2", frame="none", grid="none"]
 |===
