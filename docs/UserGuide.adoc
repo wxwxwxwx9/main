@@ -192,6 +192,7 @@ being `Software Engineer` but not company that is `Facebook` and role being `Sof
 * The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`.
 * Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`.
 * Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`.
+* Consecutive find command calls will not stack on the resulting list from the preceding find command. It is always performed on either the main list or archival list (shown on the bottom left of the program window).
 ****
 
 Example(s):
