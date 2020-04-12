@@ -32,6 +32,7 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Finds all internship applications whose fields contain all of "
         + "the specified field keywords (case-insensitive) and displays them as a list with index numbers.\n"
+        + "At least one of the following optional parameters must be given:\n"
         + "Parameters: "
         + "[KEYWORDS] "
         + "[" + PREFIX_COMPANY + "COMPANY] "
@@ -41,7 +42,7 @@ public class FindCommand extends Command {
         + "[" + PREFIX_EMAIL + "EMAIL] "
         + "[" + PREFIX_DATE + "DATE] "
         + "[" + PREFIX_PRIORITY + "PRIORITY] "
-        + "[" + PREFIX_STATUS + "STATUS] "
+        + "[" + PREFIX_STATUS + "STATUS]\n"
         + "Example: " + COMMAND_WORD + " c/Google r/Engineer";
 
     private final List<Predicate<InternshipApplication>> predicates;
