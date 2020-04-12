@@ -16,35 +16,7 @@ Class Predicate <<interface>> {
 
 }
 
-Class CompanyContainsKeywordsPredicate {
-
-}
-
-Class RoleContainsKeywordsPredicate {
-
-}
-
-Class AddressContainsKeywordsPredicate {
-
-}
-
-Class PhoneContainsNumbersPredicate {
-
-}
-
-Class EmailContainsKeywordsPredicate {
-
-}
-
-Class ApplicationDateIsDatePredicate {
-
-}
-
-Class PriorityContainsNumbersPredicate {
-
-}
-
-Class StatusContainsKeywordsPredicate {
+Class XYZPredicate {
 
 }
 
@@ -52,17 +24,17 @@ note as N1
   The Predicate interface is the default java.util.function.Predicate functional interface
 end note
 
-N1 ... Predicate
-FindCommandParser .down.> Predicate
-FindCommandParser .right.> FindCommand
-FindCommand .down.> Predicate
-CompanyContainsKeywordsPredicate .up.|> Predicate
-RoleContainsKeywordsPredicate ..up.|> Predicate
-AddressContainsKeywordsPredicate .up.|> Predicate
-PhoneContainsNumbersPredicate ..up.|> Predicate
-EmailContainsKeywordsPredicate .up.|> Predicate
-ApplicationDateIsDatePredicate ..up.|> Predicate
-PriorityContainsNumbersPredicate .up.|> Predicate
-StatusContainsKeywordsPredicate ..up.|> Predicate
+note as N2
+                        XYZPredicate excludes ApplicationDateDuePredicate,
+  InterviewDateDuePredicate, IsNotArchivedPredicate and StatusIsInterviewPredicate
+end note
+
+N1 .. Predicate
+N2 .. XYZPredicate
+FindCommandParser ...> XYZPredicate
+FindCommandParser ...> Predicate
+FindCommandParser ...> FindCommand
+FindCommand ---> "*" Predicate
+XYZPredicate ...|> Predicate
 
 @enduml
