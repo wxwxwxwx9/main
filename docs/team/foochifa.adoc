@@ -12,6 +12,17 @@ This portfolio provides an overview of my contributions to the Internship Diary 
 
 **Internship Diary** is a command line interface (CLI) and desktop-based internship tracking application.
 
+Arguably the most important phase in the journey of a computer science undergraduate is in their internship.
+Internships are widely viewed as an entry point into the professional scene of computer science. Coupled with the
+intense competition amongst highly desired internship companies, applying for internships become a tedious and stressful process. Numerous hours
+would be spent planning, researching and organising internship applications.
+
+As a group of computer science undergraduates, our team understands the anxiety and stress that internship
+planning can cause. Therefore, we resolved ourselves to create a software that can ease the worries of fellow computer science
+undergraduates when organising or tracking their internship applications.
+
+Internship Diary is the culmination of this resolution, a simple yet elegant one-stop application for computer science
+undergraduates' internship organising needs.
 
 == Summary of contributions
 
