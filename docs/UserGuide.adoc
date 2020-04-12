@@ -84,12 +84,15 @@ used to input the respective Status values.
 
 The valid Status values for internship applications listed in sort order:
 
-. `wishlist`
-. `applied`
-. `interview`
-. `offered`
-. `rejected`
-. `ghosted`
+[cols="1, 2, 14"]
+|===
+|1. |`wishlist` | An internship application that you are planning to apply for.
+|2. |`applied` | An internship application that you have already applied for.
+|3. |`interview` | An internship application that you have applied to, and have been invited to an interview.
+|4. |`offered` | An internship application that you have received a job offer for.
+|5. |`rejected` | An internship application that you have been rejected for.
+|6. |`ghosted` | An internship application that you have heard no reply from for a long time.
+|===
 
 [[interview]]
 === Structure of interview

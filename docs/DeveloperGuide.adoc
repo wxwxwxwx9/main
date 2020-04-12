@@ -190,19 +190,23 @@ The `SortCommandParser` looks for a acceptable prefix in the command, and passes
 If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
 
 The `toString()` method of all Comparators have also been overridden with a description of the comparator, so as
-to allow the DisplayComparatorFooter to retrieve information of the current Comparator without passing a separate `String`
+to allow the `DisplayComparatorFooter` to retrieve information of the current Comparator without passing a separate `String`
 to it.
 
-The following class diagram will illustrate the structure of SortCommand:
-
-.Structure of SortCommand
-image::ComparatorClassDiagram.png[]
-
+[discrete]
 ==== Reverse Sort
 
 This version of the command is invoked when the user enters the command with `reverse` as the preamble text in the parameter, e.g. `sort reverse c/`.
 After retrieving the correct `comparator` to use, the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
 This would reverse the order in which the currently visible list of internship applications is sorted in.
+
+The `reversed()` method of the Comparators used have actually been overridden to return `ReversedComparator`, so as to override
+the `toString()` method of the newly created Comparator for the `DisplayComparatorFooter`.
+
+The following class diagram will illustrate the overall structure of SortCommand:
+
+.Structure of SortCommand
+image::ComparatorClassDiagram.png[]
 
 ==== Design Considerations
 
@@ -1079,7 +1083,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |trace all my internship application's contact | easily follow up on the application
+|`* * *` |user |trace all my internship applications' contact | easily follow up on the application
 
 |`* * *` |user |tag each application with a status | track my internship application phase
 
