@@ -32,13 +32,18 @@ Here are the steps to get you started on using Internship Diary:
 . Download the latest `internshipdiary.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your Internship Diary.
 . Double-click the file to start the app.
-The GUI should appear in a few seconds.
+The Graphical User Interface (GUI) should appear in a few seconds.
 +
+
+.GUI of Internship Diary
 image::Ui.png[width="790"]
+
 +
 . Test the application by typing the command *`help`* in the command box and pressing kbd:[Enter] to execute it. This should open the help window. +
 +
+.Help window that appears when `help` is executed
 image::help_window.png[width="790"]
+
 +
 . Refer to <<Commands>> to find out what other commands you can use on Internship Diary.
 
@@ -48,6 +53,7 @@ Here are some important information you should know.
 
 === Graphical user interface
 
+.Major graphical components of Internship Diary
 image::internship_diary_label.png[align="center", width="790"]
 
 The image illustrates the major graphical components of *Internship Diary*.
@@ -133,6 +139,7 @@ separators. If year is not given, will default to the current year.
 ** `INDEX` is not unique to a particular internship application -- it will change as the list is updated.
 *** `INDEX` only serves as a reference for you to choose the correct internship application.
 
+.Example of internship application seen on the Internship Application List
 image::sample_index.png[align="center", width="600"]
 
 * For any command that uses `INDEX`:
@@ -163,6 +170,7 @@ Displays *unarchived* internship applications. This is known as your *main list*
 
 Format: `list`
 
+.Display of main list
 image::main_list.png[align="center", width="800"]
 // end::list[]
 
@@ -173,6 +181,7 @@ Displays *archived* internship applications. This is known as your *archival lis
 
 Format: `archival`
 
+.Display of archival list
 image::archival_list.png[align="center", width="800"]
 // end::archival[]
 
@@ -191,6 +200,7 @@ Example(s):
 
 * `select 1`
 
+.Display of internship application details when selected
 image::select_internship.png[align="center", width="790"]
 
 === Adding an internship application: `add`
