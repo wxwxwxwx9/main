@@ -259,7 +259,12 @@ The command history feature allows the user to press the up and down arrow keys 
 
 The following activity diagram depicts the behaviour of the `CommandBox` while the user is entering commands.
 
-image::CommandHistoryActivityDiagram.png[]
+.Execution of CommandHistory
+image::CommandHistoryActivityDiagram.png[CommandHistory,200]
+.Handle other key pressed
+image::CommandHistKeypessActivityDiagram.png[CommandHistory2,400]
+.Execution cleanup
+image::CommandHistExeCleanupActivityDiagram.png[CommandHistory2,200]
 
 The following subsections will go through the general implementations of the command history feature.
 
