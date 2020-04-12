@@ -1378,9 +1378,9 @@ Use case ends
 Use case resumes at step 2
 
 [none]
-* 1a. The new Interview to be created has invalid fields.
+* 1b. The new Interview to be created has invalid fields.
 [none]
-** 1a.1. Internship Diary shows an error message.
+** 1b.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
@@ -1411,9 +1411,9 @@ Use case ends
 Use case resumes at step 2
 
 [none]
-* 1a. The Interview to be deleted does not exist.
+* 1b. The Interview to be deleted does not exist.
 [none]
-** 1a.1. Internship Diary shows an error message.
+** 1b.1. Internship Diary shows an error message.
 +
 Use case resumes at step 2
 
