@@ -1530,6 +1530,8 @@ The last application window size and location the user used before shutdown
 [appendix]
 == Product Survey
 
+Below are some of the programs currently available that could be used to manage internship applications, as well as their pros and cons
+
 *Huntr*
 
 Pros:
@@ -1544,6 +1546,21 @@ Cons:
 * Cannot use without signing up for an account
 * Cannot get filtered list, the whole board is always shown and can be disorganised
 * Cannot directly get reminders for deadlines, must add a new task
+
+*Excel*
+
+Pros:
+
+* Free for NUS students
+* Allows the user to define what to include
+* Allows the user to use it offline
+
+Cons:
+
+* Does not use CLI for interactions with the system
+* Cannot easily go straight to managing internship applications, steep learning curve
+* Can get messy quickly, no inbuilt filter and archive functions
+* Does not include inbuilt statistics and reminder functions
 
 [appendix]
 == Instructions for Manual Testing
