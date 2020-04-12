@@ -259,7 +259,12 @@ The command history feature allows the user to press the up and down arrow keys 
 
 The following activity diagram depicts the behaviour of the `CommandBox` while the user is entering commands.
 
-image::CommandHistoryActivityDiagram.png[]
+.Execution of CommandHistory
+image::CommandHistoryActivityDiagram.png[CommandHistory,200]
+.Handle other key pressed
+image::CommandHistKeypessActivityDiagram.png[CommandHistory2,400]
+.Execution cleanup
+image::CommandHistExeCleanupActivityDiagram.png[CommandHistory2,200]
 
 The following subsections will go through the general implementations of the command history feature.
 
@@ -1287,7 +1292,6 @@ Use case ends
 [none]
 * 1a.
 Internship Diary detects the keyword reverse.
-
 [none]
 ** 1a.1. Internship Diary sorts the list in reverse order.
 +
@@ -1296,7 +1300,6 @@ Use case resumes from step 3.
 [none]
 * 1b.
 Internship Diary detects invalid syntax.
-
 [none]
 ** 1b.1. Internship Diary shows an error message.
 +
@@ -1437,13 +1440,15 @@ Use case ends.
 
 1. User requests to delete all internship application(s).
 2. Internship Diary prompts the user for confirmation.
-3. User confirms.
+3. User enters confirmation phrase.
 4. Internship Diary deletes all internship application(s).
 +
 Use case ends.
 
+*Extensions*
+
 [none]
-* 3a. The user does not confirm.
+* 3a. The user enters something else.
 [none]
 ** 3a.1. Internship Diary does not delete any internship application(s).
 +

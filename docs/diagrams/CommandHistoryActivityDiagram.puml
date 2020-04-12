@@ -5,51 +5,14 @@ while () is ([Application running])
     :Wait for keypress;
 
     while () is ([other key pressed])
-        if () then ([key UP pressed])
-            if () then ([no earlier history])
-            else ([else])
-                :Copy the command at
-                historyIterator into
-                CommandBox;
-                :Increment position of
-                historyIterator by 1;
-            endif
-
-        else if () then ([key DOWN pressed])
-            if () then ([no later history])
-            else ([else])
-                :Decrement position of
-                historyIterator by 1;
-                :Copy the command at
-                historyIterator into
-                CommandBox;
-            endif
-
-        else if () then ([key LEFT or RIGHT pressed])
-        else ([other key pressed])
-            :Move historyIterator
-            to the front of
-            EnteredCommandHistory;
-
-        endif
+    :Handle other
+    key pressed ⋔;
     :Wait for keypress;
     endwhile ([key ENTER pressed])
 
   :Execute command;
   if () then ([execution successful])
-      :Queue command at front of
-      EnteredCommandHistory;
-
-      if () then ([size of \nEnteredCommandHistory\nexceeds 20])
-      :Dequeue command at back of
-      EnteredCommandHistory;
-      else ([else])
-      endif
-
-      :Move historyIterator
-      to the front of
-      EnteredCommandHistory;
-      :Clear command in CommandBox;
+      :Execution Cleanup ⋔;
   else ([exception thrown])
   endif
 endwhile ([else])
