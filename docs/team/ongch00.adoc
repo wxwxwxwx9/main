@@ -9,31 +9,39 @@
 
 == Overview
 
-My Internship Diary is a desktop address book desktop internship tracking application written in Java, and has about
+Internship Diary is a desktop internship tracking application written in Java, and has about
 15 kLoC. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
 == Summary of contributions
 
 * *Major enhancement*: Revamp the find command
-** This enhancement enables the general find where it works similarly to Ctrl-F on most programs. It will take in
-the keywords you entered will list any internship application that has fields that matches any of the keywords provided.
-** This enhancement also enables the specific find, where it the user can specify what which field they are
-interested in searching in. The user can find in multiple fields as well. In this case, only the internship
-applications that has the fields matching the specified fields will be listed.
+** **What it does:** This enhancement enables the general find where the keywords that the user entered will list
+any internship application that has fields that matches any of the keywords provided. This enhancement also enables
+finding by specific field(s), where the user can specify which field(s) they are interested in searching in.
+Only the internship applications that has the field(s) matching the specified field(s) keywords will be listed in this case.
 
-** This enhancement posed a challenge as:
-*** Quite a bit of planning involved, mainly to consider how I should perform the search, and how I can separate the
-general and specific find. At the end the plan to use predicates was decided.
-*** Quite a bit of knowledge with how predicates work is required as I needed to know how I can combine the required
-predicates cleanly so that it is readable and to ensure that it is correct.
+** **Justification:** This feature will allow the user to easily filter the list to quickly get to what is important.
+With the flexibility of general and specific find, the user can get a more specific filtered list if needed.
+
+** **Highlights:** Quite a bit of planning was involved, mainly to consider how the search should behave and how it is performed.
+It the end, the plan to use predicates was decided as it will be easy to extend the application with minimal changes in the command.
+Quite a bit of knowledge on how predicates work is also required as there was a need to find out how to combine
+many predicates cleanly so that it is readable and to ensure that it is working correctly.
+There was also a need decide on how I should allow the user to tell the system which of the two types of find command to invoke.
+It was decided in the end to use the same command word and have the type of user input be the way of telling the system
+which type of find to invoke.
 
 * *Minor enhancement*: Add visual display of upcoming application deadlines and interviews and inactive applications
-** This enhancement allows the user to determine which application has deadlines or interviews due in 7 days or if
-there are ghosted application in a quick glance. Internship application with upcoming deadline will show green while
-inactive application will show red.
-** This enhancement, while minor, posed some challenges as well:
-*** Setting it in CSS was not possible as I still wanted to keep the odd and even colors.
-*** Setting it in code without first saving the CSS style would cause the style to not reset to the default CSS style.
+** **What it does:** This enhancement allows the user to determine which application has deadlines or interviews due in 7 days or if
+there are ghosted application by the color of the internship application in the list.
+Internship applications with upcoming deadline or interview will show green while ghosted applications will show red.
+
+** **Justification:** This enhancement will allow the user to know what is upcoming and what is ghosted/inactive at a quick glance.
+
+** **Highlights:** Figuring out where the code to update the color should go was a challenge.
+Setting it directly in CSS was not possible as I still wanted to keep the odd and even colors for the list.
+When setting it in code, I had to figure out why the style will not revert to the default CSS style, leading to visual bugs.
+The bugs were fixed after some research.
 
 * *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=ongch00[RepoSense]
 
@@ -43,7 +51,7 @@ and text.
 ** Contributed to adding some test cases for various parts of the code to help maintain a coverage of around 75%
 
 ** Project management:
-*** Managed releases `v1.2` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F10-2/main/pull/32[#32]

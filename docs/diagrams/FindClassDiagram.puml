@@ -13,7 +13,7 @@ Class FindCommand {
 
 }
 
-Class Predicate <<interface>> {
+Class Predicate <InternshipApplication> <<interface>> {
     + test(InternshipApplication) : boolean
     + and(Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
     + or(Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
