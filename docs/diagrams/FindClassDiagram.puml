@@ -14,10 +14,14 @@ Class FindCommand {
 }
 
 Class Predicate <<interface>> {
-    + test(internshipApplication : InternshipApplication) : boolean
-    + and(other : Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
-    + or(other : Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + test(InternshipApplication) : boolean
+    + and(Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + or(Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
     + toString(): String
+}
+
+Class CustomToStringPredicate {
+
 }
 
 Class XYZPredicate {
@@ -42,6 +46,10 @@ FindCommandParser .right.> XYZPredicate : creates >
 FindCommandParser ..> Predicate
 FindCommandParser .left.> FindCommand : creates >
 FindCommand ---> "*" Predicate : uses >
+FindCommand .left.> CustomToStringPredicate
 XYZPredicate ..|> Predicate
+CustomToStringPredicate ..|> Predicate
+
+CustomToStringPredicate -[hidden]right-> Predicate
 
 @enduml
