@@ -574,7 +574,7 @@ This is identical for the `unarchive` command in the main list as well.
 
 ===== Implementation
 
-The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
+The class diagram below depicts the important methods and attributes that provide us the ability to switch views between the main list and the archival list.
 
 .Structure of `InternshipDiary` that showcases the methods and attributes required for view-switching
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="700",align="center"]
