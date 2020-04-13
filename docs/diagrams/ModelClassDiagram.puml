@@ -30,7 +30,7 @@ Class ApplicationDate
 Class UniqueInternshipApplicationList
 Class Priority
 Package Interview {
-Class Interview
+Abstract Class Interview
 }
 }
 
