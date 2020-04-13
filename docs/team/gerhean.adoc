@@ -1,4 +1,4 @@
-= Ger Hean - Project Portfolio
+= Chan Ger Hean - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
