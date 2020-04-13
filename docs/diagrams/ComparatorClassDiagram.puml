@@ -10,8 +10,8 @@ Class SortCommand {
 Class SortCommandParser {
 }
 
-Interface Comparator <<Interface>> {
-    + compare(InternshipApplication ia1, InternshipApplication ia2): int
+Interface Comparator<InternshipApplication> <<Interface>> {
+    + compare(InternshipApplication, InternshipApplication): int
     + toString(): String
     + reversed(): Comparator
 }
