@@ -486,7 +486,7 @@ numbers)`.
 keywords)`.
 * `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Priority` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
 numbers)`..
-* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
+* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(List<String> dateArr)`.
 * `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
 
