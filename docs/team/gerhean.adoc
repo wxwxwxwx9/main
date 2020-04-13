@@ -99,6 +99,8 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1]
 
 link:{ugURL}#sorting-internship-companies-by-field-code-sort-code[4.11. Sorting internship companies by field: sort]
 
+link:{ugURL}#fields[3.2. Structure of internship application]
+
 == Contributions to the Developer Guide
 
 |===
