@@ -3,6 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
+:ugURL: https://ay1920s2-cs2103t-f10-2.github.io/main/UserGuide.html
+:dgURL: https://ay1920s2-cs2103t-f10-2.github.io/main/DeveloperGuide.html
 
 == PROJECT: My Internship Diary
 
@@ -95,7 +97,7 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-4.11. Sorting internship companies by field: sort
+link:{ugURL}#sorting-internship-companies-by-field-code-sort-code[4.11. Sorting internship companies by field: sort]
 
 == Contributions to the Developer Guide
 
@@ -103,14 +105,14 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/74[1]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-4.1. Sort command
+link:{dgURL}#sort-command[4.1. Sort command]
 
-4.2. Clear command
+link:{dgURL}#clear-command[4.2. Clear command]
 
-4.3. Command History
+link:{dgURL}#command-history[4.3. Command History]
 
-Use case: UC11 - Sort Internship Application
+link:{dgURL}#use-cases[Use case: UC11 - Sort Internship Application]
 
-Use case: UC17 - Clear Command
+link:{dgURL}#use-cases[Use case: UC17 - Clear Command]
 
-G.13. Sorting the list of internship applications
+link:{dgURL}#sorting-the-list-of-internship-applications[G.13. Sorting the list of internship applications]
