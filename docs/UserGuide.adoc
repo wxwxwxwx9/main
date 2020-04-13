@@ -428,7 +428,7 @@ image::AfterFind1.png[]
 |===
 
 * `find c/Google s/applied` +
-Lists internship application(s) with company `Google` AND status `APPLIED`.
+Lists internship application(s) with company `Google` AND status `applied`.
 
 [cols="2", frame="none", grid="none"]
 |===
@@ -447,10 +447,8 @@ image::AfterFind2.png[]
 
 Sort displayed internship companies based on a given FIELD.
 
-[cols="1,20"]
-|===
-|💡|The sort parameters will appear at the bottom left of the internship diary
-|===
+[TIP]
+The sort parameters will appear at the bottom left of the internship diary
 
 Type `reverse` before `FIELD` to sort in the reverse order.
 
@@ -565,7 +563,7 @@ This command helps to remind you of applications which you might want to focus o
 Format: `reminder`
 
 .Example display of Internship Diary when `reminder` is executed
-image::reminder_example.png[align="center", width="800"]
+image::reminderexample.png[align="center", width="800"]
 
 [TIP]
 `reminder` can be used anytime, but it does not work on archived applications.
