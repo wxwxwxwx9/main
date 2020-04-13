@@ -3,14 +3,14 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-'package Model <<Rectangle>> {
-'    class InternshipDiary
-'    class ModelManager
-'}
-'
-'package UI <<Rectangle>> {
-'    class StatisticsWindow
-'}
+package Model <<Rectangle>> {
+    class InternshipDiary
+    class ModelManager
+}
+
+package UI <<Rectangle>> {
+    class StatisticsWindow
+}
 
 note "PropertyChangeSupport manages a list of listeners" as manageListeners
 PropertyChangeSupport .up[hidden]. manageListeners
@@ -39,23 +39,23 @@ Class ModelManager implements PropertyChangeListener {
 '    - changes: PropertyChangeSupport
 '    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
 '    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
-    + propertyChange(PropertyChangeEvent e): void
+    + propertyChange(e: PropertyChangeEvent): void
 '    - refreshFilteredInternshipApplications(Object newInternshipApplications)
 '    - fireAllPropertyChanges(): void
 }
 
 Class StatisticsWindow implements PropertyChangeListener {
     - internshipApplicationList: \nObservableList<InternshipApplication>
-    + propertyChange(PropertyChangeEvent e): void
+    + propertyChange(e: PropertyChangeEvent): void
 }
 
 class PropertyChangeListener <<interface>> {
-    propertyChange(PropertyChangeEvent e): void
+    propertyChange(e: PropertyChangeEvent): void
 }
 
 class PropertyChangeSupport {
-    + addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
-    + firePropertyChange(String propertyName, Object oldValue, Object newValue)
+    + addPropertyChangeListener(propertyName: String, l: PropertyChangeListener)
+    + firePropertyChange(propertyName: String, oldVal: Object, newVal: Object)
 }
 
 InternshipDiary -up-> "1" PropertyChangeSupport

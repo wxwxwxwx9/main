@@ -3,57 +3,58 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-'package Model <<Rectangle>> {
-'    class InternshipDiary
-'    class ModelManager
-'    enum ListenerPropertyType
-'}
-'
-'package UI <<Rectangle>> {
-'    class StatisticsWindow
-'}
+package Model <<Rectangle>> {
+    class InternshipDiary
+    class ModelManager
+    enum ListenerPropertyType
+}
+
+package UI <<Rectangle>> {
+    class StatisticsWindow
+}
 
 note "PropertyChangeSupport manages a list of listeners" as manageListeners
 PropertyChangeSupport .up[hidden]. manageListeners
 PropertyChangeSupport .up. manageListeners
 
 note "ModelManager observes (listens to)\ndisplayedInternships attribute\nof InternshipDiary" as modelManagerObserves
-modelManagerObserves .up[hidden]. ModelManager
 modelManagerObserves .up. ModelManager
+modelManagerObserves .up[hidden]. ModelManager
+
 
 note "StatisticsWindow observes (listens to)\nfilteredInternshipApplications attribute\nof ModelManager" as statisticsWindowObserves
-statisticsWindowObserves .up[hidden]. StatisticsWindow
-statisticsWindowObserves .up. StatisticsWindow
+statisticsWindowObserves .down[hidden]. StatisticsWindow
+statisticsWindowObserves .down. StatisticsWindow
 
 note "Notice that there is no coupling between the\n observables and observers" as N1
 
 Class InternshipDiary {
     - displayedInternships: \nUniqueInternshipApplicationList
-    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
-    + firePropertyChange(ListenerPropertyType propertyType, \nObject newValue): void
+    + addPropertyChangeListener(lpt: ListenerPropertyType, \nl: PropertyChangeListener): void
+    + firePropertyChange(lpt: ListenerPropertyType, newVal: Object): void
 }
 
 Class ModelManager implements PropertyChangeListener {
     - filteredInternshipApplications: \nFilteredList<InternshipApplication>
-    + propertyChange(PropertyChangeEvent e): void
-    + addPropertyChangeListener(ListenerPropertyType propertyType, \nPropertyChangeListener l): void
-    + firePropertyChange(ListenerPropertyType propertyType, Object newValue): void
+    + propertyChange(e: PropertyChangeEvent): void
+    + addPropertyChangeListener(lpt: ListenerPropertyType, \nl: PropertyChangeListener): void
+    + firePropertyChange(lpt: ListenerPropertyType, newVal: Object): void
 '    - refreshFilteredInternshipApplications(Object newInternshipApplications)
 '    - fireAllPropertyChanges(): void
 }
 
 Class StatisticsWindow implements PropertyChangeListener {
     - internshipApplicationList: \nObservableList<InternshipApplication>
-    + propertyChange(PropertyChangeEvent e): void
+    + propertyChange(e: PropertyChangeEvent): void
 }
 
 class PropertyChangeListener <<interface>> {
-    propertyChange(PropertyChangeEvent e): void
+    propertyChange(e: PropertyChangeEvent): void
 }
 
 class PropertyChangeSupport {
-    + addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
-    + firePropertyChange(String propertyName, Object oldValue, Object newValue)
+    + addPropertyChangeListener(propertyName: String, l: PropertyChangeListener)
+    + firePropertyChange(propertyName: String, oldVal: Object, newVal: Object)
 }
 
 InternshipDiary -up-> "1" PropertyChangeSupport

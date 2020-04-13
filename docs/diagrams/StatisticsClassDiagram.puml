@@ -10,10 +10,10 @@ Class ModelManager {
 
 Class Statistics {
     - statusCount: HashMap<Status, Integer>
-    + computeAndUpdateStatistics(ObservableList<InternshipApplication> \n internshipApplicationList): void
+    + computeAndUpdateStatistics(ObservableList<InternshipApplication>): void
     - resetStatistics(): void
-    + getCount(Status status): int
-    + getPercentage(Status status): double
+    + getCount(Status): int
+    + getPercentage(Status): double
     + getTotalCount(): int
 }
 
