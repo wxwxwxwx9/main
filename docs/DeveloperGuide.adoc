@@ -358,7 +358,7 @@ There are two types of interviews currently available in Internship Diary:
 * `ApplicationDate` interviewDate -- indicates the date of the interview.
 * `Address` interviewAddress -- indicates the address of the interview.
 
-In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement
+In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the internship package to implement
 `interviewDate` and `interviewAddress` +
 The class diagram below shows the classes associated to `Interview`.
 
@@ -375,7 +375,7 @@ The `interview` command will encompass four types of sub-command:
 * `list` -- lists all `Interview` in the specified `InternshipApplication`.  +
 Currently `list` functions similarly to `select`, additional functions for list will be proposed in <<InterviewListCommand-Improvements>>.
 
-Correspondingly, the `InterviewCommand`class will be made abstract with specific implementation
+Correspondingly, the `InterviewCommand` class will be made abstract with specific implementation
 of each sub-command in an inheriting class, this can be seen in the diagram below.
 
 .Structure of `InterviewCommand` class with its respective sub-commands
@@ -484,13 +484,13 @@ keywords)`.
 numbers)`.
 * `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
 keywords)`.
-* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Priority` field contains any substring matching any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
+* `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Priority` field exactly matches any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
 numbers)`..
-* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(LocalDate date)`.
+* `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(List<String> dateArr)`. The constructor will parse dateArr into a LocalDate.
 * `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
 
-The following class diagram show the relationship of the `Predicates`, `FindCommandParser` and `FindCommand`:
+The following class diagram show the relationship of the above mentioned predicates, `Predicate`, `FindCommandParser` and `FindCommand`:
 
 .Class diagram to show relationship between `Predicates`, `FindCommandParser` and `FindCommand`
 image::FindClassDiagram.png[align="center"]
