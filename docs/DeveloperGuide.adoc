@@ -585,7 +585,7 @@ The object diagram below illustrates the three `UniqueInternshipApplicationList`
 * `archivedInternships`
 * `unarchivedInternships`
 
-.Object diagram of three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`
+.Object diagram to illustrate the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`
 image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800",align="center"]
 
 As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
@@ -623,7 +623,7 @@ To achieve this observer pattern, we made use of the `PropertyChangeSupport` cla
 A class that contains an instance of `PropertyChangeSupport` is an observable.
 On the other hand, a class that implements the `PropertyChangeListener` interface is an observer.
 
-.Implementation of a two-tier observer-observable structure for `InternshipDiary`
+.Implementation of a two-tier observer-observable structure
 image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
 
 The class diagram above showcases our implementation of a two-tier observer-observable structure: +
@@ -647,7 +647,7 @@ The class diagram above showcases our implementation of a two-tier observer-obse
 We will briefly discuss how the observer pattern works in our implementation.
 
 Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe.
-It will also have to specify which property of that object it wants to observe.
+It will also have to specify which *property* of that object it wants to observe.
 
 In our case, when `ModelManager` is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
 The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
