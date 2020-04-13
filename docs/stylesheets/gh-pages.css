@@ -212,3 +212,10 @@ table.tableblock > .title,
         display: none;
     }
 }
+
+/* Do not print out full links */
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}
