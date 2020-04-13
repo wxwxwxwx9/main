@@ -1,4 +1,4 @@
-= Ger Hean - Project Portfolio
+= Chan Ger Hean - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -6,7 +6,7 @@
 :ugURL: https://ay1920s2-cs2103t-f10-2.github.io/main/UserGuide.html
 :dgURL: https://ay1920s2-cs2103t-f10-2.github.io/main/DeveloperGuide.html
 
-== PROJECT: My Internship Diary
+== PROJECT: Internship Diary
 
 ---
 

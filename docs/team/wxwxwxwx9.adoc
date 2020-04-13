@@ -75,7 +75,7 @@ link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=g
 ** Ensured that the team is heading in the right direction by monitoring the development progress and bringing up important issues.
 
 * Documentation
-** Contributed to both the User Guide (UG) and Developer Guide (DG).
+** Contributed extensively to both the User Guide (UG) and Developer Guide (DG).
 
 * Major Refactoring of the Original Codebase
 ** Allowed the team to proceed morphing the product and implementing features

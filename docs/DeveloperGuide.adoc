@@ -358,7 +358,7 @@ There are two types of interviews currently available in Internship Diary:
 * `ApplicationDate` interviewDate -- indicates the date of the interview.
 * `Address` interviewAddress -- indicates the address of the interview.
 
-In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the Model to implement
+In particular, `Interview` will rely on the `ApplicationDate` and `Address` classes in the internship package to implement
 `interviewDate` and `interviewAddress` +
 The class diagram below shows the classes associated to `Interview`.
 
@@ -375,7 +375,7 @@ The `interview` command will encompass four types of sub-command:
 * `list` -- lists all `Interview` in the specified `InternshipApplication`.  +
 Currently `list` functions similarly to `select`, additional functions for list will be proposed in <<InterviewListCommand-Improvements>>.
 
-Correspondingly, the `InterviewCommand`class will be made abstract with specific implementation
+Correspondingly, the `InterviewCommand` class will be made abstract with specific implementation
 of each sub-command in an inheriting class, this can be seen in the diagram below.
 
 .Structure of `InterviewCommand` class with its respective sub-commands
@@ -574,7 +574,7 @@ This is identical for the `unarchive` command in the main list as well.
 
 ===== Implementation
 
-The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
+The class diagram below depicts the important methods and attributes that provide us the ability to switch views between the main list and the archival list.
 
 .Structure of `InternshipDiary` that showcases the methods and attributes required for view-switching
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="700",align="center"]
@@ -585,7 +585,7 @@ The object diagram below illustrates the three `UniqueInternshipApplicationList`
 * `archivedInternships`
 * `unarchivedInternships`
 
-.Object diagram of three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`
+.Object diagram to illustrate the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`
 image::InternshipDiaryAndModelManagerObjectDiagram.png[width="800",align="center"]
 
 As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
@@ -623,7 +623,7 @@ To achieve this observer pattern, we made use of the `PropertyChangeSupport` cla
 A class that contains an instance of `PropertyChangeSupport` is an observable.
 On the other hand, a class that implements the `PropertyChangeListener` interface is an observer.
 
-.Implementation of a two-tier observer-observable structure for `InternshipDiary`
+.Implementation of a two-tier observer-observable structure
 image::InternshipDiaryAndModelManagerPropertyChangeClassDiagram.png[align="center"]
 
 The class diagram above showcases our implementation of a two-tier observer-observable structure: +
@@ -647,7 +647,7 @@ The class diagram above showcases our implementation of a two-tier observer-obse
 We will briefly discuss how the observer pattern works in our implementation.
 
 Whenever an object wants to observe changes in another object, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance from the appropriate object that it wishes to observe.
-It will also have to specify which property of that object it wants to observe.
+It will also have to specify which *property* of that object it wants to observe.
 
 In our case, when `ModelManager` is created, it will call the `addPropertyChangeListener` function of the `PropertyChangeSupport` instance belonging to `InternshipDiary`.
 The function call will look like this: `addPropertyChangeListener("displayedInternships", this)` where `this`
