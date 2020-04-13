@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
 
 == PROJECT: My Internship Diary
 
@@ -46,18 +47,22 @@ The bugs were fixed after some research.
 * *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=ongch00[RepoSense]
 
 * *Other contributions*:
-** Helped with refactoring of Internship Diary from Address Book by adding the model classes and updating DG diagrams
-and text.
-** Contributed to adding some test cases for various parts of the code to help maintain a coverage of around 75%
 
 ** Project management:
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 
+** Enhancement to existing features:
+*** Helped with refactoring of Internship Diary from Address Book by adding the model classes and updating DG diagrams
+and text: (PRs: link:{PrURL}22[#22])
+*** Contributed to adding some test cases for various parts of the code to help maintain a coverage of around 75%:
+(PRs: link:{PrURL}30[#30] link:{PrURL}53[#53] link:{PrURL}69[#69] link:{PrURL}85[#85])
+
+** Documentation:
+*** Helped with the refactoring of the developer guide from AB3 to Internship Diary: (PRs: link:{PrURL}20[#20])
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-F10-2/main/pull/32[#32]
-https://github.com/AY1920S2-CS2103T-F10-2/main/pull/115[#115]
-https://github.com/AY1920S2-CS2103T-F10-2/main/pull/118[#118]
-https://github.com/AY1920S2-CS2103T-F10-2/main/pull/201[#201]
+*** PRs reviewed (with non-trivial review comments): link:{PrURL}32[#32] link:{PrURL}115[#115] link:{PrURL}118[#118]
+link:{PrURL}201[#201]
 
 == Contributions to the User Guide
 |===
