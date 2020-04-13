@@ -34,10 +34,11 @@ note as N1
 end note
 
 note as N2
-                            XYZPredicate excludes
-    CustomToStringPredicate, ApplicationDateDuePredicate,
-        InterviewDateDuePredicate, IsNotArchivedPredicate,
-    StatusIsInterviewPredicate and StatusIsWishlistPredicate
+                  XYZPredicate = CompanyContainsKeywordsPredicate,
+    RoleContainsKeywordsPredicate, AddressContainsKeywordsPredicate,
+     PhoneContainsNumbersPredicate, EmailContainsKeywordsPredicate,
+      ApplicationDateIsDatePredicate, PriorityContainsNumbersPredicate
+                               or StatusContainsKeywordsPredicate
 end note
 
 N1 .left. Predicate
