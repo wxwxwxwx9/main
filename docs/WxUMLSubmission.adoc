@@ -16,7 +16,7 @@ endif::[]
 [none]
 == Archival View
 
-The class diagram below depicts the important methods and variables that provide us the ability to switch views between the main list and the archival list.
+The class diagram below depicts the important methods and attributes that provide us the ability to switch views between the main list and the archival list.
 
 .Structure of `InternshipDiary` that showcases the methods and attributes required for view-switching
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="500",align="center"]
