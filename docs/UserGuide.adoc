@@ -589,7 +589,7 @@ Displays the statistics about your internship application(s) on the current list
 
 It will open a separate window that contains a bar chart and a pie chart.
 
-The statistics will dynamically update as you modify the current list (e.g. switching between main and archival list).
+The statistics will dynamically update as you update the current list (e.g. switching between main and archival list).
 
 Format: `stats`
 
