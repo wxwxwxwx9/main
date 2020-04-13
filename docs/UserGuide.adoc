@@ -428,7 +428,7 @@ image::AfterFind1.png[]
 |===
 
 * `find c/Google s/applied` +
-Lists internship application(s) with company `Google` AND status `APPLIED`.
+Lists internship application(s) with company `Google` AND status `applied`.
 
 [cols="2", frame="none", grid="none"]
 |===
@@ -447,10 +447,8 @@ image::AfterFind2.png[]
 
 Sort displayed internship companies based on a given FIELD.
 
-[cols="1,20"]
-|===
-|💡|The sort parameters will appear at the bottom left of the internship diary
-|===
+[TIP]
+The sort parameters will appear at the bottom left of the internship diary
 
 Type `reverse` before `FIELD` to sort in the reverse order.
 
