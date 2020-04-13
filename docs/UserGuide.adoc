@@ -120,7 +120,7 @@ to 'interview'.
 | isOnline | o/ | No | 1 | Can only be `true` or `false`
 | Interview Date | d/ | No | 1 | Must be a valid date of the form `day-month-year`. Whitespace and `/` are also supported
 separators. If year is not given, will default to the current year.
-| Interview Address | a/ | online: yes offline: compulsory | 1 | No restrictions on input.
+| Interview Address | a/ | online: yes offline: no | 1 | No restrictions on input.
 |===
 // end::interviewStructure[]
 
