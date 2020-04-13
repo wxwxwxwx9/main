@@ -563,7 +563,7 @@ This command helps to remind you of applications which you might want to focus o
 Format: `reminder`
 
 .Example display of Internship Diary when `reminder` is executed
-image::reminder_example.png[align="center", width="800"]
+image::reminderexample.png[align="center", width="800"]
 
 [TIP]
 `reminder` can be used anytime, but it does not work on archived applications.
