@@ -485,7 +485,7 @@ numbers)`.
 * `EmailContainsKeywordsPredicate` -- Predicate to check if an internship application's `Email` field contains any substring matching any words in the list supplied by its constructor `EmailContainsKeywordsPredicate(List<String>
 keywords)`.
 * `PriorityContainsNumbersPredicate` -- Predicate to check if an internship application's `Priority` field exactly matches any words in the list supplied by its constructor `PriorityContainsNumbersPredicate(List<String>
-numbers)`..
+numbers)`.
 * `ApplicationDateIsDatePredicate` -- Predicate to check if an internship application's `ApplicationDate` field is exactly the date supplied by its constructor `ApplicationDateIsDatePredicate(List<String> dateArr)`. The constructor will parse dateArr into a LocalDate.
 * `StatusContainsKeywordsPredicate` -- Predicate to check if an internship application's `Status` field contains any substring matching any words in the list supplied by its constructor `StatusContainsKeywordsPredicate(List<String>
 keywords)`.
@@ -998,7 +998,7 @@ earlier date out of the two is used for the sorting. The most urgent application
 
 ==== Design Considerations
 
-====== Aspect: The order to display the internship applications
+===== Aspect: The order to display the internship applications
 
 * **Alternative 1 (current choice)**: Display the internship applications in the order of either their `applicationDate`
 or `interviewDate` of the earliest interview scheduled in `List<Interview> interviews` is closer to current date.
@@ -1017,7 +1017,7 @@ scheduled at an earlier `interviewDate` as compared to an application with later
 on a earlier `interviewDate` for an application with later `applicationDate` and additional commands have to be typed in
 to check `interviewDate`.
 
-====== Aspect: The filtering of internship applications to be shown
+===== Aspect: The filtering of internship applications to be shown
 
 * **Alternative 1 (current choice)**: Using separate predicates(`ApplicationDateDuePredicate`, `StatusIsWishlistPredicate`,
 `InterviewDateDuePredicate`, `StatusIsInterviewPredicate`) to filter out internship applications with `ApplicationDate`
