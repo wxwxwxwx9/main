@@ -131,13 +131,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<InternshipApplication>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Status` list in `Internship Diary`, which `Internship Application` can reference.
-This would allow `Internship Diary` to only require one `Status` object per unique `Status`, instead of each `Internship Application` needing their own `Status` object.
-An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
-
 [[Design-Storage]]
 === Storage Component
 
@@ -1241,7 +1234,7 @@ Use case ends.
 Use case resumes from step 1.
 
 [discrete]
-=== Use case: UC7 - Find Internship Application
+=== Use case: UC7 - Find Internship Applications
 
 *MSS*
 
@@ -1263,7 +1256,7 @@ Use case resumes from step 2.
 Use case ends.
 
 [discrete]
-=== Use case: UC8 - Find Internship Application by Specific Field(s)
+=== Use case: UC8 - Find Internship Applications by Specific Field(s)
 
 *MSS*
 
@@ -1295,7 +1288,7 @@ Use case ends.
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC7</u>].
+1. User pass:q[<u>find Internship Applications UC7</u>].
 2. User requests to edit the fields of the Internship Application.
 3. Internship Diary updates the new fields of the Internship Application.
 +
@@ -1317,7 +1310,7 @@ Use case resumes at step 1
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC7</u>].
+1. User pass:q[<u>find Internship Applications UC7</u>].
 2. User requests to prioritise the Internship Application.
 3. Internship Diary updates the priority level of the Internship Application.
 +
@@ -1377,7 +1370,7 @@ Use case resumes at step 1
 
 *MSS*
 
-1. User pass:q[<u>find Internship Application UC7</u>].
+1. User pass:q[<u>find Internship Applications UC7</u>].
 2. User requests to add an Interview to a specific Internship Application.
 3. Internship Diary creates an Interview.
 4. Internship Diary adds Interview into Internship Application.
