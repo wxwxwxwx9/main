@@ -62,14 +62,17 @@ The above image illustrates the major graphical components of *Internship Diary*
 [[fields]]
 === Structure of internship application
 
-[%header,cols="1a, 1, 1, 1, 5"]
+[%header,cols="1a, 1, 1, 1, 6"]
 |===
 |*Field* | *Prefix* | Can Be Empty? | Max Number of Values | Remarks
 | Company | c/ | No | 1 | No restrictions on input.
 | Role | r/ | No | 1 | No restrictions on input.
 | Address | a/ | Yes | 1 | No restrictions on input.
 | Phone | p/ | Yes | 1 | "+" at the start is optional. Must have between 4 and 15 digits if not empty.
-| Email | e/ | Yes | 1 | Email should be of type "example@example.com". The application will not ensure the validity of email.
+| Email | e/ | Yes | 1 | Email should be of format "LOCAL@DOMAIN". LOCAL consists of at least 1 character.
+DOMAIN starts and ends with alphanumeric characters, and consists of alphanumeric characters, periods or hyphens for the characters in between.
+
+E.g. example@example.com
 | Application Date | d/ | Yes | 1 | Must be a valid date of the form `day-month-year`. Whitespace and `/` are also supported
 separators. If year is not given, will default to the current year.
 | Priority | w/ | No | 1 | Must be an integer from 0 to 10 (inclusive). If left empty, default to 5.
@@ -668,6 +671,9 @@ e.g. `interview 1 delete 1`
 * *Exit* : `exit`
 
 == Glossary
+
+* Alphanumerical
+** Either a letter of the English language (a-z, A-Z) or a Roman numeral (0-9).
 
 * Chronological order
 ** The order of events in which events which occurred earlier would be placed before
