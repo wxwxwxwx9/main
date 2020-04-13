@@ -61,7 +61,7 @@ For example, the addition of a new status would not require the refactoring of m
 
 === Code Contribution
 All of my contributions can be found here:
-link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2020-04-09[RepoSense Report]
+link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=wxwxwxwx9[RepoSense Report]
 
 === Other Contributions
 
