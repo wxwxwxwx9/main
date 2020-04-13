@@ -4,13 +4,6 @@
 :stylesDir: ../stylesheets
 :prURL: https://github.com/AY1920S2-CS2103T-F10-2/main/pull/
 
-image::foochifa.png[width="150", align="left"]
-{empty}[http://github.com/foochifa[github]] {empty}[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[RepoSense]]
-
-Role: Project Management, Developer
-
-'''
-
 == PROJECT: Internship Diary
 
 This portfolio provides an overview of my contributions to the Internship Diary project.
