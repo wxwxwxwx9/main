@@ -35,26 +35,26 @@ Class DeleteCommand {
 Class RemovalBasedCommand {
     - commandWord: String
     - executionType: RemovalBasedCommandExecutionType
-    + execute(Model model): CommandResult
+    + execute(model: Model): CommandResult
     - generateLazyCommand(): Function<Index, Command>
-    - executeByIndex(Model model, Function<Index, Command> lazyCommand): CommandResult
-    - executeByIndices(Model model, Function<Index, Command> lazyCommand): CommandResult
-    - executeByField(Model model, Function<Index, Command> lazyCommand): CommandResult
+    - executeByIndex(model: Model, lazyCommand: Function<Index, Command>): CommandResult
+    - executeByIndices(model: Model, lazyCommand: Function<Index, Command>): CommandResult
+    - executeByField(model: Model, lazyCommand: Function<Index, Command>): CommandResult
 }
 
 Class RemovalBasedCommandExecutionTypeParser implements Parser {
     - commandWord: String
-    + parse(String args): RemovalBasedCommand
-    - commandByIndex(String args): RemovalBasedCommand
-    - commandByIndices(String args): RemovalBasedCommand
-    - commandByField(String args): RemovalBasedCommand
+    + parse(args: String): RemovalBasedCommand
+    - commandByIndex(args: String): RemovalBasedCommand
+    - commandByIndices(args: String): RemovalBasedCommand
+    - commandByField(args: String): RemovalBasedCommand
 }
 
 enum RemovalBasedCommandExecutionType <<enumeration>> {
     BY_INDEX
     BY_INDICES
     BY_FIELD
-    getExecutionType(String args, ArgumentMultimap argMultimap)
+    getExecutionType(args: String, argMultimap: ArgumentMultimap)
 }
 
 InternshipDiaryParser .left.> RemovalBasedCommandExecutionTypeParser
