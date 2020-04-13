@@ -1,17 +1,18 @@
-:toclevels: 5
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:sectnumlevels: 5
+//:toclevels: 5
+//:toc-title:
+//:toc-placement: preamble
+//:sectnums:
+//:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: full
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
-:repoURL: https://github.com/AY1920S2-CS2103T-F10-2/main/tree/master
+//:xrefstyle: full
+//ifdef::env-github[]
+//:tip-caption: :bulb:
+//:note-caption: :information_source:
+//:warning-caption: :warning:
+//endif::[]
+//:repoURL: https://github.com/AY1920S2-CS2103T-F10-2/main/tree/master
+// remove max-width, pdf 80%
 
 [none]
 == Archival View
@@ -21,10 +22,10 @@ The class diagram below depicts the important methods and attributes that provid
 .Structure of `InternshipDiary` that showcases the methods and attributes required for view-switching
 image::InternshipDiaryAndModelManagerClassDiagram.png[width="500",align="center"]
 
-The object diagram below illustrates the three `UniqueInternshipApplicationList` objects maintained by `InternshipDiary`.
+The object diagram below illustrates the three `UniqueInternshipApplicationList` maintained by `InternshipDiary`.
 
 .Object diagram to illustrate the three `UniqueInternshipApplicationList` maintained by `InternshipDiary`
-image::InternshipDiaryAndModelManagerObjectDiagram.png[width="650",align="center"]
+image::InternshipDiaryAndModelManagerObjectDiagram.png[width="600",align="center"]
 
 As the name suggests, `displayedInternships` is the list that is shown to the user in the GUI. It references either
 `archivedInternships` or `unarchivedInternships` at any one time. When a user is viewing the main list, `displayedInternships` references `unarchivedInternships`.
@@ -35,7 +36,7 @@ The `list` command is similar to `archival`.
 You may use the same sequence diagram for the `list` command.
 
 .Sequence diagram for `archival` Command
-image::ArchivalSequenceDiagram.png[align="center", width="850"]
+image::ArchivalSequenceDiagram.png[align="center", width="800"]
 
 The following code snippet is retrieved from the `InternshipDiary` class.
 It illustrates the internal workings of how we switch the view between the archived list and the main list.
@@ -91,8 +92,10 @@ It will then repeat the event emission process to any UI element (e.g. `Statisti
 
 The following activity diagram gives a high-level overview of the above event-driven process.
 
+The following activity diagram gives a high-level illustration of our observer pattern.
+
 .Activity diagram to illustrate the Observer Pattern using `archival` command
-image::ActivityDiagramObserverPattern.png[align="center", width="800"]
+image::ActivityDiagramObserverPattern.png[align="center", width="700"]
 
 Note that the two-tier observer-observable structure is *necessary*.
 

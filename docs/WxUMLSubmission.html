@@ -453,11 +453,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Figure 1. Structure of <code>InternshipDiary</code> that showcases the methods and attributes required for view-switching</div>
 </div>
 <div class="paragraph">
-<p>The object diagram below illustrates the three <code>UniqueInternshipApplicationList</code> objects maintained by <code>InternshipDiary</code>.</p>
+<p>The object diagram below illustrates the three <code>UniqueInternshipApplicationList</code> maintained by <code>InternshipDiary</code>.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="images/InternshipDiaryAndModelManagerObjectDiagram.png" alt="InternshipDiaryAndModelManagerObjectDiagram" width="650">
+<img src="images/InternshipDiaryAndModelManagerObjectDiagram.png" alt="InternshipDiaryAndModelManagerObjectDiagram" width="600">
 </div>
 <div class="title">Figure 2. Object diagram to illustrate the three <code>UniqueInternshipApplicationList</code> maintained by <code>InternshipDiary</code></div>
 </div>
@@ -473,7 +473,7 @@ You may use the same sequence diagram for the <code>list</code> command.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="images/ArchivalSequenceDiagram.png" alt="ArchivalSequenceDiagram" width="850">
+<img src="images/ArchivalSequenceDiagram.png" alt="ArchivalSequenceDiagram" width="800">
 </div>
 <div class="title">Figure 3. Sequence diagram for <code>archival</code> Command</div>
 </div>
@@ -534,34 +534,11 @@ On the other hand, a class that implements the <code>PropertyChangeListener</cod
 </ul>
 </div>
 <div class="paragraph">
-<p>We will briefly discuss how the observer pattern works in our implementation.</p>
-</div>
-<div class="paragraph">
-<p>Whenever an object wants to observe changes in another object, it will call the <code>addPropertyChangeListener</code> function of the <code>PropertyChangeSupport</code> instance from the appropriate object that it wishes to observe.
-It will also have to specify which property of that object it wants to observe.</p>
-</div>
-<div class="paragraph">
-<p>In our case, when <code>ModelManager</code> is created, it will call the <code>addPropertyChangeListener</code> function of the <code>PropertyChangeSupport</code> instance belonging to <code>InternshipDiary</code>.
-The function call will look like this: <code>addPropertyChangeListener("displayedInternships", this)</code> where <code>this</code>
-is a reference to <code>ModelManager</code> itself (so that it can be registered as a listener of the <code>displayedInternships</code> property of <code>InternshipDiary</code>).</p>
-</div>
-<div class="paragraph">
-<p>The process is similar for any UI element that wants to observe the <code>filteredInternshipApplications</code> property of <code>ModelManager</code>.</p>
-</div>
-<div class="paragraph">
-<p>As a result, whenever there is a change to the property <code>displayedInternships</code> in <code>InternshipDiary</code>, the <code>PropertyChangeSupport</code> instance of
-<code>InternshipDiary</code> will call <code>firePropertyChange</code> to emit a <code>PropertyChangeEvent</code> to <code>ModelManager</code>.
-The emitted event will trigger the <code>propertyChange</code> function of <code>ModelManager</code>.
-<code>ModelManager</code> can then retrieve the new reference from the event and update its <code>filteredInternshipApplications</code> accordingly.
-It will then repeat the event emission process to any UI element (e.g. <code>StatisticsWindow</code>) that is observing the
-<code>filteredInternshipApplications</code> property.</p>
-</div>
-<div class="paragraph">
-<p>The following activity diagram gives a high-level overview of the above event-driven process.</p>
+<p>The following activity diagram gives a high-level illustration of our observer pattern.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="images/ActivityDiagramObserverPattern.png" alt="ActivityDiagramObserverPattern" width="800">
+<img src="images/ActivityDiagramObserverPattern.png" alt="ActivityDiagramObserverPattern" width="700">
 </div>
 <div class="title">Figure 5. Activity diagram to illustrate the Observer Pattern using <code>archival</code> command</div>
 </div>
@@ -610,7 +587,7 @@ This is especially important when many properties are being observed.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-13 14:02:15 +0800
+Last updated 2020-04-13 19:04:50 +0800
 </div>
 </div>
 </body>
