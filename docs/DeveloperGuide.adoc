@@ -159,7 +159,7 @@ This section describes some noteworthy details on how certain features are imple
 The sort command allows the user to sort the currently visible list of internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
-.Interactions inside the Logic Component for the `sort c/` command
+.Interactions inside the `Logic` Component for the `sort c/` command
 image::SortSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the sort command.
@@ -196,21 +196,21 @@ This would reverse the order in which the currently visible list of internship a
 The `reversed()` method of the Comparators used have actually been overridden to return `ReversedComparator`, so as to override
 the `toString()` method of the newly created Comparator for the `DisplayComparatorFooter`.
 
-The following class diagram will illustrate the overall structure of SortCommand:
+The following class diagram will illustrate the overall structure of `SortCommand`:
 
-.Structure of SortCommand
+.Structure of `SortCommand`
 image::ComparatorClassDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How to sort by multiple fields
 
-* **Alternative 1 (current choice)**: Accept only one field to sort by when using SortCommand.
+* **Alternative 1 (current choice)**: Accept only one field to sort by when using `SortCommand`.
 This works as the list uses stable sort.
 ** Pros: More streamlined, less complex. +
 `EnteredCommandsHistory` allows the user to get the sort command template back in just one press of the up arrow key so there is little hassle. +
 Users do not have to remember the order to place the arguments to get the sort they want.
-** Cons: Hard to explain the concept of stable sort in the User Guide.
+** Cons: Hard to explain the concept of stable sort in the User Guide, if a more in depth explanation were to be given.
 
 * **Alternative 2**: Allow multiple fields to sort by.
 ** Pros: Two less key presses.
@@ -226,7 +226,7 @@ Harder to implement reverse sorting.
 The clear command allows the user to delete all internship applications.
 The following sequence diagram will illustrate the process of invocation for the command:
 
-.Interactions inside the Logic Component for the `clear` command
+.Interactions inside the `Logic` Component for `ClearCommand`.
 image::ClearSequenceDiagram.png[]
 
 The following subsections will go through the general implementations of the clear command.
@@ -267,17 +267,17 @@ The command history feature allows the user to press the up and down arrow keys 
 
 The following activity diagram depicts the behaviour of the `CommandBox` while the user is entering commands.
 
-.Execution of CommandHistory
+.Execution of command history feature.
 image::CommandHistoryActivityDiagram.png[CommandHistory,200]
-.Handle other key pressed
+.Handle other key pressed.
 image::CommandHistKeypessActivityDiagram.png[CommandHistory2,600]
-.Execution cleanup
+.Execution cleanup.
 image::CommandHistExeCleanupActivityDiagram.png[CommandHistory2,200]
 
 The following subsections will go through the general implementations of the command history feature.
 
 ==== Implementation
-The implementation of command history involves only the UI classes `CommandBox` and `EnteredCommandsHistory`.
+The implementation of command history involves only the `UI` classes `CommandBox` and `EnteredCommandsHistory`.
 Internally, `EnteredCommandsHistory` uses a `LinkedList` to store the command history. The `LinkedList` data structure
 was chosen the data structure needed to be a queue which also allows the last accessed element to be reaccessed quickly.
 This meant that the data structure has to support random access or have a `ListIterator`. Unfortunately, Java's default
@@ -285,7 +285,7 @@ This meant that the data structure has to support random access or have a `ListI
 `LinkedList` already provides a `ListIterator`. While this is potentially slower than an `ArrayDeque` with random access,
 for the sake of convenience, `LinkedList` was chosen.
 
-Currently, a size limit of 20 is imposed on CommandHistory. A limit is required as storing unlimited commands is not feasible.
+Currently, a size limit of 20 is imposed on `EnteredCommandsHistory`. A limit is required as storing unlimited commands is not feasible.
 Also, it is highly unlikely that users would need to see their entered commands beyond a certain point.
 
 Although this feature is fairly simple and based off Windows Command Prompt, there were still a few design aspects worth considering.
@@ -293,34 +293,34 @@ Although this feature is fairly simple and based off Windows Command Prompt, the
 ==== Design Considerations
 
 ===== Aspect: What should happen when down key is pressed when the latest history is being shown
-* **Alternative 1 (current choice)**: Blank the CommandBox.
-** Pros: Provides users an easy way to clear the CommandBox.
+* **Alternative 1 (current choice)**: Blank the `CommandBox`.
+** Pros: Provides users a fast way to clear the `CommandBox`.
 ** Cons: Users are unable to view their command history without losing the command they have typed.
 
 * **Alternative 2**: Nothing (Same as Windows Command Prompt).
 ** Pros: Easy to implement.
 ** Cons: Users are unable to view their command history without losing the command they have typed. +
-No easy way to clear the CommandBox.
+No fast way to clear the `CommandBox`.
 
 * **Alternative 2**: Store and display the last modified text.
 ** Pros: Users can view their command history without losing the command they have typed.
-** Cons: No easy way to clear the CommandBox. +
+** Cons: No fast way to clear the `CommandBox`. +
 Harder to implement.
 
 ===== Aspect: Should invalid commands be stored
 * **Alternative 1 (current choice)**: No.
-** Pros: Reduces clutter in the Command History.
+** Pros: Reduces clutter in the command history.
 ** Cons: Users would not be able to see their failed attempts. +
 Users are unable to look at their command history without losing the command they have typed (due to above decision).
 
 * **Alternative 2**: Yes (Same as Windows Command Prompt).
-** Pros: User can store an incomplete draft command in the Command History.
+** Pros: User can store an incomplete draft command in the command history.
 ** Cons: Users who frequently make mistakes would find it troublesome to navigate
 through all the failed attempts. This is especially so as our application does not have
 an autocomplete feature.
 
 ===== Aspect: When should the position of historyIterator reset
-* **Alternative 1 (current choice)**: Whenever user modifies the text in the CommandBox
+* **Alternative 1 (current choice)**: Whenever user modifies the text in the `CommandBox`
 and when command executed successfully.
 ** Pros: Less confusing for users.
 ** Cons: More key presses to repeat a series of commands.
@@ -331,7 +331,7 @@ and when command executed successfully.
 
 ==== [Proposed Improvements] Command History Storage
 
-There are plans to save the Command History in the hard drive, so that it may be accessed across sessions.
+There are plans to save the command history in the hard drive, so that it may be accessed across sessions.
 However, due to the complexity and difficulty of implementation, it will only be rolled out in a future version.
 
 // end::command-history[]
