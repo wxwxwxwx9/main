@@ -959,6 +959,8 @@ The reminder command displays to users a list of internship applications which:
 * have status `wishlist` and need to be submitted in 7 days
 * have status `interview` and interviews scheduled in 7 days
 
+The applications will be displayed in order of earliest application date or scheduled interview date followed by those with later dates.
+
 The following sequence diagram shows how the command is executed:
 
 .Interactions Inside the Logic Component for the `reminder` Command
@@ -985,7 +987,7 @@ interviews` of an internship application that has a date of the current date or 
 
 Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
 `AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
-operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
+operation is performed on the predicates from the previous two `AND` operations. An `AND` operation is then performed on
 the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The `IsNotArchivedPredicate`
 is used to make sure that archived internship applications do not appear when `reminder` is used. The final predicate
 produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
