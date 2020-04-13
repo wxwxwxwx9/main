@@ -1730,11 +1730,11 @@ Error details shown in feedback box.
 * no internship applications with status "rejected"
 
 ... Test case: `delete s/applied` +
-Expected: All internship application(s) with status "applied" are deleted from the list.
+Expected: All internship applications with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 ... Test case: `delete s/rejected` +
-Expected: No internship application(s) deleted.
+Expected: No internship applications deleted.
 Feedback box will show blank list of internship applications deleted.
 
 ... Test case: `delete s/notvalidstatus` +
@@ -1742,11 +1742,11 @@ Expected: No internship application deleted.
 Error details shown in feedback box.
 
 ... Test case: `delete s/applied wishlist` +
-Expected: All internship application(s) with status "applied" and "wishlist" are deleted from the list.
+Expected: All internship applications with status "applied" or "wishlist" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 ... Test case: `delete s/applied notvalidstatus` +
-Expected: All internship application(s) with status "applied" are deleted from the list.
+Expected: All internship applications with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 === Archiving Internship Application
@@ -1811,11 +1811,11 @@ Expected: No internship application archived.
 Error details shown in feedback box.
 
 ... Test case: `archive s/applied wishlist` +
-Expected: All internship application(s) with status "applied" and "wishlist" are archived from the list.
+Expected: All internship applications with status "applied" or "wishlist" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
 ... Test case: `archive s/applied notvalidstatus` +
-Expected: All internship application(s) with status "applied" are archived from the list.
+Expected: All internship applications with status "applied" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
 
@@ -1881,11 +1881,11 @@ Expected: No internship application unarchived.
 Error details shown in feedback box.
 
 ... Test case: `unarchive s/applied wishlist` +
-Expected: All internship application(s) with status "applied" and "wishlist" are unarchived from the list.
+Expected: All internship applications with status "applied" or "wishlist" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
 ... Test case: `unarchive s/applied notvalidstatus` +
-Expected: All internship application(s) with status "applied" are unarchived from the list.
+Expected: All internship applications with status "applied" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
 

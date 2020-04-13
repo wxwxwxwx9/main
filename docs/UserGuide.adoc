@@ -126,7 +126,7 @@ separators. If year is not given, will default to the current year.
 * Items in square brackets are optional. +
 (e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`)
 * Items with `…`​ after them can be used multiple times including zero times. +
-(e.g. `delete INDEX, [INDEX],...` can be used as `delete 1,` or `delete 1, 2, 3`)
+(e.g. `delete INDEX, [INDEX],...` can be used as `delete 1` or `delete 1, 2, 3`)
 * Parameters can be entered in any order. +
 (e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable)
 * An input consisting of only spaces is considered empty.
@@ -162,7 +162,7 @@ will be ignored by the application.
 
 ==== Command availability
 
-* All the commands will work on both *main list* and *archival list*.
+* Commands will work on both *main list* and *archival list*.
 ** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
 [[Commands]]
@@ -228,7 +228,7 @@ Examples:
 // tag::delete[]
 === Deleting internship application: `delete`
 
-Delete specific internship applications from the current list. +
+Deletes internship application from the current list. +
 
 Formats:
 
@@ -245,12 +245,8 @@ Formats:
 *** e.g. `delete 1, 2, 2` has the same effect as `delete 1, 2`.
 * Deleting by `STATUS`:
 ** There must be at least one valid `STATUS`.
-** There can be multiple `STATUS`.
-*** e.g. the command will delete internship application(s) with status `applied` or `wishlist` for `delete s/applied wishlist`
-//** `STATUS` precedes `INDEX`.
-//*** e.g. the command will delete according to `STATUS` instead of `INDEX` for `delete s/applied 1, 2, 3`.
 ** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
-specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application to act upon).
 *** e.g. the command will delete internship application(s) with status `rejected` for `delete s/ somethinginvalid rejected`.
 *** e.g. the command will delete internship application(s) with status `applied` or `wishlist` for `delete s/applied somethinginvalid wishlist`.
 ****
@@ -262,18 +258,22 @@ Example(s):
 Deletes the 2nd internship application from the main list.
 
 * `list` +
-`delete 2, 1, 3` +
+`delete 1, 2, 3` +
 Deletes the 1st, 2nd, and 3rd internship applications from the main list.
 
 * `archival` +
 `delete s/applied` +
-Deletes all the internship applications with the `applied` status from the archival list.
+Deletes all the internship application(s) with the `applied` status from the archival list.
+
+* `archival` +
+`delete s/applied rejected` +
+Deletes all the internship application(s) with the `applied` or `rejected` status from the archival list.
 // end::delete[]
 
 // tag::archive[]
 === Archiving internship application: `archive`
 
-Archive specific internship applications in the *main list*. +
+Moves internship application from the *main list* to the *archival list*. +
 
 Formats:
 
@@ -290,10 +290,8 @@ Formats:
 *** e.g. `archive 1, 2, 2` has the same effect as `archive 1, 2`.
 * Archiving by `STATUS`:
 ** There must be at least one valid `STATUS`.
-** There can be multiple `STATUS`.
-*** e.g. the command will archive internship application(s) with status `applied` or `wishlist` for `archive s/applied wishlist`
 ** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
-specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application to act upon).
 *** e.g. the command will archive internship application(s) with status `rejected` for `archive s/ somethinginvalid rejected`.
 *** e.g. the command will archive internship application(s) with status `applied` or `wishlist` for `archive s/applied somethinginvalid wishlist`.
 ****
@@ -305,18 +303,22 @@ Example(s):
 Archives the 2nd internship application in the main list.
 
 * `list` +
-`archive 2, 1, 3` +
+`archive 1, 2, 3` +
 Archives the 1st, 2nd, and 3rd internship application in the main list.
 
 * `list` +
-`archive s/rejected` +
-Archives all the internship applications with the `rejected` status in the main list.
+`archive s/applied` +
+Archives all the internship application(s) with the `applied` status in the main list.
+
+* `list` +
+`archive s/applied rejected` +
+Archives all the internship application(s) with the `applied` or `rejected` status in the main list.
 // end::archive[]
 
 // tag::unarchive[]
 === Unarchiving internship application: `unarchive`
 
-Unarchive specific internship applications in the *archival list*. +
+Moves internship application from the *archival list* to the *main list*. +
 
 Formats:
 
@@ -333,10 +335,8 @@ Formats:
 *** e.g. `unarchive 1, 2, 2` has the same effect as `unarchive 1, 2`.
 * Unarchiving by `STATUS`:
 ** There must be at least one valid `STATUS`.
-** There can be multiple `STATUS`.
-*** e.g. the command will unarchive internship application(s) with status `applied` or `wishlist` for `unarchive s/applied wishlist`
 ** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
-specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application to act upon).
 *** e.g. the command will unarchive internship application(s) with status `rejected` for `unarchive s/ somethinginvalid rejected`.
 *** e.g. the command will unarchive internship application(s) with status `applied` or `wishlist` for `unarchive s/applied somethinginvalid wishlist`.
 ****
@@ -348,12 +348,16 @@ Example(s):
 Unarchives the 2nd internship application in the archival list.
 
 * `archival` +
-`unarchive 2, 1, 3` +
+`unarchive 1, 2, 3` +
 Unarchives the 1st, 2nd, and 3rd internship application in the archival list.
 
 * `archival` +
-`unarchive s/rejected` +
-Unarchives all the internship applications with the `rejected` status in the archival list.
+`unarchive s/applied` +
+Unarchives all the internship application(s) with the `applied` status in the archival list.
+
+* `archival` +
+`unarchive s/applied rejected` +
+Unarchives all the internship application(s) with the `applied` or `rejected` status in the archival list.
 // end::unarchive[]
 
 === Editing an internship application: `edit`
