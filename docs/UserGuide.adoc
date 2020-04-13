@@ -167,7 +167,7 @@ will be ignored by the application.
 * Commands will work on both *main list* and *archival list*.
 ** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
-==== Colored Internship Applications
+==== Colored internship applications
 * Some internship applications in the list may be colored green or red. This is what each color means:
 
 ** Internship applications colored green indicates that there is an upcoming application deadline or interviews for that internship application.
@@ -586,9 +586,9 @@ Format: `clear`
 
 Displays the statistics about your internship application(s) on the current list.
 
-The statistics will dynamically update as you modify the current list (e.g. switching between main and archival list).
-
 It will open a separate window that contains a bar chart and a pie chart.
+
+The statistics will dynamically update as you modify the current list (e.g. switching between main and archival list).
 
 Format: `stats`
 
