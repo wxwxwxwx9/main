@@ -344,7 +344,7 @@ However, due to the complexity and difficulty of implementation, it will only be
 // end::command-history[]
 
 // tag::interview[]
-=== Interview and Interview Commands
+=== Interview and interview commands
 
 ==== Implementation
 The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
@@ -372,7 +372,7 @@ The class diagram below shows the classes associated to `Interview`.
 .Structure of `Interview` and its associated classes
 image::InterviewClassDiagram.png[]
 
-==== Interview Commands
+==== Interview commands
 Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes. +
 The `interview` command will encompass four types of sub-command:
 
@@ -404,29 +404,42 @@ The execution sequence will first modify the `InternshipApplication` based on th
 Then followed by creating a CommandResult, and returning it.
 
 ==== Interview Commands Parser
-`InterviewCommandParser` is the entry point to all `interview` sub-command.
-It will be invoked from `InternshipDiaryParser`
-which is the primary logic parser for user input.
-The following sequence diagram will illustrate the process of invocation for
-`InterviewAddCommand`.
-All other sub-commands will follow the same invocation format.
+`InterviewCommandParser` is the entry point to all `interview` sub-commands.
+It will be called from `InternshipDiaryParser`which is the primary logic parser for user input.
 
-.Interactions inside the Logic Component for `InterviewAddCommand`
-image::InterviewCommandSequenceDiagram.png[]
+`InterviewCommandParser` will support the parsing of all four types of `InterviewCommand` sub-commands.
+The following activity diagram will show how `InterviewCommandParser` reads and interpret user input to
+return the expected sub-command.
+
+.Process of `InterviewCommandParser` when reading user input
+image::InterviewCommandParserActivityDiagram.png[]
+
+Additionally, `InterviewCommandParser` will only be invoked within the `Logic` component, with the only exception being
+InterviewAddCommand.
+Figure 18 will show the general invocation format within the `Logic` component using `InterviewDeleteCommand`
+as an example.
+While Figure 19 will show the invocation of `InterviewAddCommand` which is the only sub-command that will utilise the
+`Model component`.
+
+.Interactions inside the Logic Component for `InterviewDeleteCommand`
+image::InterviewDeleteCommandSequenceDiagram.png[]
+
+.Interactions inside the Logic and Model Component for `InterviewAddCommand`
+image::InterviewAddCommandSequenceDiagram.png[]
 
 [[InterviewListCommand-Improvements]]
-==== [Proposed Improvements] Interview List Command
+==== [Proposed Improvements] InterviewListCommand
 Currently, the `InterviewListCommand` is functionally similar to `SelectCommand`.
 In v2.0, there will be the following improvements to the `InterviewListCommand`:
 
-* Additional Parameters
+* Additional parameters to filter interviews
 ** New command format will be `interview INDEX list [o/IsOnline] [a/Address] [d/Date]`.
 ** The command will return the list of interviews consisting of only the interviews that contain the optional
 fields provided in the command.
 ** `FilteredList` from `javafx` will be used to implement this feature.
 
 ==== Design Considerations
-===== Aspect: How to implement Interview
+===== Aspect: How to implement interview
 * **Alternative 1 (current choice in v1.4)**: Use an abstract class as the primary reference to Interviews.
 Implement types of Interview as extending classes.
 ** Pros: More scalable, able to easily add new Interview types. +
@@ -435,7 +448,7 @@ Easier to debug and handle exceptions.
 
 * **Alternative 2 (previous choice in v1.3)**: Use a concrete Interview class with additional variables to differentiate
 Interview types.
-** Pros: Simple to implement.
+** Pros: Easy to implement.
 ** Cons: Increasing number of variables if more interview types will be added.
 
 ===== Aspect: How to implement different Interview Commands
@@ -1243,7 +1256,7 @@ Use case ends.
 +
 Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2a. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1268,13 +1281,10 @@ Use case resumes from step 2.
 * 2a. Internship Diary detects an invalid date given for the `Date` field.
 [none]
 ** 2a1. Internship Diary shows an error message.
-** 2a2. User enters command with a different date.
 +
-Steps 2a1-2a2 are repeated until the date entered is valid.
-+
-Use case resumes from step 3.
+Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2b. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1595,8 +1605,11 @@ A list of descriptions for an internship application grouped by type
 Window preferences::
 The last application window size and location the user used before shutdown
 
+// tag::productSurvey[]
 [appendix]
 == Product Survey
+
+Below are some of the programs currently available that could be used to manage internship applications, as well as their pros and cons
 
 *Huntr*
 
@@ -1612,6 +1625,23 @@ Cons:
 * Cannot use without signing up for an account
 * Cannot get filtered list, the whole board is always shown and can be disorganised
 * Cannot directly get reminders for deadlines, must add a new task
+
+*Excel*
+
+Pros:
+
+* Free for NUS students
+* Allows the user to define what to include
+* Allows the user to use it offline
+
+Cons:
+
+* Does not use CLI for interactions with the system
+* Cannot easily go straight to managing internship applications, steep learning curve
+* Can get messy quickly, no inbuilt filter and archive functions
+* Does not include inbuilt statistics and reminder functions
+
+// end::productSurvey[]
 
 [appendix]
 == Instructions for Manual Testing

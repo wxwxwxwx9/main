@@ -94,6 +94,7 @@ The valid Status values for internship applications listed in sort order:
 |6. |`ghosted` | An internship application that you have heard no reply from for a long time.
 |===
 
+// tag::interviewStructure[]
 [[interview]]
 === Structure of interview
 * `Interview` represents an interview that you have been given by the company you are applying to.
@@ -118,6 +119,7 @@ to 'interview'.
 separators. If year is not given, will default to the current year.
 | Interview Address | a/ | Yes | 1 | No restrictions on input.
 |===
+// end::interviewStructure[]
 
 === Command format
 
@@ -165,6 +167,15 @@ will be ignored by the application.
 * Commands will work on both *main list* and *archival list*.
 ** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
+==== Colored Internship Applications
+* Some internship applications in the list may be colored green or red. This is what each color means:
+
+** Internship applications colored green indicates that there is an upcoming application deadline or interviews for that internship application.
+** Internship applications colored red indicates that the internship application's status is `ghosted` and you might want to take action to keep the list relevant.
+
+.Example of colored internship applications
+image::ColoredCards.png[align="center", width="600"]
+
 [[Commands]]
 == Commands
 
@@ -194,6 +205,7 @@ Format: `archival`
 image::archival_list.png[align="center", width="800"]
 // end::archival[]
 
+// tag::select[]
 === Selecting an internship application to display: `select`
 
 Selects an internship application to display on the right panel of the internship diary.
@@ -209,6 +221,7 @@ Example(s):
 
 * `select 1`
 
+//end::select[]
 .Display of internship application details when selected
 image::select_internship.png[align="center", width="790"]
 
@@ -376,33 +389,58 @@ Examples:
 * `edit 1 s/applied r/Product Management` +
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
-=== Locating an internship application by fields: `find`
+// tag::find[]
+=== Locating internship applications: `find`
 
 Finds all internship application(s) with the specified fields containing any of the given keywords.
 
-[cols="1,20"]
+[TIP]
+The find parameters will appear at the bottom left of the internship diary
+
+Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
+
+****
+* At least one of the optional parameter must be provided.
+* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS` (i.e. `OR` search), regardless of whether other fields are specified.
+* When fields are specified without [KEYWORD], only applications where all the specified fields match are returned (i.e. `AND` search).
+e.g. `find c/google r/software engineer` will return application with company being `Google` and role
+being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`.
+* The search is case insensitive. e.g `google` will match `Google`.
+* The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`.
+* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`.
+* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`.
+* Consecutive find command calls will not stack on the resulting list from the preceding find command. It is always performed on either the main list or archival list (shown on the bottom left of the program window).
+****
+
+Example(s):
+
+* `find Google` +
+Lists internship application(s) with company `Google` OR with email `alice@google.com`.
+
+[cols="2", frame="none", grid="none"]
 |===
-|💡|The find parameters will appear at the bottom left of the internship diary
+a|
+.Before executing `find Google`.
+image::BeforeFind1.png[]
+a|
+.After executing `find Google`.
+image::AfterFind1.png[]
 |===
 
-[cols="1a,1"]
+* `find c/Google s/applied` +
+Lists internship application(s) with company `Google` AND status `APPLIED`.
+
+[cols="2", frame="none", grid="none"]
 |===
-2.1+|*Format*
-2.1+|`find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
-2.1+|*More Information*
-2.1+|
-* The search is case insensitive. e.g `google` will match `Google`
-* The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`
-* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`
-* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS`, regardless of whether other fields are specified.
-* When fields are specified, only applications where all the specified fields match are returned (i.e. `AND` search).
-e.g. `find c/google r/software engineer` will return application with company being `Google` and role
-being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`
-|*Usage Example(s)* | *Outcome*
-|`find Google`|Displays internship application(s) with company `Google` OR `Google Deepmind` OR with email `alice@google.com`
-|`find c/Google s/applied`|Displays internship application(s) with company `Google` AND status `APPLIED`
+a|
+.Before executing `find c/Google s/applied`.
+image::BeforeFind2.png[]
+a|
+.After executing `find c/Google s/applied`.
+image::AfterFind2.png[]
 |===
+
+// end::find[]
 
 // tag::sort[]
 === Sorting internship companies by field: `sort`
@@ -446,6 +484,7 @@ image::afterSort.png[]
 
 // tag::sort[]
 
+// tag::interview[]
 === Modifying an interview in an internship application: `interview`
 
 Add, list, edit or delete interviews within an internship application +
@@ -471,11 +510,13 @@ Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the i
 * Specific format of each `COMMAND_WORD`:
 
 ** Add interview +
-`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]`
+`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]` +
+*** Address field `a/ADDRESS` is listed as optional here as online interview do not require an address but offline interview does.
 ** List interview +
 `interview INTERNSHIP_INDEX list`
 ** Edit interview +
 `interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE] [o/IS_ONLINE]`
+*** If you are editing an online interview into an offline interview, Address field `a/ADDRESS` is a requirement.
 ** Delete interview +
 `interview INTERNSHIP_INDEX delete INTERVIEW_INDEX`
 
@@ -484,17 +525,30 @@ Examples:
 * `list` +
 `interview 2 list` +
 Lists all interviews in the 2nd internship application in the list
-* `list` +
-`interview 1 add o/false d/05 02 2020 a/123 Kent Ridge Road` +
-Adds an interview to the 1st internship application in the list.
-* `list` +
-`interview 2 list` +
-`interview 2 edit 1 d/05 01 2020` +
-Edits the date of the 1st interview in the 2nd internship application in the list to `05 01 2020`.
-* `list` +
-`interview 1 list` +
-`interview 1 delete 1` +
-Deletes the 1st interview in the 1st internship application in the list.
+
+.Display of interview list in internship application details panel
+image::InterviewListExample.png[align="center", width="800"]
+
+* `interview 2 add o/false d/05 02 2020 a/Raffles City #02-22` +
+Adds an interview to the 2nd internship application in the list.
+
+.Display of change in interview list after a new interview is added
+image::InterviewAddExample.png[align="center", width="800"]
+
+* `interview 2 list` +
+`interview 2 edit 1 d/05 05 2020` +
+Edits the date of the 1st interview in the 2nd internship application in the list to `05 05 2020`.
+
+.Display of change of interview field after an interview is edited
+image::InterviewEditExample.png[align="center", width="800"]
+
+* `interview 2 list` +
+`interview 2 delete 3` +
+Deletes the 3rd interview in the 2nd internship application in the list.
+
+.Display of change in interview list after an interview is deleted
+image::InterviewDeleteExample.png[align="center", width="800"]
+// end::interview[]
 
 //tag::reminder[]
 === Getting applications due or have interviews in 7 days: `reminder`

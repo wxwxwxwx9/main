@@ -21,7 +21,9 @@ Role:
 
 Responsibilities:
 
-* TBA
+* Find Command
+* Highlight for Upcoming and Ghosted Internship Applications
+* Application Release Management
 
 '''
 
@@ -88,6 +90,8 @@ Role:
 
 Responsibilities:
 
-* TBA
+* Interview Classes and Interview Command
+* Internship Application Detail Panel and Select Command
+* Milestone and Issues Coordination
 
 '''
