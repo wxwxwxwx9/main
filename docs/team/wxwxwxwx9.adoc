@@ -12,17 +12,14 @@ This portfolio provides an overview of my contributions to the software engineer
 *Internship Diary* is a desktop-based internship application tracking software.
 
 The idea for this software came about when we realised that the nature of a computer science degree is internship-driven;
-in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good job as a fresh graduate.
-Essentially, your first big internship will serve as a pivotal moment for your future career. Having said that, internship application is often a
-tedious and messy process as companies having different hiring processes and requirements.
+in the sense that having the best possible internship experience during candidature will greatly improve your chance of landing a good first job.
+Having said that, internship application is often a tedious process as companies having different hiring processes and requirements.
 
 We set out to tackle this pain point -- by coming up with a solution to help computer science students manage and streamline their internship application journey.
 We aim to make every student's internship hunt during their four years as a computer science undergraduate a pleasant one, and hopefully maximise their chances of landing the best possible internship.
 
 Internship Diary offers a one-stop solution for users to organise and track their internship applications. It enables users to retrieve any information about
-their internship applications easily so that they can keep themselves updated with the companies they have applied to.
-
-This will motivate students to freely apply for many different companies and roles because they know that Internship Diary is always keeping their applications organized.
+their internship applications easily so that they can keep themselves updated with the companies they have applied to. This will motivate students to freely apply for many different companies and roles because they know that Internship Diary is always keeping their applications organized.
 Consequently, this may improve their chance of landing an internship.
 
 == Summary of Contributions
@@ -31,42 +28,40 @@ Consequently, this may improve their chance of landing an internship.
 
 . Implemented the Archival System
 
-* *What it does*: Allows users to move their internship applications from the main list to the archival list and vice-versa.
-* *Justification*: This feature is particularly important as it helps users to keep their internship applications organized. Whenever there are
-internship application(s) that are no longer relevant / of interest to the user, the user can archive those internship applications so that
-it "de-clutters" their main list. This allows them to focus on the internship application(s) that are more important currently.
+* *What it does*: Allows users to move their internship applications between the main list and the archival list.
+* *Justification*: This feature is important as it helps users to keep their internship applications organized. Whenever there are
+internship application(s) that are no longer relevant, the user can archive those internship applications so that
+it "de-clutters" their main list. This allows them to focus on the internship application(s) that are more important.
 * *Highlights*: The archival feature seems trivial as it is usually a staple feature in many tracking applications.
 However, it was challenging to decide on a design implementation for our use case such that the feature is sustainable and extensible.
 Due to the chosen design, there was a need to implement a form of observer pattern to handle reactivity issues -- this became another important design consideration.
 
 . Implemented the Observer Pattern Design
+
 * *What it does*: Provides a robust solution to keep UI in sync with the state of backend data.
 * *Justification*: As we started to introduce many UI elements that require various data and reference from the backend, it became difficult to manage the delivery of such data to the UI.
 To prevent coupling between the elements with our backend, and to ensure the UI can be updated with the latest data changes, we needed to implement the observer pattern.
 * *Highlights*: Researching about and implementing the observer pattern design. I had to find out exactly how the mechanism works and the options out there for us to
-integrate it into our project. There was also quite a bit of trial-and-error involved in testing out the options so that we can find the best implementation / library
-for our situation.
+integrate it into our project. There was quite a bit of trial-and-error in testing out the options so that we can find the best implementation / library for our situation.
 
 . Implemented Multi-Execution Type functionality for Removal-Based Commands
+
 * *What it does*: Allows users to execute removal-based commands like `archive`, `unarchive`, `delete` on multiple internship applications (by index, indices, or field).
-* *Justification*: This would greatly aid users in organising their internship applications. Imagine having to archive your internship applications one-by-one. This would not be a pleasant experience for the user.
-Users can now archive / unarchive / delete internship applications with a certain `status` or by multiple index-es.
-* *Highlights*: This feature seems trivial to implement. However, to design and implement it well is not easy. I had to discuss extensively with the team regarding the *most suitable*
-implementation (not the best) to go ahead with. This is because we have to consider aspects like timeline, amount of refactoring, conflicts with existing implementations, and other issues.
-We had to carefully weigh the amount of effort required and the benefit this feature would bring to the user as well.
+* *Justification*: This would greatly aid users in organising their internship applications. Having to archive your internship applications one-by-one would not be a pleasant experience for the user.
+* *Highlights*: To design and implement this feature well is not easy. There were extensive discussions with the team regarding the *most suitable*
+implementation (not the best) to go ahead with. We had to consider aspects like timeline, amount of refactoring, conflicts with existing implementations, and other issues.
 
 . Implemented the Statistics feature
 
-* *What it does*: The statistics feature dynamically generates relevant metrics from the list of internship application(s) in the current view (e.g. archival).
+* *What it does*: The statistics feature dynamically generates relevant metrics from the list of internship application(s) in the current view.
 * *Justification*: The hunt for internship can be seen as a journey of growth in terms of personal and professional development.
 The statistics feature provides users with important information about their internship application journey in terms of numbers, which the user can interpret and generate insights.
 * *Highlights*: Implementing the Statistics feature on its own was straightforward. The difficulty lies in how it can be implemented in an extensible manner.
-For example, the addition of a new status would not require the refactoring of model. To solve the issue, a HashMap was used to hold the counter for each status.
-This required careful design considerations.
+For example, the addition of a new status would not require the refactoring of model. This required careful design considerations.
 
 === Code Contribution
 All of my contributions can be found here:
-link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2020-04-09[RepoSense Report]
+link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=wxwxwxwx9[RepoSense Report]
 
 === Other Contributions
 
@@ -83,7 +78,7 @@ link:https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=wxwxwxwx9&sort=g
 
 * Bug Fixes
 ** Fixed bugs reported during PE dry run
-(PR link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/185[#185], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/197[#197], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/54[#218])
+(PR link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/185[#185], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/197[#197], link:https://github.com/AY1920S2-CS2103T-F10-2/main/pull/218[#218])
 
 * Community:
 ** PRs reviewed (with non-trivial review comments):
