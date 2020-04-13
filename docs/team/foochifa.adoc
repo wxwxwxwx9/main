@@ -66,7 +66,7 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[R
 ** Assigned relevant tags to issues
 
 * Enhancement to existing features:
-** Added additional test cases to improve coverage from 74% to 77% (Pull Request: Pull Request link:{PrURL}83[#83])
+** Added additional test cases to improve coverage from 74% to 77% (Pull Request link:{PrURL}83[#83])
 ** Added builders to assist in tests (Pull Request link:{PrURL}64[#64], Pull Request link:{PrURL}83[#83])
 
 * Documentation:
