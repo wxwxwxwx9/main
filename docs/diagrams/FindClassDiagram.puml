@@ -3,6 +3,7 @@
 hide circle
 hide empty members
 skinparam classAttributeIconSize 0
+skinparam linetype ortho
 
 Class FindCommandParser {
 
@@ -13,56 +14,34 @@ Class FindCommand {
 }
 
 Class Predicate <<interface>> {
-
+    + test(internshipApplication : InternshipApplication) : boolean
+    + and(other : Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + or(other : Predicate<? super InternshipApplication>) : Predicate<InternshipApplication>
+    + toString(): String
 }
 
-Class CompanyContainsKeywordsPredicate {
-
-}
-
-Class RoleContainsKeywordsPredicate {
-
-}
-
-Class AddressContainsKeywordsPredicate {
-
-}
-
-Class PhoneContainsNumbersPredicate {
-
-}
-
-Class EmailContainsKeywordsPredicate {
-
-}
-
-Class ApplicationDateIsDatePredicate {
-
-}
-
-Class PriorityContainsNumbersPredicate {
-
-}
-
-Class StatusContainsKeywordsPredicate {
+Class XYZPredicate {
 
 }
 
 note as N1
-  The Predicate interface is the default java.util.function.Predicate functional interface
+         This Predicate interface is the default
+  java.util.function.Predicate functional interface
 end note
 
-N1 ... Predicate
-FindCommandParser .down.> Predicate
-FindCommandParser .right.> FindCommand
-FindCommand .down.> Predicate
-CompanyContainsKeywordsPredicate .up.|> Predicate
-RoleContainsKeywordsPredicate ..up.|> Predicate
-AddressContainsKeywordsPredicate .up.|> Predicate
-PhoneContainsNumbersPredicate ..up.|> Predicate
-EmailContainsKeywordsPredicate .up.|> Predicate
-ApplicationDateIsDatePredicate ..up.|> Predicate
-PriorityContainsNumbersPredicate .up.|> Predicate
-StatusContainsKeywordsPredicate ..up.|> Predicate
+note as N2
+                            XYZPredicate excludes
+    CustomToStringPredicate, ApplicationDateDuePredicate,
+        InterviewDateDuePredicate, IsNotArchivedPredicate,
+    StatusIsInterviewPredicate and StatusIsWishlistPredicate
+end note
+
+N1 .left. Predicate
+N2 .. XYZPredicate
+FindCommandParser .right.> XYZPredicate : creates >
+FindCommandParser ..> Predicate
+FindCommandParser .left.> FindCommand : creates >
+FindCommand ---> "*" Predicate : uses >
+XYZPredicate ..|> Predicate
 
 @enduml

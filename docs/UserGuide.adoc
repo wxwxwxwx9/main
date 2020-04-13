@@ -89,14 +89,15 @@ The valid Status values for internship applications listed in sort order:
 
 [cols="1, 2, 14"]
 |===
-|1. |`wishlist` | -An internship application that you are planning to apply for.
-|2. |`applied` | -An internship application that you have already applied for.
-|3. |`interview` | -An internship application that you have applied to, and have been invited to an interview.
-|4. |`offered` | -An internship application that you have received a job offer for.
-|5. |`rejected` | -An internship application that you have been rejected for.
-|6. |`ghosted` | -An internship application that you have heard no reply from for a long time.
+|1. |`wishlist` | An internship application that you are planning to apply for.
+|2. |`applied` | An internship application that you have already applied for.
+|3. |`interview` | An internship application that you have applied to, and have been invited to an interview.
+|4. |`offered` | An internship application that you have received a job offer for.
+|5. |`rejected` | An internship application that you have been rejected for.
+|6. |`ghosted` | An internship application that you have heard no reply from for a long time.
 |===
 
+// tag::interviewStructure[]
 [[interview]]
 === Structure of interview
 * `Interview` represents an interview that you have been given by the company you are applying to.
@@ -121,6 +122,7 @@ to 'interview'.
 separators. If year is not given, will default to the current year.
 | Interview Address | a/ | Yes | 1 | No restrictions on input.
 |===
+// end::interviewStructure[]
 
 === Command format
 
@@ -129,7 +131,7 @@ separators. If year is not given, will default to the current year.
 * Items in square brackets are optional. +
 (e.g `c/COMPANY_NAME [w/PRIORITY]` can be used as `c/Google w/5` or as `c/Google`)
 * Items with `…`​ after them can be used multiple times including zero times. +
-(e.g. `delete INDEX, [INDEX]...` can be used as `delete 1,` or `delete 1, 2, 3`)
+(e.g. `delete INDEX, [INDEX],...` can be used as `delete 1` or `delete 1, 2, 3`)
 * Parameters can be entered in any order. +
 (e.g. if the command specifies `s/STATUS r/ROLE`, `r/designer s/applied` is also acceptable)
 * An input consisting of only spaces is considered empty.
@@ -154,8 +156,6 @@ image::sample_index.png[align="center", width="600"]
 * For any command that uses `INDEX`:
 ** `INDEX` must be among those displayed in the current list.
 *** For example, if the current list displays `INDEX` *1 to 10*, `INDEX` 11 will not be considered valid.
-* All the commands will work on both *main list* and *archival list*.
-** The exceptions are: `Archive`, `Unarchive`, `Reminder`
 
 ==== Multiple fields
 
@@ -164,6 +164,20 @@ entry of each field (except `sort` which only allows one field).
 * However, when multiple fields are inputted, eg. `c/Google c/Facebook`, only the last field will be recognised
 by the application. In the example above, only `c/Facebook` will be registered, `c/Google`
 will be ignored by the application.
+
+==== Command availability
+
+* Commands will work on both *main list* and *archival list*.
+** The exceptions are: `Archive`, `Unarchive`, `Reminder`
+
+==== Colored Internship Applications
+* Some internship applications in the list may be colored green or red. This is what each color means:
+
+** Internship applications colored green indicates that there is an upcoming application deadline or interviews for that internship application.
+** Internship applications colored red indicates that the internship application's status is `ghosted` and you might want to take action to keep the list relevant.
+
+.Example of colored internship applications
+image::ColoredCards.png[align="center", width="600"]
 
 [[Commands]]
 == Commands
@@ -194,6 +208,7 @@ Format: `archival`
 image::archival_list.png[align="center", width="800"]
 // end::archival[]
 
+// tag::select[]
 === Selecting an internship application to display: `select`
 
 Selects an internship application to display on the right panel of the internship diary.
@@ -209,6 +224,7 @@ Example(s):
 
 * `select 1`
 
+//end::select[]
 .Display of internship application details when selected
 image::select_internship.png[align="center", width="790"]
 
@@ -228,29 +244,25 @@ Examples:
 // tag::delete[]
 === Deleting internship application: `delete`
 
-Delete specific internship applications from the current list. +
+Deletes internship application from the current list. +
 
 Formats:
 
 * `delete INDEX`
-* `delete INDEX, [INDEX]...`
-* `delete s/STATUS`
+* `delete INDEX, [INDEX],...`
+* `delete s/STATUS [STATUS]...`
 
 ****
 * Deleting by `INDEX`:
-** Deletes the internship application at `INDEX` (*must be a positive integer*).
+** Deletes the internship application at `INDEX`.
 ** `INDEX` may be entered in any order.
 *** e.g. `delete 3, 1, 2`.
 ** Duplicated `INDEX` will be ignored.
 *** e.g. `delete 1, 2, 2` has the same effect as `delete 1, 2`.
 * Deleting by `STATUS`:
 ** There must be at least one valid `STATUS`.
-** There can be multiple `STATUS`.
-*** e.g. the command will delete internship application(s) with status `applied` or `wishlist` for `delete s/applied wishlist`
-//** `STATUS` precedes `INDEX`.
-//*** e.g. the command will delete according to `STATUS` instead of `INDEX` for `delete s/applied 1, 2, 3`.
 ** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
-specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application to act upon).
 *** e.g. the command will delete internship application(s) with status `rejected` for `delete s/ somethinginvalid rejected`.
 *** e.g. the command will delete internship application(s) with status `applied` or `wishlist` for `delete s/applied somethinginvalid wishlist`.
 ****
@@ -261,40 +273,41 @@ Example(s):
 `delete 2` +
 Deletes the 2nd internship application from the main list.
 
+* `list` +
+`delete 1, 2, 3` +
+Deletes the 1st, 2nd, and 3rd internship applications from the main list.
+
 * `archival` +
 `delete s/applied` +
-Deletes all the internship applications with the `applied` status from the archival list.
+Deletes all the internship application(s) with the `applied` status from the archival list.
 
-* `list` +
- `find Google` +
-`delete 2, 1, 3` +
-Deletes the 1st, 2nd, and 3rd internship applications from the results of the `find` command (in main list).
+* `archival` +
+`delete s/applied rejected` +
+Deletes all the internship application(s) with the `applied` or `rejected` status from the archival list.
 // end::delete[]
 
 // tag::archive[]
 === Archiving internship application: `archive`
 
-Archive specific internship applications in the main list. +
+Moves internship application from the *main list* to the *archival list*. +
 
 Formats:
 
 * `archive INDEX`
-* `archive INDEX, [INDEX]...`
-* `archive s/STATUS`
+* `archive INDEX, [INDEX],...`
+* `archive s/STATUS [STATUS]...`
 
 ****
 * Archiving by `INDEX`:
-** Archives the internship application at `INDEX` (*must be a positive integer*).
+** Archives the internship application at `INDEX`.
 ** `INDEX` may be entered in any order.
 *** e.g. `archive 3, 1, 2`.
 ** Duplicated `INDEX` will be ignored.
 *** e.g. `archive 1, 2, 2` has the same effect as `archive 1, 2`.
 * Archiving by `STATUS`:
 ** There must be at least one valid `STATUS`.
-** There can be multiple `STATUS`.
-*** e.g. the command will archive internship application(s) with status `applied` or `wishlist` for `archive s/applied wishlist`
 ** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
-specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application to act upon).
 *** e.g. the command will archive internship application(s) with status `rejected` for `archive s/ somethinginvalid rejected`.
 *** e.g. the command will archive internship application(s) with status `applied` or `wishlist` for `archive s/applied somethinginvalid wishlist`.
 ****
@@ -306,59 +319,61 @@ Example(s):
 Archives the 2nd internship application in the main list.
 
 * `list` +
-`find Google` +
-`archive 2, 1, 3` +
-Archives the 1st, 2nd, and 3rd internship application in the results of the `find` command (in main list).
+`archive 1, 2, 3` +
+Archives the 1st, 2nd, and 3rd internship application in the main list.
 
 * `list` +
- `find Google` +
-`archive s/rejected` +
-Archives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
+`archive s/applied` +
+Archives all the internship application(s) with the `applied` status in the main list.
+
+* `list` +
+`archive s/applied rejected` +
+Archives all the internship application(s) with the `applied` or `rejected` status in the main list.
 // end::archive[]
 
 // tag::unarchive[]
 === Unarchiving internship application: `unarchive`
 
-Unarchive specific internship applications in the archival list. +
+Moves internship application from the *archival list* to the *main list*. +
 
 Formats:
 
 * `unarchive INDEX`
-* `unarchive INDEX, [INDEX]...`
-* `unarchive s/STATUS`
+* `unarchive INDEX, [INDEX],...`
+* `unarchive s/STATUS [STATUS]...`
 
 ****
 * Unarchiving by `INDEX`:
-** Unarchives the internship application at `INDEX` (*must be a positive integer*).
+** Unarchives the internship application at `INDEX`.
 ** `INDEX` may be entered in any order.
 *** e.g. `unarchive 3, 1, 2`.
 ** Duplicated `INDEX` will be ignored.
 *** e.g. `unarchive 1, 2, 2` has the same effect as `unarchive 1, 2`.
 * Unarchiving by `STATUS`:
 ** There must be at least one valid `STATUS`.
-** There can be multiple `STATUS`.
-*** e.g. the command will unarchive internship application(s) with status `applied` or `wishlist` for `unarchive s/applied wishlist`
 ** The command will execute as long as there is a valid `STATUS` -- it will ignore other invalid inputs. If there is no internship application with the
-specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application acted upon).
+specified `STATUS`, then the feedback box will not display any internship application information (as there is no internship application to act upon).
 *** e.g. the command will unarchive internship application(s) with status `rejected` for `unarchive s/ somethinginvalid rejected`.
 *** e.g. the command will unarchive internship application(s) with status `applied` or `wishlist` for `unarchive s/applied somethinginvalid wishlist`.
 ****
 
 Example(s):
 
-* `list` +
+* `archival` +
 `unarchive 2` +
-Unarchives the 2nd internship application in the main list.
+Unarchives the 2nd internship application in the archival list.
 
-* `list` +
-`find Google` +
-`unarchive 2, 1, 3` +
-Unarchives the 1st, 2nd, and 3rd internship application in the results of the `find` command (in main list).
+* `archival` +
+`unarchive 1, 2, 3` +
+Unarchives the 1st, 2nd, and 3rd internship application in the archival list.
 
-* `list` +
- `find Google` +
-`unarchive s/rejected` +
-Unarchives all the internship applications with the `rejected` status in the results of the `find` command (in main list).
+* `archival` +
+`unarchive s/applied` +
+Unarchives all the internship application(s) with the `applied` status in the archival list.
+
+* `archival` +
+`unarchive s/applied rejected` +
+Unarchives all the internship application(s) with the `applied` or `rejected` status in the archival list.
 // end::unarchive[]
 
 === Editing an internship application: `edit`
@@ -368,8 +383,6 @@ Format: `edit INDEX [c/COMPANY] [r/ROLE] [d/DATE] [s/STATUS] [p/PHONE] [e/EMAIL]
 
 ****
 * Edits the internship application at the specified `INDEX`.
-The index refers to the index number shown in the displayed list.
-The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -379,43 +392,66 @@ Examples:
 * `edit 1 s/applied r/Product Management` +
 Edits the status and role of the internship application to be `applied` and `Product Management` respectively.
 
-=== Locating an internship application by fields: `find`
+// tag::find[]
+=== Locating internship applications: `find`
 
 Finds all internship application(s) with the specified fields containing any of the given keywords.
 
-[cols="1,20"]
+[TIP]
+The find parameters will appear at the bottom left of the internship diary
+
+Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
+
+****
+* At least one of the optional parameter must be provided.
+* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS` (i.e. `OR` search), regardless of whether other fields are specified.
+* When fields are specified without [KEYWORD], only applications where all the specified fields match are returned (i.e. `AND` search).
+e.g. `find c/google r/software engineer` will return application with company being `Google` and role
+being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`.
+* The search is case insensitive. e.g `google` will match `Google`.
+* The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`.
+* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`.
+* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`.
+* Consecutive find command calls will not stack on the resulting list from the preceding find command. It is always performed on either the main list or archival list (shown on the bottom left of the program window).
+****
+
+Example(s):
+
+* `find Google` +
+Lists internship application(s) with company `Google` OR with email `alice@google.com`.
+
+[cols="2", frame="none", grid="none"]
 |===
-|💡|The find parameters will appear at the bottom left of the internship diary
+a|
+.Before executing `find Google`.
+image::BeforeFind1.png[]
+a|
+.After executing `find Google`.
+image::AfterFind1.png[]
 |===
 
-[cols="1a,1"]
+* `find c/Google s/applied` +
+Lists internship application(s) with company `Google` AND status `applied`.
+
+[cols="2", frame="none", grid="none"]
 |===
-2.1+|*Format*
-2.1+|`find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d/DATE] [w/PRIORITY] [s/STATUS]`
-2.1+|*More Information*
-2.1+|
-* The search is case insensitive. e.g `google` will match `Google`
-* The order of the keywords does not matter. e.g. `AI Singapore` will match `Singapore AI`
-* Companies matching at least one keyword will be returned (i.e. `OR` search). e.g. `AI Singapore` will return `AISingapore`, `AI Malaysia`
-* Partial words will be matched e.g. `find a/Singapore` will match internship application with address field named `Singapores`
-* If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS`, regardless of whether other fields are specified.
-* When fields are specified, only applications where all the specified fields match are returned (i.e. `AND` search).
-e.g. `find c/google r/software engineer` will return application with company being `Google` and role
-being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`
-|*Usage Example(s)* | *Outcome*
-|`find Google`|Displays internship application(s) with company `Google` OR `Google Deepmind` OR with email `alice@google.com`
-|`find c/Google s/applied`|Displays internship application(s) with company `Google` AND status `APPLIED`
+a|
+.Before executing `find c/Google s/applied`.
+image::BeforeFind2.png[]
+a|
+.After executing `find c/Google s/applied`.
+image::AfterFind2.png[]
 |===
+
+// end::find[]
 
 // tag::sort[]
 === Sorting internship companies by field: `sort`
 
 Sort displayed internship companies based on a given FIELD.
 
-[cols="1,20"]
-|===
-|💡|The sort parameters will appear at the bottom left of the internship diary
-|===
+[TIP]
+The sort parameters will appear at the bottom left of the internship diary
 
 Type `reverse` before `FIELD` to sort in the reverse order.
 
@@ -449,6 +485,7 @@ image::afterSort.png[]
 
 // tag::sort[]
 
+// tag::interview[]
 === Modifying an interview in an internship application: `interview`
 
 Add, list, edit or delete interviews within an internship application +
@@ -474,11 +511,13 @@ Whereas the `INTERVIEW_INDEX` corresponds to the index of the interview in the i
 * Specific format of each `COMMAND_WORD`:
 
 ** Add interview +
-`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]`
+`interview INTERNSHIP_INDEX add d/DATE o/IS_ONLINE [a/ADDRESS]` +
+*** Address field `a/ADDRESS` is listed as optional here as online interview do not require an address but offline interview does.
 ** List interview +
 `interview INTERNSHIP_INDEX list`
 ** Edit interview +
 `interview INTERNSHIP_INDEX edit INTERVIEW_INDEX [a/ADDRESS] [d/DATE] [o/IS_ONLINE]`
+*** If you are editing an online interview into an offline interview, Address field `a/ADDRESS` is a requirement.
 ** Delete interview +
 `interview INTERNSHIP_INDEX delete INTERVIEW_INDEX`
 
@@ -487,17 +526,30 @@ Examples:
 * `list` +
 `interview 2 list` +
 Lists all interviews in the 2nd internship application in the list
-* `list` +
-`interview 1 add o/false d/05 02 2020 a/123 Kent Ridge Road` +
-Adds an interview to the 1st internship application in the list.
-* `list` +
-`interview 2 list` +
-`interview 2 edit 1 d/05 01 2020` +
-Edits the date of the 1st interview in the 2nd internship application in the list to `05 01 2020`.
-* `list` +
-`interview 1 list` +
-`interview 1 delete 1` +
-Deletes the 1st interview in the 1st internship application in the list.
+
+.Display of interview list in internship application details panel
+image::InterviewListExample.png[align="center", width="800"]
+
+* `interview 2 add o/false d/05 02 2020 a/Raffles City #02-22` +
+Adds an interview to the 2nd internship application in the list.
+
+.Display of change in interview list after a new interview is added
+image::InterviewAddExample.png[align="center", width="800"]
+
+* `interview 2 list` +
+`interview 2 edit 1 d/05 05 2020` +
+Edits the date of the 1st interview in the 2nd internship application in the list to `05 05 2020`.
+
+.Display of change of interview field after an interview is edited
+image::InterviewEditExample.png[align="center", width="800"]
+
+* `interview 2 list` +
+`interview 2 delete 3` +
+Deletes the 3rd interview in the 2nd internship application in the list.
+
+.Display of change in interview list after an interview is deleted
+image::InterviewDeleteExample.png[align="center", width="800"]
+// end::interview[]
 
 //tag::reminder[]
 === Getting applications due or have interviews in 7 days: `reminder`
@@ -514,7 +566,7 @@ This command helps to remind you of applications which you might want to focus o
 Format: `reminder`
 
 .Example display of Internship Diary when `reminder` is executed
-image::reminder_example.png[align="center", width="800"]
+image::reminderexample.png[align="center", width="800"]
 
 [TIP]
 `reminder` can be used anytime, but it does not work on archived applications.
