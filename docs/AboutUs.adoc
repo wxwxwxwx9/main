@@ -74,8 +74,8 @@ Role:
 
 Responsibilities:
 
-* Implementing Reminder Command
-* Documentation
+* Reminder Command
+* Display of Last Stage before Internship Application was Ghosted or Rejected
 
 '''
 
