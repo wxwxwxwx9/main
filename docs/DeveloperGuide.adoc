@@ -340,7 +340,7 @@ However, due to the complexity and difficulty of implementation, it will only be
 // end::command-history[]
 
 // tag::interview[]
-=== Interview and interview commands
+=== Interview and Interview Commands
 
 ==== Implementation
 The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
@@ -368,7 +368,7 @@ The class diagram below shows the classes associated to `Interview`.
 .Structure of `Interview` and its associated classes
 image::InterviewClassDiagram.png[]
 
-==== Interview commands
+==== Interview Commands
 Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes. +
 The `interview` command will encompass four types of sub-command:
 
@@ -399,7 +399,7 @@ image::InterviewAddCommandExecuteSequenceDiagram.png[]
 The execution sequence will first modify the `InternshipApplication` based on the specific sub-command.
 Then followed by creating a CommandResult, and returning it.
 
-==== Interview commands parser
+==== Interview Commands Parser
 `InterviewCommandParser` is the entry point to all `interview` sub-commands.
 It will be called from `InternshipDiaryParser`which is the primary logic parser for user input.
 
