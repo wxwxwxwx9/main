@@ -47,14 +47,14 @@ to the displayed filtered list on the left panel and the internship application 
 This implementation will allow for better flexibility in future modifications to internship application,
 while being less prone to bugs and errors. Additionally, this enhancement requires strong knowledge of
 javafx and the Ui structure of Internship Diary in order to produce a robust and well-integrated GUI enhancement.
-** **Credits:** link:gerhean.adoc[Ger Hean] for improving the implementation by using java property change.
+** **Credits:** link:https://github.com/gerhean[Chan Ger Hean] for improving the implementation by using java property change.
 
 * *Minor enhancement*: added select command to show Internship Application detail based on index.
 
 * *Minor enhancement*: added parsers for new Internship Diary fields (status, priority, role).
 
 * *Code contributed*: You can find all my code contributed here:
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[Chi Fa's Reposense Report]
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=foochifa[RepoSense Report]
 
 *Other contributions*:
 

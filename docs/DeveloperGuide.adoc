@@ -337,7 +337,7 @@ However, due to the complexity and difficulty of implementation, it will only be
 // end::command-history[]
 
 // tag::interview[]
-=== Interview and interview commands
+=== Interview and Interview Commands
 
 ==== Implementation
 The implementation of interviews will be facilitated by two overarching components, the Model Abstract Class `Interview`
@@ -365,7 +365,7 @@ The class diagram below shows the classes associated to `Interview`.
 .Structure of `Interview` and its associated classes
 image::InterviewClassDiagram.png[]
 
-==== Interview commands
+==== Interview Commands
 Interviews can only be modified through the `interview` command which relies upon `InterviewCommandParser` and `InterviewCommand` classes. +
 The `interview` command will encompass four types of sub-command:
 

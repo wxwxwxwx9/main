@@ -85,7 +85,7 @@ used to input the respective Status values.
 
 === Valid status
 
-The valid Status values for internship applications listed in sort order:
+The following are the valid statuses for internship application, listed in sort order:
 
 [cols="1, 2, 14"]
 |===
@@ -120,7 +120,7 @@ to 'interview'.
 | isOnline | o/ | No | 1 | Can only be `true` or `false`
 | Interview Date | d/ | No | 1 | Must be a valid date of the form `day-month-year`. Whitespace and `/` are also supported
 separators. If year is not given, will default to the current year.
-| Interview Address | a/ | Yes | 1 | No restrictions on input.
+| Interview Address | a/ | online: yes offline: compulsory | 1 | No restrictions on input.
 |===
 // end::interviewStructure[]
 
@@ -625,6 +625,9 @@ There is no need to save manually.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Internship Diary folder.
+
+*Q*: What happens if I directly change the data stored in the hard drive? +
+*A*: The application cannot guarantee the integrity of your data if you tamper with the file in the storage.
 
 == Command Summary
 
