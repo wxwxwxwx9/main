@@ -13,7 +13,11 @@ Class ReadOnlyInternshipDiary
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class ReadOnlyUserPrefs <<Interface>>
+
+Package Statistics {
+Class Statistics
+}
 
 Package InternshipApplication {
 Class InternshipApplication
@@ -25,7 +29,9 @@ Class Company
 Class ApplicationDate
 Class UniqueInternshipApplicationList
 Class Priority
+Package Interview {
 Class Interview
+}
 }
 
 Package Status {
@@ -61,5 +67,7 @@ Role -[hidden]right-> Address
 Address -[hidden]right-> Phone
 Phone -[hidden]right-> Email
 
-ModelManager -->"1" InternshipApplication : filtered list
+
+ModelManager --> InternshipApplication
+ModelManager -right-> "1" Statistics
 @enduml
