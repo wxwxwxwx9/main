@@ -5,15 +5,15 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyInternshipDiary <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
+Interface ReadOnlyInternshipDiary <<interface>>
+Interface Model <<interface>>
+Interface ObservableList <<interface>>
 Class InternshipDiary
 Class ReadOnlyInternshipDiary
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs <<Interface>>
+Class ReadOnlyUserPrefs <<interface>>
 
 Package Statistics {
 Class Statistics
