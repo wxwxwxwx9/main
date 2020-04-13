@@ -10,8 +10,8 @@ Class SortCommand {
 Class SortCommandParser {
 }
 
-Interface Comparator <<Interface>> {
-    + compare(InternshipApplication ia1, InternshipApplication ia2): int
+Interface Comparator <InternshipApplication> <<interface>>{
+    + compare(InternshipApplication, InternshipApplication): int
     + toString(): String
     + reversed(): Comparator
 }
@@ -27,7 +27,15 @@ note as N1
   java.util.function.Comparator functional interface
 end note
 
+note as N2
+    XYZComparator can be any of:
+    ApplicationDateComparator, CompanyComparator, 
+    PriorityComparator, RoleComparator,
+    or StatusComparator.
+end note
+
 Comparator .. N1
+XYZComparator .right. N2
 
 SortCommandParser .left.> SortCommand : creates >
 SortCommandParser .right.> XYZComparator
