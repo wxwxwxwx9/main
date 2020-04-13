@@ -405,7 +405,7 @@ Format: `find [KEYWORDS] [c/COMPANY] [r/ROLE] [a/ADDRESS] [p/PHONE] [e/EMAIL] [d
 ****
 * At least one of the optional parameter must be provided.
 * If `[KEYWORDS]` is provided, find will look for matches in any field except for application date based on `KEYWORDS` (i.e. `OR` search), regardless of whether other fields are specified.
-* When fields are specified without [KEYWORD], only applications where all the specified fields match are returned (i.e. `AND` search).
+* When fields are specified without `[KEYWORDS]`, only applications where all the specified fields match are returned (i.e. `AND` search).
 e.g. `find c/google r/software engineer` will return application with company being `Google` and role
 being `Software Engineer` but not company that is `Facebook` and role being `Software Engineer`.
 * The search is case insensitive. e.g `google` will match `Google`.
