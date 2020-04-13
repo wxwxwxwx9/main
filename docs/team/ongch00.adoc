@@ -23,7 +23,7 @@ applications that has the fields matching the specified fields will be listed.
 
 ** This enhancement posed a challenge as:
 *** Quite a bit of planning involved, mainly to consider how I should perform the search, and how I can separate the
-general and specific find. At the end the plan to use predicates was decided
+general and specific find. At the end the plan to use predicates was decided.
 *** Quite a bit of knowledge with how predicates work is required as I needed to know how I can combine the required
 predicates cleanly so that it is readable and to ensure that it is correct.
 
@@ -32,14 +32,15 @@ predicates cleanly so that it is readable and to ensure that it is correct.
 there are ghosted application in a quick glance. Internship application with upcoming deadline will show green while
 inactive application will show red.
 ** This enhancement, while minor, posed some challenges as well:
-*** Setting it in CSS is not possible as I still wanted to keep the odd and even colors.
+*** Setting it in CSS was not possible as I still wanted to keep the odd and even colors.
 *** Setting it in code without first saving the CSS style would cause the style to not reset to the default CSS style.
 
-* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=ongch00[Reposense]
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=ongch00[RepoSense]
 
 * *Other contributions*:
 ** Helped with refactoring of Internship Diary from Address Book by adding the model classes and updating DG diagrams
-and text
+and text.
+** Contributed to adding some test cases for various parts of the code to help maintain a coverage of around 75%
 
 ** Project management:
 *** Managed releases `v1.2` - `v1.3` (3 releases) on GitHub
@@ -61,3 +62,5 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=find]
+
+include::../DeveloperGuide.adoc[tag=productSurvey]

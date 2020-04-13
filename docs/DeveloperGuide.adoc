@@ -190,19 +190,23 @@ The `SortCommandParser` looks for a acceptable prefix in the command, and passes
 If the number of such prefixes found is not exactly one, `SortCommandParser` throws a `ParseException`.
 
 The `toString()` method of all Comparators have also been overridden with a description of the comparator, so as
-to allow the DisplayComparatorFooter to retrieve information of the current Comparator without passing a separate `String`
+to allow the `DisplayComparatorFooter` to retrieve information of the current Comparator without passing a separate `String`
 to it.
 
-The following class diagram will illustrate the structure of SortCommand:
-
-.Structure of SortCommand
-image::ComparatorClassDiagram.png[]
-
+[discrete]
 ==== Reverse Sort
 
 This version of the command is invoked when the user enters the command with `reverse` as the preamble text in the parameter, e.g. `sort reverse c/`.
 After retrieving the correct `comparator` to use, the parser would pass `comparator.reversed()` to the constructor of `SortCommand` instead of `comparator`.
 This would reverse the order in which the currently visible list of internship applications is sorted in.
+
+The `reversed()` method of the Comparators used have actually been overridden to return `ReversedComparator`, so as to override
+the `toString()` method of the newly created Comparator for the `DisplayComparatorFooter`.
+
+The following class diagram will illustrate the overall structure of SortCommand:
+
+.Structure of SortCommand
+image::ComparatorClassDiagram.png[]
 
 ==== Design Considerations
 
@@ -955,6 +959,8 @@ The reminder command displays to users a list of internship applications which:
 * have status `wishlist` and need to be submitted in 7 days
 * have status `interview` and interviews scheduled in 7 days
 
+The applications will be displayed in order of earliest application date or scheduled interview date followed by those with later dates.
+
 The following sequence diagram shows how the command is executed:
 
 .Interactions Inside the Logic Component for the `reminder` Command
@@ -981,7 +987,7 @@ interviews` of an internship application that has a date of the current date or 
 
 Firstly, an `AND` operation on the `ApplicationDateDuePredicate` and `StatusIsWishlistPredicate` as well as another
 `AND` operation on the `InterviewDateDuePredicate` and  `StatusIsInterviewPredicate` are performed. Next, an `OR`
-operation is performed on the predicates from the previous two `AND` operations. An 'AND' operation is then performed on
+operation is performed on the predicates from the previous two `AND` operations. An `AND` operation is then performed on
 the predicate obtained from the previous `OR` operation and the `IsNotArchivedPredicate`. The `IsNotArchivedPredicate`
 is used to make sure that archived internship applications do not appear when `reminder` is used. The final predicate
 produced is then passed into the method `updateFilteredInternshipApplicationList()` of the `ModelManager` instance.
@@ -1092,7 +1098,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |trace all my internship application's contact | easily follow up on the application
+|`* * *` |user |trace all my internship applications' contact | easily follow up on the application
 
 |`* * *` |user |tag each application with a status | track my internship application phase
 
@@ -1252,7 +1258,7 @@ Use case ends.
 +
 Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2a. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1277,13 +1283,10 @@ Use case resumes from step 2.
 * 2a. Internship Diary detects an invalid date given for the `Date` field.
 [none]
 ** 2a1. Internship Diary shows an error message.
-** 2a2. User enters command with a different date.
 +
-Steps 2a1-2a2 are repeated until the date entered is valid.
-+
-Use case resumes from step 3.
+Use case resumes from step 2.
 [none]
-* 3a. No Internship Application is shown.
+* 2b. No Internship Application is shown.
 +
 Use case ends.
 
@@ -1604,8 +1607,11 @@ A list of descriptions for an internship application grouped by type
 Window preferences::
 The last application window size and location the user used before shutdown
 
+// tag::productSurvey[]
 [appendix]
 == Product Survey
+
+Below are some of the programs currently available that could be used to manage internship applications, as well as their pros and cons
 
 *Huntr*
 
@@ -1621,6 +1627,23 @@ Cons:
 * Cannot use without signing up for an account
 * Cannot get filtered list, the whole board is always shown and can be disorganised
 * Cannot directly get reminders for deadlines, must add a new task
+
+*Excel*
+
+Pros:
+
+* Free for NUS students
+* Allows the user to define what to include
+* Allows the user to use it offline
+
+Cons:
+
+* Does not use CLI for interactions with the system
+* Cannot easily go straight to managing internship applications, steep learning curve
+* Can get messy quickly, no inbuilt filter and archive functions
+* Does not include inbuilt statistics and reminder functions
+
+// end::productSurvey[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -1739,11 +1762,11 @@ Error details shown in feedback box.
 * no internship applications with status "rejected"
 
 ... Test case: `delete s/applied` +
-Expected: All internship application(s) with status "applied" are deleted from the list.
+Expected: All internship applications with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 ... Test case: `delete s/rejected` +
-Expected: No internship application(s) deleted.
+Expected: No internship applications deleted.
 Feedback box will show blank list of internship applications deleted.
 
 ... Test case: `delete s/notvalidstatus` +
@@ -1751,11 +1774,11 @@ Expected: No internship application deleted.
 Error details shown in feedback box.
 
 ... Test case: `delete s/applied wishlist` +
-Expected: All internship application(s) with status "applied" and "wishlist" are deleted from the list.
+Expected: All internship applications with status "applied" or "wishlist" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 ... Test case: `delete s/applied notvalidstatus` +
-Expected: All internship application(s) with status "applied" are deleted from the list.
+Expected: All internship applications with status "applied" are deleted from the list.
 Details of the deleted internship applications shown in the feedback box.
 
 === Archiving Internship Application
@@ -1820,11 +1843,11 @@ Expected: No internship application archived.
 Error details shown in feedback box.
 
 ... Test case: `archive s/applied wishlist` +
-Expected: All internship application(s) with status "applied" and "wishlist" are archived from the list.
+Expected: All internship applications with status "applied" or "wishlist" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
 ... Test case: `archive s/applied notvalidstatus` +
-Expected: All internship application(s) with status "applied" are archived from the list.
+Expected: All internship applications with status "applied" are archived from the list.
 Details of the archived internship applications shown in the feedback box.
 
 
@@ -1890,11 +1913,11 @@ Expected: No internship application unarchived.
 Error details shown in feedback box.
 
 ... Test case: `unarchive s/applied wishlist` +
-Expected: All internship application(s) with status "applied" and "wishlist" are unarchived from the list.
+Expected: All internship applications with status "applied" or "wishlist" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
 ... Test case: `unarchive s/applied notvalidstatus` +
-Expected: All internship application(s) with status "applied" are unarchived from the list.
+Expected: All internship applications with status "applied" are unarchived from the list.
 Details of the unarchived internship applications shown in the feedback box.
 
 
